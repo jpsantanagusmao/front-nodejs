@@ -1,0 +1,12 @@
+.container {
+    height: 100rem;
+    display: flex;
+    justify-content: center;
+}
+.form-login{
+    max-height: 500px;
+
+    border: 2px solid --var(--sec-colo);
+    border-radius: 25px;
+    padding:15px;
+}

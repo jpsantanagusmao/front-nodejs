@@ -1,0 +1,21 @@
+<div class="container near-moon-gradient">
+
+    <div [formGroup]="form" class="col col-sm-6 col-md-3 form-login">
+        <div class="heading">
+            Log in
+        </div>
+    
+        <div class="box">
+            <label for="login" class="form-label">Matricula</label>
+            <input type="text" formControlName="login" class="form-control" id="login"
+                placeholder="Informe a matrícula do usuário">
+        </div>
+        <div>
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" formControlName="password" class="form-control" id="password"
+                placeholder="Informe a senha para acesso">
+        </div>
+        <div class="btn btn-info" (click)="autenticar()">login</div>
+    </div>
+    <ares-loading *ngIf="_loading" class="spinner"></ares-loading>
+</div>
