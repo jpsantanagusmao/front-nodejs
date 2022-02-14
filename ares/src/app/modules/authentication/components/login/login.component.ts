@@ -1,8 +1,11 @@
-import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthenticationService } from '../../authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserCacheService } from 'src/app/core/user-cache.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { AlertModalComponent } from 'src/app/shared/components/alert-modal/alert-modal.component';
+import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +18,15 @@ export class LoginComponent implements OnInit {
 
   _loading: boolean = false;
   
+  bsModalRef: BsModalRef;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private service: AuthenticationService
+    private service: AuthenticationService,
+    private usercache: UserCacheService,
+    //private modalService: BsModalService,
+    private messageService: AlertMessagesService
   ) {
     this._loading = false;
   }
@@ -32,17 +40,24 @@ export class LoginComponent implements OnInit {
       login: ['', [Validators.required, Validators.minLength(6)]]
     })
   }
-  autenticar() {
-    const credencial = this.form.value;
-    this._loading = true;
-    const obj = this;
-    this.service.autenticar(credencial).subscribe(
-      data=>{
-        this._loading = false;
+
+ autenticar() {
+   const credencial = this.form.value;
+   this._loading = true;
+   const obj = this;
+   this.service.autenticar(credencial).subscribe(
+     data=>{
+       obj._loading = false;
+       obj.usercache.decode(data);
+       this.messageService.handleSuccess('Login com sucesso', 'Login efetuado com sucesso');
       },
       error=>{
-        this._loading = false;
+        obj._loading = false;
+        const erromsg = error.error;
+        console.error(erromsg);
+        this.messageService.handleError(erromsg.name, erromsg.message);
       }
+
     );
   }
 }

@@ -17,6 +17,7 @@ export class AuthenticationService {
     private router: Router,
   ) { }
   autenticar(credencial): Observable<any> {
+    console.log(credencial);
     return this.http.post(`${env.BASE_API_URL}${this.PATH}`, credencial).pipe(
       delay(3000),
       tap(console.log)

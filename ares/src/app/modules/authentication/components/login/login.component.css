@@ -1,12 +1,13 @@
-.container {
-    height: 100rem;
-    display: flex;
-    justify-content: center;
-}
 .form-login{
-    max-height: 500px;
+    display: flex;
+    flex-direction: row;
+    color: var(--mid-color);
+    align-items: flex-end;
+    padding: 5px;
+}
 
-    border: 2px solid --var(--sec-colo);
-    border-radius: 25px;
-    padding:15px;
+.form-login > .box{
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 150px;
 }
