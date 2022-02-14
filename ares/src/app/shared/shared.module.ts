@@ -5,11 +5,17 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
+import { AuthHeaderComponent } from './components/auth-header/auth-header.component';
+import { AuthFooterComponent } from './components/auth-footer/auth-footer.component';
+import { AuthBodyComponent } from './components/auth-body/auth-body.component';
 
 @NgModule({
   declarations: [
     LoadingComponent,
     AlertModalComponent,
+    AuthHeaderComponent,
+    AuthFooterComponent,
+    AuthBodyComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +28,9 @@ import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
   exports:[
     LoadingComponent,
     AlertModalComponent,
+    AuthHeaderComponent,
+    AuthFooterComponent,
+    AuthBodyComponent
   ],
   entryComponents:[
     AlertModalComponent

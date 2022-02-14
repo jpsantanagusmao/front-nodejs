@@ -1,0 +1,62 @@
+header{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    color: azure;
+    font-size: .8rem;
+    height: 100px;
+}
+header > .partner-data{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    height: auto;
+    justify-self: baseline;
+    
+}
+header > .logged-data{
+    padding-right: 20px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    height: auto;
+    justify-self: baseline;
+    
+}
+header > .logo{
+    font-size: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    height: auto;
+    justify-self: baseline;
+    
+}
+header > .menu{
+	display: flex;
+    align-items: flex-end;
+    justify-self: baseline;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	z-index: 1;
+}
+header > .menu > ul> li{
+    display: inline-flex;
+	padding: 14px;
+	margin-left: 2px;
+	font-family: 'Quicksand', sans-serif;
+	color: #fff;
+	cursor: pointer;
+	transition: 0.3s linear all;
+	user-select: none;
+}
+li:hover {
+    color: #faa;
+	box-shadow: 0 50px 5px rgba(243, 195, 195, 0.15) inset;
+}

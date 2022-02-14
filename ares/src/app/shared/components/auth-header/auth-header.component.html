@@ -1,0 +1,29 @@
+<header>
+    <div class="logo">
+        <p>Ares - JP</p>
+    </div>
+    <div class="menu">
+        <ul>
+            <li (click)="gotoHome()">
+                Home
+            </li>
+            <li (click)="gotoContact()">
+                Contact
+            </li>
+            <li (click)="gotoAbout()">
+                About
+            </li>
+        </ul>
+    </div>
+    <div class="partner-data">
+        <p>{{partner}}</p>
+        <p>{{division}}</p>
+    </div>
+    <div class="logged-data">
+        <p>{{username}}, {{timeRemaining}}</p>
+        <div class="option-log">
+            <a href="contract" class="contract"></a><a href="about" class="about"></a><a href="logout"
+                class="logout"></a>
+        </div>
+    </div>
+</header>

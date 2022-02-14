@@ -7,15 +7,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './components/login/login.component';
+import { PrivatedComponent } from './components/privated/privated.component';
+import { Class0Module } from '../class-0/class-0.module';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    PrivatedComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     SharedModule,
+    Class0Module,
     AuthenticationRoutingModule
   ],
   providers:[

@@ -9,7 +9,6 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AlertMessagesService } from './shared/services/alert-messages.service';
 
@@ -23,9 +22,9 @@ import { AlertMessagesService } from './shared/services/alert-messages.service';
     HttpClientModule,
     ReactiveFormsModule,
     WelcomeModule,
+    AuthenticationModule,
     SharedModule,
 
-    AuthenticationModule,
     BrowserAnimationsModule
   ],
   providers: [

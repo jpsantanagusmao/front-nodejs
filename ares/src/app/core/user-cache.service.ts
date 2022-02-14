@@ -20,19 +20,17 @@ export class UserCacheService {
   constructor(
     private jwtHelper :JwtHelperService
   ) { 
-
+    this.expToken = localStorage.getItem(UserCacheService.TOKEN);
+    this._GetTokenDecoded();
   }
   
-  _GetTokenDecoded() {
-    //this.tokenPayload = JSON.stringify(this.jwtHelper.decodeToken(this.expToken));
+  private _GetTokenDecoded() {
     this.user = (this.jwtHelper.decodeToken(this.expToken));
-    //this.user = (this.tokenPayload);
-    console.log(this.user);
   }
-  _getTokenExpirationDate() {
+  private _getTokenExpirationDate() {
     this.expirationDate = this.jwtHelper.getTokenExpirationDate(this.expToken);
   }
-  _isAuthenticated(): boolean {
+  private _isAuthenticated(): boolean {
     return !this.jwtHelper.isTokenExpired(this.expToken);
   }
   decode(token:any){
@@ -40,6 +38,11 @@ export class UserCacheService {
     localStorage.setItem(UserCacheService.TOKEN, this.expToken);
     this._GetTokenDecoded();
     this._getTokenExpirationDate();
+  }
+  public getUserData(){
+    this.expToken = localStorage.getItem(UserCacheService.TOKEN);
+    this._GetTokenDecoded();
+    return this.user;
   }
   deleteToken(){
     localStorage.removeItem(UserCacheService.TOKEN);
