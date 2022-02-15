@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserModel } from '../shared/models/user.model';
 
@@ -7,50 +8,116 @@ import { UserModel } from '../shared/models/user.model';
 })
 export class UserCacheService {
 
-  public static readonly TOKEN: string = 'token';
+  public static readonly TOKEN_STORAGE_VAR: string = 'token';
+
+  public static readonly WELCOME: string = '/welcome/start';
+  public static readonly CLASS_0: string = '/users/private/class0/root';
+  public static readonly CLASS_1: string = '/users/private/class1/root';
+  public static readonly CLASS_2: string = '/users/private/class2/root';
+  public static readonly CLASS_3: string = '/users/private/class3/root';
+  public static readonly CLASS_4: string = '/users/private/class4/root';
+  public static readonly CLASS_5: string = '/users/private/class5/root';
+  public static readonly CLASS_6: string = '/users/private/class6/root';
+  public static readonly CLASS_7: string = '/users/private/class7/root';
+  public static readonly CLASS_8: string = '/users/private/class8/root';
+  public static readonly CLASS_9: string = '/users/private/class9/root';
+  public static readonly CLASS_10: string = '/users/private/class10/root';
 
   user: UserModel;
-  expToken: any;
+  _expToken: any;
   tokenPayload: any;
   expirationDate: any;
-/**
- * Aqui controle-se todas as funções referente ao cache do usuário logado no sistema.
- * Possui todas as informaç~eso referente ao mesmo. bem como o direcionamento de páginas
- */
+
+  _token: string = ';'
+  /**
+   * Aqui controle-se todas as funções referente ao cache do usuário logado no sistema.
+   * Possui todas as informaç~eso referente ao mesmo. bem como o direcionamento de páginas
+   */
   constructor(
-    private jwtHelper :JwtHelperService
-  ) { 
-    this.expToken = localStorage.getItem(UserCacheService.TOKEN);
+    private jwtHelper: JwtHelperService,
+    private router: Router
+  ) {
     this._GetTokenDecoded();
   }
   
+  get token(){
+    this._token = localStorage.getItem(UserCacheService.TOKEN_STORAGE_VAR);
+    return this._token;
+
+  }
+  set token(value){
+    localStorage.setItem(UserCacheService.TOKEN_STORAGE_VAR, value);
+    this._token = value;
+  }
   private _GetTokenDecoded() {
-    this.user = (this.jwtHelper.decodeToken(this.expToken));
+    try{
+      this.user = (this.jwtHelper.decodeToken(this.token));
+    }catch(e){
+      this.user = undefined;
+      this.logout();
+    }
   }
+  
   private _getTokenExpirationDate() {
-    this.expirationDate = this.jwtHelper.getTokenExpirationDate(this.expToken);
+    this.expirationDate = this.jwtHelper.getTokenExpirationDate(this.token);
   }
+
   private _isAuthenticated(): boolean {
-    return !this.jwtHelper.isTokenExpired(this.expToken);
+    return !this.jwtHelper.isTokenExpired(this.token);
   }
-  decode(token:any){
-    this.expToken = token.token;
-    localStorage.setItem(UserCacheService.TOKEN, this.expToken);
+
+  public decode(token: any) {
+    this.token = token.token;
     this._GetTokenDecoded();
     this._getTokenExpirationDate();
+    /*
+    direciona para a página de classe
+    */
+    let classe = 0;
+
+    if (classe === 0)
+      this.router.navigate([UserCacheService.CLASS_0]);
+    if (classe === 1)
+      this.router.navigate([UserCacheService.CLASS_1]);
+    if (classe === 2)
+      this.router.navigate([UserCacheService.CLASS_2]);
+    if (classe === 3)
+      this.router.navigate([UserCacheService.CLASS_3]);
+    if (classe === 4)
+      this.router.navigate([UserCacheService.CLASS_4]);
+    if (classe === 5)
+      this.router.navigate([UserCacheService.CLASS_5]);
+    if (classe === 6)
+      this.router.navigate([UserCacheService.CLASS_6]);
+    if (classe === 7)
+      this.router.navigate([UserCacheService.CLASS_7]);
+    if (classe === 8)
+      this.router.navigate([UserCacheService.CLASS_8]);
+    if (classe === 9)
+      this.router.navigate([UserCacheService.CLASS_9]);
+    if (classe === 10)
+      this.router.navigate([UserCacheService.CLASS_10]);
+
   }
-  public getUserData(){
-    this.expToken = localStorage.getItem(UserCacheService.TOKEN);
+
+  public logout() {
+    this._deleteToken();
+    this.router.navigate([UserCacheService.WELCOME]);
+
+  }
+
+  public getUserData() {
     this._GetTokenDecoded();
     return this.user;
   }
-  deleteToken(){
-    localStorage.removeItem(UserCacheService.TOKEN);
+
+  private _deleteToken() {
+    localStorage.removeItem(UserCacheService.TOKEN_STORAGE_VAR);
   }
   /***
    * Trata o direcionamento das páginas de acordo com o perfil do usuario
    */
-  direct_home(){
+  direct_home() {
     // Obtem a classe da permissão do usuário
     //Obtem o grupos do departamento/divisão
 
