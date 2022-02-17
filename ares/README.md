@@ -32,3 +32,37 @@
 
   * Classe 0  
   Destinada ao público em geral, seu acesso é bastante restrito
+
+  Caracterísitcas de Theme  
+
+  São themas para departamentos/divisões, por exemplo:   
+
+  * ADMIN: setor administrativo que gerencia as atividades como um todo;
+  * AGRO: que trata de assuntos relacionados ao setor agropecuário;
+  * RH: que trata de assuntos relacionados ao gerenciamento de pessoal/funcionários;
+  * SAUDE: que trata de assuntos relacionados ao gerenciamento de dados da saude;
+  * ESPORTE: que trata de assuntos relacionados ao gerenciamento de dados do esporte;
+  * CULTURA: que trata de assuntos relacionados ao gerenciamento de dados da cultura;
+  * SOCIAL: que trata de assuntos relacionados ao gerenciamento de dados sociais;
+  * EDUCACAO: que trata de assuntos relacionados ao gerenciamento de dados da educação;  
+
+  ** De acordo com o "tema" o usuário será direcionado para uma página pré definida que possui ferramentas específicas para o caso, bem como os projetos de programas. Em resumo, o usuário só tem acesso a dados da qual o setor que ele pertence, podendo fazer uso das ferramentas disponíveis.
+
+  Ferramentas disponíveis:
+
+  * ADMIN  
+
+  * AGRO  
+
+  * RH  
+
+  * SAUDE  
+
+  * ESPORTE  
+  
+  * CULTURA  
+  
+  * SOCIAL  
+  
+  * EDUCACAO  
+  
