@@ -49,6 +49,15 @@ export class UserCacheService {
     localStorage.setItem(UserCacheService.TOKEN_STORAGE_VAR, value);
     this._token = value;
   }
+
+  get isExpired(){
+    return true;
+  }
+  
+  get isLoggedIn(){
+    return true;
+  }
+
   private _GetTokenDecoded() {
     try{
       this.user = (this.jwtHelper.decodeToken(this.token));

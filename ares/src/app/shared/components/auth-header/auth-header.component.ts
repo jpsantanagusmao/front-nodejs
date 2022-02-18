@@ -12,25 +12,30 @@ import { UserModel } from '../../models/user.model';
 })
 export class AuthHeaderComponent implements OnInit {
 
-  @Input() partner: string = 'Prefeitura Municipal de Itinga';
-  @Input() division: string = 'Secretaria Municipal de Agricultura';
-  @Input() username:string = 'João Paulo Santana Gusmão';
-  
+  partner: string;
+  division: string;
+  username: string;
+
+  isloading$ = new BehaviorSubject<boolean>(false);
+
   private _timeRemaining = new BehaviorSubject<any>('0:00:00');;
-  
+
   expiresIn: any;
 
   private _user = new BehaviorSubject<any>({});
 
   constructor(
     private userCacheService: UserCacheService
-  ) { 
+  ) {
     /**
      * Data de expiração definida no token JWT
      */
     const obj = this
     const data = moment();
-    setInterval(function(){
+    setInterval(function () {
+
+      obj.isloading$.next(false);
+
       const user = obj.userCacheService.getUserData();
       obj.expiresIn = moment(user?.expiresIn) || data;
 
@@ -40,11 +45,20 @@ export class AuthHeaderComponent implements OnInit {
       let ms = moment(datelimit).diff(moment(date));
       let d = moment.duration(ms);
       let s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
-      
+
+
+      /**
+       * Define os dados do usuário
+       */
+      obj.partner = user.partner_name;
+      obj.division = user.division_name;
+      obj.username = user.name;
+
+      obj.isloading$.next(true);
       /**
        * Verifica se o time remaining já expirou e confirma o logout
        */
-      if( d.asSeconds()<=0 ){
+      if (d.asSeconds() <= 0) {
         obj.logout();
       }
 
@@ -52,30 +66,33 @@ export class AuthHeaderComponent implements OnInit {
       obj._timeRemaining.next(`${time[0]}h ${time[1]}m ${time[2]}s`);
     }, 1000)
   }
-  get user():UserModel{
+  get loading() {
+    return this.isloading$;
+  }
+  get user(): UserModel {
     return this._user.value;
   }
-  set user(user: UserModel){
+  set user(user: UserModel) {
     this._user.next(user);
   }
 
   ngOnInit(): void {
-    
+
   }
 
-  get timeRem(){
+  get timeRem() {
     return this._timeRemaining.value;
   }
-  set timeRem(value){
+  set timeRem(value) {
     this._timeRemaining.next(value);
   }
 
-  logout(){
+  logout() {
     this.userCacheService.logout();
   }
-  gotoHome(){}
+  gotoHome() { }
 
-  gotoContact(){}
+  gotoContact() { }
 
-  gotoAbout(){}
+  gotoAbout() { }
 }

@@ -9,7 +9,7 @@
   Destinada a administradores da plataforma Ares  
 
   * Classe 8  
-
+---------------
   * Classe 7
   Diretores/Gestores da empresa. É a pessoa responsável por gerir a empresa e tem acesso a todos os dados e relatórios referentes a sua empresa de todos os departamentos/divisões.  
 
@@ -18,21 +18,27 @@
 
   * Classe 5  
 
+  *Ações:
+  - Cria/Modifica Departamentos;
+  - Cria Usuários;
+  - Modifica gestor de departamento;
+  - Bloqueia Departamentos e funcionários;
+-----------------
   * Classe 4
   Funcionários da empresa diretores ou Supervisores de departamento. tem acesso a todos os dados referentes a sua divisão.  
 
   * Classe 3
   Funcionários da empresa diretores ou Supervisores de departamento. tem acesso a todos os dados referentes a sua divisão.  
-
+-----------------
   * Classe 2
   Funcionários da empresa proprietária que podem fazer os registros  
 
   * Classe 1  
   Funcionários/Cedidos que fazem os registros sob supervisão  
-
+-----------------
   * Classe 0  
   Destinada ao público em geral, seu acesso é bastante restrito
-
+-----------------
   Caracterísitcas de Theme  
 
   São themas para departamentos/divisões, por exemplo:   

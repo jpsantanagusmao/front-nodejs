@@ -15,11 +15,12 @@
             </li>
         </ul>
     </div>
-    <div class="partner-data">
+    <div class="partner-data" *ngIf="isloading$ | async; else loading">
         <p>{{partner}}</p>
         <p>{{division}}</p>
     </div>
-    <div class="logged-data">
+    <ng-template #loading>...carregando dados!</ng-template>
+    <div class="logged-data" *ngIf="isloading$ | async; else loading">
         <p>{{username}}, {{timeRem}}</p>
         <div class="option-log">
             <a href="contract" class="contract"></a><a href="about" class="about"></a><a href="logout"

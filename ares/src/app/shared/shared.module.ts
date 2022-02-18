@@ -8,6 +8,8 @@ import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { AuthHeaderComponent } from './components/auth-header/auth-header.component';
 import { AuthFooterComponent } from './components/auth-footer/auth-footer.component';
 import { AuthBodyComponent } from './components/auth-body/auth-body.component';
+import { CadastrarDivisionComponent } from './components/division/cadastrar-division/cadastrar-division.component';
+import { ContractCadastrarComponent } from './components/contract/contract-cadastrar/contract-cadastrar.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { AuthBodyComponent } from './components/auth-body/auth-body.component';
     AuthHeaderComponent,
     AuthFooterComponent,
     AuthBodyComponent,
+    CadastrarDivisionComponent,
+    ContractCadastrarComponent,
   ],
   imports: [
     CommonModule,
