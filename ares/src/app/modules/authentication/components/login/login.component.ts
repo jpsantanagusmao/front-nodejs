@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserCacheService } from 'src/app/core/user-cache.service';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { AlertModalComponent } from 'src/app/shared/components/alert-modal/alert-modal.component';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 
 @Component({
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private service: AuthenticationService,
     private usercache: UserCacheService,
-    //private modalService: BsModalService,
     private messageService: AlertMessagesService
   ) {
     this._loading = false;
@@ -49,7 +47,7 @@ export class LoginComponent implements OnInit {
      data=>{
        obj._loading = false;
        obj.usercache.decode(data);
-       this.messageService.handleSuccess('Login com sucesso', 'Login efetuado com sucesso');
+       //this.messageService.handleSuccess('Login com sucesso', 'Login efetuado com sucesso');
       },
       error=>{
         obj._loading = false;

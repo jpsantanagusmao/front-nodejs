@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from 'src/app/shared/guards/auth-guard.service';
-import { Class10HomeComponent } from './components/class10-home/class10-home.component';
+import { Class2HomeComponent } from './components/class2-home/class2-home.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/users/private/class10/root',
+    redirectTo: '/users/private/class2/root',
     pathMatch: 'full'
   },
   {
     path: 'root',
-    component: Class10HomeComponent
+    component: Class2HomeComponent
   }
 ];
 
@@ -20,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class Class10RoutingModule { }
+export class Class2RoutingModule { }

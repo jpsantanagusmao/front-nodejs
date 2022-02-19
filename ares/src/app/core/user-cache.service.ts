@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserModel } from '../shared/models/user.model';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -51,11 +52,15 @@ export class UserCacheService {
   }
 
   get isExpired(){
-    return true;
+    const dtExp = moment(this.user.expiresIn);
+
+    return moment().isAfter(dtExp);
   }
   
   get isLoggedIn(){
-    return true;
+
+    return this.user?true:false;
+
   }
 
   private _GetTokenDecoded() {
@@ -76,37 +81,45 @@ export class UserCacheService {
   }
 
   public decode(token: any) {
+    
     this.token = token.token;
     this._GetTokenDecoded();
     this._getTokenExpirationDate();
+
     /*
     direciona para a página de classe
     */
-    let classe = 0;
 
-    if (classe === 0)
+    const classe = this.user.role_class;
+
+    this.gotoUrl(classe);
+    
+  }
+
+  gotoUrl(role_class){
+    
+    if (role_class === 0)
       this.router.navigate([UserCacheService.CLASS_0]);
-    if (classe === 1)
+    if (role_class === 1)
       this.router.navigate([UserCacheService.CLASS_1]);
-    if (classe === 2)
+    if (role_class === 2)
       this.router.navigate([UserCacheService.CLASS_2]);
-    if (classe === 3)
+    if (role_class === 3)
       this.router.navigate([UserCacheService.CLASS_3]);
-    if (classe === 4)
+    if (role_class === 4)
       this.router.navigate([UserCacheService.CLASS_4]);
-    if (classe === 5)
+    if (role_class === 5)
       this.router.navigate([UserCacheService.CLASS_5]);
-    if (classe === 6)
+    if (role_class === 6)
       this.router.navigate([UserCacheService.CLASS_6]);
-    if (classe === 7)
+    if (role_class === 7)
       this.router.navigate([UserCacheService.CLASS_7]);
-    if (classe === 8)
+    if (role_class === 8)
       this.router.navigate([UserCacheService.CLASS_8]);
-    if (classe === 9)
+    if (role_class === 9)
       this.router.navigate([UserCacheService.CLASS_9]);
-    if (classe === 10)
+    if (role_class === 10)
       this.router.navigate([UserCacheService.CLASS_10]);
-
   }
 
   public logout() {
