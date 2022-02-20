@@ -6,11 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeModule } from './modules/welcome/welcome.module';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AlertMessagesService } from './shared/services/alert-messages.service';
+import { InterceptorService } from './shared/services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,16 @@ import { AlertMessagesService } from './shared/services/alert-messages.service';
   providers: [
     UserCacheService,
     AlertMessagesService,
-    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService
+    JwtHelperService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    },
+    {
+      provide: JWT_OPTIONS,
+      useValue: JWT_OPTIONS
+    }
   ],
   bootstrap: [AppComponent]
 })

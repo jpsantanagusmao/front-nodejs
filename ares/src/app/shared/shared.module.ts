@@ -10,6 +10,11 @@ import { AuthFooterComponent } from './components/auth-footer/auth-footer.compon
 import { AuthBodyComponent } from './components/auth-body/auth-body.component';
 import { CadastrarDivisionComponent } from './components/division/cadastrar-division/cadastrar-division.component';
 import { ContractCadastrarComponent } from './components/contract/contract-cadastrar/contract-cadastrar.component';
+import { UserCadastrarComponent } from './components/user/user-cadastrar/user-cadastrar.component';
+import { RoleSelectComponent } from './components/role/role-select/role-select.component';
+import { DivisionSelectComponent } from './components/division/division-select/division-select.component';
+import { UserSelectComponent } from './components/user/user-select/user-select.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,10 +25,15 @@ import { ContractCadastrarComponent } from './components/contract/contract-cadas
     AuthBodyComponent,
     CadastrarDivisionComponent,
     ContractCadastrarComponent,
+    UserCadastrarComponent,
+    RoleSelectComponent,
+    DivisionSelectComponent,
+    UserSelectComponent,
   ],
   imports: [
     CommonModule,
     ModalModule.forRoot(),
+    ReactiveFormsModule,
     AlertModule
   ],
   providers:[
@@ -34,7 +44,13 @@ import { ContractCadastrarComponent } from './components/contract/contract-cadas
     AlertModalComponent,
     AuthHeaderComponent,
     AuthFooterComponent,
-    AuthBodyComponent
+    AuthBodyComponent,
+    CadastrarDivisionComponent,
+    ContractCadastrarComponent,
+    UserCadastrarComponent,
+    RoleSelectComponent,
+    DivisionSelectComponent,
+    UserSelectComponent,
   ],
   entryComponents:[
     AlertModalComponent

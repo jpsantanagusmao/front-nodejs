@@ -1,0 +1,9 @@
+<div *ngIf="roles$ | async as roles; else loading">
+    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option selected>Selecione uma categoria</option>
+        <option *ngFor="let role of roles" value="{{role.id}}">{{role.type}}</option>
+      </select>
+</div>
+<ng-template #loading>
+    <div>Carregando!...</div>
+</ng-template>
