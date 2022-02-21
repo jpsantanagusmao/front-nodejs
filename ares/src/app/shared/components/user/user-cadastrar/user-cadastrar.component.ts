@@ -1,6 +1,8 @@
-import { UserModel } from './../../../models/user.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UserCacheService } from 'src/app/core/user-cache.service';
+import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'user-cadastrar',
@@ -9,32 +11,61 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class UserCadastrarComponent implements OnInit {
 
-  formCliente: FormGroup;
+  form: FormGroup;
 
-  @Input() usuario = {};
+  @Input() usuario: any = {};
+  @Output() register = new EventEmitter();
   
+  _roleSelected: string;
+  _divisionSelected: string;
+
+  constructor(
+    private usercache: UserCacheService,
+  ){}
+
   ngOnInit(): void {
+
     this.createForm(this.usuario);
+
   }
 
   createForm(user) {
-    this.formCliente = new FormGroup({
-      name: new FormControl(user.name),
-      registry: new FormControl(user.registry),
-      email: new FormControl(user.email),
-      role_id: new FormControl(user.role_id),
-      partner_id: new FormControl(user.partner_id),
-      division_id: new FormControl(user.division_id),
-      address: new FormControl(user.address),
-      num: new FormControl(user.num),
-      district: new FormControl(user.district),
-      complement: new FormControl(user.complement),
-      cep: new FormControl(user.cep),
-      phone: new FormControl(user.phone),
-      city: new FormControl(user.city),
-      uf: new FormControl(user.uf)
+    this.form = new FormGroup({
+      name: new FormControl(''),
+      registry: new FormControl(''),
+      email: new FormControl(''),
+      address: new FormControl(''),
+      num: new FormControl(''),
+      district: new FormControl(''),
+      complement: new FormControl(''),
+      cep: new FormControl(''),
+      phone: new FormControl(''),
+      city: new FormControl(''),
+      uf: new FormControl('')
+    
     })
   }
 
+  onSelectDivision(value){
+    this._divisionSelected = value;
+  }
 
+  onSelectRole(value){
+    this._roleSelected = value;
+  }
+
+  registrar() {
+    this.usuario = this.form.value;
+    this.usuario.role_id = this._roleSelected;
+    this.usuario.division_id = this._divisionSelected;
+
+    const obj = this;
+
+    this.register.emit(this.usuario);
+
+  }
+
+  cancelar() {
+    this.usercache.gotoHome();
+  }
 }

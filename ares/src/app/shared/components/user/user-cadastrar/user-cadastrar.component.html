@@ -1,4 +1,62 @@
-<p>user-cadastrar works!</p>
-<user-select></user-select>
-<division-select></division-select>
-<role-select></role-select>
+<p>Cadastro de Usuários</p>
+<div class="container">
+    <form [formGroup]="form">
+
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="name">Nome</label>
+                <input type="text" class="form-control" formControlName = "name" name="name" id="name" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="registry">Registro/login</label>
+                <input type="text" class="form-control" formControlName = "registry" name="registry" id="registry" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">email</label>
+            <input type="text" class="form-control" formControlName = "email" name="email" id="email" required>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="address">Endereço</label>
+                <input type="text" class="form-control" formControlName = "address" name="address" id="address" required>
+            </div>
+            <div class="form-group col-1">
+                <label for="num">Num</label>
+                <input type="text" class="form-control" formControlName = "num" name="num" id="num" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="district">Bairro</label>
+                <input type="text" class="form-control" formControlName = "district" name="district" id="district" required>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="complement">Complemento</label>
+                <input type="text" class="form-control" formControlName = "complement" name="complement" id="complement" required>
+            </div>
+            <div class="form-group col-6 col-md-2">
+                <label for="cep">CEP</label>
+                <input type="text" class="form-control" formControlName = "cep" name="cep" id="cep" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">Num. telefone</label>
+            <input type="text" class="form-control" formControlName = "phone" name="phone" id="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="city">Cidade</label>
+            <input type="text" class="form-control" formControlName = "city" name="city" id="city" required>
+        </div>
+        <div class="form-group col-1">
+            <label for="uf">UF</label>
+            <input type="text" class="form-control" formControlName = "uf" name="uf" id="uf" required>
+        </div>
+
+        <division-select (selected)="onSelectDivision($event)"></division-select>
+        <role-select (selected)="onSelectRole($event)"></role-select>
+
+        <button class="btn btn-primary mt-4" (click)="registrar()">Salvar</button>
+        <button class="btn btn-secondary mt-4" (click)="cancelar()">Cancelar</button>
+    </form>
+</div>

@@ -21,7 +21,15 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot
   ) {
     this.role_class = route.data.role_class;
-    const role_atual = this.userCacheService.user.role_class;
+
+    let role_atual = undefined;
+
+    try{
+      role_atual = this.userCacheService.user.role_class;
+    }catch(e){
+      console.log(e);
+      this.userCacheService.gotoRoot();
+    }
 
     const lista_roles = this.role_class.map(x=>x.toString());
 

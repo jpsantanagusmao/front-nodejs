@@ -21,7 +21,8 @@ const routes: Routes = [
     children:[
       {
         path: '',
-        redirectTo: '/private/class0/root',
+        //redirectTo: '/private/class0/root',
+        redirectTo: '/class0',
         pathMatch: 'full'
       },
       {

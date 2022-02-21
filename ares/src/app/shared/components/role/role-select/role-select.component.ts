@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { RoleService } from './../role.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'role-select',
@@ -10,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 export class RoleSelectComponent implements OnInit {
 
   roles$: Observable<any>;
-
+  
+  @Output() selected = new EventEmitter();
+  
   constructor(
     private roleService: RoleService
   ) { }
@@ -18,5 +20,8 @@ export class RoleSelectComponent implements OnInit {
   ngOnInit(): void {
     this.roles$ = this.roleService.findAll();
   }
-
+  onSelect(value){
+    const id = value.target.value;
+    this.selected.emit(id);
+  }
 }

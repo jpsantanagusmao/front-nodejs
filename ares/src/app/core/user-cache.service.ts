@@ -1,3 +1,4 @@
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -11,18 +12,20 @@ export class UserCacheService {
 
   public static readonly TOKEN_STORAGE_VAR: string = 'token';
 
+  private static readonly PRIVATE_LINK = '/users/private/';
+
   public static readonly WELCOME: string = '/welcome/start';
-  public static readonly CLASS_0: string = '/users/private/class0/root';
-  public static readonly CLASS_1: string = '/users/private/class1/root';
-  public static readonly CLASS_2: string = '/users/private/class2/root';
-  public static readonly CLASS_3: string = '/users/private/class3/root';
-  public static readonly CLASS_4: string = '/users/private/class4/root';
-  public static readonly CLASS_5: string = '/users/private/class5/root';
-  public static readonly CLASS_6: string = '/users/private/class6/root';
-  public static readonly CLASS_7: string = '/users/private/class7/root';
-  public static readonly CLASS_8: string = '/users/private/class8/root';
-  public static readonly CLASS_9: string = '/users/private/class9/root';
-  public static readonly CLASS_10: string = '/users/private/class10/root';
+  public static readonly CLASS_0: string = `${UserCacheService.PRIVATE_LINK}class0/root`;
+  public static readonly CLASS_1: string = `${UserCacheService.PRIVATE_LINK}class1/root`;
+  public static readonly CLASS_2: string = `${UserCacheService.PRIVATE_LINK}class2/root`;
+  public static readonly CLASS_3: string = `${UserCacheService.PRIVATE_LINK}class3/root`;
+  public static readonly CLASS_4: string = `${UserCacheService.PRIVATE_LINK}class4/root`;
+  public static readonly CLASS_5: string = `${UserCacheService.PRIVATE_LINK}class5/root`;
+  public static readonly CLASS_6: string = `${UserCacheService.PRIVATE_LINK}class6/root`;
+  public static readonly CLASS_7: string = `${UserCacheService.PRIVATE_LINK}class7/root`;
+  public static readonly CLASS_8: string = `${UserCacheService.PRIVATE_LINK}class8/root`;
+  public static readonly CLASS_9: string = `${UserCacheService.PRIVATE_LINK}class9/root`;
+  public static readonly CLASS_10: string = `${UserCacheService.PRIVATE_LINK}class10/root`;
 
   user: UserModel;
   _expToken: any;
@@ -59,8 +62,13 @@ export class UserCacheService {
   
   get isLoggedIn(){
 
-    return this.user?true:false;
+    const logged = this.user?true:false;
 
+    if(!logged){
+      this.logout();
+    }
+
+    return logged;
   }
 
   private _GetTokenDecoded() {
@@ -76,8 +84,11 @@ export class UserCacheService {
     this.expirationDate = this.jwtHelper.getTokenExpirationDate(this.token);
   }
 
-  private _isAuthenticated(): boolean {
-    return !this.jwtHelper.isTokenExpired(this.token);
+  get isAuthenticated() {
+
+    /*Verifica se está autenticado*/
+   return this.isLoggedIn;
+   
   }
 
   public decode(token: any) {
@@ -94,6 +105,18 @@ export class UserCacheService {
 
     this.gotoUrl(classe);
     
+  }
+
+  gotoHome(){
+    this.token = localStorage.getItem(UserCacheService.TOKEN_STORAGE_VAR);
+    this._GetTokenDecoded();
+    this._getTokenExpirationDate();
+    const role_class = this.user.role_class;
+    this.gotoUrl(role_class);
+  }
+
+  gotoRoot(){
+    this.gotoUrl(0);
   }
 
   gotoUrl(role_class){
@@ -130,6 +153,10 @@ export class UserCacheService {
 
   public getUserData() {
     this._GetTokenDecoded();
+    const u = this.user;
+
+    this.isLoggedIn;
+    
     return this.user;
   }
 

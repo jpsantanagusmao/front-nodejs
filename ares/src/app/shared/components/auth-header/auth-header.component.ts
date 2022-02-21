@@ -18,7 +18,7 @@ export class AuthHeaderComponent implements OnInit {
 
   isloading$ = new BehaviorSubject<boolean>(false);
 
-  private _timeRemaining = new BehaviorSubject<any>('0:00:00');;
+  private _timeRemaining = new BehaviorSubject<any>('0:00:00');
 
   expiresIn: any;
 
@@ -32,6 +32,7 @@ export class AuthHeaderComponent implements OnInit {
      */
     const obj = this
     const data = moment();
+
     setInterval(function () {
 
       obj.isloading$.next(false);
@@ -50,9 +51,9 @@ export class AuthHeaderComponent implements OnInit {
       /**
        * Define os dados do usuário
        */
-      obj.partner = user.partner_name;
-      obj.division = user.division_name;
-      obj.username = user.name;
+      obj.partner = user?.partner_name;
+      obj.division = user?.division_name;
+      obj.username = user?.name;
 
       obj.isloading$.next(true);
       /**
