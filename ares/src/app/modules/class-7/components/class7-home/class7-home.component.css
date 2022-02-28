@@ -1,10 +1,14 @@
 .card{
-    width: 10em;
-    height: 15em;
+    width: 15em;
     border-radius: 20px;
-    margin: 1em;
+    margin: 5px;
+    padding-top: 10px;
 }
-.continer{
+.container{
     display: flex;
     flex-direction: column;
+}
+.card:hover{
+    background-color: rgb(211, 211, 250);
+    opacity: 0.5;
 }

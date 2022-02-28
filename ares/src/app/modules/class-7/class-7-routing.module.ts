@@ -1,3 +1,4 @@
+import { Class7UsersAllComponent } from './components/class7-users-all/class7-users-all.component';
 import { Class7IndexComponent } from './components/class7-index/class7-index.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'cadastrar',
         component: Class7CadastrarUsuarioComponent
+      },
+      {
+        path: 'users-all',
+        component: Class7UsersAllComponent
       }
     ]
   }

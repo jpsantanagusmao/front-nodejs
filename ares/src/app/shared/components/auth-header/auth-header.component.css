@@ -2,10 +2,8 @@ header{
     margin-top: 5px;
     display: flex;
     justify-content: space-between;
-    background-color: black;
-    color: azure;
-    font-size: .8rem;
     height: 100px;
+    width: 100vw;
 }
 header > .partner-data{
     display: flex;

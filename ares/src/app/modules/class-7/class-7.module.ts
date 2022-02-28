@@ -7,10 +7,11 @@ import { Class7HomeComponent } from './components/class7-home/class7-home.compon
 import { Class7CadastrarUsuarioComponent } from './components/class7-cadastrar-usuario/class7-cadastrar-usuario.component';
 import { Class7MenuComponent } from './components/class7-menu/class7-menu.component';
 import { Class7IndexComponent } from './components/class7-index/class7-index.component';
+import { Class7UsersAllComponent } from './components/class7-users-all/class7-users-all.component';
 
 
 @NgModule({
-  declarations: [Class7HomeComponent, Class7CadastrarUsuarioComponent, Class7MenuComponent, Class7IndexComponent],
+  declarations: [Class7HomeComponent, Class7CadastrarUsuarioComponent, Class7MenuComponent, Class7IndexComponent, Class7UsersAllComponent],
   imports: [
     CommonModule,
     Class7RoutingModule,

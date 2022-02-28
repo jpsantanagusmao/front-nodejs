@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { UserService } from 'src/app/shared/components/user/user.service';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
@@ -12,31 +13,33 @@ export class Class7CadastrarUsuarioComponent implements OnInit {
 
   usuario: any = {};
   _loading: boolean = false;
-
+ 
   constructor(
     private usercache: UserCacheService,
     private messageService: AlertMessagesService,
     private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
   }
-
+  
   onRegister(data) {
+
     this._loading = true;
-    console.log(data);
     
     const obj = this;
     this.userService.save(data).subscribe(
       data => {
+        /**
+         * Redireciona a página para a lista de todos os usuários
+         */
+        this.router.navigate(['/users/private/class7/users-all'])
         this.messageService.handleSuccess('Sucesso', 'Cadastrado com sucesso;');
-        this._loading = false;
+        obj._loading = false;
       },
       error => {
         obj._loading = false;
-        const erromsg = error.error;
-        console.error(erromsg);
-        this.messageService.handleError(erromsg.name, erromsg.message);
       }
     );
   }

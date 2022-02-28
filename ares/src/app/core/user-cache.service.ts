@@ -1,4 +1,3 @@
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -47,20 +46,23 @@ export class UserCacheService {
   get token(){
     this._token = localStorage.getItem(UserCacheService.TOKEN_STORAGE_VAR);
     return this._token;
-
+    
   }
   set token(value){
     localStorage.setItem(UserCacheService.TOKEN_STORAGE_VAR, value);
     this._token = value;
   }
-
+  
   get isExpired(){
+    this._GetTokenDecoded();
+
     const dtExp = moment(this.user.expiresIn);
 
     return moment().isAfter(dtExp);
   }
   
   get isLoggedIn(){
+    this._GetTokenDecoded();
 
     const logged = this.user?true:false;
 
@@ -85,7 +87,7 @@ export class UserCacheService {
   }
 
   get isAuthenticated() {
-
+    this._GetTokenDecoded();
     /*Verifica se está autenticado*/
    return this.isLoggedIn;
    

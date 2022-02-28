@@ -15,6 +15,7 @@ import { RoleSelectComponent } from './components/role/role-select/role-select.c
 import { DivisionSelectComponent } from './components/division/division-select/division-select.component';
 import { UserSelectComponent } from './components/user/user-select/user-select.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserAllComponent } from './components/user/user-all/user-all.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RoleSelectComponent,
     DivisionSelectComponent,
     UserSelectComponent,
+    UserAllComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +53,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RoleSelectComponent,
     DivisionSelectComponent,
     UserSelectComponent,
+    UserAllComponent,
   ],
   entryComponents:[
     AlertModalComponent

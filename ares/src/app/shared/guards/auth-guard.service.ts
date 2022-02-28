@@ -41,7 +41,7 @@ export class AuthGuard implements CanActivate {
     }
 
     //Verifica se o token expirou
-    if (this.userCacheService.isExpired) {
+    if (this.userCacheService?.isExpired) {
       this.messageService.handleError( "Credencial expirada", "Seu login não é mais válido. Faça login novamente para continuar acessando o sistema." );
       this.userCacheService.logout();
       this.router.navigate(['/']);
