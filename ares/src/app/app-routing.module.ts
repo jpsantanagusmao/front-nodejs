@@ -1,3 +1,4 @@
+import { LogoutComponent } from './shared/components/logout/logout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -15,7 +16,12 @@ const routes: Routes = [
   {
     path: 'users',
     loadChildren: () => import('./modules/authentication/authentication.module').then(m => m.AuthenticationModule)
-  }
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent
+  },
+
 ];
 
 @NgModule({

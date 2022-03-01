@@ -1,62 +1,106 @@
-<p>Cadastro de Usuários</p>
-<div class="container">
+<div class="container d-flex justify-content-center">
     <form [formGroup]="form">
-
+        <p class="form-tittle">{{SERVICE}}</p>
         <div class="row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-10">
                 <label for="name">Nome</label>
-                <input type="text" class="form-control" formControlName = "name" name="name" id="name" required>
+                <input type="text" class="form-control" formControlName="name" name="name" id="name" required>
+                <error-message
+                    *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)"
+                    errorMessage="É necessário informar o nome com 10 a 150 caracteres"></error-message>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-2">
                 <label for="registry">Registro/login</label>
-                <input type="text" class="form-control" formControlName = "registry" name="registry" id="registry" required>
+                <input type="text" class="form-control" formControlName="registry" name="registry" id="registry"
+                    required>
+                <error-message
+                    *ngIf="form.controls.registry.invalid && (form.controls.registry.dirty || form.controls.registry.touched)"
+                    errorMessage="É necessário informar uma identificação de registro único com 3 a 30 caracateres"></error-message>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-3">
             <label for="email">email</label>
-            <input type="text" class="form-control" formControlName = "email" name="email" id="email" required>
+            <input type="text" class="form-control" formControlName="email" name="email" id="email" required>
+            <error-message
+                *ngIf="form.controls.email.invalid && (form.controls.email.dirty || form.controls.email.touched)"
+                errorMessage="É necessário informar um email válido"></error-message>
         </div>
         <div class="row">
             <div class="form-group col-md-4">
                 <label for="address">Endereço</label>
-                <input type="text" class="form-control" formControlName = "address" name="address" id="address" required>
+                <input type="text" class="form-control" formControlName="address" name="address" id="address" required>
+                <error-message
+                    *ngIf="form.controls.address.invalid && (form.controls.address.dirty || form.controls.address.touched)"
+                    errorMessage="É necessário informar um endereço com 5 a 150 caracteres"></error-message>
             </div>
             <div class="form-group col-1">
                 <label for="num">Num</label>
-                <input type="text" class="form-control" formControlName = "num" name="num" id="num" required>
+                <input type="text" class="form-control" formControlName="num" name="num" id="num" required>
+                <error-message
+                    *ngIf="form.controls.num.invalid && (form.controls.num.dirty || form.controls.num.touched)"
+                    errorMessage="É necessário informar o numero da residência"></error-message>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="district">Bairro</label>
+                <input type="text" class="form-control" formControlName="district" name="district" id="district"
+                    required>
+                <error-message
+                    *ngIf="form.controls.district.invalid && (form.controls.district.dirty || form.controls.district.touched)"
+                    errorMessage="É necessário informar o nome do bairro"></error-message>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-3">
-                <label for="district">Bairro</label>
-                <input type="text" class="form-control" formControlName = "district" name="district" id="district" required>
-            </div>
-            <div class="form-group col-md-3">
                 <label for="complement">Complemento</label>
-                <input type="text" class="form-control" formControlName = "complement" name="complement" id="complement" required>
+                <input type="text" class="form-control" formControlName="complement" name="complement" id="complement">
             </div>
             <div class="form-group col-6 col-md-2">
                 <label for="cep">CEP</label>
-                <input type="text" class="form-control" formControlName = "cep" name="cep" id="cep" required>
+                <input type="text" class="form-control" formControlName="cep" name="cep" id="cep" required>
+                <error-message
+                    *ngIf="form.controls.cep.invalid && (form.controls.cep.dirty || form.controls.cep.touched)"
+                    errorMessage="É necessário informar o CEP"></error-message>
             </div>
         </div>
-        <div class="form-group">
-            <label for="phone">Num. telefone</label>
-            <input type="text" class="form-control" formControlName = "phone" name="phone" id="phone" required>
-        </div>
-        <div class="form-group">
-            <label for="city">Cidade</label>
-            <input type="text" class="form-control" formControlName = "city" name="city" id="city" required>
-        </div>
-        <div class="form-group col-1">
-            <label for="uf">UF</label>
-            <input type="text" class="form-control" formControlName = "uf" name="uf" id="uf" required>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="phone">Num. telefone</label>
+                <input type="text" class="form-control" formControlName="phone" name="phone" id="phone" required>
+                <error-message
+                    *ngIf="form.controls.phone.invalid && (form.controls.phone.dirty || form.controls.phone.touched)"
+                    errorMessage="É necessário informar um telefone de contato"></error-message>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="city">Cidade</label>
+                <input type="text" class="form-control" formControlName="city" name="city" id="city" required>
+                <error-message
+                    *ngIf="form.controls.city.invalid && (form.controls.city.dirty || form.controls.city.touched)"
+                    errorMessage="É necessário informar a cidade"></error-message>
+            </div>
+            <div class="form-group col-1">
+                <label for="uf">UF</label>
+                <input type="text" class="form-control" formControlName="uf" name="uf" id="uf" required>
+                <error-message
+                    *ngIf="form.controls.uf.invalid && (form.controls.uf.dirty || form.controls.uf.touched)"
+                    errorMessage="É necessário informar a unidade de federação/Estado"></error-message>
+            </div>
         </div>
 
-        <division-select (selected)="onSelectDivision($event)"></division-select>
-        <role-select (selected)="onSelectRole($event)"></role-select>
+        <div class="row mt-3">
+            <div class="col col-md-3">
+                <division-select [divisionSelected]='divisionBox' (selected)="onSelectDivision($event)">
+                </division-select>
+            </div>
+            <div class="col col-md-3">
+                <role-select [roleSelected]='roleBox' (selected)="onSelectRole($event)"></role-select>
+            </div>
+        </div>
 
-        <button class="btn btn-primary mt-4" (click)="registrar()">Salvar</button>
-        <button class="btn btn-secondary mt-4" (click)="cancelar()">Cancelar</button>
+        <div class="row">
+            <div class="col col-md-3 mt-4 d-flex justify-content-around">
+                <button class="btn btn-primary" [disabled]="form.invalid" (click)="registrar()">Salvar</button>
+                <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+            </div>
+        </div>
     </form>
 </div>

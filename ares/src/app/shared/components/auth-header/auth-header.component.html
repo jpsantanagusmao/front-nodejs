@@ -1,30 +1,48 @@
-<header class="p-3 mb-2 bg-primary text-white">
-    <div class="logo">
-        <p>Ares - JP</p>
-    </div>
-    <div class="menu">
-        <ul>
-            <li (click)="gotoHome()">
-                Home
-            </li>
-            <li (click)="gotoContact()">
-                Contact
-            </li>
-            <li (click)="gotoAbout()">
-                About
-            </li>
-        </ul>
-    </div>
-    <div class="partner-data" *ngIf="isloading$ | async; else loading">
-        <p>{{partner}}</p>
-        <p>{{division}}</p>
-    </div>
-    <ng-template #loading>...carregando dados!</ng-template>
-    <div class="logged-data" *ngIf="isloading$ | async; else loading">
-        <p>{{username}}, {{timeRem}}</p>
-        <div class="option-log">
-            <a href="contract" class="contract"></a><a href="about" class="about"></a><a href="logout"
-                class="logout"></a>
+<header class="p-3 mb-2 bg-primary justify-content-between text-white container">
+    <div class="row">
+        <div class="logo col col-sm-3">
+            <p>
+                <span>
+                    Ares - JP
+                </span>
+
+            </p>
+        </div>
+
+        <div class="col">
+            <div class="row">
+                <ng-template #loading>
+                    <i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i>
+                </ng-template>
+            </div>
+            <div *ngIf="isloading$ | async; else loading">
+                <div class="row">
+                    <div class="partner-data col">
+                        <p>{{partner}}</p>
+                        <p>{{division}}</p>
+                    </div>
+                    <div class="logged-data col" *ngIf="isloading$ | async else loading">
+                        <nav>
+                            <ul>
+                                <li class='dropdown'>
+                                    <a href='#'><i class="fa fa-angle-down"></i>{{username}}, {{timeRem}}</a>
+                                    <div class='mega-menu'>
+                                        <div class="item">
+                                            <ul>
+                                                <li><a href='/users/private/documentation'>Sobre</a></li>
+                                                <li><a href='/users/private/contract'>Contrato</a></li>
+                                                <li><a href='/logout'>logout</a></li>
+                                            </ul>
+                                        </div> <!-- /.item -->
+                                    </div><!-- /.mega-menu -->
+                                </li><!-- /.dropdown -->
+                            </ul><!-- .container -->
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+
 </header>

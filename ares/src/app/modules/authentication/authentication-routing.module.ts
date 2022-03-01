@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PrivatedComponent } from './components/privated/privated.component';
 import { AuthGuard } from 'src/app/shared/guards/auth-guard.service';
+import { ContractComponent } from 'src/app/shared/components/contract/contract.component';
+import { DocumentationComponent } from 'src/app/shared/components/documentation/documentation.component';
 
 
 const routes: Routes = [
@@ -18,7 +20,7 @@ const routes: Routes = [
   {
     path: 'private',
     component: PrivatedComponent,
-    children:[
+    children: [
       {
         path: '',
         //redirectTo: '/private/class0/root',
@@ -54,6 +56,14 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { role_class: ['10'] },
         loadChildren: () => import('../class-10/class-10.module').then(m => m.Class10Module)
+      },
+      {
+        path: 'contract',
+        component: ContractComponent
+      },
+      {
+        path: 'documentation',
+        component: DocumentationComponent
       }
     ]
   }

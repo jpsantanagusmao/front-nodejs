@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment as env } from '../../../../environments/environment.prod';
-import { delay } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,12 @@ export class RoleService {
 
   findAll(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}`).pipe(
-      delay(3000)
+//      delay(3000)
+    );
+  }
+  findById(id):Observable<any>{
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/${id}`).pipe(
+      //tap(console.log)
     );
   }
 }

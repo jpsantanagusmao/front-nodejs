@@ -1,3 +1,4 @@
+import { UserUpdateComponent } from './../../shared/components/user/user-update/user-update.component';
 import { Class7UsersAllComponent } from './components/class7-users-all/class7-users-all.component';
 import { Class7IndexComponent } from './components/class7-index/class7-index.component';
 import { NgModule } from '@angular/core';
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: 'cadastrar',
         component: Class7CadastrarUsuarioComponent
+      },
+      {
+        path: 'atualizar/:id',
+        component: UserUpdateComponent
       },
       {
         path: 'users-all',

@@ -1,6 +1,6 @@
 <div *ngIf="divisions$ | async as divisions; else loading">
     <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" (change)="onSelect($event)" >
-        <option selected>Selecione uma Departamento</option>
+        <option selected value="{{divisionSelected?.id}}">{{divisionSelected?.name}}</option>
         <option *ngFor="let division of divisions" value="{{division.id}}">{{division.name}}</option>
       </select>
 </div>

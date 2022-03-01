@@ -3,7 +3,7 @@
     --sec-color: rgb(42, 54, 165);
     --mid-color: rgb(170, 177, 240);
     --zero-color: rgb(230, 211, 46);
-    --most-color: rgb(33, 214, 169);
+    --most-color: rgb(220, 231, 247);
     --max-color: rgb(22, 22, 22);
     --ok-color: rgb(6, 243, 85);
     --error-color: rgb(238, 13, 13);
@@ -23,6 +23,19 @@
   /*
   Propriedade de forms e outros
   */
+  /*
+  Formatação de título de formulários
+  */
+.form-tittle{
+    font-size: large;
+    text-align: center;
+    background-color: var(--most-color);
+    width: 100%;
+    padding: 15px 0px 15px;
+}
+form{
+    width: 100%;
+}
 .hm-gradient {
     background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
 }

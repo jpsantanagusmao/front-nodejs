@@ -23,4 +23,8 @@ export class DivisionService {
       //tap(console.log)
     );
   }
+  findById(id):Observable<any>{
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/${id}`).pipe(
+    );
+  }
 }

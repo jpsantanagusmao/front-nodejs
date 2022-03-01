@@ -20,7 +20,7 @@
                 </td>
                 <td>
                     {{user.email}}
-                </td>
+                </td> 
                 <td>
                     <button (click)="onMail(user.id)" class="btn" data-toggle="tooltip" title="Enviar dados por email">
                         <span class="material-icons">
@@ -32,17 +32,17 @@
                             edit_note
                         </span>
                     </button>
-                    <button (click)="onMail(user.id)" class="btn" data-toggle="tooltip" title="Bloquear usuário">
+                    <button *ngIf="!user.lockedDate" (click)="onLock(user.id)" class="btn" data-toggle="tooltip" title="Bloquear usuário">
                         <span class="material-icons">
                             lock
                         </span>
                     </button>
-                    <button (click)="onMail(user.id)" class="btn" data-toggle="tooltip" title="Desbloquear usuário.">
+                    <button *ngIf="user.lockedDate"  (click)="onLock(user.id)" class="btn" data-toggle="tooltip" title="Desbloquear usuário.">
                         <span class="material-icons">
                             lock_open
                         </span>
                     </button>
-                    <button (click)="onMail(user.id)" class="btn" data-toggle="tooltip" title="Prorrogar mais 90 dias">
+                    <button (click)="onExtend(user.id)" class="btn" data-toggle="tooltip" title="Prorrogar mais 90 dias">
                         <span class="material-icons">
                             history
                         </span>

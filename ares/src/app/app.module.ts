@@ -1,3 +1,4 @@
+import { NgxMaskModule } from 'ngx-mask';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
