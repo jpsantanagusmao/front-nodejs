@@ -22,7 +22,6 @@ export class RoleSelectComponent implements OnInit {
   ngOnInit(): void {
     this.roles$ = this.roleService.findAll();
 
-    console.log(this.roleSelected);
     if (this.roleSelected == undefined) {
       this.roleSelected = { id: '', type: 'Selecione uma permissão' };
     }else{

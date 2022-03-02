@@ -11,7 +11,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="registry">Registro/login</label>
-                <input type="text" class="form-control" formControlName="registry" name="registry" id="registry"
+                <input type="text" mask= "AAAAAAAAAAAAAA" class="form-control" formControlName="registry" name="registry" id="registry"
                     required>
                 <error-message
                     *ngIf="form.controls.registry.invalid && (form.controls.registry.dirty || form.controls.registry.touched)"
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group col-1">
                 <label for="num">Num</label>
-                <input type="text" class="form-control" formControlName="num" name="num" id="num" required>
+                <input type="text" mask= "AAAAAA"class="form-control" formControlName="num" name="num" id="num" required>
                 <error-message
                     *ngIf="form.controls.num.invalid && (form.controls.num.dirty || form.controls.num.touched)"
                     errorMessage="É necessário informar o numero da residência"></error-message>
@@ -52,11 +52,11 @@
         <div class="row">
             <div class="form-group col-md-3">
                 <label for="complement">Complemento</label>
-                <input type="text" class="form-control" formControlName="complement" name="complement" id="complement">
+                <input type="text"  class="form-control" formControlName="complement" name="complement" id="complement">
             </div>
             <div class="form-group col-6 col-md-2">
                 <label for="cep">CEP</label>
-                <input type="text" class="form-control" formControlName="cep" name="cep" id="cep" required>
+                <input type="text" mask="00.000-000"class="form-control" formControlName="cep" name="cep" id="cep" required>
                 <error-message
                     *ngIf="form.controls.cep.invalid && (form.controls.cep.dirty || form.controls.cep.touched)"
                     errorMessage="É necessário informar o CEP"></error-message>
@@ -65,7 +65,7 @@
         <div class="row">
             <div class="form-group col-md-3">
                 <label for="phone">Num. telefone</label>
-                <input type="text" class="form-control" formControlName="phone" name="phone" id="phone" required>
+                <input type="text" mask = "(00) 0 0000-0000" class="form-control" formControlName="phone" name="phone" id="phone" required>
                 <error-message
                     *ngIf="form.controls.phone.invalid && (form.controls.phone.dirty || form.controls.phone.touched)"
                     errorMessage="É necessário informar um telefone de contato"></error-message>
@@ -79,7 +79,7 @@
             </div>
             <div class="form-group col-1">
                 <label for="uf">UF</label>
-                <input type="text" class="form-control" formControlName="uf" name="uf" id="uf" required>
+                <input type="text" mask= "AA"class="form-control" formControlName="uf" name="uf" id="uf" required>
                 <error-message
                     *ngIf="form.controls.uf.invalid && (form.controls.uf.dirty || form.controls.uf.touched)"
                     errorMessage="É necessário informar a unidade de federação/Estado"></error-message>

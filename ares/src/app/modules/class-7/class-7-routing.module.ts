@@ -1,3 +1,6 @@
+import { Class7DivisionUpdateComponent } from './components/class7-division-update/class7-division-update.component';
+import { Class7DivisionAllComponent } from './components/class7-division-all/class7-division-all.component';
+import { Class7CadastrarDivisionComponent } from './components/class7-cadastrar-division/class7-cadastrar-division.component';
 import { UserUpdateComponent } from './../../shared/components/user/user-update/user-update.component';
 import { Class7UsersAllComponent } from './components/class7-users-all/class7-users-all.component';
 import { Class7IndexComponent } from './components/class7-index/class7-index.component';
@@ -33,6 +36,18 @@ const routes: Routes = [
       {
         path: 'users-all',
         component: Class7UsersAllComponent
+      },
+      {
+        path: 'division-cadastrar',
+        component: Class7CadastrarDivisionComponent
+      },
+      {
+        path: 'division-atualizar/:id',
+        component: Class7DivisionUpdateComponent
+      },
+      {
+        path: 'division-all',
+        component: Class7DivisionAllComponent
       }
     ]
   }

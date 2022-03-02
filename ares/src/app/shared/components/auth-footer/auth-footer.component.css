@@ -1,0 +1,19 @@
+nav{
+    background-color: var(--max-color);
+    color: var(--most-color);
+    width: 100vw;
+    margin: 10px;
+    padding: 10px 20px 10px 20px;
+}
+img{
+    max-width: 120px;
+}
+nav > ul > li {
+    display: inline-block;
+      font-size: 14px;
+      padding: 0 15px;
+      position: relative;
+  }
+i{
+    margin-right: 10px;
+}

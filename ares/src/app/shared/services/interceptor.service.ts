@@ -23,8 +23,6 @@ export class InterceptorService implements HttpInterceptor {
       });
       return next.handle(cloned).pipe(
         catchError((error: HttpErrorResponse)=>{
-          console.log('error.error');
-          console.log(error.error);
 
           if(error.error instanceof Error){
             console.error(error)
@@ -32,7 +30,13 @@ export class InterceptorService implements HttpInterceptor {
             
           }else{
             console.error(error.error);
-            this.messageService.handleError(error.error.name, error.error.message);
+            const name: any = error.error.name;
+            if(name){
+              this.messageService.handleError(name, error.error.message);
+            }else{
+              this.messageService.handleError('Erro', 'Ocorreu um erro não identificado.');
+
+            }
             
           }
           //return EMPTY;

@@ -1,4 +1,3 @@
-import { NgxMaskModule } from 'ngx-mask';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AlertMessagesService } from './shared/services/alert-messages.service';
 import { InterceptorService } from './shared/services/interceptor.service';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,10 @@ import { InterceptorService } from './shared/services/interceptor.service';
   ],
   imports: [
     BrowserModule,
+    NgxMaskModule.forRoot({
+      dropSpecialCharacters: true, //ao salvar vai manter a máskara
+      showMaskTyped: false
+    }),
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,

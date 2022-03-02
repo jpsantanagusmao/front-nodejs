@@ -29,7 +29,6 @@ export class UserCadastrarComponent implements OnInit {
   roleBox: any;
   divisionBox: any;
 
-
   constructor(
     private usercache: UserCacheService,
     private _userService: UserService,

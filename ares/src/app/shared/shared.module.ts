@@ -21,6 +21,8 @@ import { DocumentationComponent } from './components/documentation/documentation
 import { UserUpdateComponent } from './components/user/user-update/user-update.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { DivisionAllComponent } from './components/division/division-all/division-all.component';
+import { ThemesSelectComponent } from './components/themes/themes-select/themes-select.component';
 
 @NgModule({
   declarations: [
@@ -41,13 +43,12 @@ import { NgxMaskModule } from 'ngx-mask';
     DocumentationComponent,
     UserUpdateComponent,
     ErrorMessageComponent,
+    DivisionAllComponent,
+    ThemesSelectComponent,
   ],
   imports: [
     CommonModule,
-    NgxMaskModule.forRoot({
-      dropSpecialCharacters: false,
-      showMaskTyped: true
-    }),
+    NgxMaskModule.forChild(),
     ModalModule.forRoot(),
     ReactiveFormsModule,
     AlertModule
@@ -73,6 +74,8 @@ import { NgxMaskModule } from 'ngx-mask';
     DocumentationComponent,
     UserUpdateComponent,
     ErrorMessageComponent,
+    DivisionAllComponent,
+    ThemesSelectComponent,
   ],
   entryComponents:[
     AlertModalComponent

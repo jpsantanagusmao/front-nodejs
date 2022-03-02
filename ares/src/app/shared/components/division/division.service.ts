@@ -27,4 +27,21 @@ export class DivisionService {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/${id}`).pipe(
     );
   }
+
+  extendUser(id: any) {
+    return this.http.put(`${env.BASE_API_URL}${this.PATH}/extend/${id}`, null).pipe(
+    );
+  }
+  lockUser(id: any) {
+    return this.http.put(`${env.BASE_API_URL}${this.PATH}/toggle-lock/${id}`, null).pipe(
+    );
+  }
+  resendLogin(id: any) {
+    return this.http.put(`${env.BASE_API_URL}${this.PATH}/recovery/${id}`, null).pipe(
+    );
+  }
+  update(id: any, user: any) {
+    return this.http.put(`${env.BASE_API_URL}${this.PATH}/${id}`, user).pipe(
+    );
+  }
 }
