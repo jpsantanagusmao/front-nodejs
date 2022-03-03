@@ -2,10 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { environment as env } from '../../../../environments/environment.prod';
-import { AlertMessagesService } from '../../services/alert-messages.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +26,10 @@ export class UserService {
 
   findAll(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}`).pipe(
+    );
+  }
+  findByName(name): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-name/${name}`).pipe(
     );
   }
   save(usuario) {

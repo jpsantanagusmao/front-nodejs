@@ -1,3 +1,4 @@
+import { Class4CadastrarProjetoComponent } from './components/class4-cadastrar-projeto/class4-cadastrar-projeto.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/shared/guards/auth-guard.service';
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'cadastrar',
     component: Class4CadastrarUsuarioComponent
+  },
+  {
+    path: 'project',
+    component: Class4CadastrarProjetoComponent
   }
 ];
 

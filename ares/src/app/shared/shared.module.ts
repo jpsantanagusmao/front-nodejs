@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components/loading/loading.component';
 import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
@@ -23,6 +24,7 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
 import { NgxMaskModule } from 'ngx-mask';
 import { DivisionAllComponent } from './components/division/division-all/division-all.component';
 import { ThemesSelectComponent } from './components/themes/themes-select/themes-select.component';
+import { ProjectCadastrarComponent } from './components/project/project-cadastrar/project-cadastrar.component';
 
 @NgModule({
   declarations: [
@@ -45,10 +47,12 @@ import { ThemesSelectComponent } from './components/themes/themes-select/themes-
     ErrorMessageComponent,
     DivisionAllComponent,
     ThemesSelectComponent,
+    ProjectCadastrarComponent,
   ],
   imports: [
     CommonModule,
     NgxMaskModule.forChild(),
+    TypeaheadModule.forRoot(),
     ModalModule.forRoot(),
     ReactiveFormsModule,
     AlertModule
@@ -76,6 +80,7 @@ import { ThemesSelectComponent } from './components/themes/themes-select/themes-
     ErrorMessageComponent,
     DivisionAllComponent,
     ThemesSelectComponent,
+    ProjectCadastrarComponent,
   ],
   entryComponents:[
     AlertModalComponent

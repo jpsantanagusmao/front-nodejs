@@ -10,6 +10,8 @@ import { AlertMessagesService } from 'src/app/shared/services/alert-messages.ser
   styleUrls: ['./class7-cadastrar-usuario.component.css']
 })
 export class Class7CadastrarUsuarioComponent implements OnInit {
+  
+
 
   usuario: any = {};
   _loading: boolean = false;
@@ -17,8 +19,8 @@ export class Class7CadastrarUsuarioComponent implements OnInit {
   constructor(
     private usercache: UserCacheService,
     private messageService: AlertMessagesService,
+    private router: Router,
     private userService: UserService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {

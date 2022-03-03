@@ -11,7 +11,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="registry">Registro/login</label>
-                <input type="text" mask= "AAAAAAAAAAAAAA" class="form-control" formControlName="registry" name="registry" id="registry"
+                <input type="text" class="form-control" formControlName="registry" name="registry" id="registry"
                     required>
                 <error-message
                     *ngIf="form.controls.registry.invalid && (form.controls.registry.dirty || form.controls.registry.touched)"
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group col-1">
                 <label for="num">Num</label>
-                <input type="text" mask= "AAAAAA"class="form-control" formControlName="num" name="num" id="num" required>
+                <input type="text" class="form-control" formControlName="num" name="num" id="num" required>
                 <error-message
                     *ngIf="form.controls.num.invalid && (form.controls.num.dirty || form.controls.num.touched)"
                     errorMessage="É necessário informar o numero da residência"></error-message>

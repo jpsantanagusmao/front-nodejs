@@ -20,9 +20,8 @@ export class ThemesSelectComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
     if (this.themeSelected == undefined) {
-      this.themeSelected = { id: '', type: 'Selecione uma categoria para a divisão de planejamento' };
+      this.themeSelected = { id: '', class: 'Selecione uma categoria para a divisão de planejamento' };
     } else {
       this.selected.emit(this.themeSelected.id);
     }

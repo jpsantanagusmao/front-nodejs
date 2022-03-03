@@ -91,7 +91,9 @@ export class AuthHeaderComponent implements OnInit {
   logout() {
     this.userCacheService.logout();
   }
-  gotoHome() { }
+  gotoHome() { 
+    this.userCacheService.gotoHome();
+  }
 
   gotoContact() { }
 

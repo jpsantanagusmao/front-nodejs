@@ -17,6 +17,12 @@ export class DivisionService {
     private router: Router,
   ) { }
 
+  create(division){
+    return this.http.post(`${env.BASE_API_URL}${this.PATH}`, division).pipe(
+      //delay(3000),
+      //tap(console.log)
+    );
+  }
   findAll(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}`).pipe(
       //delay(3000),

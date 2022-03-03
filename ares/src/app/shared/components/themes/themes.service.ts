@@ -20,7 +20,6 @@ export class ThemesService {
   
   findAll(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}`).pipe(
-      tap(console.log)
     );
   }
 }

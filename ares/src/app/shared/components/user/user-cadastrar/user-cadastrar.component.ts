@@ -31,10 +31,10 @@ export class UserCadastrarComponent implements OnInit {
 
   constructor(
     private usercache: UserCacheService,
+    private _route: ActivatedRoute,
     private _userService: UserService,
     private _divisionService: DivisionService,
     private _roleService: RoleService,
-    private _route: ActivatedRoute,
   ) {
     this.id = this._route.snapshot.paramMap.get('id');
     this.loadForm();
