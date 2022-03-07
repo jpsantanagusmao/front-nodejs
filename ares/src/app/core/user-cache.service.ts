@@ -105,7 +105,8 @@ export class UserCacheService {
 
     const classe = this.user.role_class;
 
-    this.gotoUrl(classe);
+    //this.gotoUrl(classe);
+    this.gotoHome();
     
   }
 

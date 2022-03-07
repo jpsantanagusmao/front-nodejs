@@ -72,3 +72,13 @@
   
   * EDUCACAO  
   
+  - Cadastrar Usuário
+    * Só é possível cadastrar com a permissão de classe abaixo da do usuário logado.
+      Ex.: O Gestor classe 7 só pode definir a classe do usuário como 6 ou menor.
+    * O cadastro de usuário só é permitida a usuários de classe 3 ou superior.
+
+  - Cadastrar Divisão/Departamento
+    Ao indicar o representante, que pode ser qualquer funcionário previamente cadastrado, este passa a ter permissão de DIRETOR - Classe 5
+  
+  - Cadastrar projetos
+    Somente usuário de classe 3 a 5 podem gerenciar os projetos, criando os registros ou atualizando os dados de cada um.

@@ -1,1 +1,63 @@
-<user-select (onSelected)="onSelectUser($event)" [MESSAGE_PLACE_HOLDER]="MESSAGE_PLACE_HOLDER"></user-select>
+<div class="">
+
+    <form [formGroup]="form">
+        <div class="form-group col-md-10">
+            <label for="description">Descrição do projeto</label>
+            <input type="text" class="form-control" formControlName="description" name="description" id="description"
+                required>
+            <error-message
+                *ngIf="form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)"
+                errorMessage="É necessário informar uma descrição com 10 a 150 caracteres"></error-message>
+        </div>
+        <div class="form-group col-md-10">
+            <label for="publicoAlvo">Público alvo</label>
+            <input type="text" class="form-control" formControlName="publicoAlvo" name="publicoAlvo" id="publicoAlvo"
+                required>
+            <error-message
+                *ngIf="form.controls.publicoAlvo.invalid && (form.controls.publicoAlvo.dirty || form.controls.publicoAlvo.touched)"
+                errorMessage="É necessário informar uma descrição com 10 a 150 caracteres"></error-message>
+        </div>
+    
+        <div class="form-group col-md-10">
+            <label for="justificativa">Justificativa</label>
+            <textarea type="text" rows="4" class="form-control" formControlName="justificativa" name="justificativa"
+                id="justificativa"></textarea>
+            <error-message
+                *ngIf="form.controls.justificativa.invalid && (form.controls.justificativa.dirty || form.controls.justificativa.touched)"
+                errorMessage="É necessário informar uma referência com 3 a 30 caracteres"></error-message>
+        </div>
+        <div class="form-group col-md-10">
+            <label for="objetivo">Objetivo</label>
+            <textarea type="text" rows="4" class="form-control" formControlName="objetivo" name="objetivo"
+                id="objetivo"></textarea>
+            <error-message
+                *ngIf="form.controls.objetivo.invalid && (form.controls.objetivo.dirty || form.controls.objetivo.touched)"
+                errorMessage="É necessário informar uma referência com 3 a 30 caracteres"></error-message>
+        </div>
+        <div class="form-group col-md-10">
+            <label for="resultado">Resultado esperado</label>
+            <input type="text" class="form-control" formControlName="resultado" name="resultado" id="resultado" required>
+            <error-message
+                *ngIf="form.controls.resultado.invalid && (form.controls.resultado.dirty || form.controls.resultado.touched)"
+                errorMessage="É necessário informar uma descrição com 10 a 150 caracteres"></error-message>
+        </div>
+    </form>
+    <div class="col col-md-10 mt-2">
+        <city-select (onSelected)="onSelectCity($event)" [city]="city"></city-select>
+    </div> 
+    <div class="col col-md-10 mt-2">
+        <user-select (onSelected)="onSelectUser($event)" [MESSAGE_PLACE_HOLDER]="MESSAGE_PLACE_HOLDER"></user-select>
+    </div>
+    <div class="col col-md-10 mt-2">
+        <details>
+            <summary class="animated-gradient">Cadastrar ações
+            </summary>
+            <action-create [actions]="actions" (register)="register($event)"></action-create>
+        </details>
+    </div>
+    <action-table [actions]="actions" (deleted)="deleteAction($event)"></action-table>
+    <div class="col col-md-3 mt-4 mb-4 d-flex justify-content-around">
+        <button class="btn-ok" (click)="registrar()">Salvar</button>
+        <button class="btn-cancel" (click)="cancelar()">Cancelar</button>
+    </div>
+</div>

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/shared/guards/auth-guard.service';
 import { Class4CadastrarUsuarioComponent } from './components/class4-cadastrar-usuario/class4-cadastrar-usuario.component';
 import { Class4HomeComponent } from './components/class4-home/class4-home.component';
+import { Class4UsersAllComponent } from './components/class4-users-all/class4-users-all.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,11 @@ const routes: Routes = [
   {
     path: 'project',
     component: Class4CadastrarProjetoComponent
-  }
+  },
+  {
+    path: 'users-all',
+    component: Class4UsersAllComponent
+  },
 ];
 
 @NgModule({
@@ -31,3 +36,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class Class4RoutingModule { }
+ 

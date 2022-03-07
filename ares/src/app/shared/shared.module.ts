@@ -25,6 +25,10 @@ import { NgxMaskModule } from 'ngx-mask';
 import { DivisionAllComponent } from './components/division/division-all/division-all.component';
 import { ThemesSelectComponent } from './components/themes/themes-select/themes-select.component';
 import { ProjectCadastrarComponent } from './components/project/project-cadastrar/project-cadastrar.component';
+import { ActionCreateComponent } from './components/action/action-create/action-create.component';
+import { ActionTableComponent } from './components/action/action-table/action-table.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CitySelectComponent } from './components/city/city-select/city-select.component';
 
 @NgModule({
   declarations: [
@@ -48,11 +52,15 @@ import { ProjectCadastrarComponent } from './components/project/project-cadastra
     DivisionAllComponent,
     ThemesSelectComponent,
     ProjectCadastrarComponent,
+    ActionCreateComponent,
+    ActionTableComponent,
+    CitySelectComponent,
   ],
   imports: [
     CommonModule,
     NgxMaskModule.forChild(),
     TypeaheadModule.forRoot(),
+    TooltipModule.forRoot(),
     ModalModule.forRoot(),
     ReactiveFormsModule,
     AlertModule
@@ -81,6 +89,8 @@ import { ProjectCadastrarComponent } from './components/project/project-cadastra
     DivisionAllComponent,
     ThemesSelectComponent,
     ProjectCadastrarComponent,
+    ActionCreateComponent,
+    CitySelectComponent,
   ],
   entryComponents:[
     AlertModalComponent

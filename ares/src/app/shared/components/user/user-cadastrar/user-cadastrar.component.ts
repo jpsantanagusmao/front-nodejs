@@ -28,6 +28,7 @@ export class UserCadastrarComponent implements OnInit {
 
   roleBox: any;
   divisionBox: any;
+  city: any;
 
   constructor(
     private usercache: UserCacheService,
@@ -51,6 +52,13 @@ export class UserCadastrarComponent implements OnInit {
       await this.createFormNew();
     }
   }
+  onSelectCity(city) {
+    this.city = city;
+  }
+  divisionNecessary() {
+    const role_class = this.usercache.getUserData().role_class;
+    return role_class <= 4 ? false : true;
+  }
   async createForm() {
 
     await this.createFormNew();
@@ -65,16 +73,15 @@ export class UserCadastrarComponent implements OnInit {
         const user = data;
 
         obj.form.controls.name.setValue(user.name, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
-        obj.form.controls.address.setValue(user.address, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]);
-        obj.form.controls.cep.setValue(user.cep, [Validators.required, Validators.minLength(8), Validators.maxLength(10)]);
-        obj.form.controls.city.setValue(user.city, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
-        obj.form.controls.complement.setValue(user.complement);
-        obj.form.controls.district.setValue(user.district, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
-        obj.form.controls.email.setValue(user.email, [Validators.required, Validators.email]);
-        obj.form.controls.num.setValue(user.num, [Validators.required, Validators.minLength(1), Validators.maxLength(5)]);
-        obj.form.controls.phone.setValue(user.phone, [Validators.required, Validators.minLength(11), Validators.maxLength(15)]);
         obj.form.controls.registry.setValue(user.registry, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]);
-        obj.form.controls.uf.setValue(user.uf, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]);
+        obj.form.controls.email.setValue(user.email, [Validators.required, Validators.email]);
+        obj.form.controls.address.setValue(user.address, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]);
+        obj.form.controls.num.setValue(user.num, [Validators.required, Validators.minLength(1), Validators.maxLength(5)]);
+        obj.form.controls.district.setValue(user.district, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
+        obj.form.controls.complement.setValue(user.complement);
+        obj.form.controls.cep.setValue(user.cep, [Validators.required, Validators.minLength(8), Validators.maxLength(10)]);
+        obj.form.controls.phone.setValue(user.phone, [Validators.required, Validators.minLength(11), Validators.maxLength(15)]);
+        
         obj._divisionSelected = data?.division_id;
         obj._roleSelected = data?.role_id;
 
@@ -110,13 +117,11 @@ export class UserCadastrarComponent implements OnInit {
       registry: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       address: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(150)]),
-      num: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(5)]),
+      num: new FormControl(''),
       district: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
       complement: new FormControl(''),
       cep: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(10)]),
       phone: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(15)]),
-      city: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-      uf: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(2)])
 
     })
   }
@@ -128,11 +133,26 @@ export class UserCadastrarComponent implements OnInit {
   onSelectRole(value) {
     this._roleSelected = value;
   }
+  formok(){
 
+    const _roleSel = (!this._roleSelected || this._roleSelected == '')?false:true;
+    const _citySel = this.city?true:false;
+    const _formValid = this.form.valid;
+    const _divisionNecessary = this.divisionNecessary();
+
+    return !( 
+    ( !_roleSel ) 
+    || (this.divisionNecessary()) 
+    || (!_citySel)
+    || (!this.form.valid));
+
+  }
   registrar() {
     this.usuario = this.form.value;
     this.usuario.role_id = this._roleSelected;
     this.usuario.division_id = this._divisionSelected;
+    this.usuario.city = this.city.name;
+    this.usuario.uf = this.city.uf;
 
     const obj = this;
 

@@ -15,7 +15,8 @@
                     required>
                 <error-message
                     *ngIf="form.controls.registry.invalid && (form.controls.registry.dirty || form.controls.registry.touched)"
-                    errorMessage="É necessário informar uma identificação de registro único com 3 a 30 caracateres"></error-message>
+                    errorMessage="É necessário informar uma identificação de registro único com 3 a 30 caracateres">
+                </error-message>
             </div>
         </div>
         <div class="form-group col-md-3">
@@ -35,10 +36,7 @@
             </div>
             <div class="form-group col-1">
                 <label for="num">Num</label>
-                <input type="text" class="form-control" formControlName="num" name="num" id="num" required>
-                <error-message
-                    *ngIf="form.controls.num.invalid && (form.controls.num.dirty || form.controls.num.touched)"
-                    errorMessage="É necessário informar o numero da residência"></error-message>
+                <input type="text" mask = "0000" class="form-control" formControlName="num" name="num" id="num">
             </div>
             <div class="form-group col-md-3">
                 <label for="district">Bairro</label>
@@ -52,11 +50,12 @@
         <div class="row">
             <div class="form-group col-md-3">
                 <label for="complement">Complemento</label>
-                <input type="text"  class="form-control" formControlName="complement" name="complement" id="complement">
+                <input type="text" class="form-control" formControlName="complement" name="complement" id="complement">
             </div>
             <div class="form-group col-6 col-md-2">
                 <label for="cep">CEP</label>
-                <input type="text" mask="00.000-000"class="form-control" formControlName="cep" name="cep" id="cep" required>
+                <input type="text" mask="00.000-000" class="form-control" formControlName="cep" name="cep" id="cep"
+                    required>
                 <error-message
                     *ngIf="form.controls.cep.invalid && (form.controls.cep.dirty || form.controls.cep.touched)"
                     errorMessage="É necessário informar o CEP"></error-message>
@@ -65,29 +64,20 @@
         <div class="row">
             <div class="form-group col-md-3">
                 <label for="phone">Num. telefone</label>
-                <input type="text" mask = "(00) 0 0000-0000" class="form-control" formControlName="phone" name="phone" id="phone" required>
+                <input type="text" mask="(00) 0 0000-0000" class="form-control" formControlName="phone" name="phone"
+                id="phone" required>
                 <error-message
-                    *ngIf="form.controls.phone.invalid && (form.controls.phone.dirty || form.controls.phone.touched)"
-                    errorMessage="É necessário informar um telefone de contato"></error-message>
+                *ngIf="form.controls.phone.invalid && (form.controls.phone.dirty || form.controls.phone.touched)"
+                errorMessage="É necessário informar um telefone de contato"></error-message>
             </div>
             <div class="form-group col-md-3">
                 <label for="city">Cidade</label>
-                <input type="text" class="form-control" formControlName="city" name="city" id="city" required>
-                <error-message
-                    *ngIf="form.controls.city.invalid && (form.controls.city.dirty || form.controls.city.touched)"
-                    errorMessage="É necessário informar a cidade"></error-message>
-            </div>
-            <div class="form-group col-1">
-                <label for="uf">UF</label>
-                <input type="text" mask= "AA"class="form-control" formControlName="uf" name="uf" id="uf" required>
-                <error-message
-                    *ngIf="form.controls.uf.invalid && (form.controls.uf.dirty || form.controls.uf.touched)"
-                    errorMessage="É necessário informar a unidade de federação/Estado"></error-message>
+                <city-select id="city" (onSelected)="onSelectCity($event)"></city-select>
             </div>
         </div>
 
         <div class="row mt-3">
-            <div class="col col-md-3">
+            <div class="col col-md-3" *ngIf="divisionNecessary()">
                 <division-select [divisionSelected]='divisionBox' (selected)="onSelectDivision($event)">
                 </division-select>
             </div>
@@ -97,9 +87,9 @@
         </div>
 
         <div class="row">
-            <div class="col col-md-3 mt-4 d-flex justify-content-around">
-                <button class="btn btn-primary" [disabled]="form.invalid" (click)="registrar()">Salvar</button>
-                <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+            <div class="col col-md-3 d-flex justify-content-around">
+                <button class="btn btn-ok" [disabled]="!formok()" (click)="registrar()">Salvar</button>
+                <button class="ml-5 btn btn-cancel" (click)="cancelar()">Cancelar</button>
             </div>
         </div>
     </form>

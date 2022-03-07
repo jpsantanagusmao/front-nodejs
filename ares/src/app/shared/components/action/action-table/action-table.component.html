@@ -1,0 +1,52 @@
+<div *ngIf="showData(); else notActions">
+
+  <article class="card" *ngFor="let action of actions">
+    <header>
+      <h3 class="row">
+        <span (click)="delete(action)" tooltip="Excluir esta ação" class='col col-md-1 danger-text material-icons'>cancel</span>
+        <p class="col col-md-11 ml-1">
+          <strong>
+            {{action.description}}
+          </strong>
+        </p>
+      </h3>
+    </header>
+    <section>
+      <p>
+        <strong>
+          Texto para referência de busca:
+        </strong>
+        {{action.referency}}
+      </p>
+      <div class="row">
+        <p class="col col-md-6">
+          <strong>
+            Vigente apartir de
+          </strong>
+          {{action.start}}
+          <strong>
+            a
+          </strong>
+          {{action.end}}
+        </p>
+        <p class="col col-md-3">
+          <strong>
+            Custo médio por beneficiario de R$:
+          </strong>
+          {{action.valorPorAtendimento}}
+        </p>
+        <p class="col col-md-3">
+          <strong>
+            Quantidade estimada de atendimentos:
+          </strong>
+          {{action.qtdAtendimentos}}
+        </p>
+      </div>
+    </section>
+  </article>
+</div>
+<ng-template #notActions>
+    <article class="danger-text card">
+      Não há nenhum evento programado!
+    </article>
+</ng-template>

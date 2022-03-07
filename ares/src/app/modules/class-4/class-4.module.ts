@@ -6,10 +6,11 @@ import { Class4HomeComponent } from './components/class4-home/class4-home.compon
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Class4CadastrarUsuarioComponent } from './components/class4-cadastrar-usuario/class4-cadastrar-usuario.component';
 import { Class4CadastrarProjetoComponent } from './components/class4-cadastrar-projeto/class4-cadastrar-projeto.component';
+import { Class4UsersAllComponent } from './components/class4-users-all/class4-users-all.component';
 
 
 @NgModule({
-  declarations: [Class4HomeComponent, Class4CadastrarUsuarioComponent, Class4CadastrarProjetoComponent],
+  declarations: [Class4HomeComponent, Class4CadastrarUsuarioComponent, Class4CadastrarProjetoComponent, Class4UsersAllComponent],
   imports: [
     CommonModule,
     Class4RoutingModule,
