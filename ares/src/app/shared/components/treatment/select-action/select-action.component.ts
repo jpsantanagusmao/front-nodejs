@@ -1,22 +1,17 @@
-import { UserService } from './../user.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
+import { TypeaheadOrder } from 'ngx-bootstrap/typeahead';
+import { Observable, Observer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { TypeaheadConfig, TypeaheadOrder } from 'ngx-bootstrap/typeahead';
-
-
-// such override allows to keep some initial values
-export function getTypeaheadConfig(): TypeaheadConfig {
-  return Object.assign(new TypeaheadConfig(), { hideResultsOnBlur: false });
-}
+import { UserService } from '../../user/user.service';
+import { TreatmentService } from '../treatment.service';
 
 @Component({
-  selector: 'user-select',
-  templateUrl: './user-select.component.html',
-  styleUrls: ['./user-select.component.css']
+  selector: 'select-action',
+  templateUrl: './select-action.component.html',
+  styleUrls: ['./select-action.component.css']
 })
-export class UserSelectComponent implements OnInit {
+export class SelectActionComponent implements OnInit {
   
   @Input() MESSAGE_PLACE_HOLDER = 'Informe aqui'
   
@@ -39,7 +34,7 @@ export class UserSelectComponent implements OnInit {
   };
 
   constructor(
-    private _userService: UserService
+    private _treatmentService: TreatmentService
   ) { }
 
   ngOnInit(): void {
@@ -52,9 +47,9 @@ export class UserSelectComponent implements OnInit {
     ).pipe(
       debounceTime(200),
       distinctUntilChanged(),
-      switchMap(name => {
-        return obj._userService.findByName(name).pipe(
-        ) 
+      switchMap(ref => {
+        return obj._treatmentService.findByActionRef(ref).pipe(
+        )
       }
       ));
   }
@@ -72,5 +67,4 @@ export class UserSelectComponent implements OnInit {
   onFocused(event) {
     this.onSelected.emit(event.item);
   }
-
 }

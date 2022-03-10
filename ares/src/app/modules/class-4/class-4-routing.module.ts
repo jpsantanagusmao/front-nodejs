@@ -5,6 +5,7 @@ import { AuthGuard } from 'src/app/shared/guards/auth-guard.service';
 import { Class4CadastrarUsuarioComponent } from './components/class4-cadastrar-usuario/class4-cadastrar-usuario.component';
 import { Class4HomeComponent } from './components/class4-home/class4-home.component';
 import { Class4UsersAllComponent } from './components/class4-users-all/class4-users-all.component';
+import { TreatmentCadastrarComponent } from 'src/app/shared/components/treatment/treatment-cadastrar/treatment-cadastrar.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'users-all',
     component: Class4UsersAllComponent
+  },
+  {
+    path: 'service',
+    component: TreatmentCadastrarComponent
   },
 ];
 

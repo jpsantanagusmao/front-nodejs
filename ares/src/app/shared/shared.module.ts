@@ -29,6 +29,8 @@ import { ActionCreateComponent } from './components/action/action-create/action-
 import { ActionTableComponent } from './components/action/action-table/action-table.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CitySelectComponent } from './components/city/city-select/city-select.component';
+import { SelectActionComponent } from './components/treatment/select-action/select-action.component';
+import { TreatmentCadastrarComponent } from './components/treatment/treatment-cadastrar/treatment-cadastrar.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { CitySelectComponent } from './components/city/city-select/city-select.c
     ActionCreateComponent,
     ActionTableComponent,
     CitySelectComponent,
+    SelectActionComponent,
+    TreatmentCadastrarComponent,
   ],
   imports: [
     CommonModule,
@@ -91,6 +95,8 @@ import { CitySelectComponent } from './components/city/city-select/city-select.c
     ProjectCadastrarComponent,
     ActionCreateComponent,
     CitySelectComponent,
+    SelectActionComponent,
+    TreatmentCadastrarComponent,
   ],
   entryComponents:[
     AlertModalComponent

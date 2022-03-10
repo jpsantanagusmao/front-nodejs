@@ -19,5 +19,34 @@ nav{
 nav > app-login{
     display: flex;
     justify-content: flex-end;
-    background-color: blueviolet;
+}
+div nav {
+    background: linear-gradient(298deg, #242566, #5c5eee, #c3c3fb);
+    background-size: 600% 600%;
+
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    -o-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 87%}
+    50%{background-position:100% 14%}
+    100%{background-position:0% 87%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 87%}
+    50%{background-position:100% 14%}
+    100%{background-position:0% 87%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:0% 87%}
+    50%{background-position:100% 14%}
+    100%{background-position:0% 87%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 87%}
+    50%{background-position:100% 14%}
+    100%{background-position:0% 87%}
 }
