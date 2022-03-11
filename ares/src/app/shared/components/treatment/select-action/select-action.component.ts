@@ -13,7 +13,7 @@ import { TreatmentService } from '../treatment.service';
 })
 export class SelectActionComponent implements OnInit {
   
-  @Input() MESSAGE_PLACE_HOLDER = 'Informe aqui'
+  @Input() MESSAGE_PLACE_HOLDER = 'Informe aqui o serviço prestado'
   
   noResult: boolean;
 

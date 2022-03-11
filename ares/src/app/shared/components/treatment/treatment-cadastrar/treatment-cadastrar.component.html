@@ -1,2 +1,62 @@
-<select-action></select-action>
-<user-select></user-select>
+<form [formGroup]="form">
+    <div class="row">
+        <div class="form-group col-md-10">
+            <label for="local">Local</label>
+            <input type="text" class="form-control" formControlName="local" name="local" id="local" required>
+            <error-message
+                *ngIf="form.controls.local.invalid && (form.controls.local.dirty || form.controls.local.touched)"
+                errorMessage="É necessário informar o local do atendimento com 05 a 150 caracteres"></error-message>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="data">Data</label>
+            <input type="date" class="form-control" formControlName="data" name="data" id="data" required>
+            <error-message
+                *ngIf="form.controls.data.invalid && (form.controls.data.dirty || form.controls.data.touched)"
+                errorMessage="É necessário informar a data do atendimento"></error-message>
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+        <label for="objetivo">Situação atual</label>
+        <textarea type="text" rows="4" class="form-control" formControlName="situacao" name="situacao"
+            id="situacao"></textarea>
+    </div>
+    <div class="form-group col-md-12">
+        <label for="objetivo">Orientações</label>
+        <textarea type="text" rows="4" class="form-control" formControlName="orientacao" name="orientacao"
+            id="orientacao"></textarea>
+    </div>
+    <div class="form-group col-md-12">
+        <label for="objetivo">Recomendações</label>
+        <textarea type="text" rows="4" class="form-control" formControlName="recomendacao" name="recomendacao"
+            id="recomendacao"></textarea>
+    </div>
+</form>
+<form [formGroup]="formAction">
+    <div class="row">
+        <div class="col col-md-6 mt-3">
+            <select-action (onSelected)="onIncludeAction($event)"></select-action>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="descricao">Descrição</label>
+            <input type="text" mask="000" class="form-control" formControlName="descricao" name="descricao" id="descricao" required>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="qtd">Quantidade</label>
+            <input type="number" mask="000" class="form-control" formControlName="qtd" name="qtd" id="qtd" required>
+            
+        </div>
+        <div class="form-group col-md-1">
+            <label for="valor">Valor</label>
+            <input type="number" mask="000" class="form-control" formControlName="valor" name="valor" id="valor"
+                required>
+
+        </div>
+        <div class="col col-md-5 mt-3">
+            <user-select></user-select>
+        </div>
+        <div class="col col-md-5 mt-3">
+            <button class="btn-ok" (click)="onRegisterTreatment()">incluir</button>
+        </div>
+
+    </div>
+</form>

@@ -18,7 +18,7 @@ export function getTypeaheadConfig(): TypeaheadConfig {
 })
 export class UserSelectComponent implements OnInit {
   
-  @Input() MESSAGE_PLACE_HOLDER = 'Informe aqui'
+  @Input() MESSAGE_PLACE_HOLDER = 'Informe aqui o usuário';
   
   noResult: boolean;
 
