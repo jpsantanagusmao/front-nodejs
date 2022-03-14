@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '../../../../environments/environment.prod';
@@ -13,10 +13,13 @@ export class TreatmentService {
   constructor(
     private http: HttpClient,
   ) { }
-
+ 
   findByActionRef(ref: any): Observable<any> {
-    return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-action/${ref}`).pipe(
-    );
+    if(ref){
+      return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-action/${ref}`).pipe(
+      );
+    }
+    return EMPTY;
   }
 
 }

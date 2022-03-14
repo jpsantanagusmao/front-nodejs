@@ -20,7 +20,7 @@ export class ActionTableComponent implements OnInit {
   showData(){
     return this.actions.length > 0 ? true : false;
   }
-
+ 
   delete(action){
     this.actions = this.actions.filter( el => el !== action );
     this.deleted.emit(this.actions);

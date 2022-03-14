@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'treatment-cadastrar',
@@ -14,6 +15,17 @@ export class TreatmentCadastrarComponent implements OnInit {
 
   @Input() orientacao: string;
   
+  //ID para esta operação
+
+  id: string = uuidv4()
+
+  //Ações a registrar para este atendimento
+  tasks: any[] = [];
+  taskSelected: any = {};
+
+  //Usuário designado para determinada tarefe
+  userDesigned: any = {};
+
   constructor() { }
 
   ngOnInit(): void {
@@ -23,14 +35,43 @@ export class TreatmentCadastrarComponent implements OnInit {
       this.createFormNew();
     }
   }
-
-  onIncludeAction(value){
-    console.log(JSON.stringify(value.description));
-    this.formAction.controls.valor.patchValue(value.valorPorAtendimento);
-    this.formAction.controls.descricao.patchValue(value.description);
+  onSelectUserDesigned(value){
+    if(value){
+      this.userDesigned = value.id;
+    }
   }
+  onSelectAction(value){
+    this.formAction.controls.descricao.patchValue(value.description, [Validators.minLength(10)]);
+    this.formAction.controls.valor.patchValue(value.valorPorAtendimento);
+    
+    this.taskSelected = this.formAction.value;
+
+    //Determina a chave estrangeira 'action_id"
+    this.taskSelected.action_id = value.id;
+
+  }
+  onRemoveAction($event){
+
+  }
+  onIncludeAction($event){
+    const data = this.formAction.value;
+    console.log('Antes dos ajuste');
+    console.log(JSON.stringify(data));
+
+    const id = this.id;
+
+    data.status = 'OK';
+    data.action_id = this.taskSelected.action_id;
+    data.userDesigned_id = this.userDesigned;
+    
+    this.tasks.push(data);
+  }
+
   onRegisterTreatment(){
 
+  }
+  onDeleteTask(task){
+    this.tasks.splice(this.tasks.indexOf(task), 1);
   }
   async createFormWithOrientacao() {
     await this.createFormNew();
@@ -47,6 +88,10 @@ export class TreatmentCadastrarComponent implements OnInit {
       recomendacao: new FormControl('')
     });
 
+    this.createFormAction();
+    
+  }
+  createFormAction(){
     this.formAction = new FormGroup({
       descricao: new FormControl('', [Validators.minLength(10)]),
       qtd: new FormControl('1', [Validators.min(1)]),

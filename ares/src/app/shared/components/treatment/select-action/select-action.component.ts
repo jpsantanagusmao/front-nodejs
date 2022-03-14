@@ -43,7 +43,7 @@ export class SelectActionComponent implements OnInit {
     this.users$ = new Observable(
       (observer: Observer<string | undefined>) => {
         observer.next(obj.search.value)
-      }
+      } 
     ).pipe(
       debounceTime(200),
       distinctUntilChanged(),

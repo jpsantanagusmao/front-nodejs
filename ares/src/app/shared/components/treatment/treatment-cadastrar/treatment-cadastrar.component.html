@@ -31,32 +31,41 @@
             id="recomendacao"></textarea>
     </div>
 </form>
-<form [formGroup]="formAction">
-    <div class="row">
-        <div class="col col-md-6 mt-3">
-            <select-action (onSelected)="onIncludeAction($event)"></select-action>
+<details>
+    <summary>Registro de tasks</summary>
+    <form [formGroup]="formAction">
+        <div class="row">
+            <div class="col col-md-6 mt-3">
+                <select-action (onSelected)="onSelectAction($event)"></select-action>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="descricao">Descrição</label>
+                <input type="text" class="form-control" formControlName="descricao" name="descricao" id="descricao" required>
+            </div>
+            <div class="form-group col-md-1">
+                <label for="qtd">Quantidade</label>
+                <input type="number" mask="000" class="form-control" formControlName="qtd" name="qtd" id="qtd" required>
+                
+            </div>
+            <div class="form-group col-md-1">
+                <label for="valor">Valor</label>
+                <input type="number" mask="000" class="form-control" formControlName="valor" name="valor" id="valor"
+                    required>
+    
+            </div>
+            <div class="col col-md-5 mt-3">
+                <user-select (onSelected)="onSelectUserDesigned($event)"></user-select>
+            </div>
+            <div class="col col-md-5 mt-3">
+                <button class="btn-ok" (click)="onIncludeAction($event)">incluir</button>
+            </div>
+    
         </div>
-        <div class="form-group col-md-12">
-            <label for="descricao">Descrição</label>
-            <input type="text" mask="000" class="form-control" formControlName="descricao" name="descricao" id="descricao" required>
-        </div>
-        <div class="form-group col-md-1">
-            <label for="qtd">Quantidade</label>
-            <input type="number" mask="000" class="form-control" formControlName="qtd" name="qtd" id="qtd" required>
-            
-        </div>
-        <div class="form-group col-md-1">
-            <label for="valor">Valor</label>
-            <input type="number" mask="000" class="form-control" formControlName="valor" name="valor" id="valor"
-                required>
-
-        </div>
-        <div class="col col-md-5 mt-3">
-            <user-select></user-select>
-        </div>
-        <div class="col col-md-5 mt-3">
-            <button class="btn-ok" (click)="onRegisterTreatment()">incluir</button>
-        </div>
-
-    </div>
-</form>
+    </form>
+</details>
+<details open>
+    <summary>
+        Lista de tasks
+    </summary>
+    <task-list [tasks] = "tasks" (deleted)="onDeleteTask($event)"></task-list>
+  </details>

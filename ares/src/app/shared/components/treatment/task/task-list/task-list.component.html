@@ -1,0 +1,38 @@
+<div *ngIf="showData(); else notActions">
+
+    <article class="card" *ngFor="let task of tasks">
+        <header>
+            <h3 class="row">
+                <span (click)="delete(task)" tooltip="Excluir esta ação"
+                    class='col col-md-1 danger-text material-icons'>cancel</span>
+                <p class="col col-md-11 ml-1">
+                    <strong>
+                        {{task.descricao}}
+                    </strong>
+                </p>
+            </h3>
+        </header>
+        <section>
+            <div class="row">
+                <div class="col col-md-6">
+                    <strong>
+                        Quantidade:
+                    </strong>
+                    {{task.qtd}}
+                </div>
+
+                <div class="col col-md-6">
+                    <strong>
+                        Valor
+                    </strong>
+                    {{task.valor}}
+                </div>
+            </div>
+        </section>
+    </article>
+</div>
+<ng-template #notActions>
+    <article class="danger-text card">
+        Não há serviços registrados!
+    </article>
+</ng-template>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { environment as env } from '../../../../environments/environment.prod';
@@ -22,7 +22,7 @@ export class UserService {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/${id}`).pipe(
       //tap(console.log)
     );
-  }
+  } 
   consultacep(cep): Observable<any> {
     const CEP_API = `https://viacep.com.br/ws/${cep}/json`;
     
@@ -35,8 +35,11 @@ export class UserService {
     );
   }
   findByName(name): Observable<any> {
-    return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-name/${name}`).pipe(
-    );
+    if(name){
+      return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-name/${name}`).pipe(
+      );
+    }
+    return EMPTY;
   }
   save(usuario) {
     return this.http.post(`${env.BASE_API_URL}${this.PATH}`, usuario).pipe(

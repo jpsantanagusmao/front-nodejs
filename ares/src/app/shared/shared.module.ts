@@ -31,6 +31,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CitySelectComponent } from './components/city/city-select/city-select.component';
 import { SelectActionComponent } from './components/treatment/select-action/select-action.component';
 import { TreatmentCadastrarComponent } from './components/treatment/treatment-cadastrar/treatment-cadastrar.component';
+import { TaskListComponent } from './components/treatment/task/task-list/task-list.component';
+import { CustomerCadastrarComponent } from './components/customer/customer-cadastrar/customer-cadastrar.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { TreatmentCadastrarComponent } from './components/treatment/treatment-ca
     CitySelectComponent,
     SelectActionComponent,
     TreatmentCadastrarComponent,
+    TaskListComponent,
+    CustomerCadastrarComponent,
   ],
   imports: [
     CommonModule,
