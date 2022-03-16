@@ -40,6 +40,9 @@ export class TreatmentCadastrarComponent implements OnInit {
       this.userDesigned = value.id;
     }
   }
+  onSelectCustomer(value){
+    console.log(value);
+  }
   onSelectAction(value){
     this.formAction.controls.descricao.patchValue(value.description, [Validators.minLength(10)]);
     this.formAction.controls.valor.patchValue(value.valorPorAtendimento);

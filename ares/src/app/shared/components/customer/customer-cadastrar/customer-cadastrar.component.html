@@ -2,83 +2,85 @@
     <form [formGroup]="form">
         <p class="form-tittle">{{SERVICE}}</p>
         <div class="row">
-            <div class="form-group col-md-10">
+            <div class="form-group col col-md-2">
+                <label for="cpf">CPF</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" (click)="localizarRegistro()" id="basic-addon">
+                            <span class="material-icons" tooltip="Localizar registro deste CPF">
+                                manage_search
+                            </span>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" mask="000.000.000-00" formControlName="cpf" name="cpf"
+                        id="cpf" required>
+                </div>
+                <error-message
+                    *ngIf="form.controls.cpf.invalid && (form.controls.cpf.dirty || form.controls.cpf.touched)"
+                    errorMessage="É necessário informar o número do CPF">
+                </error-message>
+            </div>
+            <div class="form-group col col-md-8">
                 <label for="name">Nome</label>
                 <input type="text" class="form-control" formControlName="name" name="name" id="name" required>
                 <error-message
                     *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)"
                     errorMessage="É necessário informar o nome com 10 a 150 caracteres"></error-message>
             </div>
+        </div>
+        <div class="row">
+            <div class="form-group col col-md-4">
+                <label for="nickName">Apelido</label>
+                <input type="text" class="form-control" formControlName="nickName" name="nickName" id="nickName">
+            </div>
+
             <div class="form-group col-md-2">
-                <label for="registry">Registro/login</label>
-                <input type="text" class="form-control" formControlName="registry" name="registry" id="registry"
-                    required>
-                <error-message
-                    *ngIf="form.controls.registry.invalid && (form.controls.registry.dirty || form.controls.registry.touched)"
-                    errorMessage="É necessário informar uma identificação de registro único com 3 a 30 caracateres">
-                </error-message>
+                <label for="birth_date">Data de Nascimento</label>
+                <input type="date" class="form-control" formControlName="birth_date" name="birth_date" id="birth_date">
             </div>
-        </div>
-        <div class="form-group col-md-3">
-            <label for="email">email</label>
-            <input type="text" class="form-control" formControlName="email" name="email" id="email" required>
-            <error-message
-                *ngIf="form.controls.email.invalid && (form.controls.email.dirty || form.controls.email.touched)"
-                errorMessage="É necessário informar um email válido"></error-message>
+
         </div>
         <div class="row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="address">Endereço</label>
-                <input type="text" class="form-control" formControlName="address" name="address" id="address" required>
-                <error-message
-                    *ngIf="form.controls.address.invalid && (form.controls.address.dirty || form.controls.address.touched)"
-                    errorMessage="É necessário informar um endereço com 5 a 150 caracteres"></error-message>
+                <input type="text" class="form-control" formControlName="address" name="address" id="address">
             </div>
-            <div class="form-group col-1">
-                <label for="num">Num</label>
-                <input type="text" mask = "0000" class="form-control" formControlName="num" name="num" id="num">
+            <div class="form-group col-md-1">
+                <label for="num">Número</label>
+                <input type="text" mask='00' class="form-control" formControlName="num" name="num" id="num">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="district">Bairro</label>
-                <input type="text" class="form-control" formControlName="district" name="district" id="district"
-                    required>
-                <error-message
-                    *ngIf="form.controls.district.invalid && (form.controls.district.dirty || form.controls.district.touched)"
-                    errorMessage="É necessário informar o nome do bairro"></error-message>
+                <input type="text" class="form-control" formControlName="district" name="district" id="district">
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="complement">Complemento</label>
                 <input type="text" class="form-control" formControlName="complement" name="complement" id="complement">
             </div>
-            <div class="form-group col-6 col-md-2">
+            <div class="form-group col-md-2">
                 <label for="cep">CEP</label>
-                <input type="text" mask="00.000-000" class="form-control" formControlName="cep" name="cep" id="cep"
-                    required>
-                <error-message
-                    *ngIf="form.controls.cep.invalid && (form.controls.cep.dirty || form.controls.cep.touched)"
-                    errorMessage="É necessário informar o CEP"></error-message>
+                <input type="text" mask="00.000-000" class="form-control" formControlName="cep" name="cep" id="cep">
             </div>
+            <div class="form-group col-md-2">
+                <label for="phone">Telefone</label>
+                <input type="text" mask="(00) 0 0000-0000" class="form-control" formControlName="phone" name="phone" id="phone">
+            </div>
+
         </div>
         <div class="row">
-            <div class="form-group col-md-3">
-                <label for="phone">Num. telefone</label>
-                <input type="text" mask="(00) 0 0000-0000" class="form-control" formControlName="phone" name="phone"
-                id="phone" required>
-                <error-message
-                *ngIf="form.controls.phone.invalid && (form.controls.phone.dirty || form.controls.phone.touched)"
-                errorMessage="É necessário informar um telefone de contato"></error-message>
-            </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col col-md-3">
                 <label for="city">Cidade</label>
                 <city-select id="city" (onSelected)="onSelectCity($event)"></city-select>
             </div>
+            <div class="form-group col col-md-3">
+                <label for="shooling">Escolaridade</label>
+                <schooling-select (onSelected)="onSelectSchooling($event)"></schooling-select>
+            </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2 mb-4">
             <div class="col col-md-3 d-flex justify-content-around">
-                <button class="btn btn-ok" [disabled]="!formok()" (click)="registrar()">Salvar</button>
+                <button class="btn btn-ok" [disabled]="!formOk()" (click)="registrar()">incluir</button>
                 <button class="ml-5 btn btn-cancel" (click)="cancelar()">Cancelar</button>
             </div>
         </div>

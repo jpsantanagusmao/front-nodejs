@@ -32,6 +32,11 @@
     </div>
 </form>
 <details>
+    <summary>Registro de beneficiários
+    </summary>
+    <customer-cadastrar (onSelected)="onSelectCustomer($event)"></customer-cadastrar>
+</details>
+<details>
     <summary>Registro de tasks</summary>
     <form [formGroup]="formAction">
         <div class="row">
@@ -44,12 +49,12 @@
             </div>
             <div class="form-group col-md-1">
                 <label for="qtd">Quantidade</label>
-                <input type="number" mask="000" class="form-control" formControlName="qtd" name="qtd" id="qtd" required>
+                <input type="text" mask="000" class="form-control" formControlName="qtd" name="qtd" id="qtd" required>
                 
             </div>
             <div class="form-group col-md-1">
                 <label for="valor">Valor</label>
-                <input type="number" mask="000" class="form-control" formControlName="valor" name="valor" id="valor"
+                <input type="text" mask="000" class="form-control" formControlName="valor" name="valor" id="valor"
                     required>
     
             </div>

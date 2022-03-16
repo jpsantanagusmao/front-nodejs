@@ -33,6 +33,7 @@ import { SelectActionComponent } from './components/treatment/select-action/sele
 import { TreatmentCadastrarComponent } from './components/treatment/treatment-cadastrar/treatment-cadastrar.component';
 import { TaskListComponent } from './components/treatment/task/task-list/task-list.component';
 import { CustomerCadastrarComponent } from './components/customer/customer-cadastrar/customer-cadastrar.component';
+import { SchoolingSelectComponent } from './components/schooling/schooling-select/schooling-select.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { CustomerCadastrarComponent } from './components/customer/customer-cadas
     TreatmentCadastrarComponent,
     TaskListComponent,
     CustomerCadastrarComponent,
+    SchoolingSelectComponent,
   ],
   imports: [
     CommonModule,
@@ -101,6 +103,7 @@ import { CustomerCadastrarComponent } from './components/customer/customer-cadas
     CitySelectComponent,
     SelectActionComponent,
     TreatmentCadastrarComponent,
+    CustomerCadastrarComponent
   ],
   entryComponents:[
     AlertModalComponent

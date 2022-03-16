@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '../../../../environments/environment.prod';
@@ -16,11 +16,19 @@ export class ProjectService {
   ) { }
 
   findCityByName(name): Observable<any> {
-    if(name){
-      return this.http.get(`${env.BASE_API_URL}${this.PATH_CITY}/find-by-name/${name}`).pipe(
-      );
+
+
+    if (name) {
+
+      const find = name.trim();
+
+      if (find) {
+        return this.http.get(`${env.BASE_API_URL}${this.PATH_CITY}/find-by-name/${find}`).pipe(
+        );
+      }
     }
-    return of();
+
+    return EMPTY;
   }
   save(project): Observable<any> {
     return this.http.post(`${env.BASE_API_URL}${this.PATH}`, project).pipe(

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
@@ -14,8 +14,15 @@ import { CustomerService } from '../customer.service';
 export class CustomerCadastrarComponent implements OnInit {
 
   form: FormGroup;
+
   @Input() id: string;
+
+  @Output() onSelected = new EventEmitter();
+  
   SERVICE: string;
+
+  citySelected: any = {};
+  schoolingSelected: any = {};
 
   ngOnInit(): void {
     this.createFormNew();
@@ -48,18 +55,18 @@ export class CustomerCadastrarComponent implements OnInit {
 
     await this._customerService.findById(this.id).subscribe(
       data => {
-        const user = data;
+        const customer = data;
 
-        obj.form.controls.name.setValue(user.name, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
-        obj.form.controls.registry.setValue(user.registry, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]);
-        obj.form.controls.address.setValue(user.address, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]);
-        obj.form.controls.num.setValue(user.num, [Validators.required, Validators.minLength(1), Validators.maxLength(5)]);
-        obj.form.controls.district.setValue(user.district, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
-        obj.form.controls.complement.setValue(user.complement);
-        obj.form.controls.cep.setValue(user.cep, [Validators.required, Validators.minLength(8), Validators.maxLength(10)]);
-        obj.form.controls.phone.setValue(user.phone, [Validators.required, Validators.minLength(11), Validators.maxLength(15)]);
-
-
+        obj.form.controls.name.setValue(customer.name, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
+        obj.form.controls.cpf.setValue(customer.cpf, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]);
+        obj.form.controls.nickname.setValue(customer.nickname, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
+        obj.form.controls.birth_date.setValue(customer.birth_date, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
+        obj.form.controls.address.setValue(customer.address, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]);
+        obj.form.controls.num.setValue(customer.num, [Validators.required, Validators.minLength(1), Validators.maxLength(5)]);
+        obj.form.controls.district.setValue(customer.district, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
+        obj.form.controls.complement.setValue(customer.complement);
+        obj.form.controls.cep.setValue(customer.cep, [Validators.required, Validators.minLength(8), Validators.maxLength(10)]);
+        obj.form.controls.phone.setValue(customer.phone, [Validators.required, Validators.minLength(11), Validators.maxLength(15)]);
       });
   }
 
@@ -68,23 +75,56 @@ export class CustomerCadastrarComponent implements OnInit {
 
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(150)]),
-      cpf: new FormControl(''),
-      nickName: new FormControl('', [Validators.minLength(5), Validators.maxLength(50)]),
-      registry: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      cpf: new FormControl('', [Validators.required]),
+      nickName: new FormControl(''),
       birth_date: new FormControl(''),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      address: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(150)]),
+      address: new FormControl(''),
       num: new FormControl(''),
-      district: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+      district: new FormControl(''),
       complement: new FormControl(''),
-      cep: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(10)]),
-      phone: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(15)]),
-      city: new FormControl(''),
-      uf: new FormControl(''),
-      schooling: new FormControl(''),
+      cep: new FormControl(''),
+      phone: new FormControl(''),
     })
   }
   onSelectCity(city){
-    console.log(city);
+    this.citySelected = city;
+
+  }
+  onSelectSchooling(schooling){
+    this.schoolingSelected = schooling;
+
+  }
+  formOk(){
+    return true;
+  }
+
+  registrar(){
+    const customer = this.form.value;
+    /**
+     * Define a Cidade e UF
+     */
+    customer.city = this.citySelected.city;
+    customer.uf = this.citySelected.uf;
+
+    /**
+     * Define a escolaridade
+     */
+    customer.schooling = this.schoolingSelected.shooling.
+
+    this.onSelected.emit(customer);
+  }
+
+  cancelar(){
+
+  }
+  
+  localizarRegistro(){
+    alert('Localizar')
+    /**
+     * Localizar registro no banco de dados e configura o form
+     */
+    /**
+     * Caso não encontre, se for no departamento de AGRO pesquisa nos registros de DAps
+     */
   }
 }

@@ -22,10 +22,10 @@ export class UserService {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/${id}`).pipe(
       //tap(console.log)
     );
-  } 
+  }
   consultacep(cep): Observable<any> {
     const CEP_API = `https://viacep.com.br/ws/${cep}/json`;
-    
+
     return this.http.get(`${CEP_API}`).pipe(
       tap(console.log)
     );
@@ -35,12 +35,19 @@ export class UserService {
     );
   }
   findByName(name): Observable<any> {
-    if(name){
-      return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-name/${name}`).pipe(
-      );
+
+    if (name) {
+
+      const find = name.trim();
+
+      if (find) {
+        return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-name/${find}`).pipe(
+        );
+      }
     }
+
     return EMPTY;
-  }
+  };
   save(usuario) {
     return this.http.post(`${env.BASE_API_URL}${this.PATH}`, usuario).pipe(
       //      tap(console.log),
