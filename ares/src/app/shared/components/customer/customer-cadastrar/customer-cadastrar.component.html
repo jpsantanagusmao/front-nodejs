@@ -30,8 +30,8 @@
         </div>
         <div class="row">
             <div class="form-group col col-md-4">
-                <label for="nickName">Apelido</label>
-                <input type="text" class="form-control" formControlName="nickName" name="nickName" id="nickName">
+                <label for="nickname">Apelido</label>
+                <input type="text" class="form-control" formControlName="nickname" name="nickname" id="nickname">
             </div>
 
             <div class="form-group col-md-2">
@@ -70,19 +70,16 @@
         <div class="row">
             <div class="form-group col col-md-3">
                 <label for="city">Cidade</label>
-                <city-select id="city" (onSelected)="onSelectCity($event)"></city-select>
+                <city-select id="city" [city]="cityName" [search]="search" (onSelected)="onSelectCity($event)"></city-select>
             </div>
             <div class="form-group col col-md-3">
                 <label for="shooling">Escolaridade</label>
                 <schooling-select (onSelected)="onSelectSchooling($event)"></schooling-select>
             </div>
-        </div>
-
-        <div class="row mt-2 mb-4">
-            <div class="col col-md-3 d-flex justify-content-around">
-                <button class="btn btn-ok" [disabled]="!formOk()" (click)="registrar()">incluir</button>
-                <button class="ml-5 btn btn-cancel" (click)="cancelar()">Cancelar</button>
+            <div class="col col-md-2 m-2 p-3">
+                <button class="btn btn-ok" [disabled]="!formOk()" (click)="registrar()">+</button>
             </div>
         </div>
+
     </form>
 </div>

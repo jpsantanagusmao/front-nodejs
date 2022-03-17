@@ -34,6 +34,7 @@ import { TreatmentCadastrarComponent } from './components/treatment/treatment-ca
 import { TaskListComponent } from './components/treatment/task/task-list/task-list.component';
 import { CustomerCadastrarComponent } from './components/customer/customer-cadastrar/customer-cadastrar.component';
 import { SchoolingSelectComponent } from './components/schooling/schooling-select/schooling-select.component';
+import { CustomerListComponent } from './components/customer/customer-list/customer-list.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { SchoolingSelectComponent } from './components/schooling/schooling-selec
     TaskListComponent,
     CustomerCadastrarComponent,
     SchoolingSelectComponent,
+    CustomerListComponent,
   ],
   imports: [
     CommonModule,

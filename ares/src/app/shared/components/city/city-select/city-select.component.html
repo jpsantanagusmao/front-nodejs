@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-    <input formControlName="search" [typeahead]="cities$" typeaheadOptionField="city" [typeaheadAsync]="true"
+    <input #cityinput formControlName="search" [typeahead]="cities$" typeaheadOptionField="city" [typeaheadAsync]="true"
         [typeaheadOptionsLimit]="7" [typeaheadMinLength]="0" [typeaheadOrderBy]="sortConfig"
         [typeaheadIsFirstItemActive]="true" [typeaheadSelectFirstItem]="true"
         (typeaheadOnBlur)="typeaheadOnBlur($event)" (typeaheadNoResults)="typeaheadNoResults($event)"

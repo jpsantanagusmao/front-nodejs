@@ -1,5 +1,5 @@
 import { ProjectService } from './../../project/project.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TypeaheadOrder } from 'ngx-bootstrap/typeahead';
 import { Observable, Observer } from 'rxjs';
@@ -11,9 +11,10 @@ import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operato
   styleUrls: ['./city-select.component.css']
 })
 export class CitySelectComponent implements OnInit {
+
   @Input() MESSAGE_PLACE_HOLDER = 'Informe aqui o município'
   @Input() city;
-
+  
   noResult: boolean;
 
   @Output() onSelected = new EventEmitter();
@@ -22,11 +23,12 @@ export class CitySelectComponent implements OnInit {
 
   selected: any;
 
-  search = new FormControl();
+  @Input() search = new FormControl();
 
   form = new FormGroup({
     search: this.search
   });
+
   sortConfig: TypeaheadOrder = {
     direction: 'asc',
     field: 'name'
@@ -35,7 +37,6 @@ export class CitySelectComponent implements OnInit {
   constructor(
     private _projectService: ProjectService
   ) {
-    this.loadForm();
   }
   loadForm() {
     this.form.controls.search.patchValue(this.city);
@@ -57,12 +58,15 @@ export class CitySelectComponent implements OnInit {
       }
       ));
   }
+
   typeaheadOnBlur(event) {
     this.onSelected.emit(event.item);
   }
+
   typeaheadNoResults(event: boolean): void {
     this.noResult = event;
   }
+
   onSelect(event): void {
     this.selected = event.item;
     this.onSelected.emit(event.item);

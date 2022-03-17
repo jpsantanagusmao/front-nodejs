@@ -45,26 +45,27 @@
             </div>
             <div class="form-group col-md-12">
                 <label for="descricao">Descrição</label>
-                <input type="text" class="form-control" formControlName="descricao" name="descricao" id="descricao" required>
+                <input type="text" class="form-control" formControlName="descricao" name="descricao" id="descricao"
+                    required>
             </div>
             <div class="form-group col-md-1">
                 <label for="qtd">Quantidade</label>
                 <input type="text" mask="000" class="form-control" formControlName="qtd" name="qtd" id="qtd" required>
-                
+
             </div>
             <div class="form-group col-md-1">
                 <label for="valor">Valor</label>
                 <input type="text" mask="000" class="form-control" formControlName="valor" name="valor" id="valor"
                     required>
-    
+
             </div>
             <div class="col col-md-5 mt-3">
                 <user-select (onSelected)="onSelectUserDesigned($event)"></user-select>
             </div>
             <div class="col col-md-5 mt-3">
-                <button class="btn-ok" (click)="onIncludeAction($event)">incluir</button>
+                <button class="btn-ok" (click)="onIncludeAction($event)">+</button>
             </div>
-    
+
         </div>
     </form>
 </details>
@@ -72,5 +73,14 @@
     <summary>
         Lista de tasks
     </summary>
-    <task-list [tasks] = "tasks" (deleted)="onDeleteTask($event)"></task-list>
-  </details>
+    <task-list [tasks]="tasks" (deleted)="onDeleteTask($event)"></task-list>
+</details>
+<details open>
+    <summary>
+        Lista de beneficiários
+    </summary>
+    <customer-list [customers]="customers" (deleted)="onDeleteCustomer($event)"></customer-list>
+</details>
+<div>
+    <button class="btn-ok" (click)="onRegisterTreatment()">+</button>
+</div>

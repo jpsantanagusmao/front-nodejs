@@ -1,0 +1,38 @@
+<div *ngIf="showData(); else notActions">
+
+    <article class="card" *ngFor="let customer of customers">
+        <header>
+            <h3 class="row">
+                <span (click)="delete(customer)" tooltip="Excluir este beneficiário"
+                    class='col col-md-1 danger-text material-icons'>cancel</span>
+                <p class="col col-md-11 ml-1">
+                    <strong>
+                        {{customer.name}}
+                    </strong>
+                </p>
+            </h3>
+        </header>
+        <section>
+            <div class="row">
+                <div class="col col-md-6">
+                    <strong>
+                        Cpf:
+                    </strong>
+                    {{customer.cpf}}
+                </div>
+
+                <div class="col col-md-6">
+                    <strong>
+                        Telefone
+                    </strong>
+                    {{customer.phone}}
+                </div>
+            </div>
+        </section>
+    </article>
+</div>
+<ng-template #notActions>
+    <article class="danger-text card">
+        Não há beneficiários registrados!
+    </article>
+</ng-template>

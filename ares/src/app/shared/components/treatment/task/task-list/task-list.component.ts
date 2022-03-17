@@ -20,6 +20,6 @@ export class TaskListComponent implements OnInit {
     return this.tasks.length > 0 ? true : false;
   }
   delete(task){
-    this.deleted.emit(this.tasks);
+    this.deleted.emit(task);
   }
 }

@@ -23,6 +23,10 @@ export class TreatmentCadastrarComponent implements OnInit {
   tasks: any[] = [];
   taskSelected: any = {};
 
+  //Beneficiários a registra para este atendimento
+  customers: any[] = [];
+  customerSelected: any = {};
+
   //Usuário designado para determinada tarefe
   userDesigned: any = {};
 
@@ -42,6 +46,7 @@ export class TreatmentCadastrarComponent implements OnInit {
   }
   onSelectCustomer(value){
     console.log(value);
+    this.customers.push(value);
   }
   onSelectAction(value){
     this.formAction.controls.descricao.patchValue(value.description, [Validators.minLength(10)]);
@@ -71,10 +76,18 @@ export class TreatmentCadastrarComponent implements OnInit {
   }
 
   onRegisterTreatment(){
-
+    const treatment = this.form.value;
+    treatment.actions = this.tasks;
+    treatment.customers = this.customers;
+    
+    console.log(treatment);
   }
   onDeleteTask(task){
     this.tasks.splice(this.tasks.indexOf(task), 1);
+  }
+  onDeleteCustomer(customer){
+    this.customers.splice(this.customers.indexOf(customer), 1);
+
   }
   async createFormWithOrientacao() {
     await this.createFormNew();
