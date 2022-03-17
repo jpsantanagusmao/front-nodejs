@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
+import { TreatmentService } from '../treatment.service';
 
 @Component({
   selector: 'treatment-cadastrar',
@@ -30,7 +31,9 @@ export class TreatmentCadastrarComponent implements OnInit {
   //Usuário designado para determinada tarefe
   userDesigned: any = {};
 
-  constructor() { }
+  constructor(
+    private _treatmentService: TreatmentService
+  ) { }
 
   ngOnInit(): void {
     if(this.orientacao){
@@ -80,7 +83,14 @@ export class TreatmentCadastrarComponent implements OnInit {
     treatment.actions = this.tasks;
     treatment.customers = this.customers;
     
-    console.log(treatment);
+    this._treatmentService.create(treatment).subscribe(
+      data=>{
+        alert('Registrado');
+      },
+      error=>{
+        alert('não foi possivel');
+      }
+    );
   }
   onDeleteTask(task){
     this.tasks.splice(this.tasks.indexOf(task), 1);
