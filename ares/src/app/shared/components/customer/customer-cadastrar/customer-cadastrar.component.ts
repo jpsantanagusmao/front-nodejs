@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { UserCacheService } from 'src/app/core/user-cache.service';
-import { v4 as uuidv4 } from 'uuid';
 import { CustomerService } from '../customer.service';
 
 @Component({
@@ -41,10 +40,10 @@ export class CustomerCadastrarComponent implements OnInit {
   }
   async loadForm() {
     if (this.id) {
-      this.SERVICE = 'Atualizar dados de Usuário';
+      this.SERVICE = 'Atualizar dados de beneficiário';
       await this.createForm();
     } else {
-      this.SERVICE = 'Cadastrar Usuário';
+      this.SERVICE = 'Cadastrar beneficiário';
       await this.createFormNew();
     }
   }

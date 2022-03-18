@@ -6,6 +6,7 @@ import { Class4CadastrarUsuarioComponent } from './components/class4-cadastrar-u
 import { Class4HomeComponent } from './components/class4-home/class4-home.component';
 import { Class4UsersAllComponent } from './components/class4-users-all/class4-users-all.component';
 import { TreatmentCadastrarComponent } from 'src/app/shared/components/treatment/treatment-cadastrar/treatment-cadastrar.component';
+import { Class4CadastrarTreatmentComponent } from './components/class4-cadastrar-treatment/class4-cadastrar-treatment.component';
 
 
 const routes: Routes = [
@@ -32,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'service',
-    component: TreatmentCadastrarComponent
+    component: Class4CadastrarTreatmentComponent
   },
 ];
 

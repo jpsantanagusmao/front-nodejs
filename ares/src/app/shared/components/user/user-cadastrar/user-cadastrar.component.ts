@@ -20,7 +20,7 @@ export class UserCadastrarComponent implements OnInit {
   @Input() id: string;
 
   usuario: any;
-
+ 
   @Output() register = new EventEmitter();
 
   _roleSelected: string;

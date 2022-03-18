@@ -15,7 +15,7 @@ export class Class4CadastrarUsuarioComponent implements OnInit {
 
   usuario: any = {};
   _loading: boolean = false;
- 
+  
   constructor(
     private usercache: UserCacheService,
     private messageService: AlertMessagesService,

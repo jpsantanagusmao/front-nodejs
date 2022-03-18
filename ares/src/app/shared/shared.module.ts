@@ -35,6 +35,8 @@ import { TaskListComponent } from './components/treatment/task/task-list/task-li
 import { CustomerCadastrarComponent } from './components/customer/customer-cadastrar/customer-cadastrar.component';
 import { SchoolingSelectComponent } from './components/schooling/schooling-select/schooling-select.component';
 import { CustomerListComponent } from './components/customer/customer-list/customer-list.component';
+import { DapWebComponent } from './components/dap-mda/dap-web/dap-web.component';
+import { DapWarningComponent } from './components/dap-mda/dap-warning/dap-warning.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { CustomerListComponent } from './components/customer/customer-list/custo
     CustomerCadastrarComponent,
     SchoolingSelectComponent,
     CustomerListComponent,
+    DapWebComponent,
+    DapWarningComponent,
   ],
   imports: [
     CommonModule,

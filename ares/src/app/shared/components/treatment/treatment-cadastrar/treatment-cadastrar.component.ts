@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { statusModel } from 'src/app/shared/models/status.model';
 import { v4 as uuidv4 } from 'uuid';
 import { TreatmentService } from '../treatment.service';
 
@@ -14,8 +15,12 @@ export class TreatmentCadastrarComponent implements OnInit {
   form: FormGroup;
   formAction: FormGroup;
 
+  @Input() local: string;
+  @Input() situacao: string;
   @Input() orientacao: string;
-  
+  @Input() recomendacao: string;
+
+  @Output() onStore = new EventEmitter();
   //ID para esta operação
 
   id: string = uuidv4()
@@ -42,15 +47,17 @@ export class TreatmentCadastrarComponent implements OnInit {
       this.createFormNew();
     }
   }
+
   onSelectUserDesigned(value){
     if(value){
       this.userDesigned = value.id;
     }
   }
+
   onSelectCustomer(value){
-    console.log(value);
     this.customers.push(value);
   }
+
   onSelectAction(value){
     this.formAction.controls.descricao.patchValue(value.description, [Validators.minLength(10)]);
     this.formAction.controls.valor.patchValue(value.valorPorAtendimento);
@@ -61,17 +68,17 @@ export class TreatmentCadastrarComponent implements OnInit {
     this.taskSelected.action_id = value.id;
 
   }
-  onRemoveAction($event){
 
+  onRemoveAction($event){
+ 
   }
+  
   onIncludeAction($event){
     const data = this.formAction.value;
-    console.log('Antes dos ajuste');
-    console.log(JSON.stringify(data));
 
     const id = this.id;
 
-    data.status = 'OK';
+    data.status = statusModel.INICIADA;
     data.action_id = this.taskSelected.action_id;
     data.userDesigned_id = this.userDesigned;
     
@@ -83,26 +90,24 @@ export class TreatmentCadastrarComponent implements OnInit {
     treatment.actions = this.tasks;
     treatment.customers = this.customers;
     
-    this._treatmentService.create(treatment).subscribe(
-      data=>{
-        alert('Registrado');
-      },
-      error=>{
-        alert('não foi possivel');
-      }
-    );
+    this.onStore.emit(treatment);
+
   }
+
   onDeleteTask(task){
     this.tasks.splice(this.tasks.indexOf(task), 1);
   }
+
   onDeleteCustomer(customer){
     this.customers.splice(this.customers.indexOf(customer), 1);
 
   }
+
   async createFormWithOrientacao() {
     await this.createFormNew();
     this.form.controls.orientacao.patchValue(this.orientacao);
   }
+
   async createFormNew() {
     const hoje: string = moment().format('YYYY-MM-DD');
 
