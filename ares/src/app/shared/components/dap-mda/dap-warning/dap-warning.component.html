@@ -1,23 +1,27 @@
 <form [formGroup]="form">
+    <p class="mt-2 form-tittle">DAP - Consultar irregularidades por CPF</p>
     <div class="row">
-        <div class="form-group col col-md-3">
-            <label for="cpf">Informe o CPF do produtor</label>
+
+        <div class="form-group col col-md-2">
+            <label for="search">CPF</label>
             <div class="input-group mb-3">
-                <input type="text" mask="000.000.000-00" formControlName="search" name="search" id="cpf" required>
-                <div class="input-group-prepend ml-2">
+                <div class="input-group-prepend">
                     <span class="input-group-text" (click)="emitReport()" id="basic-addon">
-                        <span class="material-icons" tooltip="Consultar irregularidades">
+                        <span class="material-icons" tooltip="Localizar registro deste CPF">
                             manage_search
                         </span>
                     </span>
                 </div>
+                <input type="text" class="form-control" mask="000.000.000-00"
+                    formControlName="search" name="search" id="search" required>
             </div>
             <error-message
                 *ngIf="form.controls.search.invalid && (form.controls.search.dirty || form.controls.search.touched)"
-                errorMessage="É necessário informar o CPF do beneficiário"></error-message>
+                errorMessage="É necessário informar o search do beneficiário"></error-message>
         </div>
 
     </div>
+
 </form>
 <div *ngIf="dapirregular$ | async as dapirregular ">
     <div *ngFor="let d of dapirregular" class="irregularidade">
@@ -81,3 +85,4 @@
     </div>
     <button class="btn btn-ok" (click)="registerTreatment(dapirregular)">Registrar atendimento</button>
 </div>
+<ares-loading *ngIf="_loading" class="spinner"></ares-loading>

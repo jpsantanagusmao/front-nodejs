@@ -70,8 +70,8 @@ import { AnaliseSoloComponent } from './components/agro/analise-solo/analise-sol
     CustomerCadastrarComponent,
     SchoolingSelectComponent,
     CustomerListComponent,
-    DapWebComponent,
     DapWarningComponent,
+    DapWebComponent,
     AnaliseSoloComponent,
   ],
   imports: [
@@ -114,6 +114,8 @@ import { AnaliseSoloComponent } from './components/agro/analise-solo/analise-sol
     CustomerCadastrarComponent,
     AnaliseSoloComponent,
     DapWarningComponent,
+    DapWebComponent,
+    AnaliseSoloComponent
   ],
   entryComponents:[
     AlertModalComponent

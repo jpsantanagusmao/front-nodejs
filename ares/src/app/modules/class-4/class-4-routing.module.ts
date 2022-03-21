@@ -8,6 +8,9 @@ import { Class4UsersAllComponent } from './components/class4-users-all/class4-us
 import { TreatmentCadastrarComponent } from 'src/app/shared/components/treatment/treatment-cadastrar/treatment-cadastrar.component';
 import { Class4CadastrarTreatmentComponent } from './components/class4-cadastrar-treatment/class4-cadastrar-treatment.component';
 import { AnaliseSoloComponent } from 'src/app/shared/components/agro/analise-solo/analise-solo.component';
+import { DapWebComponent } from 'src/app/shared/components/dap-mda/dap-web/dap-web.component';
+import { Class4DapQueryComponent } from './components/class4-dap-query/class4-dap-query.component';
+import { Class4DapAcerbityComponent } from './components/class4-dap-acerbity/class4-dap-acerbity.component';
 
 
 const routes: Routes = [
@@ -41,8 +44,12 @@ const routes: Routes = [
     component: AnaliseSoloComponent
   },
   {
-    path: 'ater-dap-irregularidade',
-    component: AnaliseSoloComponent
+    path: 'ater-dap-acerbity',
+    component: Class4DapAcerbityComponent
+  },
+  {
+    path: 'ater-dap-query',
+    component: Class4DapQueryComponent
   },
 ];
 

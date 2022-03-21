@@ -96,10 +96,7 @@ export class DapService {
       )
     );
   }
-  findByCpf(cpf) {
-    return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-cpf/${cpf}`).pipe(
-      //delay(3000),
-      //tap(console.log)
-    );
+  findByCpf(cpf): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-cpf/${cpf}`);
   }
 }

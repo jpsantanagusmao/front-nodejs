@@ -1,13 +1,13 @@
-import { DapService } from './../../dap-mda/dap.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DapService } from 'src/app/shared/components/dap-mda/dap.service';
 
 @Component({
-  selector: 'app-analise-solo',
-  templateUrl: './analise-solo.component.html',
-  styleUrls: ['./analise-solo.component.css']
+  selector: 'app-class4-dap-query',
+  templateUrl: './class4-dap-query.component.html',
+  styleUrls: ['./class4-dap-query.component.css']
 })
-export class AnaliseSoloComponent implements OnInit {
+export class Class4DapQueryComponent implements OnInit {
 
   
   constructor(

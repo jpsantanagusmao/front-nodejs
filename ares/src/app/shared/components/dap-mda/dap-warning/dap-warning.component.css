@@ -10,3 +10,8 @@
 #basic-addon{
     cursor: pointer;
 }
+.ares-btn{
+    align-items: center;
+    align-self: center;
+    width: 15px;
+}

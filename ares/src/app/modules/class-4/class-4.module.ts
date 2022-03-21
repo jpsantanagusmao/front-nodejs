@@ -8,10 +8,16 @@ import { Class4CadastrarUsuarioComponent } from './components/class4-cadastrar-u
 import { Class4CadastrarProjetoComponent } from './components/class4-cadastrar-projeto/class4-cadastrar-projeto.component';
 import { Class4UsersAllComponent } from './components/class4-users-all/class4-users-all.component';
 import { Class4CadastrarTreatmentComponent } from './components/class4-cadastrar-treatment/class4-cadastrar-treatment.component';
+import { Class4DapQueryComponent } from './components/class4-dap-query/class4-dap-query.component';
+import { Class4DapAcerbityComponent } from './components/class4-dap-acerbity/class4-dap-acerbity.component';
+import { Class4PerdaDeCargaCalcComponent } from './components/class4-perda-de-carga-calc/class4-perda-de-carga-calc.component';
+import { Class4DimPastagemComponent } from './components/class4-dim-pastagem/class4-dim-pastagem.component';
+import { Class4DimCapineiraComponent } from './components/class4-dim-capineira/class4-dim-capineira.component';
+import { Class4AnaliseSoloComponent } from './components/class4-analise-solo/class4-analise-solo.component';
 
 
 @NgModule({
-  declarations: [Class4HomeComponent, Class4CadastrarUsuarioComponent, Class4CadastrarProjetoComponent, Class4UsersAllComponent, Class4CadastrarTreatmentComponent],
+  declarations: [Class4HomeComponent, Class4CadastrarUsuarioComponent, Class4CadastrarProjetoComponent, Class4UsersAllComponent, Class4CadastrarTreatmentComponent, Class4DapQueryComponent, Class4DapAcerbityComponent, Class4PerdaDeCargaCalcComponent, Class4DimPastagemComponent, Class4DimCapineiraComponent, Class4AnaliseSoloComponent],
   imports: [
     CommonModule,
     Class4RoutingModule,

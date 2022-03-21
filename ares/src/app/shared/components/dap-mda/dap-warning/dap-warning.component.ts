@@ -1,9 +1,8 @@
 import { DapService } from './../dap.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { DapIrregular } from '../dap-irregular.model';
 import { Observable } from 'rxjs';
-import { tap, switchMap, map } from 'rxjs/operators';
+import { tap, delay } from 'rxjs/operators';
 
 @Component({
   selector: 'dap-warning',
@@ -15,6 +14,8 @@ export class DapWarningComponent implements OnInit {
   @Output() onReport = new EventEmitter();
 
   form: FormGroup;
+
+  _loading: boolean = Boolean(false);
 
   //dapirregular: any[] = [];
   dapirregular$: Observable<any>;
@@ -38,11 +39,22 @@ export class DapWarningComponent implements OnInit {
     const cpf = this.form.controls.search.value;
     const obj = this;
 
-    this.dapirregular$ = this._dapService.queryAcerbity(cpf).pipe(
-      tap(this.defineAter)
-    );
+    await this.loadingToggle();
 
+    this.dapirregular$ = await this._dapService.queryAcerbity(cpf).pipe(
+      delay(3000),
+      tap((x) => {
+        obj.defineAter(x).then(x => {
+          obj.loadingToggle();
+        });
+      })
+    );
   }
+ 
+  async loadingToggle() {
+    this._loading = !(Boolean(this._loading));
+  }
+
   registerTreatment(dap) {
     const obj = this;
     const rater = this.defineAter(dap).then(function (a) {

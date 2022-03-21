@@ -31,7 +31,7 @@ export class CitySelectComponent implements OnInit {
 
   sortConfig: TypeaheadOrder = {
     direction: 'asc',
-    field: 'name'
+    field: 'city'
   };
 
   constructor(
@@ -39,8 +39,7 @@ export class CitySelectComponent implements OnInit {
   ) {
   }
   loadForm() {
-    this.form.controls.search.patchValue(this.city);
-
+    //this.form.controls.search.patchValue(this.city);
   }
   ngOnInit(): void {
     const obj = this;

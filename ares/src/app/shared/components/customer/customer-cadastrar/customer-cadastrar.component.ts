@@ -17,6 +17,8 @@ export class CustomerCadastrarComponent implements OnInit {
 
   form: FormGroup;
 
+  _loading: boolean = Boolean(false);
+
   @Input() id: string;
 
   @Output() onSelected = new EventEmitter();
@@ -43,6 +45,11 @@ export class CustomerCadastrarComponent implements OnInit {
     this.id = this._route.snapshot.paramMap.get('id');
     this.loadForm();
   }
+
+  async loadingToggle() {
+    this._loading = !(Boolean(this._loading));
+  }
+
   async loadForm() {
     if (this.id) {
       this.SERVICE = 'Atualizar dados de beneficiário';
@@ -152,11 +159,12 @@ export class CustomerCadastrarComponent implements OnInit {
      */
     let customerWeb: any;
     const obj = this;
+    
+    obj._loading = Boolean(true);
 
     await this._customerService.findByCpf(this.form.controls.cpf.value).subscribe(
       data => {
         customerWeb = data;
-        console.log(data);
 
         if (data != null) {
           const customer = {
@@ -174,10 +182,12 @@ export class CustomerCadastrarComponent implements OnInit {
             schooling: ''
           }
           obj.setForm(customer);
-
+          
         }
+        obj.loadingToggle();
       },
       error => {
+        obj.loadingToggle();
         console.log(error);
         this._messageService.handleError('Registro de DAP', 'Não foi ppossível localizar o registro desta pessoa.')
       }
@@ -192,10 +202,16 @@ export class CustomerCadastrarComponent implements OnInit {
      */
     let customerWeb: any;
     const obj = this;
+    
+    obj._loading = Boolean(true);
 
     await this._dapService.findByCpf(this.form.controls.cpf.value).subscribe(
       data => {
         customerWeb = data;
+
+        console.log(data);
+        const validade = moment(data['validade']).format('DD/MM/YYYY');
+        this._messageService.handleInfo('Declaração de aptidão', `A DAP ${data['numDap']} vence em ${validade}.`);
 
         const customer = {
           name: customerWeb.titular.nome,
@@ -212,9 +228,11 @@ export class CustomerCadastrarComponent implements OnInit {
           schooling: ''
         }
         obj.setForm(customer);
+        obj.loadingToggle();
       },
       error => {
         console.log(error);
+        obj.loadingToggle();
         this._messageService.handleError('Registro de DAP', 'Não foi ppossível localizar o registro desta pessoa.')
       }
     );
