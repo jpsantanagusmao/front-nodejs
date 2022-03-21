@@ -82,5 +82,6 @@
     <customer-list [customers]="customers" (deleted)="onDeleteCustomer($event)"></customer-list>
 </details>
 <div>
-    <button class="btn-ok" (click)="onRegisterTreatment()">+</button>
+    <button class="btn btn-ok" [disabled]="!formOk()" (click)="onRegisterTreatment()">Registrar atendimento</button>
 </div>
+<ares-loading *ngIf="_loading" class="spinner"></ares-loading>

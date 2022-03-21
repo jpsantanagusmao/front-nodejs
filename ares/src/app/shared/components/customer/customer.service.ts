@@ -10,10 +10,10 @@ import { environment as env } from '../../../../environments/environment.prod';
 })
 export class CustomerService {
   
-  private PATH: string = 'users';
+  private PATH: string = 'customers';
   
-  findById(id: string): Observable<any> {
-    return this.http.get(`${env.BASE_API_URL}${this.PATH}/${id}`).pipe(
+  findByCpf(cpf: string): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/${cpf}`).pipe(
       //tap(console.log)
     );
   }

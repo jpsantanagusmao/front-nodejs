@@ -1,0 +1,12 @@
+.irregularidade{
+    border-radius: 15px;
+    border-color: var(--secondary) 1px solid;
+    padding: 15px;
+}
+.irregularidade:hover{
+    background-color: var(--mid-color);
+    border-color: var(--secondary) 3px solid;
+}
+#basic-addon{
+    cursor: pointer;
+}

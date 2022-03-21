@@ -6,13 +6,13 @@
                 <label for="cpf">CPF</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" (click)="localizarRegistro()" id="basic-addon">
+                        <span class="input-group-text" (click)="localizarRegistroMda()" id="basic-addon">
                             <span class="material-icons" tooltip="Localizar registro deste CPF">
                                 manage_search
                             </span>
                         </span>
                     </div>
-                    <input type="text" class="form-control" mask="000.000.000-00" formControlName="cpf" name="cpf"
+                    <input type="text" (change)="onFindInAres()" class="form-control" mask="000.000.000-00" formControlName="cpf" name="cpf"
                         id="cpf" required>
                 </div>
                 <error-message
@@ -77,7 +77,8 @@
                 <schooling-select (onSelected)="onSelectSchooling($event)"></schooling-select>
             </div>
             <div class="col col-md-2 m-2 p-3">
-                <button class="btn btn-ok" [disabled]="!formOk()" (click)="registrar()">+</button>
+                <button class="btn btn-ok" [disabled]="!formOk()" (click)="registrar()">+
+                </button>
             </div>
         </div>
 

@@ -12,6 +12,8 @@ import { AlertMessagesService } from 'src/app/shared/services/alert-messages.ser
 })
 export class Class4CadastrarTreatmentComponent implements OnInit {
 
+  ater:any;
+
   constructor(
     private _treatmentService: TreatmentService,
     private _usercache: UserCacheService,
@@ -27,6 +29,7 @@ export class Class4CadastrarTreatmentComponent implements OnInit {
     this._treatmentService.create(treatment).subscribe(
       data=>{
         this._messageService.handleSuccess('Sucesso', 'Cadastro de atendimentos realizado.');
+        this._usercache.gotoHome();
       },
       error=>{
         this._messageService.handleError('Erro', 'Erro ao realiza este cadastro');

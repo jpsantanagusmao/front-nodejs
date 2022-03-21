@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { statusModel } from 'src/app/shared/models/status.model';
 import { v4 as uuidv4 } from 'uuid';
@@ -14,11 +15,15 @@ export class TreatmentCadastrarComponent implements OnInit {
   
   form: FormGroup;
   formAction: FormGroup;
+  _loading: boolean = false;
 
-  @Input() local: string;
-  @Input() situacao: string;
-  @Input() orientacao: string;
-  @Input() recomendacao: string;
+
+  @Input() ater: any = {
+    local: '',
+    situacao: '',
+    orientecao: '',
+    recomendacao: ''
+  }
 
   @Output() onStore = new EventEmitter();
   //ID para esta operação
@@ -37,11 +42,16 @@ export class TreatmentCadastrarComponent implements OnInit {
   userDesigned: any = {};
 
   constructor(
-    private _treatmentService: TreatmentService
+    private _treatmentService: TreatmentService,
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    if(this.orientacao){
+    const obj = this;
+    this._route.params.subscribe(params => {
+      obj.ater = params;
+   });
+    if(this.ater?.orientacao){
       this.createFormWithOrientacao()
     }else{
       this.createFormNew();
@@ -93,7 +103,12 @@ export class TreatmentCadastrarComponent implements OnInit {
     this.onStore.emit(treatment);
 
   }
-
+  formOk(){
+    if(this.form.valid===true && this.tasks.length>0 && this.customers.length>0){
+      return true;
+    }
+    return false;
+  }
   onDeleteTask(task){
     this.tasks.splice(this.tasks.indexOf(task), 1);
   }
@@ -105,7 +120,10 @@ export class TreatmentCadastrarComponent implements OnInit {
 
   async createFormWithOrientacao() {
     await this.createFormNew();
-    this.form.controls.orientacao.patchValue(this.orientacao);
+    this.form.controls.situacao.patchValue(this.ater.situacao);
+    this.form.controls.orientacao.patchValue(this.ater.orientacao);
+    this.form.controls.recomendacao.patchValue(this.ater.recomendacao);
+    this.form.controls.local.patchValue(this.ater.local);
   }
 
   async createFormNew() {

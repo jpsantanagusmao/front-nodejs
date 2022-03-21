@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
 
   _loading: boolean = false;
-  
+   
   bsModalRef: BsModalRef;
 
   constructor(

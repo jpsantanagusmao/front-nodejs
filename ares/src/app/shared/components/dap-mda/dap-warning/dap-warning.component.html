@@ -1,1 +1,83 @@
-<p>dap-warning works!</p>
+<form [formGroup]="form">
+    <div class="row">
+        <div class="form-group col col-md-3">
+            <label for="cpf">Informe o CPF do produtor</label>
+            <div class="input-group mb-3">
+                <input type="text" mask="000.000.000-00" formControlName="search" name="search" id="cpf" required>
+                <div class="input-group-prepend ml-2">
+                    <span class="input-group-text" (click)="emitReport()" id="basic-addon">
+                        <span class="material-icons" tooltip="Consultar irregularidades">
+                            manage_search
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <error-message
+                *ngIf="form.controls.search.invalid && (form.controls.search.dirty || form.controls.search.touched)"
+                errorMessage="É necessário informar o CPF do beneficiário"></error-message>
+        </div>
+
+    </div>
+</form>
+<div *ngIf="dapirregular$ | async as dapirregular ">
+    <div *ngFor="let d of dapirregular" class="irregularidade">
+        <div class="row border border-bottom-1 border-secondary">
+            <div><strong>Número da DAP:</strong> {{d.numDap}}</div>
+            <div class="row">
+                <div class="col col-md-6"><strong>Titular:</strong> {{d.titular1}}</div>
+                <div class="col col-md-2"><strong>CPF:</strong> {{d.titular1cpf}}</div>
+            </div>
+            <div class="row">
+                <div class="col col-md-6"><strong>Emissor:</strong> {{d.entidadeEmissora?.nome}}</div>
+                <div class="col col-md-2"><strong>CNPJ:</strong> {{d.entidadeEmissora?.cnpj}}</div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div>
+                    <strong>
+                        Emitida em:
+                    </strong>
+                    {{d.dataEmissao}}
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <strong>
+                        Válida até:
+                    </strong>
+                    {{d.dataValidade}}
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <strong>
+                        Enquadramento:
+                    </strong>
+                    {{d.enquadramento}}
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <strong>Município:</strong>
+                    {{d.municipio}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-6">
+                <strong>
+                    Motivo de cancelamento
+                </strong>
+            </div>
+            <div class="col col-md-6">
+                <strong>Providência a tomar</strong>
+            </div>
+            <div class="row" *ngFor="let m of d.motivos">
+                <div class="col col-md-6">{{m.descricao}}</div>
+                <div class="col col-md-6">{{m.providencia}}</div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-ok" (click)="registerTreatment(dapirregular)">Registrar atendimento</button>
+</div>

@@ -110,6 +110,9 @@ export class UserCacheService {
     
   }
 
+  /**
+   * Retorna à página principal do usuário logado
+   */
   gotoHome(){
     this.token = localStorage.getItem(UserCacheService.TOKEN_STORAGE_VAR);
     this._GetTokenDecoded();

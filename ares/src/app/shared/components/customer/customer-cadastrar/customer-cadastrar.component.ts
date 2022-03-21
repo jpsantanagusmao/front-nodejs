@@ -1,9 +1,12 @@
+import { DapService } from './../../dap-mda/dap.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { CustomerService } from '../customer.service';
+import { AlertComponent } from 'ngx-bootstrap/alert';
+import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 
 @Component({
   selector: 'customer-cadastrar',
@@ -34,6 +37,8 @@ export class CustomerCadastrarComponent implements OnInit {
     private usercache: UserCacheService,
     private _route: ActivatedRoute,
     private _customerService: CustomerService,
+    private _dapService: DapService,
+    private _messageService: AlertMessagesService
   ) {
     this.id = this._route.snapshot.paramMap.get('id');
     this.loadForm();
@@ -56,7 +61,7 @@ export class CustomerCadastrarComponent implements OnInit {
      */
     const obj = this;
 
-    await this._customerService.findById(this.id).subscribe(
+    await this._customerService.findByCpf(this.id).subscribe(
       data => {
         const customer = data;
 
@@ -74,8 +79,8 @@ export class CustomerCadastrarComponent implements OnInit {
   }
   async setForm(customer) {
 
-    this.cityName = customer.city;
-    this.search.setValue(this.cityName);
+    //this.cityName = customer.city;
+    //this.search.setValue(this.cityName);
     /**
      * Configura o formulário
      */
@@ -91,7 +96,6 @@ export class CustomerCadastrarComponent implements OnInit {
     obj.form.controls.cep.setValue(customer.cep, [Validators.required, Validators.minLength(8), Validators.maxLength(10)]);
     obj.form.controls.phone.setValue(customer.phone, [Validators.required, Validators.minLength(11), Validators.maxLength(15)]);
   }
-
 
   async createFormNew() {
 
@@ -117,7 +121,9 @@ export class CustomerCadastrarComponent implements OnInit {
 
   }
   formOk() {
-    return true;
+    if ( this.form.valid === true )
+      return true;
+    return false;
   }
 
   registrar() {
@@ -140,26 +146,78 @@ export class CustomerCadastrarComponent implements OnInit {
 
   }
 
-  async localizarRegistro() {
+  async onFindInAres() {
     /**
      * Localizar registro no banco de dados e configura o form
      */
+    let customerWeb: any;
+    const obj = this;
 
-    const customer = {
-      name: 'José de giota',
-      nickname: 'Zé placido',
-      cpf: '04459471604',
-      birth_date: moment().format('YYYY-MM-DD'),
-      address: 'Rua ali mesmo',
-      num: '22',
-      district: 'Centro',
-      complement: '***',
-      cep: '39610000',
-      phone: '33999065029',
-      city: 'Itinga',
-      schooling: 'Ensino Fundamental'
-    }
-    await this.setForm(customer);
+    await this._customerService.findByCpf(this.form.controls.cpf.value).subscribe(
+      data => {
+        customerWeb = data;
+        console.log(data);
+
+        if (data != null) {
+          const customer = {
+            name: customerWeb?.name,
+            nickname: `${customerWeb?.nickname}`,
+            cpf: customerWeb.cpf,
+            birth_date: moment(customerWeb.nascimento).format('YYYY-MM-DD'),
+            address: customerWeb?.address,
+            num: customerWeb?.num,
+            district: customerWeb?.district,
+            complement: customerWeb?.complement,
+            cep: customerWeb?.cep,
+            phone: customerWeb?.phone,
+            city: customerWeb?.city,
+            schooling: ''
+          }
+          obj.setForm(customer);
+
+        }
+      },
+      error => {
+        console.log(error);
+        this._messageService.handleError('Registro de DAP', 'Não foi ppossível localizar o registro desta pessoa.')
+      }
+    );
+    /**
+     * Caso não encontre, se for no departamento de AGRO pesquisa nos registros de DAps
+     */
+  }
+  async localizarRegistroMda() {
+    /**
+     * Localizar registro no banco de dados e configura o form
+     */
+    let customerWeb: any;
+    const obj = this;
+
+    await this._dapService.findByCpf(this.form.controls.cpf.value).subscribe(
+      data => {
+        customerWeb = data;
+
+        const customer = {
+          name: customerWeb.titular.nome,
+          nickname: `Filho de ${customerWeb.titular.mae}`,
+          cpf: customerWeb.titular.cpf,
+          birth_date: moment(customerWeb.titular.nascimento).format('YYYY-MM-DD'),
+          address: customerWeb.titular.endereco,
+          num: '',
+          district: '',
+          complement: '',
+          cep: customerWeb.titular.cep,
+          phone: '',
+          city: '',
+          schooling: ''
+        }
+        obj.setForm(customer);
+      },
+      error => {
+        console.log(error);
+        this._messageService.handleError('Registro de DAP', 'Não foi ppossível localizar o registro desta pessoa.')
+      }
+    );
     /**
      * Caso não encontre, se for no departamento de AGRO pesquisa nos registros de DAps
      */

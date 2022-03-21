@@ -37,6 +37,7 @@ import { SchoolingSelectComponent } from './components/schooling/schooling-selec
 import { CustomerListComponent } from './components/customer/customer-list/customer-list.component';
 import { DapWebComponent } from './components/dap-mda/dap-web/dap-web.component';
 import { DapWarningComponent } from './components/dap-mda/dap-warning/dap-warning.component';
+import { AnaliseSoloComponent } from './components/agro/analise-solo/analise-solo.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { DapWarningComponent } from './components/dap-mda/dap-warning/dap-warnin
     CustomerListComponent,
     DapWebComponent,
     DapWarningComponent,
+    AnaliseSoloComponent,
   ],
   imports: [
     CommonModule,
@@ -109,7 +111,9 @@ import { DapWarningComponent } from './components/dap-mda/dap-warning/dap-warnin
     CitySelectComponent,
     SelectActionComponent,
     TreatmentCadastrarComponent,
-    CustomerCadastrarComponent
+    CustomerCadastrarComponent,
+    AnaliseSoloComponent,
+    DapWarningComponent,
   ],
   entryComponents:[
     AlertModalComponent
