@@ -27,4 +27,17 @@ export class TreatmentService {
     return EMPTY;
   }
 
+  /**
+   * Modelo de código para impressão de documento
+   */
+  printDiv(n) {
+    var r = document.getElementById(n), u = r.cloneNode(!0), i = document.createElement("div"), t;
+    return i.id = "printSection",
+    i.appendChild(u),
+    document.body.insertBefore(i, document.body.firstChild),
+    window.print(),
+    t = document.getElementById("printSection"),
+    t != null && t.parentNode.removeChild(t),
+    !0
+}
 }

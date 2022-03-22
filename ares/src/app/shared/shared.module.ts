@@ -85,10 +85,10 @@ import { CnpjPipePipe } from './pipe/cnpj-pipe.pipe';
     ReactiveFormsModule,
     AlertModule
   ],
-  providers:[
+  providers: [
     BsModalService
   ],
-  exports:[
+  exports: [
     LoadingComponent,
     AlertModalComponent,
     AuthHeaderComponent,
@@ -110,17 +110,20 @@ import { CnpjPipePipe } from './pipe/cnpj-pipe.pipe';
     ThemesSelectComponent,
     ProjectCadastrarComponent,
     ActionCreateComponent,
+    ActionTableComponent,
     CitySelectComponent,
     SelectActionComponent,
     TreatmentCadastrarComponent,
+    TaskListComponent,
     CustomerCadastrarComponent,
-    AnaliseSoloComponent,
+    SchoolingSelectComponent,
+    CustomerListComponent,
     DapWarningComponent,
     DapWebComponent,
     AnaliseSoloComponent,
-    CnpjPipePipe
+    CnpjPipePipe,
   ],
-  entryComponents:[
+  entryComponents: [
     AlertModalComponent
   ]
 })

@@ -1,1 +1,68 @@
-<p>contract-cadastrar works!</p>
+<form [formGroup]="form">
+    <div class="form-group">
+      <label for="payment">Pagamento:</label>
+      <input type="payment" class="form-control" formControlName="payment" id="payment">
+    </div>
+    <div class="form-group">
+      <label for="quota">Quota:</label>
+      <input type="quota" class="form-control" formControlName="quota" id="quota">
+    </div>
+    <div class="form-group">
+      <label for="ps">ps:</label>
+      <input type="ps" class="form-control" formControlName="ps" id="ps">
+    </div>
+    <div class="form-group">
+      <label for="partner_name">partner_name:</label>
+      <input type="partner_name" class="form-control" formControlName="partner_name" id="partner_name">
+    </div>
+    <div class="form-group">
+      <label for="partner_nickname">partner_nickname:</label>
+      <input type="partner_nickname" class="form-control" formControlName="partner_nickname" id="partner_nickname">
+    </div>
+    <div class="form-group">
+      <label for="partner_registry">partner_registry:</label>
+      <input type="partner_registry" class="form-control" formControlName="partner_registry" id="partner_registry">
+    </div>
+    <div class="form-group">
+      <label for="partner_email">partner_email:</label>
+      <input type="partner_email" class="form-control" formControlName="partner_email" id="partner_email">
+    </div>
+    <div class="form-group">
+      <label for="partner_address">partner_address:</label>
+      <input type="partner_address" class="form-control" formControlName="partner_address" id="partner_address">
+    </div>
+    <div class="form-group">
+      <label for="partner_address_num">partner_address_num:</label>
+      <input type="partner_address_num" class="form-control" formControlName="partner_address_num" id="partner_address_num">
+    </div>
+    <div class="form-group">
+      <label for="partner_address_complement">partner_address_complement:</label>
+      <input type="partner_address_complement" class="form-control" formControlName="partner_address_complement" id="partner_address_complement">
+    </div>
+    <div class="form-group">
+      <label for="partner_address_district">partner_address_district:</label>
+      <input type="partner_address_district" class="form-control" formControlName="partner_address_district" id="partner_address_district">
+    </div>
+    <div class="form-group">
+      <label for="partner_address_cep">partner_address_cep:</label>
+      <input type="partner_address_cep" class="form-control" formControlName="partner_address_cep" id="partner_address_cep">
+    </div>
+    <div class="form-group">
+      <label for="partner_phone">partner_phone:</label>
+      <input type="partner_phone" class="form-control" formControlName="partner_phone" id="partner_phone">
+    </div>
+    <div class="form-group">
+      <label for="division_name">division_name:</label>
+      <input type="division_name" class="form-control" formControlName="division_name" id="division_name">
+    </div>
+    <div class="form-group">
+      <label for="user_name">user_name:</label>
+      <input type="user_name" class="form-control" formControlName="user_name" id="user_name">
+    </div>
+    <div class="form-group">
+      <label for="user_registry">user_registry:</label>
+      <input type="user_registry" class="form-control" formControlName="user_registry" id="user_registry">
+    </div>
+
+    <button type="submit" class="btn btn-default bg-primary" (click)="registrar()">Submit</button>
+  </form>
