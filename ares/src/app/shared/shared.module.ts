@@ -38,6 +38,7 @@ import { CustomerListComponent } from './components/customer/customer-list/custo
 import { DapWebComponent } from './components/dap-mda/dap-web/dap-web.component';
 import { DapWarningComponent } from './components/dap-mda/dap-warning/dap-warning.component';
 import { AnaliseSoloComponent } from './components/agro/analise-solo/analise-solo.component';
+import { CnpjPipePipe } from './pipe/cnpj-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { AnaliseSoloComponent } from './components/agro/analise-solo/analise-sol
     DapWarningComponent,
     DapWebComponent,
     AnaliseSoloComponent,
+    CnpjPipePipe,
   ],
   imports: [
     CommonModule,
@@ -115,7 +117,8 @@ import { AnaliseSoloComponent } from './components/agro/analise-solo/analise-sol
     AnaliseSoloComponent,
     DapWarningComponent,
     DapWebComponent,
-    AnaliseSoloComponent
+    AnaliseSoloComponent,
+    CnpjPipePipe
   ],
   entryComponents:[
     AlertModalComponent

@@ -3,7 +3,7 @@
     <div class="row">
 
         <div class="form-group col col-md-2">
-            <label for="search">CPF</label>
+            <label for="search">Informe o CPF</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" (click)="emitReport()" id="basic-addon">
@@ -26,63 +26,122 @@
 
 <div *ngIf="dap$ | async as d ">
     <div class="irregularidade">
-        <div class="row border border-bottom-1 border-secondary">
-            <div><strong>Número da DAP:</strong> {{d.numDap}}</div>
-            <div><strong>Enquadramento grupo:</strong> {{d.grupo}}</div>
-            <div><strong>Valida até:</strong> {{d.validade}}</div>
-            <div><strong>Emitida em:</strong> {{d.emissao}}</div>
-            <div><strong>Status:</strong> {{d.status}}</div>
-            <div class="row">
-                <div class="col col-md-6"><strong>Titular:</strong> {{d.titular.nome}}</div>
-                <div class="col col-md-2"><strong>CPF:</strong> {{d.titular.cpf}}</div>
-                <div class="col col-md-2"><strong>Data nascimento:</strong> {{d.titular.nascimento}}</div>
-                <div class="col col-md-2"><strong>Mâe:</strong> {{d.titular.mae}}</div>
-                <div class="col col-md-2"><strong>Moradia:</strong> {{d.titular.classEndereco}}</div>
-                <div class="col col-md-2"><strong>Endereço:</strong> {{d.titular.endereco}}, {{d.titular.municipio}}
-                </div>
+        <div class="row">
+            <div class="row border-bottom mb-3">
+                <div class="col col-md-4"><strong>Número da DAP:</strong> {{d.numDap}}</div>
+                <div class="col col-md-2"><strong>Enquadramento grupo:</strong> {{d.grupo}}</div>
+                <div class="col col-md-2"><strong>Valida até:</strong> {{d.validade | date: 'dd/MM/yyyy'}}</div>
+                <div class="col col-md-2"><strong>Emitida em:</strong> {{d.emissao | date: 'dd/MM/yyyy'}}</div>
+                <div class="col col-md-2"><strong>Status:</strong> {{d.status}}</div>
             </div>
             <div class="row">
-                <div class="col col-md-6"><strong>Titular 2:</strong> {{d.titular2.nome}}</div>
-                <div class="col col-md-2"><strong>CPF:</strong> {{d.titular2.cpf}}</div>
-                <div class="col col-md-2"><strong>Data nascimento:</strong> {{d.titular2.nascimento}}</div>
-                <div class="col col-md-2"><strong>Mâe:</strong> {{d.titular2.mae}}</div>
-                <div class="col col-md-2"><strong>Moradia:</strong> {{d.titular2.classEndereco}}</div>
-                <div class="col col-md-2"><strong>Endereço:</strong> {{d.titular2.endereco}}, {{d.titular2.municipio}}
+                <div class="row border mb-3">
+                    <div class="row">
+                        <div class="col col-md-6"><strong>Titular:</strong> {{d.titular.nome}}</div>
+                        <div class="col col-md-2"><strong>CPF:</strong> {{d.titular.cpf}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><strong>Data nascimento:</strong> {{d.titular.nascimento | date:
+                            'dd/MM/yyyy'}}</div>
+                        <div class="col col-md-9"><strong>Mâe:</strong> {{d.titular.mae}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><strong>Moradia:</strong> {{d.titular.classEndereco}}</div>
+                        <div class="col col-md-9"><strong>Endereço:</strong> {{d.titular.endereco}},
+                            {{d.titular.municipio}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row border mb-3" *ngIf="d.titular2.nome">
+                    <div class="row">
+                        <div class="col col-md-6"><strong>Titular 2:</strong> {{d.titular2.nome}}</div>
+                        <div class="col col-md-2"><strong>CPF:</strong> {{d.titular2.cpf}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-3"><strong>Data nascimento:</strong> {{d.titular2.nascimento | date:
+                            'dd/MM/yyyy'}}</div>
+                        <div class="col col-md-9"><strong>Mâe:</strong> {{d.titular2.mae}}</div>
+                    </div>
+                    <div class="row">
+                        <div *ngIf="d.titular2.classEndereco" class="col col-md-3"><strong>Moradia:</strong> {{d.titular2.classEndereco}}</div>
+                        <div *ngIf="d.titular2.endereco" class="col col-md-9"><strong>Endereço:</strong> {{d.titular2.endereco}},
+                            {{d.titular2.municipio}}
+                        </div>
+                    </div>
                 </div>
 
-            </div>
-            <div class="row">
-                <div class="col col-md-6"><strong>Emissor:</strong> {{d.emissor?.empresa}}</div>
-                <div class="col col-md-2"><strong>CNPJ:</strong> {{d.emissor?.cnpj}}</div>
-                <div class="col col-md-2"><strong>Funcionário:</strong> {{d.emissor?.funcionario}}</div>
-            </div>
-            <div class="row">
-                <p>Propriedade</p>
-                <div class="col col-md-6"><strong>Área da propriedade:</strong> {{d.areaDaPropriedade}}</div>
-                <div class="col col-md-6"><strong>Nome imóvel Principal:</strong> {{d.nomeImovelPrincipal}}</div>
-                <div class="col col-md-6"><strong>Área do imóvel principal:</strong> {{d.areaImovelPrincipal}}</div>
-                <div class="col col-md-6"><strong>Localização do imóvel principal:</strong>
-                    {{d.localizacaoImovelPrincipal}}</div>
-                <div class="col col-md-6"><strong>Município:</strong> {{d.municipio}}</div>
-                <div class="col col-md-6"><strong>qtdImoveis:</strong> {{d.qtdImoveis}}</div>
-                <div class="col col-md-6"><strong>qtdmoradores:</strong> {{d.qtdmoradores}}</div>
-                <div class="col col-md-6"><strong>rendaAgroindustriTurismo:</strong> {{d.rendaAgroindustriTurismo}}
+                <div class="row mb-3">
+                    <div class="row">
+                        <div class="col"><strong>Nome imóvel Principal:</strong> {{d.nomeImovelPrincipal}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-6"><strong>Localização do imóvel principal:
+                            </strong>{{d.localizacaoImovelPrincipal}}</div>
+                        <div class="col col-md-6"><strong>Município:</strong> {{d.municipio}}</div>
+                        <div class="col col-md-3"><strong>Área da propriedade:</strong> {{d.areaDaPropriedade | number:'0.2-2'}} hectare(s)
+                        </div>
+                        <div class="col col-md-3"><strong>Área do imóvel principal:</strong> {{d.areaImovelPrincipal | number:'0.2-2'}}
+                            hectare(s)</div>
+                        <div class="col col-md-3"><strong>Qtd imóveis:</strong> {{d.qtdImoveis | number: '2.0-0'}}
+                        </div>
+                        <div class="col col-md-3"><strong>Qtd moradores:</strong> {{d.qtdmoradores | number: '2.0-0'}}
+                        </div>
+                    </div>
+                    <div class="row mt-3 border">
+                        <div class="d-flex justify-content-center align-items-center bg-light">
+                            <h2>
+                                Distribuição da produção e renda anual
+                            </h2>
+                        </div>
+                        <div class="mt-2 d-flex justify-content-between">
+                            <div><strong>Renda gerada na propriedade rural:</strong>
+                                {{d.rendaEstabelecimento | number:'0.2-2'}}</div>
+                            <div><strong>Produção fora do estabelecimento:</strong>
+                                {{d.rendaForaEstabelecimento | number:'0.2-2'}}
+                            </div>
+                            <div><strong>Renda anual Previdenciaria:</strong> {{d.rendaPrevidenciaria | number:'0.2-2'}}</div>
+                            <div><strong>Agroindustria e Turismo:</strong>
+                                {{d.rendaAgroindustriTurismo | number:'0.2-2'}}</div>
+                        </div>
+                        <div class="row mt-2">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Produção</th>
+                                        <th scope="col">Renda auferida</th>
+                                        <th scope="col">Renda estimada</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let r of d.rendas">
+                                        <td>{{r.producao}}</td>
+                                        <td>{{r.auferida | currency:'BRL':true}}</td>
+                                        <td>{{r.estimada | currency:'BRL':true}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="col col-md-6"><strong>rendaEstabelecimento:</strong> {{d.rendaEstabelecimento}}</div>
-                <div class="col col-md-6"><strong>rendaForaEstabelecimento:</strong> {{d.rendaForaEstabelecimento}}
-                </div>
-                <div class="col col-md-6"><strong>rendaPrevidenciaria:</strong> {{d.rendaPrevidenciaria}}</div>
-            </div>
-            <div class="row">
-                <div class="row" *ngFor="let r of d.rendas">
-                    <div class="col col-md-6">{{r.producao}}</div>
-                    <div class="col col-md-6">{{r.auferida}}</div>
-                    <div class="col col-md-6">{{r.estimada}}</div>
+                <div class="row mb-3">
+                    <div class="col col-md-8"><strong>Emissor:</strong> {{d.emissor?.empresa}}</div>
+                    <div class="col col-md-2"><strong>CNPJ:</strong> {{d.emissor?.cnpj}}</div>
+                    <div class="row">
+                        <div class="col"><strong>Funcionário:</strong> {{d.emissor?.funcionario}}</div>
+                    </div>
                 </div>
             </div>
+
+            <p>
+                <em>
+                    *Dados obtidos no link: 
+                    <a href="http://smap14.mda.gov.br/extratodap/PesquisarDAP">
+                        http://smap14.mda.gov.br/extratodap/PesquisarDAP
+                    </a>
+                </em>
+            </p>
         </div>
-
+        <button class="btn btn-ok" (click)="registerTreatment(d)">Registrar atendimento</button>
     </div>
-    <button class="btn btn-ok" (click)="registerTreatment(d)">Registrar atendimento</button>
-</div>
-<ares-loading *ngIf="_loading" class="spinner"></ares-loading>
+    <ares-loading *ngIf="_loading" class="spinner"></ares-loading>
