@@ -209,7 +209,6 @@ export class CustomerCadastrarComponent implements OnInit {
       data => {
         customerWeb = data;
 
-        console.log(data);
         const validade = moment(data['validade']).format('DD/MM/YYYY');
         this._messageService.handleInfo('Declaração de aptidão', `A DAP ${data['numDap']} vence em ${validade}.`);
 

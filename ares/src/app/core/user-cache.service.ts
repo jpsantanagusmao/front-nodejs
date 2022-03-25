@@ -10,6 +10,7 @@ import * as moment from 'moment';
 export class UserCacheService {
 
   public static readonly TOKEN_STORAGE_VAR: string = 'token';
+  public static readonly ATER_STORAGE_VAR: string = 'ater';
 
   private static readonly PRIVATE_LINK = '/users/private/';
 
@@ -176,6 +177,17 @@ export class UserCacheService {
     // Obtem a classe da permissão do usuário
     //Obtem o grupos do departamento/divisão
 
+  }
+
+  public createAter(ater){
+    localStorage.setItem(UserCacheService.ATER_STORAGE_VAR, ater);
+  }
+
+  public removeAter(){
+    localStorage.removeItem(UserCacheService.ATER_STORAGE_VAR);
+  }
+  public getAter(){
+    return localStorage.getItem(UserCacheService.ATER_STORAGE_VAR);
   }
 
 }

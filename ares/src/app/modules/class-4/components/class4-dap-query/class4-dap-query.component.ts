@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DapService } from 'src/app/shared/components/dap-mda/dap.service';
+import { AterModel } from 'src/app/shared/models/ater.model';
 
 @Component({
   selector: 'app-class4-dap-query',
@@ -20,7 +21,7 @@ export class Class4DapQueryComponent implements OnInit {
     
   }
 
-  onReport(ater){
-    this._router.navigate(["../service/", ater],  { relativeTo: this._route });
+  onReport(event){
+    this._router.navigate(["../service/"],  { relativeTo: this._route });
   }
 }

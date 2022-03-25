@@ -4,6 +4,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
 import * as moment from 'moment';
+import { AterModel } from 'src/app/shared/models/ater.model';
+import { UserCacheService } from 'src/app/core/user-cache.service';
 
 @Component({
   selector: 'dap-web',
@@ -46,7 +48,8 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
   ];
 
   constructor(
-    private _dapService: DapService
+    private _dapService: DapService,
+    private _userCache: UserCacheService
   ) { }
 
   ngOnInit(): void {
@@ -77,7 +80,7 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
   }
 
   async registerTreatment(dap) {
-    console.log(dap);
+
     let situacao = '';
     //const pronome = dap.titular.genero == 'Masculino' ? this.pronome_tratamento_masc : this.pronome_tratamento_fem;
 
@@ -98,30 +101,71 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
 
     await dap.rendas.map(r => {
       if (i == qtd) {
-        producao_texto = producao_texto + `${r.producao} `;
+        producao_texto = producao_texto + `${r.producao} renda auferida de ${Number(r.auferida).toFixed(2)}`;
       } else {
         if (i == (qtd - 1)) {
-          producao_texto = producao_texto + `, ${r.producao} e `;
+          producao_texto = producao_texto + `, ${r.producao} renda auferida de ${Number(r.auferida).toFixed(2)} e `;
         } else {
-          producao_texto = producao_texto + `${r.producao}`;
+          producao_texto = producao_texto + `${r.producao} renda auferida de ${Number(r.auferida).toFixed(2)}`;
         }
       }
       i = i + 1;
     });
+    const area = Number(dap.areaDaPropriedade).toFixed(2);
 
-    console.log('dapVencida');
-    console.log(dapVencida);
-    if(dapVencida){
-      situacao = `O ${pronome} ${dap.titular.nome}, proprietario de uma área total de ${dap.areaDaPropriedade.toFixed(2)} hectares no local denominado "${dap.nomeImovelPrincipal}" possui a DAP de número ${dap.numDap} com validade até ${moment(dap.validade).format('DD/MM/yyyy')} na qual consta a produção de ${producao_texto}.`;
+    if(!dapVencida){
+      situacao = `O ${pronome} ${dap.titular.nome}, proprietario de uma área total de ${area} hectares no local denominado "${dap.nomeImovelPrincipal}" possui a DAP de número ${dap.numDap} com validade até ${moment(dap.validade).format('DD/MM/yyyy')} na qual consta a produção de ${producao_texto}.`;
     }else{
-      situacao = `O ${pronome} ${dap.titular.nome}, proprietario de uma área total de ${dap.areaDaPropriedade.tofixed(2)} hectares no local denominado "${dap.nomeImovelPrincipal}" possui a DAP de número ${dap.numDap} que expirou na data de ${moment(dap.validade).format('DD/MM/yyyy')}. Neste documento consta a produção de ${producao_texto}.`;
+      situacao = `O ${pronome} ${dap.titular.nome}, proprietario de uma área total de ${area} hectares no local denominado "${dap.nomeImovelPrincipal}" possui a DAP de número ${dap.numDap} que expirou na data de ${moment(dap.validade).format('DD/MM/yyyy')}. Neste documento consta a produção de ${producao_texto}.`;
     }
 
     let orientacao = moment().isBefore(moment(dap.validade)) ? this.orientacoesVector[Math.floor(Math.random() * this.orientacoesVector.length)] : `Como a DAP se econtra EXPIRADA é necessário providenciar os documentos para a renovação.`;
     //let recomendacao = recomendacoes[Math.random(this.recomendacoesVector.length)];
     let recomendacao = this.recomendacoesVector[Math.floor(Math.random() * this.recomendacoesVector.length)];
 
-    this.onReport.emit({ situacao, orientacao, recomendacao })
+    /**
+     * Definição de local a ser registrado no relatório
+     */
+    let local = `${dap.nomeImovelPrincipal} - ${dap.localizacaoImovelPrincipal}`;
+
+    /**
+     * Definição dos beneficiários do serviço de ATER
+     */
+    let customers: any[] = [];
+
+    const titular = {
+      name: dap.titular.nome,
+      cpf: dap.titular.cpf,
+      birth_date: dap.titular.nascimento,
+      address: dap.titular.endereco,
+      city: dap.titular.municipio,
+    };
+    
+    customers.push(titular);
+    /**
+     * Caso haja um segundo beneficiário
+     */
+    if(dap.titular2.cpf){
+      customers.push({
+        name: dap.titular2.nome,
+        cpf: dap.titular2.cpf,
+        birth_date: dap.titular2.nascimento,
+        address: dap.titular2.endereco,
+        city: dap.titular2.municipio,
+
+      });
+
+    }
+
+    const ater: AterModel = {
+      local,customers, situacao, orientacao, recomendacao
+    };
+    /**
+     * Registra a ater no cookie
+     */
+    this._userCache.createAter(JSON.stringify(ater));
+    this.onReport.emit(true);
+
   }
 }
 
