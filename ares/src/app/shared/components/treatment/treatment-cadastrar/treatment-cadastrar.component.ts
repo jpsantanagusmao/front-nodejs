@@ -35,11 +35,17 @@ export class TreatmentCadastrarComponent implements OnInit {
   //Usuário designado para determinada tarefe
   userDesigned: any = {};
 
+  data: any;
+
   constructor(
     private _treatmentService: TreatmentService,
     private _userCache: UserCacheService,
     private _route: ActivatedRoute
-  ) { }
+  ) {
+
+    this.data = this._userCache.getUserData();
+
+  }
 
   ngOnInit(): void {
 
@@ -52,7 +58,7 @@ export class TreatmentCadastrarComponent implements OnInit {
     } else {
 
       this.createFormNew();
-      
+
     }
   }
 
@@ -104,6 +110,197 @@ export class TreatmentCadastrarComponent implements OnInit {
     this.onStore.emit(treatment);
 
   }
+  style() {
+    return `
+    form {
+      padding: 15px;
+      border: 2px solid rgb(250, 220, 217);
+      border-radius: 5px;
+      margin-top: 5px;
+  }
+  
+  /*
+  Componentes de visualização
+  */
+  #printable {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12pt;
+      width: 20cm;
+      height: 29;
+  }
+  
+  .title {
+      border: 1px solid black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin: 5px 0px 5px 0px;
+      border-radius: 15px;
+  }
+  
+  .title>div:nth-child(1) {
+      font-size: 1.4rem;
+      margin-top: 10px;
+  }
+  
+  .titulares {
+      align-items: center;
+      justify-content: center;
+      padding: 10px 15px;
+      border: 1px solid black;
+      border-radius: 15px;
+  }
+  
+  .titulares .titular-head {
+      text-align: center;
+  }
+  
+  .titulares>.titular {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: stretch;
+  }
+  
+  .titulares .titular .cpf {
+      margin-left: 10%;
+  }
+  
+  .emissor {
+      font-weight: bold;
+  }
+  
+  .texto {
+      height: 20cm;
+  }
+  
+  .ater {
+      padding: 10px 15px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid black;
+      margin-top: 5px;
+  }
+  
+  .ater .ater-head {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      border-bottom: 3px solid black;
+  }
+  
+  .dados-emp {
+      width: 100%;
+      border-top: 1px solid var(--secondary);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: stretch;
+  }
+  
+  .ater-footer {
+      border: 1px solid black;
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      width: 100%;
+      border-radius: 15px;
+      margin-top: 5px;
+      padding: 5px 0px;
+    }
+    
+    .ater-footer .emissor {
+      padding: 5px;
+      width: 80%;
+  }
+  .ater-footer .assinaturas {
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .ater-footer .assinaturas .titular {
+      display: flex;
+      flex-direction: row;
+  }
+  
+  .ater-footer .assinaturas .titular .nome {
+      margin-top: 10mm;
+      border-top: 1px solid black;
+  }
+  
+  #printable {
+      display: block;
+  }
+  
+  .funcionario {
+      margin-top: 25px;
+  }
+  
+  p {
+      text-align: justify;
+  }
+  
+  @media print {
+  
+      #printable {
+          display: block;
+          position: absolute;
+          top: 0px;
+          background-color: white;
+          left: 0px;
+          height: 100vh;
+          width: 100vw;
+      }
+  
+  
+  
+  }
+    `
+  }
+  postRater(file) {
+    const fileup = file.target.files;
+    console.log(fileup);
+  }
+  viewRater() {
+    const view = document.getElementById('printable');
+    const style = this.style();
+    let htmlToPrint =
+      '<style type="text/css">' +
+      style +
+      '</style>';
+    htmlToPrint += view.outerHTML;
+    var win = window.open();
+    self.focus();
+    win.document.open();
+    win.document.write('<' + 'html' + '><' + 'body' + '>');
+    win.document.write(htmlToPrint);
+    win.document.write('<' + '/body' + '><' + '/html' + '>');
+    win.document.close();
+    win.print();
+    win.close();
+    //window.print();
+  }
+
+  get empresa() {
+    return this.data.partner_name;
+  }
+  get departamento() {
+    return this.data.division_name;
+  }
+  get endereco() {
+    return this.data.division_address;
+  }
+  get funcionario() {
+    return this.data.name;
+  }
+  get contato() {
+    return this.data.division_fone;
+  }
+
   formOk() {
     if (this.form.valid === true && this.tasks.length > 0 && this.customers.length > 0) {
       return true;

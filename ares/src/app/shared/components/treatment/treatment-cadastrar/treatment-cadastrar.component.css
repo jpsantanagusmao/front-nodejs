@@ -1,6 +1,147 @@
-form{
+form {
     padding: 15px;
     border: 2px solid rgb(250, 220, 217);
     border-radius: 5px;
     margin-top: 5px;
+}
+
+/*
+Componentes de visualização
+*/
+#printable {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    width: 20cm;
+    height: 29;
+}
+
+.title {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 5px 0px 5px 0px;
+    border-radius: 15px;
+}
+
+.title>div:nth-child(1) {
+    font-size: 1.4rem;
+    margin-top: 10px;
+}
+
+.titulares {
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.titulares .titular-head {
+    text-align: center;
+}
+
+.titulares>.titular {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.titulares .titular .cpf {
+    margin-left: 10%;
+}
+
+.emissor {
+    font-weight: bold;
+}
+
+.texto {
+    height: 20cm;
+}
+
+.ater {
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin-top: 5px;
+}
+
+.ater .ater-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    border-bottom: 3px solid black;
+}
+
+.dados-emp {
+    width: 100%;
+    border-top: 1px solid var(--secondary);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.ater-footer {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    column-gap: 25px;
+    justify-content: start;
+    width: 100%;
+    border-radius: 15px;
+    margin-top: 5px;
+    padding: 5px 15px;
+}
+
+.ater-footer .emissor {
+    width: 80%;
+}
+.ater-footer .assinaturas {
+    display: flex;
+    flex-direction: column;
+}
+
+.ater-footer .assinaturas .titular {
+    display: flex;
+    flex-direction: row;
+}
+
+.ater-footer .assinaturas .titular .nome {
+    margin-top: 10mm;
+    border-top: 1px solid black;
+}
+
+#printable {
+    display: none;
+}
+
+.funcionario {
+    margin-top: 25px;
+}
+
+p {
+    text-align: justify;
+}
+
+@media print {
+
+    #printable {
+        display: block;
+        position: absolute;
+        top: 0px;
+        background-color: white;
+        left: 0px;
+        height: 100vh;
+        width: 100vw;
+    }
+
+
+
 }

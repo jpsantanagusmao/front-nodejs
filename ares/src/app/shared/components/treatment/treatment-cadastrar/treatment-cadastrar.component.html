@@ -66,6 +66,7 @@
                 <button class="btn-ok" (click)="onIncludeAction($event)">+</button>
             </div>
 
+
         </div>
     </form>
 </details>
@@ -81,7 +82,104 @@
     </summary>
     <customer-list [customers]="customers" (deleted)="onDeleteCustomer($event)"></customer-list>
 </details>
-<div>
-    <button class="btn btn-ok" [disabled]="!formOk()" (click)="onRegisterTreatment()">Registrar atendimento</button>
+<div class="row">
+    <div class="col">
+        <button class="btn btn-ok" [disabled]="!formOk()" (click)="onRegisterTreatment()">Registrar atendimento</button>
+    </div>
+    <div class="col">
+        <button class="btn btn-ok ml-5" (click)="viewRater()">Imprimir</button>
+    </div>
+    <div class="col">
+        <input type="file" class="btn btn-ok ml-5" name="rater" (change)="postRater($event)">
+    </div>
 </div>
 <ares-loading *ngIf="_loading" class="spinner"></ares-loading>
+<div class="rater" id="printable">
+    <div class="title">
+        <div>
+            <strong>
+                Relatório de atendimento
+            </strong>
+        </div>
+        <div>{{empresa}}</div>
+        <div>{{departamento}}</div>
+        <div class="dados-emp">
+            <div class="contato">Contato: {{contato}}</div>
+            <div class="endereco">Endereço: {{endereco}}</div>
+        </div>
+    </div>
+    <div class="titulares">
+        <div class="titular-head">
+            <strong>Beneficiários</strong>
+        </div>
+        <div class="titular" *ngFor="let c of customers">
+            <div class="nome">
+                <strong>Nome: </strong>
+                {{c.name}}
+            </div>
+            <div class="cpf">
+                <strong>
+                    CPF:
+                </strong>
+                {{c.cpf}}
+            </div>
+        </div>
+    </div>
+    <div class="ater">
+        <div class="ater-head">
+            <div class="local">
+                <strong>
+                    Local:
+                </strong>
+                {{form.controls.local.value}}
+            </div>
+            <div class="data">
+                <strong>Data: </strong>
+                {{form.controls.data.value | date: 'dd/MM/yyyy'}}
+            </div>
+        </div>
+        <div class="texto">
+            <div>
+                <p>
+                    <strong>
+                        Situação atual:
+                    </strong>
+                </p>
+                <p class="situacao-atual">{{form.controls.situacao.value}}</p>
+                <p>
+                    <strong>
+                        Orientações:
+                    </strong>
+                </p>
+                <p class="orientacoes">{{form.controls.orientacao.value}}</p>
+                <p>
+                    <strong>
+                        Recomendações:
+                    </strong>
+                </p>
+                <p class="recomendacoes">{{form.controls.recomendacao.value}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="ater-footer">
+        <div class="emissor">
+            Funcionário Responsável:
+            <div class="funcionario">{{funcionario}}</div>
+            <div class="departamento">{{departamento}}</div>
+            <div class="empresa">{{empresa}}</div>
+        </div>
+        <div class="assinaturas">
+            <strong>
+                <div>Assinaturas</div>
+                <div>Declaro que sou beneficiário dos serviços prestados e recebi as orientações conforme consta neste
+                    documento.</div>
+            </strong>
+            <div class="titular" *ngFor="let c of customers">
+                <div class="nome">
+                    {{c.name}} / CPF: {{c.cpf}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

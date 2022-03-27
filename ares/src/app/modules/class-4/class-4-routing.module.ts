@@ -1,3 +1,4 @@
+import { RaterComponent } from './../../shared/components/reports/rater/rater.component';
 import { Class4CadastrarProjetoComponent } from './components/class4-cadastrar-projeto/class4-cadastrar-projeto.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'ater-dap-query',
     component: Class4DapQueryComponent
+  },
+  {
+    path: 'rater',
+    component: RaterComponent
   },
 ];
 

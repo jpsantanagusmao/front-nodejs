@@ -39,6 +39,7 @@ import { DapWebComponent } from './components/dap-mda/dap-web/dap-web.component'
 import { DapWarningComponent } from './components/dap-mda/dap-warning/dap-warning.component';
 import { AnaliseSoloComponent } from './components/agro/analise-solo/analise-solo.component';
 import { CnpjPipePipe } from './pipe/cnpj-pipe.pipe';
+import { RaterComponent } from './components/reports/rater/rater.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { CnpjPipePipe } from './pipe/cnpj-pipe.pipe';
     DapWebComponent,
     AnaliseSoloComponent,
     CnpjPipePipe,
+    RaterComponent,
   ],
   imports: [
     CommonModule,

@@ -30,7 +30,7 @@ export class Class4CadastrarTreatmentComponent implements OnInit {
   onStore(treatment) {
     console.log(treatment);
     /**
-     
+      
 {
     "local": "Sitio Vargem Alegre - Córrego Vargem Alegre",
     "data": "2022-03-25",
