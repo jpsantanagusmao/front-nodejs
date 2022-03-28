@@ -30,6 +30,9 @@
         <textarea type="text" rows="4" class="form-control" formControlName="recomendacao" name="recomendacao"
             id="recomendacao"></textarea>
     </div>
+    <div class="row mb-3 mt-3">
+        <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg, application/pdf" class="btn btn-ok ml-5" formControlName="rater" name="rater" (change)="postRater($event)">
+    </div>
 </form>
 <details>
     <summary>Registro de beneficiários
@@ -68,6 +71,7 @@
 
 
         </div>
+
     </form>
 </details>
 <details open>
@@ -89,9 +93,7 @@
     <div class="col">
         <button class="btn btn-ok ml-5" (click)="viewRater()">Imprimir</button>
     </div>
-    <div class="col">
-        <input type="file" class="btn btn-ok ml-5" name="rater" (change)="postRater($event)">
-    </div>
+
 </div>
 <ares-loading *ngIf="_loading" class="spinner"></ares-loading>
 <div class="rater" id="printable">

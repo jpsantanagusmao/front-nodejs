@@ -29,6 +29,7 @@ export class Class4CadastrarTreatmentComponent implements OnInit {
   }
   onStore(treatment) {
     console.log(treatment);
+
     /**
       
 {
@@ -67,14 +68,23 @@ export class Class4CadastrarTreatmentComponent implements OnInit {
 
 
      */
-    return;
-    this._treatmentService.create(treatment).subscribe(
+    //return;
+    const file = treatment?.rater;
+
+    const formData: FormData = new FormData();
+    
+    formData.append('treatment', JSON.stringify(treatment));
+    formData.append('rater', file);
+    //formData.append('body', treatment);
+
+    //this._treatmentService.create(treatment).subscribe(
+    this._treatmentService.create(formData).subscribe(
       data=>{
         this._messageService.handleSuccess('Sucesso', 'Cadastro de atendimentos realizado.');
         this._usercache.gotoHome();
       },
       error=>{
-        this._messageService.handleError('Erro', 'Erro ao realiza este cadastro');
+        this._messageService.handleError('Erro', 'Erro ao realizar este cadastro');
 
       }
     );

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { asapScheduler } from 'rxjs';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { AterModel } from 'src/app/shared/models/ater.model';
 import { statusModel } from 'src/app/shared/models/status.model';
@@ -18,6 +19,7 @@ export class TreatmentCadastrarComponent implements OnInit {
   form: FormGroup;
   formAction: FormGroup;
   _loading: boolean = false;
+  _file: File;
 
   @Output() onStore = new EventEmitter();
   //ID para esta operação
@@ -107,6 +109,10 @@ export class TreatmentCadastrarComponent implements OnInit {
     treatment.actions = this.tasks;
     treatment.customers = this.customers;
 
+    treatment.rater = this._file;
+    treatment.id = uuidv4().toUpperCase();
+
+    //console.log(treatment);
     this.onStore.emit(treatment);
 
   }
@@ -261,9 +267,19 @@ export class TreatmentCadastrarComponent implements OnInit {
   }
     `
   }
-  postRater(file) {
-    const fileup = file.target.files;
-    console.log(fileup);
+   postRater(event) {
+    const fileup = event.target.files;
+    //console.log(fileup);
+
+    if (event.target.files.length > 0) {
+      this._file = event.target.files[0];
+
+/*
+      this.form.patchValue({
+        rater: file
+      });
+      */
+    }
   }
   viewRater() {
     const view = document.getElementById('printable');
@@ -333,7 +349,8 @@ export class TreatmentCadastrarComponent implements OnInit {
       data: new FormControl(hoje),
       situacao: new FormControl(''),
       orientacao: new FormControl(''),
-      recomendacao: new FormControl('')
+      recomendacao: new FormControl(''),
+      rater: new FormControl('')
     });
 
     this.createFormAction();
