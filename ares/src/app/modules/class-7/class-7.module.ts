@@ -11,10 +11,11 @@ import { Class7UsersAllComponent } from './components/class7-users-all/class7-us
 import { Class7CadastrarDivisionComponent } from './components/class7-cadastrar-division/class7-cadastrar-division.component';
 import { Class7DivisionAllComponent } from './components/class7-division-all/class7-division-all.component';
 import { Class7DivisionUpdateComponent } from './components/class7-division-update/class7-division-update.component';
+import { Class7ToolsComponent } from './components/class7-tools/class7-tools.component';
 
 
 @NgModule({
-  declarations: [Class7HomeComponent, Class7CadastrarUsuarioComponent, Class7MenuComponent, Class7IndexComponent, Class7UsersAllComponent, Class7CadastrarDivisionComponent, Class7DivisionAllComponent, Class7DivisionUpdateComponent],
+  declarations: [Class7HomeComponent, Class7CadastrarUsuarioComponent, Class7MenuComponent, Class7IndexComponent, Class7UsersAllComponent, Class7CadastrarDivisionComponent, Class7DivisionAllComponent, Class7DivisionUpdateComponent, Class7ToolsComponent],
   imports: [
     CommonModule,
     Class7RoutingModule,

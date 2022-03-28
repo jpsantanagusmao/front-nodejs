@@ -14,10 +14,11 @@ import { Class4PerdaDeCargaCalcComponent } from './components/class4-perda-de-ca
 import { Class4DimPastagemComponent } from './components/class4-dim-pastagem/class4-dim-pastagem.component';
 import { Class4DimCapineiraComponent } from './components/class4-dim-capineira/class4-dim-capineira.component';
 import { Class4AnaliseSoloComponent } from './components/class4-analise-solo/class4-analise-solo.component';
+import { Class4ToolsComponent } from './components/class4-tools/class4-tools.component';
 
 
 @NgModule({
-  declarations: [Class4HomeComponent, Class4CadastrarUsuarioComponent, Class4CadastrarProjetoComponent, Class4UsersAllComponent, Class4CadastrarTreatmentComponent, Class4DapQueryComponent, Class4DapAcerbityComponent, Class4PerdaDeCargaCalcComponent, Class4DimPastagemComponent, Class4DimCapineiraComponent, Class4AnaliseSoloComponent],
+  declarations: [Class4HomeComponent, Class4CadastrarUsuarioComponent, Class4CadastrarProjetoComponent, Class4UsersAllComponent, Class4CadastrarTreatmentComponent, Class4DapQueryComponent, Class4DapAcerbityComponent, Class4PerdaDeCargaCalcComponent, Class4DimPastagemComponent, Class4DimCapineiraComponent, Class4AnaliseSoloComponent, Class4ToolsComponent],
   imports: [
     CommonModule,
     Class4RoutingModule,

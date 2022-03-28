@@ -65,8 +65,8 @@
                 errorMessage="É necessário informar a data de encerramento desta ação"></error-message>
         </div>
         <div class="col col-md-4 mt-2 d-flex justify-content-between">
-            <button class="btn-ok" [disabled]="form.invalid" (click)="registrar()">Incluir</button>
+            <button class="btn-ok" [disabled]="!form.invalid" (click)="registrar()">Incluir</button>
             <button *ngIf="id" class="btn-cancel" (click)="cancelar()">Cancelar</button>
         </div>
     </div>
-</form>
+</form> 

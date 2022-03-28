@@ -13,10 +13,22 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AlertMessagesService } from './shared/services/alert-messages.service';
 import { InterceptorService } from './shared/services/interceptor.service';
 import { NgxMaskModule } from 'ngx-mask';
+import { Class1ToolsComponent } from './modules/class-1/components/class1-tools/class1-tools.component';
+import { Class3ToolsComponent } from './modules/class-3/components/class3-tools/class3-tools.component';
+import { Class5ToolsComponent } from './modules/class-5/components/class5-tools/class5-tools.component';
+import { Class6ToolsComponent } from './modules/class-6/components/class6-tools/class6-tools.component';
+import { Class8ToolsComponent } from './modules/class-8/components/class8-tools/class8-tools.component';
+import { Class9ToolsComponent } from './modules/class-9/components/class9-tools/class9-tools.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    Class1ToolsComponent,
+    Class3ToolsComponent,
+    Class5ToolsComponent,
+    Class6ToolsComponent,
+    Class8ToolsComponent,
+    Class9ToolsComponent,
   ],
   imports: [
     BrowserModule,

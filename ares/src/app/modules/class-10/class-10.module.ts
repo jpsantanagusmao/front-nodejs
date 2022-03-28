@@ -6,10 +6,11 @@ import { Class10HomeComponent } from './components/class10-home/class10-home.com
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Class10CadastrarContractComponent } from './components/class10-cadastrar-contract/class10-cadastrar-contract.component';
 import { Class10IndexComponent } from './components/class10-index/class10-index.component';
+import { Class10ToolsComponent } from './components/class10-tools/class10-tools.component';
 
 
 @NgModule({
-  declarations: [Class10HomeComponent, Class10CadastrarContractComponent, Class10IndexComponent],
+  declarations: [Class10HomeComponent, Class10CadastrarContractComponent, Class10IndexComponent, Class10ToolsComponent],
   imports: [
     CommonModule,
     Class10RoutingModule,

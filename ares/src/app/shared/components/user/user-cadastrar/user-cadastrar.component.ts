@@ -142,7 +142,7 @@ export class UserCadastrarComponent implements OnInit {
 
     return !( 
     ( !_roleSel ) 
-    || (this.divisionNecessary()) 
+    || !(this.divisionNecessary()) 
     || (!_citySel)
     || (!this.form.valid));
 

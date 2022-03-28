@@ -57,7 +57,7 @@
     </div>
     <action-table [actions]="actions" (deleted)="deleteAction($event)"></action-table>
     <div class="col col-md-3 mt-4 mb-4 d-flex justify-content-around">
-        <button class="btn-ok" (click)="registrar()">Salvar</button>
+        <button class="btn-ok" [disabled]="form.invalid" (click)="registrar()">Salvar</button>
         <button class="btn-cancel" (click)="cancelar()">Cancelar</button>
     </div>
 </div>

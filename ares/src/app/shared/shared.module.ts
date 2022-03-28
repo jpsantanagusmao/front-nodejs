@@ -41,6 +41,9 @@ import { AnaliseSoloComponent } from './components/agro/analise-solo/analise-sol
 import { CnpjPipePipe } from './pipe/cnpj-pipe.pipe';
 import { RaterComponent } from './components/reports/rater/rater.component';
 import { PerdaDeCargaComponent } from './components/agro/perda-de-carga/perda-de-carga.component';
+import { DmPastagensComponent } from './components/agro/dm-pastagens/dm-pastagens.component';
+import { TemplateTableRebanhoComponent } from './components/agro/dm-pastagens/template-table-rebanho/template-table-rebanho.component';
+import { TemplateRebanhoComponent } from './components/agro/dm-pastagens/template-rebanho/template-rebanho.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,9 @@ import { PerdaDeCargaComponent } from './components/agro/perda-de-carga/perda-de
     CnpjPipePipe,
     RaterComponent,
     PerdaDeCargaComponent,
+    DmPastagensComponent,
+    TemplateTableRebanhoComponent,
+    TemplateRebanhoComponent,
   ],
   imports: [
     CommonModule,
@@ -128,6 +134,9 @@ import { PerdaDeCargaComponent } from './components/agro/perda-de-carga/perda-de
     CnpjPipePipe,
     RaterComponent,
     PerdaDeCargaComponent,
+    DmPastagensComponent,
+    TemplateTableRebanhoComponent,
+    TemplateRebanhoComponent
   ],
   entryComponents: [
     AlertModalComponent

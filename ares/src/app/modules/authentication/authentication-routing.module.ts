@@ -30,31 +30,31 @@ const routes: Routes = [
       {
         path: 'class0',
         canActivate: [AuthGuard],
-        data: { role_class: ['0'] },
+        data: { role_class: [0] },
         loadChildren: () => import('../class-0/class-0.module').then(m => m.Class0Module)
       },
       {
         path: 'class2',
         canActivate: [AuthGuard],
-        data: { role_class: ['2'] },
+        data: { role_class: [2] },
         loadChildren: () => import('../class-2/class-2.module').then(m => m.Class2Module)
       },
       {
         path: 'class4',
         canActivate: [AuthGuard],
-        data: { role_class: ['4'] },
+        data: { role_class: [4] },
         loadChildren: () => import('../class-4/class-4.module').then(m => m.Class4Module)
       },
       {
         path: 'class7',
         canActivate: [AuthGuard],
-        data: { role_class: ['7'] },
+        data: { role_class: [7] },
         loadChildren: () => import('../class-7/class-7.module').then(m => m.Class7Module)
       },
       {
         path: 'class10',
         canActivate: [AuthGuard],
-        data: { role_class: ['10'] },
+        data: { role_class: [10] },
         loadChildren: () => import('../class-10/class-10.module').then(m => m.Class10Module)
       },
       {
