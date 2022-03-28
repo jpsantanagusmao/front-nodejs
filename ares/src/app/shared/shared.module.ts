@@ -40,6 +40,7 @@ import { DapWarningComponent } from './components/dap-mda/dap-warning/dap-warnin
 import { AnaliseSoloComponent } from './components/agro/analise-solo/analise-solo.component';
 import { CnpjPipePipe } from './pipe/cnpj-pipe.pipe';
 import { RaterComponent } from './components/reports/rater/rater.component';
+import { PerdaDeCargaComponent } from './components/agro/perda-de-carga/perda-de-carga.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { RaterComponent } from './components/reports/rater/rater.component';
     AnaliseSoloComponent,
     CnpjPipePipe,
     RaterComponent,
+    PerdaDeCargaComponent,
   ],
   imports: [
     CommonModule,
@@ -124,6 +126,8 @@ import { RaterComponent } from './components/reports/rater/rater.component';
     DapWebComponent,
     AnaliseSoloComponent,
     CnpjPipePipe,
+    RaterComponent,
+    PerdaDeCargaComponent,
   ],
   entryComponents: [
     AlertModalComponent

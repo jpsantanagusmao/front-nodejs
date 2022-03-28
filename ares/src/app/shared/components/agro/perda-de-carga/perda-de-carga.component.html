@@ -1,0 +1,142 @@
+<!--<main class="d-flex-stretch justify-content-center  border align-items-center p-2">-->
+<main class="border align-items-center p-2">
+    <section>
+        <form role="form" [formGroup]="formCalc" class="p-2">
+            <div class="row mb-3 pb-1 border-bottom">
+                <div class="col col-4">
+                    <div>
+                        <label class="form-label" for="sistemaIrrigacao">Sistema de irrigação</label>
+                        <select id="sistemaIrrigacao" class="form-control" formControlName="sistemaIrrigacao"
+                            style="width: 250px;">
+                            <option *ngFor='let tb of sistema' [ngValue]="tb">{{tb.sistemaIrrigacao}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col col-4">
+                    <label class="form-label" for="difNivel">Dif. nível</label>
+                    <input type="text" mask="999" class="form-control" id="difNivel" formControlName="difNivel">
+                </div>
+                <div class="col col-4">
+                    <label class="form-label" for="ps">PS do aspersor</label>
+                    <input type="text" mask="999" class="form-control" id="ps" formControlName="ps">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-6">
+                    <label class="form-label" for="descricao">Descrição</label>
+                    <input type="text" class="form-control" id="descricao" formControlName="descricao">
+                </div>
+                <div class="col col-6">
+                    <div>
+                        <label class="form-label" for="tubulacao">Tubulacao</label>
+                        <select id="tubulacao" class="form-control" formControlName="tubo" style="width: 250px;">
+                            <option *ngFor='let tb of tubos' [ngValue]="tb">{{tb.descricao}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col col-md-3">
+                    <div class="col-4">
+                        <label class="form-label" for="vazao">Vazão (l/h)</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" mask="99999" class="form-control" id="vazao" formControlName="vazao">
+                    </div>
+                </div>
+                <div class="col col-md-3">
+                    <div class="col-6">
+                        <label class="form-label" for="distancia">Comprimento (m)</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" mask="9999" min="1" max="10000" class="form-control" id="distancia"
+                            formControlName="comprimento">
+                    </div>
+                </div>
+                <div class="col col-md-3">
+                    <div class="col-6">
+                        <label class="form-label" for="saidas">Num. saídas (qtd)</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" mask="99" min="1" max="99" class="form-control" id="saidas"
+                            formControlName="qtdSaida">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row m-5">
+                <button id="calcular" [disabled]="!formCalc.valid" (click)='calcular()' class="btn btn-primary">Calcular
+                    perda de
+                    carga</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<div *ngIf="_trecho.length>0; else notLines">
+
+    <article class="card" *ngFor="let t of _trecho">
+        <header>
+            <h3 class="row">
+                <span (click)="delete(t)" tooltip="Excluir este trecho"
+                    class='col col-md-1 danger-text material-icons'>cancel</span>
+                <p class="col col-md-11 ml-1">
+                    <strong>
+                        {{t.descricao}}
+                    </strong>
+                </p>
+            </h3>
+        </header>
+        <section>
+            <div class="row">
+                <div class="col col-md-3">
+                    <strong>
+                        Comprimento:
+                    </strong>
+                    {{t.comprimento | number: '1.2-2'}} m
+                </div>
+                <div class="col col-md-3">
+                    <strong>
+                        Vazão:
+                    </strong>
+                    {{t.vazao | number: '1.2-2'}} m<sup>3</sup>/h
+                </div>
+                <div class="col col-md-3">
+                    <strong>
+                        Velocidade:
+                    </strong>
+                    {{t.velocidade | number: '1.2-2'}} m/s
+                </div>
+                <div class="col col-md-3">
+                    <strong>
+                        Hman
+                    </strong>
+                    {{t.hman | number: '1.2-2'}} mca
+                </div>
+            </div>
+        </section>
+    </article>
+    <article>
+        <div>
+            Perda de carga total no sistema: {{hman_total | number: '1.2-2'}} mca
+        </div>
+        <div>
+            <em>
+                *Perda de carga total = Hman + pressão de serviço do aspersor + diferença de nível
+            </em>
+        </div>
+        <div>
+            Potência requerida: {{potencia | number: '1.2-2'}} cv
+        </div>
+    </article>
+    <div class="row m-5">
+        <button id="calcular" (click)='createTreatment()' class="btn btn-primary">Registrar atendimento</button>
+    </div>
+</div>
+<ng-template #notLines>
+    <article class="danger-text card">
+        Não há linhas para calcular a perda de carga!
+    </article>
+</ng-template>

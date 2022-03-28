@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-analise-solo',
+  selector: 'analise-solo',
   templateUrl: './analise-solo.component.html',
   styleUrls: ['./analise-solo.component.css']
 })

@@ -12,6 +12,7 @@ import { AnaliseSoloComponent } from 'src/app/shared/components/agro/analise-sol
 import { DapWebComponent } from 'src/app/shared/components/dap-mda/dap-web/dap-web.component';
 import { Class4DapQueryComponent } from './components/class4-dap-query/class4-dap-query.component';
 import { Class4DapAcerbityComponent } from './components/class4-dap-acerbity/class4-dap-acerbity.component';
+import { Class4PerdaDeCargaCalcComponent } from './components/class4-perda-de-carga-calc/class4-perda-de-carga-calc.component';
 
 
 const routes: Routes = [
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: 'rater',
     component: RaterComponent
+  },
+  {
+    path: 'calc-irrigacao',
+    component: Class4PerdaDeCargaCalcComponent
   },
 ];
 
