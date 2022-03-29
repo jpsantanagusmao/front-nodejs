@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import * as moment from 'moment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { UserModel } from '../../models/user.model';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'auth-header',
@@ -19,13 +21,17 @@ export class AuthHeaderComponent implements OnInit {
   isloading$ = new BehaviorSubject<boolean>(false);
 
   private _timeRemaining = new BehaviorSubject<any>('0:00:00');
+  //private mytasks$ = new BehaviorSubject<any>(0);
+  mytasks$: Observable<any>;
 
   expiresIn: any;
 
   private _user = new BehaviorSubject<any>({});
 
   constructor(
-    private userCacheService: UserCacheService
+    private userCacheService: UserCacheService,
+    private _userService: UserService,
+    private _router: Router
   ) {
     /**
      * Data de expiração definida no token JWT
@@ -70,6 +76,9 @@ export class AuthHeaderComponent implements OnInit {
   get loading() {
     return this.isloading$;
   }
+  viewmytasks(){
+    this._router.navigate(['/users/private/my-tasks']);
+  }
   get user(): UserModel {
     return this._user.value;
   }
@@ -78,7 +87,7 @@ export class AuthHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.mytasks$ = this._userService.countTasks();
   }
 
   get timeRem() {

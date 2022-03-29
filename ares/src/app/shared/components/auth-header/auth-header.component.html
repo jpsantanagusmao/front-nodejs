@@ -1,12 +1,13 @@
 <header class="p-3 mb-2 bg-primary justify-content-between text-white">
     <div class="row">
         <div class="logo col col-sm-3">
-            <p>
                 <span>
                     Ares - JP
                 </span>
-
-            </p>
+                <div *ngIf="mytasks$ | async as tasks" class="bg-secondary" (click)="viewmytasks()">
+                    <span
+                        class="badge badge-pill text-danger bg-warning badge-warning">{{tasks.tasks}}</span>
+                </div>
         </div>
 
         <div class="col">
@@ -17,15 +18,18 @@
             </div>
             <div *ngIf="isloading$ | async; else loading">
                 <div class="row">
-                    <div class="partner-data col">
+                    <div class="partner-data col-3">
                         <p>{{partner}}</p>
                         <p>{{division}}</p>
+
                     </div>
                     <div class="logged-data col" *ngIf="isloading$ | async else loading">
                         <nav>
                             <ul>
                                 <li class='dropdown'>
-                                    <a href='#'><i class="fa fa-angle-down"></i>{{username}}, {{timeRem}}</a>
+                                    <a href='#'><i class="fa fa-angle-down">
+                                        </i>{{username}}, {{timeRem}}</a>
+
                                     <div class='mega-menu'>
                                         <div class="item">
                                             <ul>

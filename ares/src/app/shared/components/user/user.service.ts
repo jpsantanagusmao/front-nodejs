@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, EMPTY } from 'rxjs';
+import { Observable, EMPTY, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { environment as env } from '../../../../environments/environment.prod';
@@ -34,6 +34,16 @@ export class UserService {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}`).pipe(
     );
   }
+
+  countTasks(): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/count-my-tasks`).pipe(
+    );
+  }
+  myTasks(): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/my-tasks`).pipe(
+    );
+  }
+
   findByName(name): Observable<any> {
 
     if (name) {

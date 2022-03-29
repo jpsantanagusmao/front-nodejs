@@ -1,18 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserModel } from '../shared/models/user.model';
 import * as moment from 'moment';
+import { environment as env } from '../../environments/environment.prod';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserCacheService {
+export class UserCacheService  implements OnInit {
 
   public static readonly TOKEN_STORAGE_VAR: string = 'token';
   public static readonly ATER_STORAGE_VAR: string = 'ater';
 
   private static readonly PRIVATE_LINK = '/users/private/';
+  private static readonly PRIVATE_TASKS_API = '/users';
+  
+  private PATH: string = 'users';
 
   public static readonly WELCOME: string = '/welcome/start';
   public static readonly CLASS_0: string = `${UserCacheService.PRIVATE_LINK}class0/root`;
@@ -38,12 +44,16 @@ export class UserCacheService {
    * Possui todas as informaç~eso referente ao mesmo. bem como o direcionamento de páginas
    */
   constructor(
+    private http: HttpClient,
     private jwtHelper: JwtHelperService,
     private router: Router
   ) {
     this._GetTokenDecoded();
   }
-  
+  ngOnInit(): void {
+
+  }
+
   get token(){
     this._token = localStorage.getItem(UserCacheService.TOKEN_STORAGE_VAR);
     return this._token;
@@ -53,7 +63,8 @@ export class UserCacheService {
     localStorage.setItem(UserCacheService.TOKEN_STORAGE_VAR, value);
     this._token = value;
   }
-  
+
+
   get isExpired(){
     this._GetTokenDecoded();
 

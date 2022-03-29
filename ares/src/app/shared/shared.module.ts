@@ -44,6 +44,7 @@ import { PerdaDeCargaComponent } from './components/agro/perda-de-carga/perda-de
 import { DmPastagensComponent } from './components/agro/dm-pastagens/dm-pastagens.component';
 import { TemplateTableRebanhoComponent } from './components/agro/dm-pastagens/template-table-rebanho/template-table-rebanho.component';
 import { TemplateRebanhoComponent } from './components/agro/dm-pastagens/template-rebanho/template-rebanho.component';
+import { MyTasksComponent } from './components/user/my-tasks/my-tasks.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { TemplateRebanhoComponent } from './components/agro/dm-pastagens/templat
     DmPastagensComponent,
     TemplateTableRebanhoComponent,
     TemplateRebanhoComponent,
+    MyTasksComponent,
   ],
   imports: [
     CommonModule,
