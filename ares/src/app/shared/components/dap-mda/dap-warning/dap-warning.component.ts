@@ -28,7 +28,7 @@ export class DapWarningComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      search: new FormControl('49241877634', [Validators.required, Validators.minLength(11), Validators.maxLength(11)])
+      search: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)])
     });
   }
 

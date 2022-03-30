@@ -35,3 +35,8 @@
     <template-rebanho [rebanho]="rebanho" (updated)="calcular($event)"></template-rebanho>
     <template-table-rebanho [inputRebanho]="rebanho" (remove)=remove($event)></template-table-rebanho>
 </form>
+<div class="row mt-2 mb-5">
+    <div class="col col-2">
+        <button class="btn btn-ok" [disabled]="!dadosok()" id="calcular" (click)='calcular($event)' >Calcular</button>
+    </div>
+</div>

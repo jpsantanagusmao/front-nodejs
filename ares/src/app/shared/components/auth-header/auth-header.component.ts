@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import * as moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { UserModel } from '../../models/user.model';
 import { UserService } from '../user/user.service';
@@ -87,7 +88,8 @@ export class AuthHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mytasks$ = this._userService.countTasks();
+    this.mytasks$ = this._userService.countTasks().pipe(
+    );
   }
 
   get timeRem() {

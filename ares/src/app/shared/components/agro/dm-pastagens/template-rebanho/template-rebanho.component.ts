@@ -31,7 +31,7 @@ export class TemplateRebanhoComponent implements OnInit {
   ngOnInit(): void {
     this.formCalc = this.fb.group({
       categoria: ['', Validators.required],
-      quantidade: ['', Validators.required],
+      quantidade: ['1', Validators.required],
     });
 
   }
@@ -41,8 +41,6 @@ export class TemplateRebanhoComponent implements OnInit {
 
     const catAnimal: RebanhoModel = this.formCalc.value;
         
-    console.log(this.formCalc.value);
-
     //verifica se existe o produtor na lista
     const containing = this.rebanho.find(pr => pr == catAnimal);
 
@@ -63,10 +61,11 @@ export class TemplateRebanhoComponent implements OnInit {
     this.animalSelected = null;
     this.formCalc = this.fb.group({
       categoria: ['', Validators.required],
-      quantidade: ['', Validators.required],
+      quantidade: ['1', Validators.required],
     });    
   }
   calcular(value: any){
     this.updated.emit(this.rebanho);
   }
+
 }

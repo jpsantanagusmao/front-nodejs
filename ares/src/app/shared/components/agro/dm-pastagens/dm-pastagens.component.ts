@@ -28,6 +28,8 @@ export class DmPastagensComponent implements OnInit {
   private _consumoAnual: number;
   private _pastagem: string;
   
+  private readonly CONSUMO_FORRAGEM: Number = 2.5;
+  
   constructor(
     private fb: FormBuilder,
     private _userCache: UserCacheService,
@@ -52,6 +54,14 @@ export class DmPastagensComponent implements OnInit {
     });
 
   }
+  dadosok(){
+
+    if((this.rebanho.length>0) && ( this.form.valid ) ){
+      return true;
+    }
+
+    return false;
+  }
 
   calcular(value: any){
 
@@ -72,7 +82,7 @@ export class DmPastagensComponent implements OnInit {
     const aguas = this.form.controls['aguas'].value;
 
     //Consumo de forragem em %PV em MS para clima tropical
-    const consumo = 2.5
+    const consumo = this.CONSUMO_FORRAGEM;
 
     //Cálculo
     const prodMs = producao['ms'];
@@ -113,13 +123,12 @@ export class DmPastagensComponent implements OnInit {
       cultura: this._pastagem,
       lotacao: this.uaRebanho.toFixed(2)
     });
-
     /* finalizando os cálculo */
   }
   createTreatment(dados: any) {
-
+    
     let situacao = `O produtor procurou atendimento pois entende a necessidade de adequar a alimentação e ofertar um alimento de qualidade para o seu rebanho. Pretende-se dimensionar o pasto com a cultura de ${dados.cultura}`;
-
+    
     let rebanhoTxt = '';
     let i = this.rebanho.length;
     this.rebanho.map(r=>{
@@ -134,13 +143,13 @@ export class DmPastagensComponent implements OnInit {
       }
       i--;
     });
-
+    
     situacao += ` para um rebanho composto por ${rebanhoTxt} o que gera uma lotação de ${dados.lotacao} UA - Unidade animal.`
 
     const local = '';
-
+    
     const customers = [];
-
+    
     let orientacao = `Desta forma, para esta lotação, a necessidade de matéria seca anual é de aproximadamente ${dados.necessidadeMSano} kg/ano. `;
     if(Number(dados.area)>1){
       orientacao += `Sendo necessário para isso, uma área total de ${(dados.area).toFixed(0)} hectares divididos em ${dados.qtdPiquetes} piquetes de ${dados.areaPiquete} metros quadrados`;
@@ -151,7 +160,7 @@ export class DmPastagensComponent implements OnInit {
     2) - Obter do órgão competente as devidas licencas para instalação e funcionamento deste sistema;
     3) - Verificar e adequar as áreas de axploração da atividade em conformidade com a legislação ambiental.
     `;
-
+    
     const ater: AterModel = {
       local, customers, situacao, orientacao, recomendacao
     };

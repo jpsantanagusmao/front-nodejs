@@ -239,3 +239,7 @@ summary {
         background-position: 100% 0%;
     }
 }
+
+.btn-div-point{
+    cursor: pointer;
+}

@@ -1,13 +1,13 @@
     .logged-data nav {
-      display: flex;
-      flex-direction: row;
+      display        : flex;
+      flex-direction : row;
       justify-content: flex-end;
 
     }
 
     .logged-data nav ul {
       justify-content: flex-start;
-      padding-left: 10px;
+      padding-left   : 10px;
 
     }
 
@@ -18,43 +18,43 @@
     }
 
     ul {
-      padding-left: 0;
-      margin-top: 0;
+      padding-left : 0;
+      margin-top   : 0;
       margin-bottom: 0;
-      list-style: none;
+      list-style   : none;
     }
 
     nav {
       position: relative;
-      z-index:5;
+      z-index : 5;
 
     }
 
     nav>ul>li {
-      display: inline-block;
+      display  : inline-block;
       font-size: 14px;
-      padding: 0 15px;
-      position: relative;
+      padding  : 0 15px;
+      position : relative;
     }
 
     nav>ul>li>a {
       align-self: flex-end;
-      color: #fff;
-      display: block;
-      padding: 5px 0;
+      color     : #fff;
+      display   : block;
+      padding   : 5px 0;
       transition: all .3s ease;
     }
 
     nav>ul>li:hover>a {}
 
     .mega-menu {
-      background: #eee;
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 1s, opacity 0.5s linear;
-      position: absolute;
-      left: 0;
-      width: 100%;
+      background    : #eee;
+      visibility    : hidden;
+      opacity       : 0;
+      transition    : visibility 1s, opacity 0.5s linear;
+      position      : absolute;
+      left          : 0;
+      width         : 100%;
       padding-bottom: 20px;
     }
 
@@ -68,9 +68,9 @@
 
     .mega-menu a {
       border-bottom: 1px solid #ddd;
-      color: #4ea3d8;
-      display: block;
-      padding: 10px 0;
+      color        : #4ea3d8;
+      display      : block;
+      padding      : 10px 0;
     }
 
     .mega-menu a:hover {
@@ -84,22 +84,50 @@
 
     .dropdown:hover .mega-menu {
       visibility: visible;
-      opacity: 1;
+      opacity   : 1;
     }
 
-    header {
-    }
+    header {}
 
 
     span {
-      font: 700 4em/1 "Oswald", sans-serif;
-      letter-spacing: 0;
-      display: block;
-      margin: 0 auto;
-      text-shadow: 0 0 80px;
+      font            : 700 4em/1 "Oswald", sans-serif;
+      letter-spacing  : 0;
+      display         : block;
+      margin          : 0 auto;
+      text-shadow     : 0 0 80px;
       background-color: linear-gradient(48deg, rgba(2, 0, 36, 1) 10%, rgba(9, 9, 121, 0) 66%, rgba(0, 212, 255, 1) 100%);
-      background-clip: text;
+      background-clip : text;
     }
-    i{
+
+    i {
       margin-right: 5px;
+    }
+
+    /*Configurações de cabecalho*/
+    .container .row .row {
+      margin-top: 5px;
+    }
+
+    div .logo {
+      width           : 150px;
+      height          : 80px;
+      background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fisolated-color-education-technology-tree-white-background-image131564156&psig=AOvVaw28xsyaKp5pXeDoO-mFXut2&ust=1648740826265000&source=images&cd=vfe&ved=0CAkQjRxqFwoTCJidxOeU7vYCFQAAAAAdAAAAABAE');
+    }
+
+    .empresa {
+      background-color: #4ea3d8;
+
+    }
+
+    div #navegacao {
+      border       : 1px solid #ddd;
+      border-radius: 0% 50% 0% 0%;
+    }
+
+    .badge {
+      font-size: 0.6em;
+      color           : red;
+      background-color: orange;
+      border-radius   : 5px;
     }

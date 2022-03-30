@@ -1,13 +1,9 @@
 <header class="p-3 mb-2 bg-primary justify-content-between text-white">
     <div class="row">
-        <div class="logo col col-sm-3">
-                <span>
-                    Ares - JP
-                </span>
-                <div *ngIf="mytasks$ | async as tasks" class="bg-secondary" (click)="viewmytasks()">
-                    <span
-                        class="badge badge-pill text-danger bg-warning badge-warning">{{tasks.tasks}}</span>
-                </div>
+        <div class="logo col col-sm-4">
+            <span>
+                Ares
+            </span>
         </div>
 
         <div class="col">
@@ -40,6 +36,7 @@
                                         </div> <!-- /.item -->
                                     </div><!-- /.mega-menu -->
                                 </li><!-- /.dropdown -->
+
                             </ul><!-- .container -->
                         </nav>
                     </div>
@@ -48,15 +45,15 @@
 
         </div>
     </div>
-    <div class="row">
-        <nav>
-            <ul>
-                <li>
-                    <div (click)="gotoHome()">
-                        <i class="fa fa-home" aria-hidden="true"></i>Home
-                    </div>
-                </li>
-            </ul>
-        </nav>
+    <div class="d-flex flex.start ml-5">
+        <div class="btn-div-point  ml-5" (click)="gotoHome()">
+            <i class="fa fa-home" aria-hidden="true"></i>Home
+        </div>
+        <div class=" ml-5">
+            {{username}} 
+        </div>
+        <div class="badge btn-div-point" *ngIf="mytasks$ | async as tasks" (click)="viewmytasks()">
+            <span>{{tasks.tasks}}</span>
+        </div>
     </div>
 </header>

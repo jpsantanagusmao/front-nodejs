@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-class4-dim-capineira',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Class4DimCapineiraComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _router: Router,
+    private _route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
   }
-
+  onCreateTreatment(event){
+    this._router.navigate(["../service/"],  { relativeTo: this._route });
+  }
 }
