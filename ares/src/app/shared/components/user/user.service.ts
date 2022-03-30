@@ -10,6 +10,7 @@ import { environment as env } from '../../../../environments/environment.prod';
   providedIn: 'root'
 })
 export class UserService {
+
   private PATH: string = 'users';
 
   constructor(
@@ -78,6 +79,18 @@ export class UserService {
   }
   update(id: any, user: any) {
     return this.http.put(`${env.BASE_API_URL}${this.PATH}/${id}`, user).pipe(
+    );
+  }
+  finalizarTask(id: string):Observable<any> {
+    return this.http.put(`${env.BASE_API_URL}${this.PATH}/finalize/${id}`, null).pipe(
+    );
+  }
+  cancelarTask(id: string):Observable<any> {
+    return this.http.put(`${env.BASE_API_URL}${this.PATH}/cancel/${id}`, null).pipe(
+    );
+  }
+  expirarTask(id: string):Observable<any> {
+    return this.http.put(`${env.BASE_API_URL}${this.PATH}/expire/${id}`, null).pipe(
     );
   }
 }

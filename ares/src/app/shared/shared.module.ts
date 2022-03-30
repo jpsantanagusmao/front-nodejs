@@ -138,7 +138,8 @@ import { MyTasksComponent } from './components/user/my-tasks/my-tasks.component'
     PerdaDeCargaComponent,
     DmPastagensComponent,
     TemplateTableRebanhoComponent,
-    TemplateRebanhoComponent
+    TemplateRebanhoComponent,
+    MyTasksComponent
   ],
   entryComponents: [
     AlertModalComponent

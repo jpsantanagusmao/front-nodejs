@@ -14,17 +14,15 @@
             </div>
             <div *ngIf="isloading$ | async; else loading">
                 <div class="row">
-                    <div class="partner-data col-3">
+                    <div class="partner-data col col-12">
                         <p>{{partner}}</p>
-                        <p>{{division}}</p>
-
                     </div>
                     <div class="logged-data col" *ngIf="isloading$ | async else loading">
                         <nav>
                             <ul>
                                 <li class='dropdown'>
                                     <a href='#'><i class="fa fa-angle-down">
-                                        </i>{{username}}, {{timeRem}}</a>
+                                        </i>{{division}}, {{timeRem}}</a>
 
                                     <div class='mega-menu'>
                                         <div class="item">
@@ -45,15 +43,22 @@
 
         </div>
     </div>
-    <div class="d-flex flex.start ml-5">
-        <div class="btn-div-point  ml-5" (click)="gotoHome()">
-            <i class="fa fa-home" aria-hidden="true"></i>Home
+    <div class="d-flex justify-content-between align-items-baseline">
+        <div class="btn-div-point mr-3" (click)="gotoHome()">
+            <i class="fa fa-home" aria-hidden="true"></i>Home 
         </div>
-        <div class=" ml-5">
-            {{username}} 
+        <div class="mb-auto pl-2">
+            <div *ngIf="isloading$ | async; else loadinguser" class="user-data d-flex justify-content-start">
+                <div class="mr-5">
+                     {{username}}
+                </div>
+                <div class="badge btn-div-point" *ngIf="mytasks$ | async as tasks" (click)="viewmytasks()">
+                    <span>{{tasks.tasks}}</span>
+                </div>
+            </div>
         </div>
-        <div class="badge btn-div-point" *ngIf="mytasks$ | async as tasks" (click)="viewmytasks()">
-            <span>{{tasks.tasks}}</span>
-        </div>
+        <ng-template #loadinguser>
+            <i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i>
+        </ng-template>
     </div>
 </header>

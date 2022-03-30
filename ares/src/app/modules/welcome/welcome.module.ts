@@ -1,10 +1,10 @@
-import { SharedModule } from './../../shared/shared.module';
 import { AuthenticationModule } from './../authentication/authentication.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { IndexComponent } from './components/index/index.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,8 @@ import { IndexComponent } from './components/index/index.component';
   imports: [
     CommonModule,
     AuthenticationModule,
-    WelcomeRoutingModule
+    WelcomeRoutingModule,
+    SharedModule
   ],
   providers:[
   ]
