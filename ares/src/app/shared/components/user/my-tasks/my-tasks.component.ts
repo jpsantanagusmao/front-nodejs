@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { UserService } from '../user.service';
 
@@ -29,7 +29,12 @@ export class MyTasksComponent implements OnInit {
 
   onFinalizeTask(id) {
     const obj = this;
-    this._userService.finalizarTask(id).subscribe(
+    const confirm$ = this._messageService.showConfirm('Conclusão de Tarefa', 'Esta tarefa está concluída?', 'Confirmar', 'Cancelar');
+    confirm$.asObservable().pipe(
+      take(1),
+      switchMap(result => result ? obj._userService.finalizarTask(id) : EMPTY)
+
+    ).subscribe(
       success => {
         obj._messageService.handleSuccess('Conclusão de Tarefa', 'Serviço concluído com sucesso.')
         this.loadMyTasks();
@@ -39,10 +44,18 @@ export class MyTasksComponent implements OnInit {
         obj._messageService.handleError('Conclusão de Tarefa', 'Não foi possível registrar a baixa neste momento.')
       }
     );
+
   }
   onCancelTask(id) {
+
     const obj = this;
-    this._userService.cancelarTask(id).subscribe(
+    const confirm$ = this._messageService.showConfirm('Cancelar Tarefa', 'Encerrar esta tarefa?', 'Sim', 'Não');
+
+    confirm$.asObservable().pipe(
+      take(1),
+      switchMap(result => result ? obj._userService.cancelarTask(id) : EMPTY)
+
+    ).subscribe(
       success => {
         obj._messageService.handleSuccess('Encerrando Tarefa', 'Serviço cancelado com sucesso.')
         this.loadMyTasks();
@@ -52,17 +65,25 @@ export class MyTasksComponent implements OnInit {
         obj._messageService.handleError('Encerrando', 'Não foi possível registrar a baixa neste momento.')
       }
     );
+
   }
   onExpireTask(id) {
     const obj = this;
-    this._userService.expirarTask(id).subscribe(
+
+    const confirm$ = this._messageService.showConfirm('Conclusão de Tarefa', 'Você define esta tarefa como expirada?', 'Sim', 'Não');
+
+    confirm$.asObservable().pipe(
+      take(1),
+      switchMap(result => result ? obj._userService.expirarTask(id) : EMPTY)
+
+    ).subscribe(
       success => {
-        obj._messageService.handleSuccess('Conclusão de Tarefa', 'Serviço concluído com sucesso.')
+        obj._messageService.handleSuccess('Conclusão de Tarefa', 'Registro realizado com sucesso.')
         this.loadMyTasks();
       },
       error => {
         console.error(error);
-        obj._messageService.handleError('Conclusão de Tarefa', 'Não foi possível registrar a baixa neste momento.')
+        obj._messageService.handleError('Conclusão de Tarefa', 'Não foi possível realizar este registro.')
       }
     );
 

@@ -46,6 +46,7 @@ import { TemplateTableRebanhoComponent } from './components/agro/dm-pastagens/te
 import { TemplateRebanhoComponent } from './components/agro/dm-pastagens/template-rebanho/template-rebanho.component';
 import { MyTasksComponent } from './components/user/my-tasks/my-tasks.component';
 import { ProdHortalicasComponent } from './components/agro/prod-hortalicas/prod-hortalicas.component';
+import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { ProdHortalicasComponent } from './components/agro/prod-hortalicas/prod-
     TemplateRebanhoComponent,
     MyTasksComponent,
     ProdHortalicasComponent,
+    DialogConfirmComponent,
   ],
   imports: [
     CommonModule,
@@ -142,10 +144,11 @@ import { ProdHortalicasComponent } from './components/agro/prod-hortalicas/prod-
     TemplateTableRebanhoComponent,
     TemplateRebanhoComponent,
     MyTasksComponent,
-    ProdHortalicasComponent
+    ProdHortalicasComponent,
+    DialogConfirmComponent
   ],
   entryComponents: [
-    AlertModalComponent
+    AlertModalComponent, DialogConfirmComponent
   ]
 })
 export class SharedModule { }
