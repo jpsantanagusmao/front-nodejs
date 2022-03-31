@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
+import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 
 @Component({
   selector: 'dap-warning',
@@ -16,6 +17,7 @@ export class DapWarningComponent implements OnInit {
   form: FormGroup;
 
   _loading: boolean = Boolean(false);
+has_dap: boolean = Boolean(false);
 
   //dapirregular: any[] = [];
   dapirregular$: Observable<any>;
@@ -23,7 +25,8 @@ export class DapWarningComponent implements OnInit {
   ater: any;
 
   constructor(
-    private _dapService: DapService
+    private _dapService: DapService,
+	private _messageService: AlertMessagesService
   ) { }
 
   ngOnInit(): void {
@@ -42,24 +45,55 @@ export class DapWarningComponent implements OnInit {
     await this.loadingToggle();
 
     this.dapirregular$ = await this._dapService.queryAcerbity(cpf).pipe(
-      delay(3000),
+      delay(300),
       tap((x) => {
-        obj.defineAter(x).then(x => {
-          obj.loadingToggle();
-        });
+
+	try{
+		if(Number(x.length) > 0){
+
+		obj.has_dap = Boolean(true);
+	        obj.defineAter(x).then(x => {
+        	  obj.loadingToggle();
+			this.has_dap = Boolean(true);
+			this._loading = Boolean(false);
+	        });		
+
+		}else{
+	obj._loading = Boolean(false);
+	obj.has_dap = Boolean(false);
+	obj._messageService.handleSuccess('Consulta irregularidade', 'Não há irregularidades para este produtor.')
+	obj.dapirregular$ = undefined;
+	}
+
+	}catch(e){
+		this._loading = Boolean(false);
+		this._messageService.handleSuccess('Consulta irregularidade', 'Não há irregularidades para este produtor.')
+	}
+
       })
     );
   }
  
   async loadingToggle() {
     this._loading = !(Boolean(this._loading));
-  }
+  } 
 
+formvalid(){
+	if(this.has_dap===true && this.form.valid===true){
+		return true;
+	}else{
+		return false;
+	}
+
+}
   registerTreatment(dap) {
     const obj = this;
+
     const rater = this.defineAter(dap).then(function (a) {
       obj.onReport.emit(a);
-    });
+    });	
+
+
   }
 
   async defineAter(dadosDap) {

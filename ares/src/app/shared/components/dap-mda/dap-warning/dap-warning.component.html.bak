@@ -24,7 +24,7 @@
 
 </form>
 <div>
-<div *ngIf="dapirregular$ | async as dapirregular ">
+<div *ngIf="dapirregular$.length>0 | async as dapirregular ">
     <div *ngFor="let d of dapirregular" class="irregularidade">
         <div class="row border border-bottom-1 border-secondary">
             <div><strong>Número da DAP:</strong> {{d.numDap}}</div>
