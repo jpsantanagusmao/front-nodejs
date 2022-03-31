@@ -15,6 +15,7 @@ import { Class4DapAcerbityComponent } from './components/class4-dap-acerbity/cla
 import { Class4PerdaDeCargaCalcComponent } from './components/class4-perda-de-carga-calc/class4-perda-de-carga-calc.component';
 import { Class4ToolsComponent } from './components/class4-tools/class4-tools.component';
 import { Class4DimPastagemComponent } from './components/class4-dim-pastagem/class4-dim-pastagem.component';
+import { ProdHortalicasComponent } from 'src/app/shared/components/agro/prod-hortalicas/prod-hortalicas.component';
 
 
 const routes: Routes = [
@@ -66,6 +67,10 @@ const routes: Routes = [
   {
     path: 'dim-pastagem',
     component: Class4DimPastagemComponent
+  },
+  {
+    path: 'prod-hortalicas',
+    component: ProdHortalicasComponent
   },
   {
     path: 'tools',

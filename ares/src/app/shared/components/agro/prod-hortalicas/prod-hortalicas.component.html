@@ -1,0 +1,75 @@
+<!--<main class="d-flex-stretch justify-content-center  border align-items-center p-2">-->
+    <main class="border align-items-center p-2">
+        <section>
+            <form role="form" [formGroup]="formCalc" class="p-2">
+                <div class="row mb-3 pb-1 border-bottom">
+                    <div class="col col-4">
+                        <div>
+                            <label class="form-label" for="cultura">Cultura</label>
+                            <select id="cultura" class="form-control" formControlName="cultura"
+                                style="width: 250px;">
+                                <option *ngFor='let c of culturas' [ngValue]="c">{{c.cultura}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col col-4">
+                        <label class="form-label" for="demanda">Demanda semanal</label>
+                        <input type="text" mask="999" class="form-control" id="demanda" formControlName="demanda">
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col col-3">
+                        <button id="calcular"  (click)='calcular()' class="btn btn-primary">Calcular</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+    
+    <div *ngIf="_plantio.length>0; else notLines">
+    
+        <article class="card" *ngFor="let t of _plantio">
+            <header>
+                <h3 class="row">
+                    <span (click)="delete(t)" tooltip="Excluir este trecho"
+                        class='col col-md-1 danger-text material-icons'>cancel</span>
+                    <p class="col col-md-11 ml-1">
+                        <strong>
+                            {{t.cultura}}
+                        </strong>
+                    </p>
+                </h3>
+            </header>
+            <section>
+                <div class="row">
+                    <div class="col col-md-3">
+                        <strong>
+                            Área:
+                        </strong>
+                        {{t.area | number: '1.2-2'}} m
+                    </div>
+                    <div class="col col-md-3">
+                        <strong>
+                            Data do plantio:
+                        </strong>
+                        {{t.data | date: 'dd/mm/yyyy'}} m<sup>3</sup>/h
+                    </div>
+
+                </div>
+            </section>
+        </article>
+        <article>
+
+        </article>
+        <div class="row m-5">
+            <div class="col col-3">
+                <button id="calcular"(click)='createTreatment()' class="btn btn-primary">Registrar atendimento</button>
+            </div>
+        </div>
+    </div>
+    <ng-template #notLines>
+        <article class="danger-text card">
+            Não há nenhuma cultura informada!
+        </article>
+    </ng-template>

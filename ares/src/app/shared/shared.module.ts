@@ -45,6 +45,7 @@ import { DmPastagensComponent } from './components/agro/dm-pastagens/dm-pastagen
 import { TemplateTableRebanhoComponent } from './components/agro/dm-pastagens/template-table-rebanho/template-table-rebanho.component';
 import { TemplateRebanhoComponent } from './components/agro/dm-pastagens/template-rebanho/template-rebanho.component';
 import { MyTasksComponent } from './components/user/my-tasks/my-tasks.component';
+import { ProdHortalicasComponent } from './components/agro/prod-hortalicas/prod-hortalicas.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { MyTasksComponent } from './components/user/my-tasks/my-tasks.component'
     TemplateTableRebanhoComponent,
     TemplateRebanhoComponent,
     MyTasksComponent,
+    ProdHortalicasComponent,
   ],
   imports: [
     CommonModule,
@@ -139,7 +141,8 @@ import { MyTasksComponent } from './components/user/my-tasks/my-tasks.component'
     DmPastagensComponent,
     TemplateTableRebanhoComponent,
     TemplateRebanhoComponent,
-    MyTasksComponent
+    MyTasksComponent,
+    ProdHortalicasComponent
   ],
   entryComponents: [
     AlertModalComponent
