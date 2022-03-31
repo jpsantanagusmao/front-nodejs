@@ -152,7 +152,7 @@ export class DmPastagensComponent implements OnInit {
     
     let orientacao = `Desta forma, para esta lotação, a necessidade de matéria seca anual é de aproximadamente ${dados.necessidadeMSano} kg/ano. `;
     if(Number(dados.area)>1){
-      orientacao += `Sendo necessário para isso, uma área total de ${(dados.area).toFixed(0)} hectares divididos em ${dados.qtdPiquetes} piquetes de ${dados.areaPiquete} metros quadrados`;
+      orientacao += `Sendo necessário para isso, uma área total de ${(dados.area)} hectares divididos em ${dados.qtdPiquetes} piquetes de ${dados.areaPiquete} metros quadrados`;
     }else{
       orientacao += `Sendo necessário para isso, uma área total de ${(dados.area*10000).toFixed(0)} metros quadrados que serão divididos em ${dados.qtdPiquetes} piquetes de ${dados.areaPiquete} metros quadrados`;
     }
