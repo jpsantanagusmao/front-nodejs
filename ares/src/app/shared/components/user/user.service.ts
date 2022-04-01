@@ -5,6 +5,7 @@ import { Observable, EMPTY, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { environment as env } from '../../../../environments/environment.prod';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,15 @@ export class UserService {
     private router: Router,
   ) { }
 
+  getTreatmentsByDate(rangeDate: any[]): Observable<any> {
+    console.log('Localizando');
+    console.log(rangeDate);
+
+    console.log(`${env.BASE_API_URL}${this.PATH}/reports/all-treatments-by-date/${moment(rangeDate[0]).utc().format('yyyy-MM-DD')}/${moment(rangeDate[1]).utc().format('yyyy-MM-DD')}`);
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/all-treatments-by-date/${moment(rangeDate[0]).utc().format('yyyy-MM-DD')}/${moment(rangeDate[1]).utc().format('yyyy-MM-DD')}`).pipe(
+      //tap(console.log)
+    );
+  }
   findById(id: string): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/${id}`).pipe(
       //tap(console.log)

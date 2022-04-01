@@ -1,0 +1,22 @@
+<div class="row d-flex align-items-end" [formGroup]="form">
+    <div class="col col-md-8">
+        <div class="row">
+            <div class="col col-md-10">
+                <label for="disabledTextInput" class="form-label">Informe um período de busca</label>
+                <input type="text" placeholder="Pesquisar registros" class="form-control" bsDaterangepicker formControlName="bsRangeValue"
+                    [bsConfig]="{ isAnimated: true }">
+            </div>
+            <div class="col d-flex align-items-end" (click)="find()">
+                <span class="material-icons" tooltip="Localizar registros">
+                    manage_search
+                </span>
+            </div>
+
+        </div>
+    </div>
+    <div class="col">
+        <label for="disabledTextInput" class="form-label">Filtro</label>
+        <input type="text" id="disabledTextInput" class="form-control" formControlName="localizar"
+        placeholder="Informe um valor para busca">
+    </div>
+</div>

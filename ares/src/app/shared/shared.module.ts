@@ -47,6 +47,8 @@ import { TemplateRebanhoComponent } from './components/agro/dm-pastagens/templat
 import { MyTasksComponent } from './components/user/my-tasks/my-tasks.component';
 import { ProdHortalicasComponent } from './components/agro/prod-hortalicas/prod-hortalicas.component';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
+import { TreatmentsByDateComponent } from './reports/treatments-by-date/treatments-by-date.component';
+import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,7 @@ import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confi
     MyTasksComponent,
     ProdHortalicasComponent,
     DialogConfirmComponent,
+    TreatmentsByDateComponent,
   ],
   imports: [
     CommonModule,
@@ -99,9 +102,11 @@ import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confi
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
     AlertModule
   ],
   providers: [
+    BsDatepickerConfig,
     BsModalService
   ],
   exports: [

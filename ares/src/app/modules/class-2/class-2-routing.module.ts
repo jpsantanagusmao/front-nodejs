@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AnaliseSoloComponent } from 'src/app/shared/components/agro/analise-solo/analise-solo.component';
 import { ProdHortalicasComponent } from 'src/app/shared/components/agro/prod-hortalicas/prod-hortalicas.component';
+import { TreatmentsByDateComponent } from 'src/app/shared/reports/treatments-by-date/treatments-by-date.component';
 import { Class2AterDapAcerbityComponent } from './components/ater-dap-acerbity/ater-dap-acerbity.component';
 import { Class2DapQueryComponent } from './components/ater-dap-query/ater-dap-query.component';
 import { Class2PerdaDeCargaCalcComponent } from './components/calc-irrigacaocalc-irrigacao/calc-irrigacaocalc-irrigacao.component';
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path: 'calc-irrigacao',
     component: Class2PerdaDeCargaCalcComponent
+  },
+  {
+    path: 'find-treatment',
+    component: TreatmentsByDateComponent
   },
 ];
 
