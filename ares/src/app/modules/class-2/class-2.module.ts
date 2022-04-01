@@ -10,6 +10,7 @@ import { Class2AterDapAcerbityComponent } from './components/ater-dap-acerbity/a
 import { Class2DapQueryComponent } from './components/ater-dap-query/ater-dap-query.component';
 import { Class2PerdaDeCargaCalcComponent } from './components/calc-irrigacaocalc-irrigacao/calc-irrigacaocalc-irrigacao.component';
 import { Class2DimPastagemComponent } from './components/dim-pastagem/dim-pastagem.component';
+import { Class2ProdHortalicasComponent } from './components/class2-prod-hortalicas/class2-prod-hortalicas.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { Class2DimPastagemComponent } from './components/dim-pastagem/dim-pastag
     Class2DapQueryComponent,
     Class2PerdaDeCargaCalcComponent,
     Class2CadastrarTreatmentComponent,
-    Class2DimPastagemComponent
+    Class2DimPastagemComponent,
+    Class2ProdHortalicasComponent
   ],
   imports: [
     CommonModule,

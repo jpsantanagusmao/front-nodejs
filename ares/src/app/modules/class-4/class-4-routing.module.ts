@@ -47,7 +47,7 @@ const routes: Routes = [
   {
     path: 'ater-analise-solo',
     component: AnaliseSoloComponent
-  },
+  }, 
   {
     path: 'ater-dap-acerbity',
     component: Class4DapAcerbityComponent

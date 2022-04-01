@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UserService } from 'src/app/shared/components/user/user.service';
 
 @Component({
   selector: 'app-class2-home',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Class2HomeComponent implements OnInit {
 
-  constructor() { }
+  qtdprojetos$: Observable<any>;
+  qtdatd$: Observable<any>;
+  qtdcustomers$: Observable<any>;
+
+  loading$: Observable<any>;
+
+  constructor(
+    private _userService: UserService
+  ) { }
 
   ngOnInit(): void {
-  }
 
+    this.qtdprojetos$ = this._userService.allProjects().pipe();
+    this.qtdatd$ = this._userService.allTreatmens().pipe();
+    this.qtdcustomers$ = this._userService.allCustomers().pipe();
+  }
 }

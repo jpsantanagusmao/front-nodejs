@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { Class2AnaliseSoloComponent } from './components/ater-analise-solo/ater-analise-solo.component';
+import { AnaliseSoloComponent } from 'src/app/shared/components/agro/analise-solo/analise-solo.component';
+import { ProdHortalicasComponent } from 'src/app/shared/components/agro/prod-hortalicas/prod-hortalicas.component';
 import { Class2AterDapAcerbityComponent } from './components/ater-dap-acerbity/ater-dap-acerbity.component';
 import { Class2DapQueryComponent } from './components/ater-dap-query/ater-dap-query.component';
 import { Class2PerdaDeCargaCalcComponent } from './components/calc-irrigacaocalc-irrigacao/calc-irrigacaocalc-irrigacao.component';
@@ -30,8 +31,8 @@ const routes: Routes = [
   },
   {
     path: 'ater-analise-solo',
-    component: Class2AnaliseSoloComponent
-  },
+    component: AnaliseSoloComponent
+  }, 
   {
     path: 'dim-pastagem',
     component: Class2DimPastagemComponent
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'ater-dap-query',
     component: Class2DapQueryComponent
+  }, 
+  {
+    path: 'prod-hortalicas',
+    component: ProdHortalicasComponent
   },
   {
     path: 'calc-irrigacao',
