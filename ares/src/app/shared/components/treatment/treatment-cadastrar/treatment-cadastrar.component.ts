@@ -1,3 +1,4 @@
+import { IcuPlaceholder } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -49,16 +50,14 @@ export class TreatmentCadastrarComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
 
     const ater = JSON.parse(this._userCache.getAter());
     if (ater) {
-
       this.customers = ater['customers'];
       this.createFormWithOrientacao(ater);
 
     } else {
-
       this.createFormNew();
 
     }
@@ -267,18 +266,18 @@ export class TreatmentCadastrarComponent implements OnInit {
   }
     `
   }
-   postRater(event) {
+  postRater(event) {
     const fileup = event.target.files;
     //console.log(fileup);
 
     if (event.target.files.length > 0) {
       this._file = event.target.files[0];
 
-/*
-      this.form.patchValue({
-        rater: file
-      });
-      */
+      /*
+            this.form.patchValue({
+              rater: file
+            });
+            */
     }
   }
   viewRater() {

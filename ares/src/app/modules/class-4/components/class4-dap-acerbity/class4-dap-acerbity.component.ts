@@ -21,6 +21,6 @@ export class Class4DapAcerbityComponent implements OnInit {
   }
 
   onReport(ater){
-    this._router.navigate(["../service/", ater],  { relativeTo: this._route });
+    this._router.navigate(["../service"],  { relativeTo: this._route });
   }
 }

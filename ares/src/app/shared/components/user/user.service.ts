@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, EMPTY, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { environment as env } from '../../../../environments/environment.prod';
 
@@ -24,6 +24,20 @@ export class UserService {
       //tap(console.log)
     );
   }
+  allTreatmens() {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/all-treatments`).pipe(
+    );
+  }
+  allCustomers() {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/all-customers`).pipe(
+    );
+  }
+
+  allProjects(): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/all-projects`).pipe(
+    );
+  }
+
   consultacep(cep): Observable<any> {
     const CEP_API = `https://viacep.com.br/ws/${cep}/json`;
 
@@ -81,15 +95,15 @@ export class UserService {
     return this.http.put(`${env.BASE_API_URL}${this.PATH}/${id}`, user).pipe(
     );
   }
-  finalizarTask(id: string):Observable<any> {
+  finalizarTask(id: string): Observable<any> {
     return this.http.put(`${env.BASE_API_URL}${this.PATH}/finalize/${id}`, null).pipe(
     );
   }
-  cancelarTask(id: string):Observable<any> {
+  cancelarTask(id: string): Observable<any> {
     return this.http.put(`${env.BASE_API_URL}${this.PATH}/cancel/${id}`, null).pipe(
     );
   }
-  expirarTask(id: string):Observable<any> {
+  expirarTask(id: string): Observable<any> {
     return this.http.put(`${env.BASE_API_URL}${this.PATH}/expire/${id}`, null).pipe(
     );
   }

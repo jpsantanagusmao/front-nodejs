@@ -244,3 +244,27 @@ summary {
 .btn-div-point{
     cursor: pointer;
 }
+#dashboard{
+    border: 1px var(--mid-color) solid;
+    border-radius: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.card-panel{
+}
+.card-panel > .card-body > h5{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+.card-panel > .card-body > p{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
