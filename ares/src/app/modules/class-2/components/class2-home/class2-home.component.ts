@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { UserService } from 'src/app/shared/components/user/user.service';
 
 @Component({
@@ -21,8 +22,11 @@ export class Class2HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.qtdprojetos$ = this._userService.allProjects().pipe();
-    this.qtdatd$ = this._userService.allTreatmens().pipe();
-    this.qtdcustomers$ = this._userService.allCustomers().pipe();
+    this.qtdprojetos$ = this._userService.allProjects().pipe(
+    );
+    this.qtdatd$ = this._userService.allTreatmens().pipe(
+      );
+      this.qtdcustomers$ = this._userService.allCustomers().pipe(
+    );
   }
 }
