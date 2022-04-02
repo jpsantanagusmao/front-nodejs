@@ -1,10 +1,10 @@
 <div class="row d-flex align-items-end" [formGroup]="form">
     <div class="col col-md-8">
         <div class="row">
-            <div class="col col-md-10">
+            <div class="col col-md-10 mt-3">
                 <label for="disabledTextInput" class="form-label">Informe um período de busca</label>
-                <input type="text" placeholder="Pesquisar registros" class="form-control" bsDaterangepicker formControlName="bsRangeValue"
-                    [bsConfig]="{ isAnimated: true }">
+                <input type="text" [bsConfig]="datePickerConfig" placeholder="Pesquisar registros" class="form-control" bsDaterangepicker formControlName="bsRangeValue"
+                    >
             </div>
             <div class="col d-flex align-items-end" (click)="find()">
                 <span class="material-icons" tooltip="Localizar registros">
@@ -16,7 +16,36 @@
     </div>
     <div class="col">
         <label for="disabledTextInput" class="form-label">Filtro</label>
-        <input type="text" id="disabledTextInput" class="form-control" formControlName="localizar"
+        <input type="text" id="disabledTextInput" class="form-control" (keyup)="filterAdvanced($event)" formControlName="localizar"
         placeholder="Informe um valor para busca">
     </div>
 </div>
+<div *ngIf="treatments$ | async as treatments; else nodata">
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Data</th>
+            <th scope="col">Beneficiários/Cliente</th>
+            <th scope="col">Serviço</th>
+            <th scope="col">Local do serviço</th>
+            <th scope="col">Funcionário</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tr of treatments">
+            <td>{{tr.data | date:'dd/MM/yyyy'}}</td>
+            <td>{{tr.customer}}</td>
+            <td>{{tr.description}}</td>
+            <td>{{tr.local}}</td>
+            <td>{{tr.user}}</td>
+            <td>{{tr.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<ng-template #nodata>
+    <div class="text-danger mt-3">
+        Nenhum registro encontrado!
+    </div>
+</ng-template>

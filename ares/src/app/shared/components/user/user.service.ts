@@ -21,10 +21,10 @@ export class UserService {
   ) { }
 
   getTreatmentsByDate(rangeDate: any[]): Observable<any> {
-    console.log('Localizando');
-    console.log(rangeDate);
+    //console.log('Localizando');
+    //console.log(rangeDate);
 
-    console.log(`${env.BASE_API_URL}${this.PATH}/reports/all-treatments-by-date/${moment(rangeDate[0]).utc().format('yyyy-MM-DD')}/${moment(rangeDate[1]).utc().format('yyyy-MM-DD')}`);
+    //console.log(`${env.BASE_API_URL}${this.PATH}/reports/all-treatments-by-date/${moment(rangeDate[0]).utc().format('yyyy-MM-DD')}/${moment(rangeDate[1]).utc().format('yyyy-MM-DD')}`);
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/all-treatments-by-date/${moment(rangeDate[0]).utc().format('yyyy-MM-DD')}/${moment(rangeDate[1]).utc().format('yyyy-MM-DD')}`).pipe(
       //tap(console.log)
     );

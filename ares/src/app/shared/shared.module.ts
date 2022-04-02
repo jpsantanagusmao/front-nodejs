@@ -49,6 +49,7 @@ import { ProdHortalicasComponent } from './components/agro/prod-hortalicas/prod-
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 import { TreatmentsByDateComponent } from './reports/treatments-by-date/treatments-by-date.component';
 import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { AgroIndicadoresComponent } from './components/indicadores/agro-indicadores/agro-indicadores.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker
     ProdHortalicasComponent,
     DialogConfirmComponent,
     TreatmentsByDateComponent,
+    AgroIndicadoresComponent,
   ],
   imports: [
     CommonModule,
@@ -150,7 +152,9 @@ import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker
     TemplateRebanhoComponent,
     MyTasksComponent,
     ProdHortalicasComponent,
-    DialogConfirmComponent
+    DialogConfirmComponent,
+    AgroIndicadoresComponent,
+
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

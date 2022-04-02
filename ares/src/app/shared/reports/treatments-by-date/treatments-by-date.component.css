@@ -7,3 +7,5 @@ span{
 span:hover{
     background-color: var(--mid-color);
 }
+theme-dark-orange.bs-datepicker-head {
+    background-color: #f58025; }
