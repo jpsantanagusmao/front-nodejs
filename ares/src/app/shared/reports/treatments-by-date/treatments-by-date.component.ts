@@ -42,17 +42,16 @@ export class TreatmentsByDateComponent implements OnInit {
       this._messageService.handleError('Erro', 'Você precisa especificar um período!');
     }else{
       this.treatments$ = this._userService.getTreatmentsByDate([...this.form.controls.bsRangeValue.value]).pipe(
-        //tap(console.log)
       );
     }
   }
-  filterAdvanced(event) {
+  async filterAdvanced(event) {
     const obj = this;
     if (!this.treatments$) {
       return;
     }
 
-    this.treatments$ = this.treatments$.pipe(
+    this.treatments$ = await this.treatments$.pipe(
       filter(value => value.length > 0),
       distinctUntilChanged(),
       map(ds => ds.filter(tr => {

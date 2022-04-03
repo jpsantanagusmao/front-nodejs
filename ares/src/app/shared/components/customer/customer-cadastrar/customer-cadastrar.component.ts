@@ -7,6 +7,7 @@ import { UserCacheService } from 'src/app/core/user-cache.service';
 import { CustomerService } from '../customer.service';
 import { AlertComponent } from 'ngx-bootstrap/alert';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
+import { CpfValidator } from 'src/app/shared/validators/cpf-validator/cpf-validator.component';
 
 @Component({
   selector: 'customer-cadastrar',
@@ -108,7 +109,7 @@ export class CustomerCadastrarComponent implements OnInit {
 
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(150)]),
-      cpf: new FormControl('', [Validators.required]),
+      cpf: new FormControl('', [Validators.required, CpfValidator]),
       nickname: new FormControl(''),
       birth_date: new FormControl(''),
       address: new FormControl(''),
