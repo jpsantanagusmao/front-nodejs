@@ -12,6 +12,7 @@ import * as moment from 'moment';
 })
 export class UserService {
 
+
   private PATH: string = 'users';
 
   constructor(
@@ -20,6 +21,11 @@ export class UserService {
     private router: Router,
   ) { }
 
+  getIndicadoresCepea(): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-actual-prices`).pipe(
+    );
+  }
+  
   getTreatmentsByDate(rangeDate: any[]): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/all-treatments-by-date/${moment(rangeDate[0]).utc().format('yyyy-MM-DD')}/${moment(rangeDate[1]).utc().format('yyyy-MM-DD')}`).pipe(
     );

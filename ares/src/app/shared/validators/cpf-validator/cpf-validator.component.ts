@@ -2,7 +2,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class CpfValidator{
     
-    static validate(control: AbstractControl) {
+    static validate(control: AbstractControl): ValidationErrors | null  {
         /*
         if (this.cpfValido(control.value)) {
             return null;

@@ -1,14 +1,24 @@
-<p>Preços atuais de acordo com a fonte</p>
-<table class="table table-hover">
+<p class="form-tittle">Principais indicadores</p>
+<table class="table table-hover" *ngIf="indicadoresCepea$ | async as ds">
     <thead>
         <tr>
-            <th scope="col">Data</th>
-            <th scope="col">Produção</th>
-            <th scope="col">Unid</th>
-            <th scope="col">Preço (R$)</th>
-            <th scope="col">Obs</th>
+            <th scope="col col-md-1">Data</th>
+            <th scope="col col-md-3">Produção</th>
+            <th scope="col col-md-1">Unid</th>
+            <th scope="col col-md-1">Preço (R$)</th>
+            <th scope="col col-md-6">Comentários</th>
         </tr>
     </thead>
+    <tbody>
+        <tr *ngFor="let d of ds"  >
+            <td>{{d.data}}</td>
+            <td>{{d.producao}}</td>
+            <td>{{d.unidade}}</td>
+            <td>{{d.valor}}</td>
+            <td><em>{{d.coments}}</em></td>           
+        </tr>
+    </tbody>
+    <!--
     <tbody>
         <tr>
             <td>03/2022</td>
@@ -53,6 +63,7 @@
             <td><em>*fonte CEPEA</em></td>
         </tr>
     </tbody>
+-->
 </table>
 <div class="row">
     <div class="col col-6">

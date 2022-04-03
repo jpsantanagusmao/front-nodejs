@@ -2,6 +2,7 @@ import { UserService } from 'src/app/shared/components/user/user.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'agro-indicadores',
@@ -11,6 +12,8 @@ import { tap } from 'rxjs/operators';
 export class AgroIndicadoresComponent implements OnInit {
   @ViewChild("cepealeite", { static: true })cepealeite: ElementRef;
   @ViewChild("boigordo", { static: true })cepeaboi: ElementRef;
+  
+  indicadoresCepea$: Observable<any>;
   
   constructor(
     private _userService: UserService
@@ -62,6 +65,8 @@ export class AgroIndicadoresComponent implements OnInit {
   ngOnInit(): void {
     this.cepeaLeiteMgChart();
     this.cepeaBoiChart();
+    this.indicadoresCepea$ = this._userService.getIndicadoresCepea().pipe(
+    );
   }
 
 }

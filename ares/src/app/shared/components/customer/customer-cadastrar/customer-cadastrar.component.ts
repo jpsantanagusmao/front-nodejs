@@ -109,7 +109,7 @@ export class CustomerCadastrarComponent implements OnInit {
 
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(150)]),
-      cpf: new FormControl('', [Validators.required, CpfValidator]),
+      cpf: new FormControl('', [Validators.required, CpfValidator.validate]),
       nickname: new FormControl(''),
       birth_date: new FormControl(''),
       address: new FormControl(''),
