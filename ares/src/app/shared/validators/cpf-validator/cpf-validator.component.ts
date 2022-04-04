@@ -1,17 +1,22 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export class CpfValidator{
+export class CpfValidator {
     
-    static validate(control: AbstractControl): ValidationErrors | null  {
+    static validate(control: AbstractControl): ValidatorFn | null  {
         /*
         if (this.cpfValido(control.value)) {
             return null;
         }
         */
-        return this.cpfValido(control.value) ? null :  {cpfInvalido: "CPF inválido!" };
+
+        //return this.cpfValido(control.value) ? null :  [control.value: control.value];
+
+        return (control: AbstractControl): { [key: string]: any } | null =>  
+        control.value?.toLowerCase() === 'blue' 
+            ? null : {wrongColor: control.value};
     }
 
-    static cpfValido(cpf: any): boolean {
+    cpfValido(cpf: any): boolean {
                 
         cpf = !cpf || cpf.replace(/\D/g, '');
         let cpfsInvsRegex = /1{11}|2{11}|3{11}|4{11}|5{11}|6{11}|7{11}|8{11}|9{11}|0{11}/;

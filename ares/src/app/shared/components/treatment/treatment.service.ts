@@ -1,7 +1,9 @@
+import { UserService } from 'src/app/shared/components/user/user.service';
 import { Observable, EMPTY } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '../../../../environments/environment.prod';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +14,20 @@ export class TreatmentService {
 
   constructor(
     private http: HttpClient,
+    private _userService: UserService
   ) { }
 
   create(treatment: any): Observable<any> {
+    const obj = this;
     return this.http.post(`${env.BASE_API_URL}${this.PATH}`, treatment).pipe(
+      tap(obj.countTasks)
     );
   }
 
+  countTasks(){
+    this._userService.countTasks();
+  }
+  
   findByActionRef(ref: any): Observable<any> {
     if (ref) {
       return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-action/${ref}`).pipe(

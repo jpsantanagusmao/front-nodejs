@@ -30,71 +30,78 @@
         <textarea type="text" rows="4" class="form-control" formControlName="recomendacao" name="recomendacao"
             id="recomendacao"></textarea>
     </div>
-    <div class="row mb-3 mt-3">
-        <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg, application/pdf" formControlName="rater" name="rater" (change)="postRater($event)">
+
+    <!--Form era aqui -->
+
+    <details>
+        <summary>Registro de beneficiários
+        </summary>
+        <customer-cadastrar (onSelected)="onSelectCustomer($event)"></customer-cadastrar>
+    </details>
+    <details>
+        <summary>Registro de tarefas</summary>
+        <form [formGroup]="formAction">
+            <div class="row">
+                <div class="col col-md-6 mt-3">
+                    <select-action (onSelected)="onSelectAction($event)"></select-action>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="descricao">Descrição</label>
+                    <input type="text" class="form-control" formControlName="descricao" name="descricao" id="descricao"
+                        required>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="qtd">Quantidade</label>
+                    <input type="text" mask="000" class="form-control" formControlName="qtd" name="qtd" id="qtd"
+                        required>
+
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="valor">Valor</label>
+                    <input type="text" mask="000" class="form-control" formControlName="valor" name="valor" id="valor"
+                        required>
+
+                </div>
+                <div class="col col-md-5 mt-3">
+                    <user-select (onSelected)="onSelectUserDesigned($event)"></user-select>
+                </div>
+                <div class="col col-md-5 mt-3">
+                    <button class="btn btn-primary" (click)="onIncludeAction($event)">+</button>
+                </div>
+
+
+            </div>
+
+        </form>
+    </details>
+    <details open>
+        <summary>
+            Lista de tarefas
+        </summary>
+        <task-list [tasks]="tasks" (deleted)="onDeleteTask($event)"></task-list>
+    </details>
+    <details open>
+        <summary>
+            Lista de beneficiários
+        </summary>
+        <customer-list [customers]="customers" (deleted)="onDeleteCustomer($event)"></customer-list>
+    </details>
+    <div class="row mt-3">
+        <div class="col-2">
+            <button class="btn btn-primary ml-5" [disabled]="!formOk()" (click)="viewRater()">Imprimir</button>
+        </div>
+        <div class="col mb-3 mt-3">
+            <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg, application/pdf"
+                formControlName="rater" name="rater" (change)="postRater($event)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            <button class="btn btn-primary" [disabled]="!formOk()" (click)="onRegisterTreatment()">Registrar
+                atendimento</button>
+        </div>
     </div>
 </form>
-<details>
-    <summary>Registro de beneficiários
-    </summary>
-    <customer-cadastrar (onSelected)="onSelectCustomer($event)"></customer-cadastrar>
-</details>
-<details>
-    <summary>Registro de tasks</summary>
-    <form [formGroup]="formAction">
-        <div class="row">
-            <div class="col col-md-6 mt-3">
-                <select-action (onSelected)="onSelectAction($event)"></select-action>
-            </div>
-            <div class="form-group col-md-12">
-                <label for="descricao">Descrição</label>
-                <input type="text" class="form-control" formControlName="descricao" name="descricao" id="descricao"
-                    required>
-            </div>
-            <div class="form-group col-md-1">
-                <label for="qtd">Quantidade</label>
-                <input type="text" mask="000" class="form-control" formControlName="qtd" name="qtd" id="qtd" required>
-
-            </div>
-            <div class="form-group col-md-1">
-                <label for="valor">Valor</label>
-                <input type="text" mask="000" class="form-control" formControlName="valor" name="valor" id="valor"
-                    required>
-
-            </div>
-            <div class="col col-md-5 mt-3">
-                <user-select (onSelected)="onSelectUserDesigned($event)"></user-select>
-            </div>
-            <div class="col col-md-5 mt-3">
-                <button class="btn btn-primary" (click)="onIncludeAction($event)">+</button>
-            </div>
-
-
-        </div>
-
-    </form>
-</details>
-<details open>
-    <summary>
-        Lista de tasks
-    </summary>
-    <task-list [tasks]="tasks" (deleted)="onDeleteTask($event)"></task-list>
-</details>
-<details open>
-    <summary>
-        Lista de beneficiários
-    </summary>
-    <customer-list [customers]="customers" (deleted)="onDeleteCustomer($event)"></customer-list>
-</details>
-<div class="row">
-    <div class="col">
-        <button class="btn btn-primary" [disabled]="!formOk()" (click)="onRegisterTreatment()">Registrar atendimento</button>
-    </div>
-    <div class="col">
-        <button class="btn btn-primary ml-5" [disabled]="!formOk()" (click)="viewRater()">Imprimir</button>
-    </div>
-
-</div>
 <ares-loading *ngIf="_loading" class="spinner"></ares-loading>
 <div class="rater" id="printable">
     <div class="title">

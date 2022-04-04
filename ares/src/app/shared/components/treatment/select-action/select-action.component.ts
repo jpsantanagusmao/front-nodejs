@@ -3,7 +3,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { TypeaheadOrder } from 'ngx-bootstrap/typeahead';
 import { Observable, Observer } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { UserService } from '../../user/user.service';
 import { TreatmentService } from '../treatment.service';
 
 @Component({

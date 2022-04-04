@@ -91,7 +91,7 @@ export class AuthHeaderComponent implements OnInit {
     this.mytasks$ = this._userService.countTasks().pipe(
     );
   }
-
+  
   get timeRem() {
     return this._timeRemaining.value;
   }

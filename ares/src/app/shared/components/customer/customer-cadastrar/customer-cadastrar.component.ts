@@ -44,7 +44,22 @@ export class CustomerCadastrarComponent implements OnInit {
     private _messageService: AlertMessagesService
   ) {
     this.id = this._route.snapshot.paramMap.get('id');
-    this.loadForm();
+
+    this.form = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(150)]),
+      cpf: new FormControl('', [Validators.required, CpfValidator.validate]),
+      nickname: new FormControl(''),
+      birth_date: new FormControl(''),
+      address: new FormControl(''),
+      num: new FormControl(''),
+      district: new FormControl(''),
+      complement: new FormControl(''),
+      cep: new FormControl(''),
+      phone: new FormControl(''),
+    })
+
+    //this.createFormNew();
+    //this.loadForm();
   }
 
   async loadingToggle() {
@@ -72,17 +87,19 @@ export class CustomerCadastrarComponent implements OnInit {
     await this._customerService.findByCpf(this.id).subscribe(
       data => {
         const customer = data;
-
-        obj.form.controls.name.setValue(customer.name, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
-        obj.form.controls.cpf.setValue(customer.cpf, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]);
-        obj.form.controls.nickname.setValue(customer.nickname, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
-        obj.form.controls.birth_date.setValue(customer.birth_date, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
-        obj.form.controls.address.setValue(customer.address, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]);
-        obj.form.controls.num.setValue(customer.num, [Validators.required, Validators.minLength(1), Validators.maxLength(5)]);
-        obj.form.controls.district.setValue(customer.district, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
-        obj.form.controls.complement.setValue(customer.complement);
-        obj.form.controls.cep.setValue(customer.cep, [Validators.required, Validators.minLength(8), Validators.maxLength(10)]);
-        obj.form.controls.phone.setValue(customer.phone, [Validators.required, Validators.minLength(11), Validators.maxLength(15)]);
+        /*
+                obj.form.controls.name.patchValue(customer.name);
+                obj.form.controls.cpf.patchValue(customer.cpf);
+                obj.form.controls.nickname.patchValue(customer.nickname);
+                obj.form.controls.birth_date.patchValue(customer.birth_date);
+                obj.form.controls.address.patchValue(customer.address);
+                obj.form.controls.num.patchValue(customer.num);
+                obj.form.controls.district.patchValue(customer.district);
+                obj.form.controls.complement.patchValue(customer.complement);
+                obj.form.controls.cep.patchValue(customer.cep);
+                obj.form.controls.phone.patchValue(customer.phone);
+                */
+        obj.setForm(customer);
       });
   }
   async setForm(customer) {
@@ -93,23 +110,22 @@ export class CustomerCadastrarComponent implements OnInit {
      * Configura o formulário
      */
     const obj = this;
-    obj.form.controls.name.setValue(customer.name, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
-    obj.form.controls.cpf.setValue(customer.cpf, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]);
-    obj.form.controls.nickname.setValue(customer.nickname, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
-    obj.form.controls.birth_date.setValue(customer.birth_date, [Validators.required, Validators.minLength(10), Validators.maxLength(150)]);
-    obj.form.controls.address.setValue(customer.address, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]);
-    obj.form.controls.num.setValue(customer.num, [Validators.required, Validators.minLength(1), Validators.maxLength(5)]);
-    obj.form.controls.district.setValue(customer.district, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
-    obj.form.controls.complement.setValue(customer.complement);
-    obj.form.controls.cep.setValue(customer.cep, [Validators.required, Validators.minLength(8), Validators.maxLength(10)]);
-    obj.form.controls.phone.setValue(customer.phone, [Validators.required, Validators.minLength(11), Validators.maxLength(15)]);
+    obj.form.controls.name.patchValue(customer.name);
+    obj.form.controls.cpf.patchValue(customer.cpf);
+    obj.form.controls.nickname.patchValue(customer.nickname);
+    obj.form.controls.birth_date.patchValue(customer.birth_date);
+    obj.form.controls.address.patchValue(customer.address);
+    obj.form.controls.num.patchValue(customer.num);
+    obj.form.controls.district.patchValue(customer.district);
+    obj.form.controls.complement.patchValue(customer.complement);
+    obj.form.controls.cep.patchValue(customer.cep);
+    obj.form.controls.phone.patchValue(customer.phone);
   }
 
   async createFormNew() {
-
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(150)]),
-      cpf: new FormControl('', [Validators.required, CpfValidator.validate]),
+      cpf: new FormControl('', [Validators.required]),
       nickname: new FormControl(''),
       birth_date: new FormControl(''),
       address: new FormControl(''),
@@ -129,7 +145,7 @@ export class CustomerCadastrarComponent implements OnInit {
 
   }
   formOk() {
-    if ( this.form.valid === true )
+    if (this.form.valid === true)
       return true;
     return false;
   }
@@ -160,7 +176,7 @@ export class CustomerCadastrarComponent implements OnInit {
      */
     let customerWeb: any;
     const obj = this;
-    
+
     obj._loading = Boolean(true);
 
     await this._customerService.findByCpf(this.form.controls.cpf.value).subscribe(
@@ -183,7 +199,7 @@ export class CustomerCadastrarComponent implements OnInit {
             schooling: ''
           }
           obj.setForm(customer);
-          
+
         }
         obj.loadingToggle();
       },
@@ -203,7 +219,7 @@ export class CustomerCadastrarComponent implements OnInit {
      */
     let customerWeb: any;
     const obj = this;
-    
+
     obj._loading = Boolean(true);
 
     await this._dapService.findByCpf(this.form.controls.cpf.value).subscribe(

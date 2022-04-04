@@ -1,11 +1,8 @@
-import { IcuPlaceholder } from '@angular/compiler/src/i18n/i18n_ast';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-import { asapScheduler } from 'rxjs';
 import { UserCacheService } from 'src/app/core/user-cache.service';
-import { AterModel } from 'src/app/shared/models/ater.model';
 import { statusModel } from 'src/app/shared/models/status.model';
 import { v4 as uuidv4 } from 'uuid';
 import { TreatmentService } from '../treatment.service';
@@ -48,6 +45,7 @@ export class TreatmentCadastrarComponent implements OnInit {
 
     this.data = this._userCache.getUserData();
 
+    this.createFormNew();
   }
 
   async ngOnInit() {
@@ -74,7 +72,7 @@ export class TreatmentCadastrarComponent implements OnInit {
   }
 
   onSelectAction(value) {
-    this.formAction.controls.descricao.patchValue(value.description, [Validators.minLength(10)]);
+    this.formAction.controls.descricao.patchValue(value.description);
     this.formAction.controls.valor.patchValue(value.valorPorAtendimento);
 
     this.taskSelected = this.formAction.value;
@@ -216,6 +214,7 @@ export class TreatmentCadastrarComponent implements OnInit {
       border-radius: 15px;
       margin-top: 5px;
       padding: 5px 0px;
+      font-size: 0.6rem;
     }
     
     .ater-footer .emissor {
@@ -235,6 +234,7 @@ export class TreatmentCadastrarComponent implements OnInit {
   .ater-footer .assinaturas .titular .nome {
       margin-top: 10mm;
       border-top: 1px solid black;
+      font-size: 0.6rem;
   }
   
   #printable {

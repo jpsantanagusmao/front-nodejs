@@ -219,7 +219,7 @@ Definição de estilos de botoes
 Propriedade de SUMARIES
 */
 summary {
-    color: var(--primary);
+    color: var(--max-color);
     animation: animateBg 10s linear infinite;
     background-image: linear-gradient(90deg, #d4d3f8, #1f99b7, #d4d3f8, #1f99b7);
     background-size: 300% 100%;

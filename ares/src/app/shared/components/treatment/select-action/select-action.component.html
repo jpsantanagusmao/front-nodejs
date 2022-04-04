@@ -2,6 +2,6 @@
     <input formControlName="search" [typeahead]="users$" typeaheadOptionField="referency" [typeaheadAsync]="true"
         [typeaheadOptionsLimit]="7" [typeaheadMinLength]="0" [typeaheadOrderBy]="sortConfig"
         [typeaheadIsFirstItemActive]="true" [typeaheadSelectFirstItem]="true"
-        (typeaheadOnBlur)="typeaheadOnBlur($event)" (typeaheadNoResults)="typeaheadNoResults($event)"
+        (typeaheadNoResults)="typeaheadNoResults($event)"
         (typeaheadOnSelect)="onSelect($event)" placeholder={{MESSAGE_PLACE_HOLDER}} class="form-control">
 </form>
