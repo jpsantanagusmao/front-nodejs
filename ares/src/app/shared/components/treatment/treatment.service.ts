@@ -20,7 +20,7 @@ export class TreatmentService {
   create(treatment: any): Observable<any> {
     const obj = this;
     return this.http.post(`${env.BASE_API_URL}${this.PATH}`, treatment).pipe(
-      tap(obj.countTasks)
+      //tap(obj.countTasks)
     );
   }
 

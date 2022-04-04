@@ -72,7 +72,7 @@ export class TreatmentCadastrarComponent implements OnInit {
   }
 
   onSelectAction(value) {
-    this.formAction.controls.descricao.patchValue(value.description);
+    this.formAction.controls.description.patchValue(value.description);
     this.formAction.controls.valor.patchValue(value.valorPorAtendimento);
 
     this.taskSelected = this.formAction.value;
@@ -357,7 +357,7 @@ export class TreatmentCadastrarComponent implements OnInit {
   }
   createFormAction() {
     this.formAction = new FormGroup({
-      descricao: new FormControl('', [Validators.minLength(10)]),
+      description: new FormControl('', [Validators.minLength(10)]),
       qtd: new FormControl('1', [Validators.min(1)]),
       valor: new FormControl('0', Validators.min(0)),
     });

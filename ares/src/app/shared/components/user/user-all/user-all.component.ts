@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/shared/components/user/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 
 @Component({
@@ -13,6 +13,8 @@ export class UserAllComponent implements OnInit {
 
   users$: Observable<any>;
   _loading: boolean = false;
+
+  @Output() onCreateUser = new EventEmitter();
 
   constructor(
     private userService: UserService,
@@ -28,7 +30,9 @@ export class UserAllComponent implements OnInit {
   loadAll() {
     this.users$ = this.userService.findAll();
   }
-
+  createUser(){
+    this.onCreateUser.emit('true');
+  }
   onMail(value) {
     this.userService.resendLogin(value).subscribe(
       data => {

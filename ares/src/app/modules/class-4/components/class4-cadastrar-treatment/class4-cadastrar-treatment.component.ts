@@ -28,7 +28,7 @@ export class Class4CadastrarTreatmentComponent implements OnInit {
 
   }
   onStore(treatment) {
-
+ 
     const file = treatment?.rater;
 
     const formData: FormData = new FormData();

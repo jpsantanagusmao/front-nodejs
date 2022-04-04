@@ -10,5 +10,9 @@
 .form-login > .box{
     margin-right: 5px;
     margin-left: 5px;
-    width: 150px;
+    width: 200px;
+}
+#login-button{
+    margin-left: 10px;
+    margin-right: 10px;
 }

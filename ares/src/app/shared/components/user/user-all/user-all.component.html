@@ -1,3 +1,6 @@
+<button class="btn btn-primary mb-3 mt-3" (click)="createUser()" data-toggle="tooltip" title="Enviar dados por email">
+    Novo Usuário
+</button>
 <div *ngIf="users$ | async as users else loading">
     <table class="table table-hover">
         <thead>

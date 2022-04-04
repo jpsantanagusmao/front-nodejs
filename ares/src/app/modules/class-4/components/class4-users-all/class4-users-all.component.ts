@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-class4-users-all',
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Class4UsersAllComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _router: Router
+  ) { }
 
   ngOnInit(): void {
   }
-
+  onCreateUser(event){
+    this._router.navigate(['./users/private/class4/cadastrar']);
+  }
 }
 

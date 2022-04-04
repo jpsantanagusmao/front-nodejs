@@ -24,7 +24,7 @@ export class Class2CadastrarTreatmentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+ 
   }
   onStore(treatment) {
 
