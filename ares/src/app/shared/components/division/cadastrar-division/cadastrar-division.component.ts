@@ -23,8 +23,6 @@ export class CadastrarDivisionComponent implements OnInit {
 
   representative: any;
 
-
-
   /**
    * Variáveis auxiliares
    */
@@ -40,6 +38,7 @@ export class CadastrarDivisionComponent implements OnInit {
     private usercache: UserCacheService,
     private _divisionService: DivisionService,
     private _route: ActivatedRoute,
+    private _userCacheService: UserCacheService
   ) {
     this.id = this._route.snapshot.paramMap.get('id');
     this.loadForm();
@@ -92,6 +91,17 @@ export class CadastrarDivisionComponent implements OnInit {
     this.representative = user;
   }
   cancelar() {
-
+    this._userCacheService.gotoHome();
+  }
+  dataValid(){
+    if(
+      this.themeSelected
+      && this.representative
+      && this.form.valid
+      ){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

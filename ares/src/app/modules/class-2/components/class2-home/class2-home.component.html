@@ -5,19 +5,19 @@
                 <div class="card-body">
                     <h5 class="card-title">Meus projetos</h5>
                     <p *ngIf="qtdprojetos$ | async as qtdprj" class="card-text">{{qtdprj.length}}</p>
-                </div>              
+                </div>
             </div>
             <div class="card-panel">
                 <div class="card-body">
                     <h5 class="card-title">Qtd. Atendimentos</h5>
                     <p *ngIf="qtdatd$ | async as qtd" class="card-text">{{qtd.atendimentos}}</p>
-                </div>              
+                </div>
             </div>
             <div class="card-panel">
                 <div class="card-body">
                     <h5 class="card-title">Total de beneficiários</h5>
                     <p *ngIf="qtdcustomers$ | async as qtd" class="card-text">{{qtd.length}}</p>
-                </div>              
+                </div>
             </div>
         </div>
         <p><em>*Dados consolidados por este setor durante o ano corrente</em></p>
@@ -27,13 +27,13 @@
                 alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Indicadores</h5>
-                <p class="card-text">Aqui você consulta os principais indicadores que poderão auxiliar no desenvolvimento de políticas públicas para o seu município.</p>
+                <p class="card-text">Aqui você consulta os principais indicadores que poderão auxiliar no
+                    desenvolvimento de políticas públicas para o seu município.</p>
                 <a href="users/private/class2/indicadores" class="btn btn-primary">Consultar</a>
             </div>
         </div>
         <div class="card col-6">
-            <img class="card-img-top"
-                src="https://cdn.pixabay.com/photo/2017/01/16/20/22/bubbles-1985153_960_720.png"
+            <img class="card-img-top" src="https://cdn.pixabay.com/photo/2017/01/16/20/22/bubbles-1985153_960_720.png"
                 alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Localizar atendimentos</h5>
@@ -58,11 +58,12 @@
                 alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Ferramentas do técnico</h5>
-                <p class="card-text">Aqui você encontra uma porçao de ferramentas para auxiliar no atendimento do seu público.</p>
+                <p class="card-text">Aqui você encontra uma porçao de ferramentas para auxiliar no atendimento do seu
+                    público.</p>
                 <a href="users/private/class2/tools" class="btn btn-primary">Acessar</a>
             </div>
         </div>
-
+        <!--
         <div class="card col-6">
             <img class="card-img-top"
                 src="https://mlwaxpubxzug.i.optimole.com/j1znNSE-OO4EafEc/w:auto/h:auto/q:75/https://blogdaqualidade.com.br/wp-content/uploads/2019/09/voce-nao-sabe-fazer-indicadores.png"
@@ -73,5 +74,6 @@
                 <a href="#" class="btn btn-primary">Verificar</a>
             </div>
         </div>
+-->
     </div>
 </div>

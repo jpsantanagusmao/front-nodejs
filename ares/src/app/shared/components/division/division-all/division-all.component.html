@@ -1,3 +1,6 @@
+<button class="btn btn-primary mb-3 mt-3" (click)="createNew()" data-toggle="tooltip" title="Criar novo departamento">
+    Novo Departamento
+</button>
 <div *ngIf="users$ | async as users else loading">
     <table class="table table-hover">
         <thead>
@@ -5,7 +8,7 @@
                 <th scope="col">
                     Divisão de planejamento
                 </th>
-                <th scope="col">
+                <th scope="col"> 
                     email
                 </th>
                 <th scope="col">

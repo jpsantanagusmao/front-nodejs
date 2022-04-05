@@ -60,6 +60,7 @@ export class ProjectCadastrarComponent implements OnInit {
     this.representative = user;
   }
   register(value){
+    console.log(value);
     this.action = value;
     this.actions.push(this.action);
   }

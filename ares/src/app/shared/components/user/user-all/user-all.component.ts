@@ -13,8 +13,8 @@ export class UserAllComponent implements OnInit {
 
   users$: Observable<any>;
   _loading: boolean = false;
-
-  @Output() onCreateUser = new EventEmitter();
+ 
+  @Output() onCreateNew = new EventEmitter();
 
   constructor(
     private userService: UserService,
@@ -30,8 +30,8 @@ export class UserAllComponent implements OnInit {
   loadAll() {
     this.users$ = this.userService.findAll();
   }
-  createUser(){
-    this.onCreateUser.emit('true');
+  createNew(){
+    this.onCreateNew.emit('true');
   }
   onMail(value) {
     this.userService.resendLogin(value).subscribe(

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
@@ -13,7 +13,8 @@ export class DivisionAllComponent implements OnInit {
   
   users$: Observable<any>;
   _loading: boolean = false;
-  
+  @Output() onCreateNew = new EventEmitter();
+
   constructor(
     private _divisionService: DivisionService,
     private _router: Router,
@@ -25,6 +26,10 @@ export class DivisionAllComponent implements OnInit {
     this.loadAll();
   }
 
+  createNew(){
+    this.onCreateNew.emit('true');
+  }
+  
   loadAll() {
     this.users$ = this._divisionService.findAll();
   }

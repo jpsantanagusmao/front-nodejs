@@ -105,7 +105,7 @@ export class UserCacheService  implements OnInit {
    
   }
 
-  public decode(token: any) {
+  public async decode(token: any) {
     
     this.token = token.token;
     this._GetTokenDecoded();
@@ -115,22 +115,22 @@ export class UserCacheService  implements OnInit {
     direciona para a página de classe
     */
 
-    const classe = this.user.role_class;
+    const classe = await this.user.role_class;
 
     //this.gotoUrl(classe);
-    this.gotoHome();
+    this.gotoHome(); 
     
   }
 
   /**
    * Retorna à página principal do usuário logado
    */
-  gotoHome(){
+  async gotoHome(){
     this.token = localStorage.getItem(UserCacheService.TOKEN_STORAGE_VAR);
     this._GetTokenDecoded();
     this._getTokenExpirationDate();
     const role_class = this.user.role_class;
-    this.gotoUrl(role_class);
+    await this.gotoUrl(role_class);
   }
 
   gotoRoot(){

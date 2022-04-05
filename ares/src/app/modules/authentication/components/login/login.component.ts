@@ -47,13 +47,9 @@ export class LoginComponent implements OnInit {
      data=>{
        obj._loading = false;
        obj.usercache.decode(data);
-       //this.messageService.handleSuccess('Login com sucesso', 'Login efetuado com sucesso');
       },
       error=>{
         obj._loading = false;
-        //const erromsg = error.error;
-        //console.error(erromsg);
-        //this.messageService.handleError(erromsg.name, erromsg.message);
       }
 
     );

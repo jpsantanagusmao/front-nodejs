@@ -67,7 +67,7 @@
         <user-select (onSelected)="onSelectUser($event)" [MESSAGE_PLACE_HOLDER]="MESSAGE_PLACE_HOLDER"></user-select>
         <div class="row">
             <div class="col col-md-3 mt-4 d-flex justify-content-around">
-                <button class="btn btn-primary" [disabled]="form.invalid" (click)="registrar()">Salvar</button>
+                <button class="btn btn-primary" [disabled]="!dataValid()" (click)="registrar()">Salvar</button>
                 <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
             </div>
         </div>

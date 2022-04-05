@@ -11,7 +11,7 @@ import * as moment from 'moment';
   styleUrls: ['./action-create.component.css']
 })
 export class ActionCreateComponent implements OnInit {
-  
+
   SERVICE: string;
 
   form: FormGroup;
@@ -25,7 +25,7 @@ export class ActionCreateComponent implements OnInit {
   constructor(
     private _usercache: UserCacheService,
     private _route: ActivatedRoute,
-  ) { 
+  ) {
     this.id = this._route.snapshot.paramMap.get('id');
 
   }
@@ -49,20 +49,22 @@ export class ActionCreateComponent implements OnInit {
       end: new FormControl(dtfinal),
     })
   }
-  registrar(){
+  registrar() {
     /**
      * Verifica se tem a descrição igual a algum já registrado no array
      */
     this.action = this.form.value;
-    const exists = this.actions.filter(el => (el.description == this.action.description) && (el.referency == this.action.referency));
+    this.register.emit(this.action);
 
-    if(!(exists.length > 0)){
-      this.register.emit(this.action);
-    }else{
-      alert('Já existe este serviço');
-    }
+    const exists = this.actions.filter(el => (el.description == this.action.description) && (el.referency == this.action.referency));
+    /*
+        if(!(exists.length > 0)){
+        }else{
+          alert('Já existe este serviço');
+        }
+        */
   }
-  cancelar(){
+  cancelar() {
     this._usercache.gotoHome();
   }
 }

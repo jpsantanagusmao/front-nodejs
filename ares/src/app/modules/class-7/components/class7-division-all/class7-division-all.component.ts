@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-class7-division-all',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Class7DivisionAllComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _router: Router
+  ) { }
 
   ngOnInit(): void {
   }
-
+  onCreateNew(event) {
+    this._router.navigate(['./users/private/class7/division-cadastrar']);
+  }
 }

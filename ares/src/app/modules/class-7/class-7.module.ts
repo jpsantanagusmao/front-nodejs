@@ -14,7 +14,16 @@ import { Class7DivisionUpdateComponent } from './components/class7-division-upda
 import { Class7ToolsComponent } from './components/class7-tools/class7-tools.component';
 
 @NgModule({
-  declarations: [Class7HomeComponent, Class7CadastrarUsuarioComponent, Class7MenuComponent, Class7IndexComponent, Class7UsersAllComponent, Class7CadastrarDivisionComponent, Class7DivisionAllComponent, Class7DivisionUpdateComponent, Class7ToolsComponent],
+  declarations: [
+    Class7HomeComponent, 
+    Class7CadastrarUsuarioComponent, 
+    Class7MenuComponent, 
+    Class7IndexComponent, 
+    Class7UsersAllComponent, 
+    Class7CadastrarDivisionComponent, 
+    Class7DivisionAllComponent,
+    Class7DivisionUpdateComponent, 
+    Class7ToolsComponent],
   imports: [
     CommonModule,
     Class7RoutingModule,

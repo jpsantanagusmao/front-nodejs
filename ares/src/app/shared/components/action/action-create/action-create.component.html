@@ -29,9 +29,9 @@
             id="objetivo"></textarea>
     </div>
     <div class="row">
-        <div class="form-group col-md-2" >
+        <div class="form-group col-md-4" >
             <label for="qtdAtendimentos">Qtd. Atendimentos previstos</label>
-            <input type="number" tooltip="Expectativa de quantidade de atendimentos"
+            <input type="text"  mask="9999" tooltip="Expectativa de quantidade de atendimentos"
             class="form-control" formControlName="qtdAtendimentos" name="qtdAtendimentos"
                 id="qtdAtendimentos" required>
             <error-message
@@ -62,11 +62,12 @@
             <input type="date" tooltip="Data limite desta ação. Só é permitido registros até esta data."
             class="form-control" formControlName="end" name="end" id="end" required>
             <error-message *ngIf="form.controls.end.invalid && (form.controls.end.dirty || form.controls.end.touched)"
-                errorMessage="É necessário informar a data de encerramento desta ação"></error-message>
+            errorMessage="É necessário informar a data de encerramento desta ação"></error-message>
         </div>
-        <div class="col col-md-4 mt-2 d-flex justify-content-between">
-            <button class="btn-ok" [disabled]="!form.invalid" (click)="registrar()">Incluir</button>
-            <button *ngIf="id" class="btn-cancel" (click)="cancelar()">Cancelar</button>
+        <div class="form-group col-md-2" >
+            <div class="col col-md-4 mt-2 d-flex flex-end">
+                <button class="btn btn-primary" [disabled]="form.invalid" (click)="registrar()">Incluir</button>
+            </div>
         </div>
     </div>
 </form> 

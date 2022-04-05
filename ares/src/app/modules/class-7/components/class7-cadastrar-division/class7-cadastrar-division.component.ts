@@ -8,7 +8,7 @@ import { AlertMessagesService } from 'src/app/shared/services/alert-messages.ser
   selector: 'app-class7-cadastrar-division',
   templateUrl: './class7-cadastrar-division.component.html',
   styleUrls: ['./class7-cadastrar-division.component.css']
-})
+}) 
 export class Class7CadastrarDivisionComponent implements OnInit {
   SERVICE = 'Cadastrar Departamento';
   constructor(
@@ -21,7 +21,6 @@ export class Class7CadastrarDivisionComponent implements OnInit {
   }
 
   onRegister(event) {
-    console.log(event);
     this._divisionService.create(event).subscribe(
       data=>{
         this._messageService.handleSuccess('Departamento', 'Cadastrado com sucesso.');

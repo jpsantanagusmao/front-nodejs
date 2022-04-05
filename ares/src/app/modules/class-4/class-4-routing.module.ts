@@ -16,6 +16,7 @@ import { Class4PerdaDeCargaCalcComponent } from './components/class4-perda-de-ca
 import { Class4ToolsComponent } from './components/class4-tools/class4-tools.component';
 import { Class4DimPastagemComponent } from './components/class4-dim-pastagem/class4-dim-pastagem.component';
 import { ProdHortalicasComponent } from 'src/app/shared/components/agro/prod-hortalicas/prod-hortalicas.component';
+import { AgroIndicadoresComponent } from 'src/app/shared/components/indicadores/agro-indicadores/agro-indicadores.component';
 
 
 const routes: Routes = [
@@ -76,6 +77,10 @@ const routes: Routes = [
     path: 'tools',
     component: Class4ToolsComponent
   },
+  {
+    path: 'indicadores',
+    component: AgroIndicadoresComponent
+  }
 ];
 
 @NgModule({
