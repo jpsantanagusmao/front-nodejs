@@ -125,7 +125,7 @@ export class DmPastagensComponent implements OnInit {
     });
     /* finalizando os cálculo */
   }
-  createTreatment(dados: any) {
+  async createTreatment(dados: any) {
     
     let situacao = `O produtor procurou atendimento pois entende a necessidade de adequar a alimentação e ofertar um alimento de qualidade para o seu rebanho. Pretende-se dimensionar o pasto com a cultura de ${dados.cultura}`;
     
@@ -150,12 +150,22 @@ export class DmPastagensComponent implements OnInit {
     
     const customers = [];
     
-    let orientacao = `Desta forma, para esta lotação, a necessidade de matéria seca anual é de aproximadamente ${dados.necessidadeMSano} kg/ano. `;
+    let orientacao = `Desta forma, para esta lotação, a necessidade de matéria seca anual é de aproximadamente ${dados.necessidadeMSano} kg de MS/ano. `;
     if(Number(dados.area)>1){
       orientacao += `Sendo necessário para isso, uma área total de ${(dados.area)} hectares divididos em ${dados.qtdPiquetes} piquetes de ${dados.areaPiquete} metros quadrados`;
     }else{
       orientacao += `Sendo necessário para isso, uma área total de ${(dados.area*10000).toFixed(0)} metros quadrados que serão divididos em ${dados.qtdPiquetes} piquetes de ${dados.areaPiquete} metros quadrados`;
     }
+
+    /**
+     * Orienta adubação
+     */
+    const recomendaAdubacao = await this.calculaAdubacao(dados.lotacao);
+
+    if(recomendaAdubacao){
+      orientacao += ` - Fazer a 03 adubações anuais com adubação com ${(recomendaAdubacao/0.2).toFixed(0)} Kg de Sulfato de amônio ou ${(recomendaAdubacao/0.48).toFixed(0)} de Uréia. É recomendável fazer a intercalação entre estes dois produtos como uma forma de fornecer Enxofre que também é essencial.`;
+    }
+    
     const recomendacao = `1) - Realizar a análise de solo e fazer as devidas correções a adubações, principalmente a adubação fosfatada no momento do plantio.
     2) - Obter do órgão competente as devidas licencas para instalação e funcionamento deste sistema;
     3) - Verificar e adequar as áreas de axploração da atividade em conformidade com a legislação ambiental.
@@ -170,6 +180,14 @@ export class DmPastagensComponent implements OnInit {
     this._userCache.createAter(JSON.stringify(ater));
     this.onReport.emit(true);
 
+  }
+  async calculaAdubacao(lotacao){
+    const recomendacao = await Number((((lotacao)-1)*50)/3);
+    if(recomendacao>0){
+      return recomendacao;
+    }
+    
+    return undefined;
   }
   get uaRebanho(){
     return this.rebanho.reduce(function(total, rb){

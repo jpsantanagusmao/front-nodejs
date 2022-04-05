@@ -95,7 +95,7 @@ import { AgroIndicadoresComponent } from './components/indicadores/agro-indicado
     ProdHortalicasComponent,
     DialogConfirmComponent,
     TreatmentsByDateComponent,
-    AgroIndicadoresComponent,
+    AgroIndicadoresComponent,   
   ],
   imports: [
     CommonModule,
@@ -154,7 +154,6 @@ import { AgroIndicadoresComponent } from './components/indicadores/agro-indicado
     ProdHortalicasComponent,
     DialogConfirmComponent,
     AgroIndicadoresComponent,
-
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent
