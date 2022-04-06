@@ -22,7 +22,7 @@
             <div class="form-group col-md-10">
                 <label for="ph">PH em água - relação 1:2.5</label>
                 <input type="text"  
-                mask="separator.2" thousandSeparator="" separatorLimit="99999999999999" 
+                mask="separator.2" thousandSeparator="" separatorLimit="999" 
                 tooltip="PH em água - relação 1:2.5." 
                 class="form-control col col-md-1" 
                 formControlName="ph" name="ph"
@@ -33,7 +33,7 @@
             <div class="form-group col-md-10">
                 <label for="p">P - Fósforo - Extrator Mehlich-1(mg/dm³)</label>
                 <input type="text" 
-                mask="separator.2" thousandSeparator="" separatorLimit="99999999999999"
+                mask="separator.2" thousandSeparator="" separatorLimit="999"
                 tooltip="Fósforo - Extrator Mehlich-1(mg/dm³)" 
                 class="form-control col col-md-1" 
                 formControlName="p"
@@ -44,7 +44,7 @@
             <div class="form-group col-md-10">
                 <label for="k">K - Potássio - Extrator Mehlich-1(mg/dm³)</label>
                 <input type="text" 
-                mask="separator.2" thousandSeparator="" separatorLimit="99999999999999"
+                mask="separator.2" thousandSeparator="" separatorLimit="999"
                 tooltip="Fósforo - Extrator Mehlich-1(mg/dm³)" 
                 class="form-control col col-md-1"  
                 formControlName="k"
@@ -56,7 +56,7 @@
             <div class="form-group col-md-10">
                 <label for="Ca">Ca - Cálcio - Extrator KCL - mol/L(cmolc/dm³)</label>
                 <input type="text" 
-                mask="separator.2" thousandSeparator="" separatorLimit="99999999999999"
+                mask="separator.2" thousandSeparator="" separatorLimit="999"
                 tooltip="Cálcio - Extrator KCL - mol/L(cmolc/dm³)" 
                 class="form-control col col-md-1"  
                 formControlName="Ca"
@@ -64,13 +64,22 @@
                 <error-message *ngIf="form.controls.Ca.invalid && (form.controls.Ca.dirty || form.controls.Ca.touched)"
                     errorMessage="É necessário informar a quantidade de Ca"></error-message>
             </div>
-
+            <div class="col col-4">
+                <div>
+                    <label class="form-label" for="classificacao">Tipo de Solo</label>
+                    <select id="classificacao" class="form-control" formControlName="classificacao"
+                        (change)="selectSolo($event)" style="width: 250px;">
+                        <option *ngFor='let ts of tipoDeSolo' [ngValue]="ts">{{ts.classificacao}}</option>
+                    </select>
+                </div>
+            </div>
+            {{soloSelected | json}}
         </div>
         <div class="col">
             <div class="form-group col-md-10">
                 <label for="Mg">Mg - Cálcio - Extrator KCL - mol/L(cmolc/dm³)</label>
                 <input type="text" 
-                mask="separator.2" thousandSeparator="" separatorLimit="99999999999999"
+                mask="separator.2" thousandSeparator="" separatorLimit="999"
                 tooltip="Magnésio - Extrator KCL - mol/L(cmolc/dm³)" 
                 class="form-control col col-md-1" 
                     formControlName="Mg" name="Mg" id="Mg" required>
@@ -81,7 +90,7 @@
             <div class="form-group col-md-10">
                 <label for="Al">Al - Alumínio - Extrator KCL - mol/L(cmolc/dm³)</label>
                 <input type="text" 
-                mask="separator.2" thousandSeparator="" separatorLimit="99999999999999"
+                mask="separator.2" thousandSeparator="" separatorLimit="999"
                 tooltip="Magnésio - Extrator KCL - mol/L(cmolc/dm³)" 
                 class="form-control col col-md-1" 
                     formControlName="Al" name="Al" id="Al" required>
@@ -92,7 +101,7 @@
             <div class="form-group col-md-10">
                 <label for="H">H - Hidrogênio (cmolc/dm³)</label>
                 <input type="text" 
-                mask="separator.2" thousandSeparator="" separatorLimit="99999999999999"
+                mask="separator.2" thousandSeparator="" separatorLimit="999"
                 tooltip="Hidrogênio (cmolc/dm³)" 
                 class="form-control col col-md-1" 
                 formControlName="H" name="H" id="H"
@@ -104,7 +113,7 @@
             <div class="form-group col-md-10">
                 <label for="MO">MO - Matéria Orgânica (Colorimetria) - (dag/Kg)</label>
                 <input type="text" 
-                mask="separator.2" thousandSeparator="" separatorLimit="99999999999999"
+                mask="separator.2" thousandSeparator="" separatorLimit="999"
                 tooltip="Matéria Orgânica (Colorimetria)" 
                 class="form-control col col-md-1" 
                 formControlName="MO" name="MO"
