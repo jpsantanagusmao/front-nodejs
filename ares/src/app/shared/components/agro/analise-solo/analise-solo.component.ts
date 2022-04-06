@@ -34,7 +34,7 @@ export class AnaliseSoloComponent implements OnInit {
   }
 
   calcular(){
-
+    alert('Desculpe, ainda não implementamos este módulo');
   }
   onReport(ater){
     this._router.navigate(["../service/", ater],  { relativeTo: this._route });
