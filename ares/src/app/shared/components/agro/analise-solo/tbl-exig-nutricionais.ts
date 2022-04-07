@@ -1,4 +1,4 @@
-export const HORTALICAS = [
+export const CULTURAS = [
     {
         cultura: 'Amendoim',
         v:60,

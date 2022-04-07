@@ -8,6 +8,9 @@ export class ModelosCalagem {
      * @returns 
      */
     public static async saturacaoBases(obj: any) {
+        console.log('Calculando necessidade de calcários');
+        console.log(obj);
+
         /**
          * O cálculo de calagem baseado no método da elevação da porcentagem de saturação de bases consiste na seguinte fórmula:
          * 
@@ -18,18 +21,28 @@ export class ModelosCalagem {
          *T = capacidade de troca catiônica [Ca²+ + Mg²+ + K+ + (H + Al)], em cmolc.dm-³
          *PRNT = poder relativo de neutralização total do calcário a ser aplicado
          */
-        const v2 = await Number(obj.v2).toFixed(2);
-        const T = await Number(obj.ca + obj.mg + obj.k + obj.h + obj.al).toFixed(2);
-        const v1 = await Number(Number((obj.ca + obj.mg + obj.k) * 100) / Number(T)).toFixed(2);
-        const PRNT = Number(obj.PRNT).toFixed(2);
+        const ca = Number(obj.ca);
+        const mg = Number(obj.mg);
+        const k = Number(obj.k)/391;
+        const h = Number(obj.h);
+        const al = Number(obj.al);
+        const v2 = Number(obj.v2).toFixed(2);
+        const prnt = Number(obj.prnt) | 100;
 
+        const T = await Number(ca + mg + k + h).toFixed(2);
+        //const T = await Number(ca + mg + (k/391) + h + al).toFixed(2);
+        console.log(T);
+        const v1 = await (ca + mg + k) * 100/Number(T) ;
+        console.log(v1);
+        
+        
         //Calculando a necessidade de calcário em ton/ha
-        const NC = ((Number(v2) - Number(v1)) * Number(T) / Number(PRNT)).toFixed(0);
-
+        const NC = ((Number(v2) - Number(v1)) * Number(T) / Number(prnt)).toFixed(2);
+        
+        
+        //Calculo considerando o PRNT
         //Definindo o tipo de Calcário recomendado
-        let tipo: string = this._defineTipoCalcario(obj.ca, obj.mg);
-
-
+        let tipo = await ModelosCalagem._defineTipoCalcario(ca, mg);
 
         return {
             metodo: 'Método da elevação da porcentagem de saturação por bases',
@@ -37,13 +50,12 @@ export class ModelosCalagem {
             tipodeCalcario: tipo
         }
 
-
-
     }
-    private _defineTipoCalcario(ca: number, mg: number): string {
+
+    private static async _defineTipoCalcario(ca: number, mg: number) {
         if (
-            (ca > 0.41)
-            && (mg > 0.16)
+            (ca <= 0.41)
+            && (mg <= 0.16)
         ) {
             return 'Dolomítico';
         } else {
