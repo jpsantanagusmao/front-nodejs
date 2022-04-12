@@ -50,6 +50,7 @@ import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confi
 import { TreatmentsByDateComponent } from './reports/treatments-by-date/treatments-by-date.component';
 import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AgroIndicadoresComponent } from './components/indicadores/agro-indicadores/agro-indicadores.component';
+import { RPnaeComponent } from './reports/aters/r-pnae/r-pnae.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { AgroIndicadoresComponent } from './components/indicadores/agro-indicado
     ProdHortalicasComponent,
     DialogConfirmComponent,
     TreatmentsByDateComponent,
-    AgroIndicadoresComponent,   
+    AgroIndicadoresComponent,
+    RPnaeComponent,   
   ],
   imports: [
     CommonModule,

@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { UserModel } from '../../models/user.model';
 import { UserService } from '../user/user.service';
@@ -22,7 +21,7 @@ export class AuthHeaderComponent implements OnInit {
   isloading$ = new BehaviorSubject<boolean>(false);
 
   private _timeRemaining = new BehaviorSubject<any>('0:00:00');
-  //private mytasks$ = new BehaviorSubject<any>(0);
+
   mytasks$: Observable<any>;
 
   expiresIn: any;
@@ -69,7 +68,7 @@ export class AuthHeaderComponent implements OnInit {
       if (d.asSeconds() <= 0) {
         obj.logout();
       }
-
+ 
       let time = s.split(':');
       obj._timeRemaining.next(`${time[0]}h ${time[1]}m ${time[2]}s`);
     }, 1000)
@@ -87,11 +86,19 @@ export class AuthHeaderComponent implements OnInit {
     this._user.next(user);
   }
 
-  ngOnInit(): void {
-    this.mytasks$ = this._userService.countTasks().pipe(
-    );
+  countTasks(){
+    this.mytasks$ = this._userService.countTasks();
   }
-  
+
+  ngOnInit(): void {
+    const obj = this;
+    this.countTasks();
+    UserService.updateTotalTask.subscribe(
+      updated=>obj.countTasks()
+    );
+
+  }
+
   get timeRem() {
     return this._timeRemaining.value;
   }

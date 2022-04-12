@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, EMPTY, of } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { Observable, EMPTY, of, BehaviorSubject } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { environment as env } from '../../../../environments/environment.prod';
 import * as moment from 'moment';
@@ -14,6 +14,11 @@ export class UserService {
 
 
   private PATH: string = 'users';
+
+  totalTasks$: BehaviorSubject<number>;
+
+  static updateTotalTask = new EventEmitter<Boolean>();
+  static updatePanel = new EventEmitter<Boolean>();
 
   constructor(
     private http: HttpClient,
@@ -60,7 +65,6 @@ export class UserService {
     const CEP_API = `https://viacep.com.br/ws/${cep}/json`;
 
     return this.http.get(`${CEP_API}`).pipe(
-      tap(console.log)
     );
   }
   findAll(): Observable<any> {
@@ -70,8 +74,9 @@ export class UserService {
 
   countTasks(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/count-my-tasks`).pipe(
+      filter(t=> t['tasks']>0)
     );
-  }
+  }  
   myTasks(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/my-tasks`).pipe(
     );
@@ -84,7 +89,7 @@ export class UserService {
       const find = name.trim();
 
       if (find) {
-        return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-name/${find}`).pipe(
+        return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-func/${find}`).pipe(
         );
       }
     }
@@ -115,14 +120,21 @@ export class UserService {
   }
   finalizarTask(id: string): Observable<any> {
     return this.http.put(`${env.BASE_API_URL}${this.PATH}/finalize/${id}`, null).pipe(
+      tap(this.atualizaTasks)
     );
+  }
+  atualizaTasks(value:boolean){
+    UserService.updateTotalTask.emit(true);
+    UserService.updatePanel.emit(true);
   }
   cancelarTask(id: string): Observable<any> {
     return this.http.put(`${env.BASE_API_URL}${this.PATH}/cancel/${id}`, null).pipe(
+      tap(this.atualizaTasks)
     );
   }
   expirarTask(id: string): Observable<any> {
     return this.http.put(`${env.BASE_API_URL}${this.PATH}/expire/${id}`, null).pipe(
+      tap(this.atualizaTasks)
     );
   }
 }

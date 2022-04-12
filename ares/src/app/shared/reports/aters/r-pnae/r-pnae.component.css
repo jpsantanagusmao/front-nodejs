@@ -1,0 +1,58 @@
+.r-ater{
+    background-image: url('./../../../../../assets/images/RATERcut02.jpg') ;
+    width: 21cm;
+    height: 29cm;
+    background-size: 100%;
+}
+.pessoais{
+    position: relative;
+    top: 10.43rem;
+}
+.pessoais .titular{
+    margin-left: 5rem;
+}
+.pessoais .cpf{
+    margin-left: 25rem;
+}
+.dap{
+    position: relative;
+    top: 10.8rem;
+    margin-left: 4rem;
+}
+.municipio{
+    position: relative;
+    top: 11.3rem;
+    margin-left: 6rem;
+}
+.extensionista{
+    position: relative;
+    top: 11.8rem;
+}
+.extensionista .tecnico{
+    margin-left: 10rem;
+}
+.extensionista .matricula{
+    margin-left: 22rem;
+}
+.extensionista2{
+    position: relative;
+    top: 12.4rem;
+}
+.extensionista2 .tecnico{
+    margin-left: 10rem;
+}
+.extensionista2 .matricula{
+    margin-left: 22rem;
+}
+.relatorio{
+    position: relative;
+    top: 19rem;
+    margin: 1rem;
+    text-align: justify;
+}
+.rodape{
+    position: relative;
+    top: 25rem;
+    margin-left: 1.3rem;
+
+}

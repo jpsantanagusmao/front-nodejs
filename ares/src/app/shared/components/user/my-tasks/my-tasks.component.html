@@ -9,17 +9,18 @@
   </thead>
   <tbody>
     <tr *ngFor="let t of tasks$ | async">
-      <td>{{t.data | date:'dd/MM/yyyy'}}</td>
-      <td>{{t.customername}}</td>
-      <td>{{t.description}}</td>
+      <td (dblclick)="cpfCopy(t.cpf)">{{t.data | date:'dd/MM/yyyy'}}</td>
+      <td (dblclick)="cpfCopy(t.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">{{t.customername}}</td>
+      <td (dblclick)="cpfCopy(t.cpf)">{{t.description}}</td>
       <td>
-        <button (click)="onFinalizeTask(t.id)" class="btn text-success">
+        <button (click)="onFinalizeTask(t.id)" class="btn text-success" tooltip="Definir como concluída">
           <i class="bi bi-check-circle"></i>
         </button>
-        <button (click)="onCancelTask(t.id)" class="btn text-danger">
+        <button (click)="onCancelTask(t.id)" class="btn text-danger" tooltip="Definir como Cancelada.">
           <i class="bi bi-x-circle"></i>
         </button>
-        <button (click)="onExpireTask(t.id)" class="btn text-danger">
+        <button (click)="onExpireTask(t.id)" class="btn text-danger"
+          tooltip="Definir como Expirada - caso tenha muito tempo e houve desistência">
           <i class="bi bi-hourglass-bottom"></i>
         </button>
       </td>

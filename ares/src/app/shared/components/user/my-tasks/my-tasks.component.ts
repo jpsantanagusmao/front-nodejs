@@ -21,12 +21,15 @@ export class MyTasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMyTasks();
-  }
+  } 
   loadMyTasks() {
+    const obj = this;
     this.tasks$ = this._userService.myTasks().pipe(
     );
   }
-
+  cpfCopy(cpf){
+    navigator.clipboard.writeText(cpf);
+  }
   onFinalizeTask(id) {
     const obj = this;
     const confirm$ = this._messageService.showConfirm('Conclusão de Tarefa', 'Esta tarefa está concluída?', 'Confirmar', 'Cancelar');

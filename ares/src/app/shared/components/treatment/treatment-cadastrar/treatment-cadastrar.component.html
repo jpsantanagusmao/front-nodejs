@@ -47,8 +47,8 @@
                 </div>
                 <div class="form-group col-md-12">
                     <label for="description">Descrição</label>
-                    <input type="text" class="form-control" formControlName="description" name="description" id="description"
-                        required>
+                    <input type="text" class="form-control" formControlName="description" name="description"
+                        id="description" required>
                 </div>
                 <div class="form-group col-md-1">
                     <label for="qtd">Quantidade</label>
@@ -103,6 +103,8 @@
     </div>
 </form>
 <ares-loading *ngIf="_loading" class="spinner"></ares-loading>
+
+<!--Impressão de Relatórios de ATER-->
 <div class="rater" id="printable">
     <div class="title">
         <div>
@@ -185,6 +187,97 @@
             </strong>
             <div class="titular" *ngFor="let c of customers">
                 <div class="nome">
+                    {{c.name}} / CPF: {{c.cpf}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Relatório de ATER PNAE-->
+<div class="pnae-rater" id="printable">
+    <div class="pnae-title">
+        <div>
+            <strong>
+                Relatório de atendimento
+            </strong>
+        </div>
+        <div>{{empresa}}</div>
+        <div>{{departamento}}</div>
+        <div class="pnae-dados-emp">
+            <div class="pnae-contato">Contato: {{contato}}</div>
+            <div class="pnae-endereco">Endereço: {{endereco}}</div>
+        </div>
+    </div>
+    <div class="pnae-titulares">
+        <div class="pnae-titular-head">
+            <strong>Beneficiários</strong>
+        </div>
+        <div class="pnae-titular" *ngFor="let c of customers">
+            <div class="pnae-nome">
+                <strong>Nome: </strong>
+                {{c.name}}
+            </div>
+            <div class="pnae-cpf">
+                <strong>
+                    CPF:
+                </strong>
+                {{c.cpf}}
+            </div>
+        </div>
+    </div>
+    <div class="pnae-ater">
+        <div class="pnae-ater-head">
+            <div class="pnae-local">
+                <strong>
+                    Local:
+                </strong>
+                {{form.controls.local.value}}
+            </div>
+            <div class="pnae-data">
+                <strong>Data: </strong>
+                {{form.controls.data.value | date: 'dd/MM/yyyy'}}
+            </div>
+        </div>
+        <div class="pnae-texto">
+            <div>
+                <p>
+                    <strong>
+                        Situação atual:
+                    </strong>
+                </p>
+                <p class="pnae-situacao-atual">{{form.controls.situacao.value}}</p>
+                <p>
+                    <strong>
+                        Orientações:
+                    </strong>
+                </p>
+                <p class="pnae-orientacoes">{{form.controls.orientacao.value}}</p>
+                <p>
+                    <strong>
+                        Recomendações:
+                    </strong>
+                </p>
+                <p class="pnae-recomendacoes">{{form.controls.recomendacao.value}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="pnae-ater-footer">
+        <div class="pnae-emissor">
+            Funcionário Responsável:
+            <div class="pnae-funcionario">{{funcionario}}</div>
+            <div class="pnae-departamento">{{departamento}}</div>
+            <div class="pnae-empresa">{{empresa}}</div>
+        </div>
+        <div class="pnae-assinaturas">
+            <strong>
+                <div>Assinaturas</div>
+                <div>Declaro que sou beneficiário dos serviços prestados e recebi as orientações conforme consta neste
+                    documento.</div>
+            </strong>
+            <div class="pnae-titular" *ngFor="let c of customers">
+                <div class="pnae-nome">
                     {{c.name}} / CPF: {{c.cpf}}
                 </div>
             </div>

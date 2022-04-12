@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
@@ -12,7 +12,7 @@ import { TreatmentService } from '../treatment.service';
   templateUrl: './treatment-cadastrar.component.html',
   styleUrls: ['./treatment-cadastrar.component.css']
 })
-export class TreatmentCadastrarComponent implements OnInit {
+export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   formAction: FormGroup;
@@ -46,6 +46,9 @@ export class TreatmentCadastrarComponent implements OnInit {
     this.data = this._userCache.getUserData();
 
     this.createFormNew();
+  }
+  ngOnDestroy(): void {
+    this._userCache.removeAter();
   }
 
   async ngOnInit() {
