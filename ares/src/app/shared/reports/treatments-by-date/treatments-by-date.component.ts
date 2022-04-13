@@ -36,11 +36,16 @@ export class TreatmentsByDateComponent implements OnInit {
       bsRangeValue: new FormControl('', [Validators.required])
     });
   }
+
+  copyValue(value) {
+    navigator.clipboard.writeText(value);
+  }
+  
   find() {
 
-    if(!this.form.valid){
+    if (!this.form.valid) {
       this._messageService.handleError('Erro', 'Você precisa especificar um período!');
-    }else{
+    } else {
       this.treatments$ = this._userService.getTreatmentsByDate([...this.form.controls.bsRangeValue.value]).pipe(
       );
     }
@@ -57,11 +62,11 @@ export class TreatmentsByDateComponent implements OnInit {
       map(ds => ds.filter(tr => {
         console.log(tr)
         if (
-          ( tr.customer.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()) )
-          || ( tr.status.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()) )
-          || ( tr.local.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()) )
-          || ( tr.user.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()) )
-          || ( tr.description.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()) )
+          (tr.customer.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()))
+          || (tr.status.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()))
+          || (tr.local.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()))
+          || (tr.user.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()))
+          || (tr.description.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()))
         ) {
           return tr;
         }
@@ -71,7 +76,9 @@ export class TreatmentsByDateComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.datePickerConfig = Object.assign({}, { containerClass: 'theme-dark-blue', 
-    rangeInputFormat: 'D/MM/YYYY', isAnimated: true });
+    this.datePickerConfig = Object.assign({}, {
+      containerClass: 'theme-dark-blue',
+      rangeInputFormat: 'D/MM/YYYY', isAnimated: true
+    });
   }
 }

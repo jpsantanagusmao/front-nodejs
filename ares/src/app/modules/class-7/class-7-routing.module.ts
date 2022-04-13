@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { Class7CadastrarUsuarioComponent } from './components/class7-cadastrar-usuario/class7-cadastrar-usuario.component';
 import { Class7HomeComponent } from './components/class7-home/class7-home.component';
+import { TreatmentsByDateComponent } from 'src/app/shared/reports/treatments-by-date/treatments-by-date.component';
 
 
 const routes: Routes = [
@@ -44,6 +45,10 @@ const routes: Routes = [
       {
         path: 'division-atualizar/:id',
         component: Class7DivisionUpdateComponent
+      },
+      {
+        path: 'find-treatment',
+        component: TreatmentsByDateComponent
       },
       {
         path: 'division-all',

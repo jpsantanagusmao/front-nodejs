@@ -111,16 +111,16 @@ export class CustomerCadastrarComponent implements OnInit {
      * Configura o formulário
      */
     const obj = this;
-    obj.form.controls.name.patchValue(customer.name);
+    obj.form.controls.name.patchValue({value: customer.name, disabled: true});
     obj.form.controls.cpf.patchValue(customer.cpf);
-    obj.form.controls.nickname.patchValue(customer.nickname);
-    obj.form.controls.birth_date.patchValue(customer.birth_date);
-    obj.form.controls.address.patchValue(customer.address);
-    obj.form.controls.num.patchValue(customer.num);
-    obj.form.controls.district.patchValue(customer.district);
-    obj.form.controls.complement.patchValue(customer.complement);
-    obj.form.controls.cep.patchValue(customer.cep);
-    obj.form.controls.phone.patchValue(customer.phone);
+    obj.form.controls.nickname.patchValue({value: customer.nickname, disabled: true});
+    obj.form.controls.birth_date.patchValue({value: customer?.birth_date, disabled: true});
+    obj.form.controls.address.patchValue({value: customer.address, disabled: true});
+    obj.form.controls.num.patchValue({value: customer.num, disabled: true});
+    obj.form.controls.district.patchValue({value: customer.district, disabled: true});
+    obj.form.controls.complement.patchValue({value: customer.complement, disabled: true});
+    obj.form.controls.cep.patchValue({value: customer.cep, disabled: true});
+    obj.form.controls.phone.patchValue({value: customer.phone, disabled: true});
   }
 
   async createFormNew() {
@@ -197,7 +197,7 @@ export class CustomerCadastrarComponent implements OnInit {
             name: customerWeb?.name,
             nickname: `${customerWeb?.nickname}`,
             cpf: customerWeb.cpf,
-            birth_date: moment(customerWeb.nascimento).format('YYYY-MM-DD'),
+            //birth_date: moment(customerWeb.nascimento).format('YYYY-MM-DD'),
             address: customerWeb?.address,
             num: customerWeb?.num,
             district: customerWeb?.district,
@@ -208,7 +208,20 @@ export class CustomerCadastrarComponent implements OnInit {
             schooling: ''
           }
           obj.setForm(customer);
-
+          /**
+           *     this.form = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(150)]),
+      cpf: new FormControl('', [CustomerCadastrarComponent.cpf]),
+      nickname: new FormControl(''),
+      birth_date: new FormControl(''),
+      address: new FormControl(''),
+      num: new FormControl(''),
+      district: new FormControl(''),
+      complement: new FormControl(''),
+      cep: new FormControl(''),
+      phone: new FormControl(''),
+    })
+           */
         }
         obj.loadingToggle();
       },

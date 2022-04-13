@@ -35,9 +35,9 @@
         <tbody>
           <tr *ngFor="let tr of treatments">
             <td>{{tr.data | date:'dd/MM/yyyy'}}</td>
-            <td>{{tr.customer}}</td>
+            <td (dblclick)="copyValue(tr.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">{{tr.customer}}</td>
             <td>{{tr.description}}</td>
-            <td>{{tr.local}}</td>
+            <td>{{tr.local}}</td> 
             <td>{{tr.user}}</td>
             <td>{{tr.status}}</td>
           </tr>
