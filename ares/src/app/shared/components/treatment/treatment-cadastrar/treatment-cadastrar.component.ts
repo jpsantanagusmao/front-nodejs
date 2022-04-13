@@ -33,7 +33,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   customerSelected: any = {};
 
   //Usuário designado para determinada tarefe
-  userDesigned: any = {};
+  userDesigned: any = undefined;
 
   data: any;
 
@@ -71,7 +71,18 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   }
 
   onSelectCustomer(value) {
+    
+        //verifica se já existe este atendimento por classificação de atendimento
+
+        const exists = this.customers.filter(c=>c['cpf']==value['cpf']);
+
+        if(exists.length>0){
+          alert('Você á registrou atendimento para este produtor nesta visita');
+          return;
+        }
+        
     this.customers.push(value);
+    
   }
 
   onSelectAction(value) {
@@ -90,6 +101,15 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   }
 
   onIncludeAction($event) {
+    //verifica se já existe este atendimento por classificação de atendimento
+
+    const exists = this.tasks.filter(t=>t.action_id==this.taskSelected.action_id);
+
+    if(exists.length>0){
+      alert('Você á registrou este atendimento nesta visita');
+      return;
+    }
+
     const data = this.formAction.value;
 
     const id = this.id;
@@ -99,8 +119,13 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     data.userDesigned_id = this.userDesigned;
 
     this.tasks.push(data);
+    this.userDesigned = undefined;
+    this.cleanTaskForm();
   }
-
+  cleanTaskForm(){
+    this.formAction.controls.description.patchValue('');
+    this.formAction.controls.valor.patchValue('0');
+  }
   onRegisterTreatment() {
     //Remove o storage de ATER
     this._userCache.removeAter();
@@ -319,6 +344,15 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     return this.data.division_fone;
   }
 
+  taskOk(){
+    if(this.formAction.valid
+      && this.userDesigned
+      ){
+      return true;
+    }
+    return false;
+  }
+
   formOk() {
     if (this.form.valid === true && this.tasks.length > 0 && this.customers.length > 0) {
       return true;
@@ -360,9 +394,9 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   }
   createFormAction() {
     this.formAction = new FormGroup({
-      description: new FormControl('', [Validators.minLength(10)]),
-      qtd: new FormControl('1', [Validators.min(1)]),
-      valor: new FormControl('0', Validators.min(0)),
+      description: new FormControl('', [Validators.required]),
+      qtd: new FormControl('1', [Validators.required]),
+      valor: new FormControl('0', Validators.required),
     });
 
   }

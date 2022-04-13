@@ -1,6 +1,6 @@
 import { DapService } from './../../dap-mda/dap.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { UserCacheService } from 'src/app/core/user-cache.service';
@@ -8,6 +8,7 @@ import { CustomerService } from '../customer.service';
 import { AlertComponent } from 'ngx-bootstrap/alert';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { CpfValidator } from 'src/app/shared/validators/cpf-validator/cpf-validator.component';
+import { cpf } from 'cpf-cnpj-validator';
 
 @Component({
   selector: 'customer-cadastrar',
@@ -125,7 +126,7 @@ export class CustomerCadastrarComponent implements OnInit {
   async createFormNew() {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(150)]),
-      cpf: new FormControl('', [Validators.required]),
+      cpf: new FormControl('', [CustomerCadastrarComponent.cpf]),
       nickname: new FormControl(''),
       birth_date: new FormControl(''),
       address: new FormControl(''),
@@ -151,7 +152,9 @@ export class CustomerCadastrarComponent implements OnInit {
   }
 
   registrar() {
+
     const customer = this.form.value;
+
     /**
      * Define a Cidade e UF
      */
@@ -169,8 +172,14 @@ export class CustomerCadastrarComponent implements OnInit {
   cancelar() {
 
   }
-
+  static cpf(control: AbstractControl): { [key: string]: any } {
+    if (!(cpf.isValid(control.value))) {
+      return { cpf: true };
+    }
+    return null;
+  }
   async onFindInAres() {
+
     /**
      * Localizar registro no banco de dados e configura o form
      */
@@ -214,6 +223,17 @@ export class CustomerCadastrarComponent implements OnInit {
      */
   }
   async localizarRegistroMda() {
+
+    /**
+     * Testa se o CPF é válido
+     */
+    const cpfValid = cpf.isValid(this.form.controls.cpf.value);
+
+    if(!cpfValid){
+      alert('É preciso informar um CPF válido')
+      return;
+    }
+
     /**
      * Localizar registro no banco de dados e configura o form
      */
