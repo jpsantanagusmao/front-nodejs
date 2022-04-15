@@ -51,6 +51,8 @@ import { TreatmentsByDateComponent } from './reports/treatments-by-date/treatmen
 import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AgroIndicadoresComponent } from './components/indicadores/agro-indicadores/agro-indicadores.component';
 import { RPnaeComponent } from './reports/aters/r-pnae/r-pnae.component';
+import { AterIaComponent } from './components/ares-data/ater-ia/ater-ia.component';
+import { TitulosComponent } from './components/ares-data/titulos/titulos.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +99,9 @@ import { RPnaeComponent } from './reports/aters/r-pnae/r-pnae.component';
     DialogConfirmComponent,
     TreatmentsByDateComponent,
     AgroIndicadoresComponent,
-    RPnaeComponent,   
+    RPnaeComponent,
+    AterIaComponent,
+    TitulosComponent,   
   ],
   imports: [
     CommonModule,
@@ -156,6 +160,8 @@ import { RPnaeComponent } from './reports/aters/r-pnae/r-pnae.component';
     ProdHortalicasComponent,
     DialogConfirmComponent,
     AgroIndicadoresComponent,
+    AterIaComponent,
+    TitulosComponent,   
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

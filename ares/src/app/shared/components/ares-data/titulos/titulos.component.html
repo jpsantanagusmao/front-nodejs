@@ -1,0 +1,50 @@
+<form [formGroup]="form">
+    <p class="mt-2 form-tittle">Consultar propriedades</p>
+    <div class="row">
+
+        <div class="form-group col col-md-3">
+            <label for="search">CPF</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" (click)="onSearch()" id="basic-addon">
+                        <span class="material-icons" tooltip="Localizar registro deste CPF">
+                            manage_search
+                        </span>
+                    </span>
+                </div>
+                <input type="text" class="form-control"
+                    formControlName="search" name="search" id="search" required>
+            </div>
+            <error-message
+                *ngIf="form.controls.search.invalid && (form.controls.search.dirty || form.controls.search.touched)"
+                errorMessage="É necessário informar o nome do beneficiário"></error-message>
+        </div>
+
+    </div>
+
+</form>
+<div>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <td>Produtor</td>
+            <td>Propriedade</td>
+            <td>ccir</td>
+            <td>municipio</td>
+            <td>municipio</td>
+            <td>area</td>
+            <td>percentual</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of titulos$ | async">
+            <td>{{p.titular}}</td>
+            <td>{{p.denominacao}}</td>
+            <td>{{p.ccir}}</td>
+            <td>{{p.municipio}}</td>
+            <td>{{p.area}}</td>
+            <td>{{p.percentual}}</td>
+        </tr>
+
+    </tbody>
+</table>

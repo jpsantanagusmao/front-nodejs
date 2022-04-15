@@ -1,3 +1,5 @@
+import { TitulosComponent } from './../../shared/components/ares-data/titulos/titulos.component';
+import { AterIaComponent } from './../../shared/components/ares-data/ater-ia/ater-ia.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AnaliseSoloComponent } from 'src/app/shared/components/agro/analise-solo/analise-solo.component';
@@ -62,6 +64,14 @@ const routes: Routes = [
   {
     path: 'indicadores',
     component: AgroIndicadoresComponent
+  },
+  {
+    path: 'rater',
+    component: AterIaComponent
+  },
+  {
+    path: 'titulos',
+    component: TitulosComponent
   },
 ];
 

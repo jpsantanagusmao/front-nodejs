@@ -25,7 +25,7 @@ export class DapWarningComponent implements OnInit {
   dapirregular$: Observable<any>;
   dapsIrregulares: any;
   ater: any;
-
+ 
   constructor(
     private _dapService: DapService,
     private _userCache: UserCacheService,
