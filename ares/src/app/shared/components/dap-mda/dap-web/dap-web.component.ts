@@ -78,7 +78,7 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
   async loadingToggle() {
     this._loading = !(Boolean(this._loading));
   }
-
+ 
   async registerTreatment(dap) {
 
     let situacao = '';

@@ -3,48 +3,92 @@
     <div class="row">
 
         <div class="form-group col col-md-3">
-            <label for="search">CPF</label>
+            <label for="search">Nome completo</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" (click)="onSearch()" id="basic-addon">
-                        <span class="material-icons" tooltip="Localizar registro deste CPF">
+                        <span class="material-icons" tooltip="Localizar propriedades desta pessoa">
                             manage_search
                         </span>
                     </span>
                 </div>
-                <input type="text" class="form-control"
-                    formControlName="search" name="search" id="search" required>
+                <input type="text" class="form-control" formControlName="search" name="search" id="search" required>
             </div>
             <error-message
                 *ngIf="form.controls.search.invalid && (form.controls.search.dirty || form.controls.search.touched)"
-                errorMessage="É necessário informar o nome do beneficiário"></error-message>
+                errorMessage="Você deve especificar o nome com pelo menos 10 caracteres"></error-message>
         </div>
 
     </div>
 
 </form>
 <div>
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <td>Produtor</td>
-            <td>Propriedade</td>
-            <td>ccir</td>
-            <td>municipio</td>
-            <td>municipio</td>
-            <td>area</td>
-            <td>percentual</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let p of titulos$ | async">
-            <td>{{p.titular}}</td>
-            <td>{{p.denominacao}}</td>
-            <td>{{p.ccir}}</td>
-            <td>{{p.municipio}}</td>
-            <td>{{p.area}}</td>
-            <td>{{p.percentual}}</td>
-        </tr>
+    
+    <div *ngIf="titulos$ | async as titulos">
+        <ares-loading *ngIf="loaded$ | async " class="spinner"></ares-loading>
+        <div>
+            <form *ngIf="_QTD_PROPRIEDADES>1" [formGroup]="formSearch">
+                <div class="form-group col col-md-3">
+                    <label for="search">Municipio</label>
+                    <div class="input-group mb-3">
+                        <input type="text" (change)="onSearchMn()" class="form-control" formControlName="search_mn"
+                            name="search_mn" id="search_mn">
+                    </div>
+                </div>
+            </form>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <td>Produtor</td>
+                        <td>Propriedade</td>
+                        <td>CCIR</td>
+                        <td>Municipio</td>
+                        <td>Area</td>
+                        <td>% posse</td>
+                        <td>Área total(ha)</td>
+                        <td>Área Mod. rural</td>
+                        <td>Qtd. Mod.rurais</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of titulos">
+                        <td>{{p.titular}}</td>
+                        <td>{{p.denominacao}}</td>
+                        <td>{{p.ccir}}</td>
+                        <td>{{p.municipio}}</td>
+                        <td>{{p.area | number}}</td>
+                        <td>{{p.percentual | number}}</td>
+                        <td>{{p.area_total | number}}</td>
+                        <td>{{p.MOD_RURAL | number}}</td>
+                        <td>{{p.rep_modulos_rurais | number}}</td>
+                    </tr>
 
-    </tbody>
-</table>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Totais</td>
+                        <td>{{_QTD_PROPRIEDADES  | number: '2.0-0'}} propriedades rurais</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{_AREA_TOTAL  | number: '1.2-2'}} ha</td>
+                        <td></td>
+                        <td>{{_NUM_MOD  | number: '1.2-2'}} modulos</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <em>
+                <p>
+                    *Estas informações são obtidas conforme dados do INCRA no ano de 2020, sendo portanto
+                    passível de atualizações.
+                </p>
+                <p>
+                    *Como a busca é pelo nome, pode ocorrer o registro de propriedades para titulares
+                    homônimos.
+                </p>
+            </em>
+        </div>
+
+    </div>
+    

@@ -268,3 +268,6 @@ summary {
     justify-content: flex-end;
     align-items: flex-end;
 }
+#basic-addon{
+    cursor: pointer;
+}

@@ -60,7 +60,6 @@ export class TreatmentsByDateComponent implements OnInit {
       filter(value => value.length > 0),
       distinctUntilChanged(),
       map(ds => ds.filter(tr => {
-        console.log(tr)
         if (
           (tr.customer.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()))
           || (tr.status.toLowerCase().includes(obj.form.controls.localizar.value.toLowerCase()))
