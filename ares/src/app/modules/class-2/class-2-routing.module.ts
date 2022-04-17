@@ -1,5 +1,4 @@
 import { TitulosComponent } from './../../shared/components/ares-data/titulos/titulos.component';
-import { AterIaComponent } from './../../shared/components/ares-data/ater-ia/ater-ia.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AnaliseSoloComponent } from 'src/app/shared/components/agro/analise-solo/analise-solo.component';
@@ -13,6 +12,7 @@ import { Class2CadastrarTreatmentComponent } from './components/class2-cadastrar
 import { Class2HomeComponent } from './components/class2-home/class2-home.component';
 import { Class2ToolsComponent } from './components/class2-tools/class2-tools.component';
 import { Class2DimPastagemComponent } from './components/dim-pastagem/dim-pastagem.component';
+import { RAterRecomenderComponent } from 'src/app/shared/components/ares-data/r-ater-recomender/r-ater-recomender.component';
 
 
 const routes: Routes = [
@@ -67,7 +67,7 @@ const routes: Routes = [
   },
   {
     path: 'rater',
-    component: AterIaComponent
+    component: RAterRecomenderComponent
   },
   {
     path: 'titulos',

@@ -32,7 +32,7 @@ export class TitulosComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      search: new FormControl('joel jose de moura', [Validators.required, Validators.minLength(10)])
+      search: new FormControl('', [Validators.required, Validators.minLength(10)])
     });
 
     this.formSearch = new FormGroup({

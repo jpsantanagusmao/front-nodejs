@@ -1,0 +1,54 @@
+<form [formGroup]="form">
+    <p class="mt-2 form-tittle">Modelos de Relatórios de ATER</p>
+    <div class="row">
+
+        <div class="form-group col col-md-3">
+            <label for="search">Pesquisar por assunto</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" (click)="onSearch()" id="basic-addon">
+                        <span class="material-icons" tooltip="Localizar modelos de relatórios semelhantes">
+                            manage_search
+                        </span>
+                    </span>
+                </div>
+                <input type="text" class="form-control" formControlName="search" name="search" id="search" required>
+            </div>
+            <error-message
+                *ngIf="form.controls.search.invalid && (form.controls.search.dirty || form.controls.search.touched)"
+                errorMessage="Você deve especificar um assunto, texto ou frase com pelo menos 05 caracteres"></error-message>
+        </div>
+
+    </div>
+
+</form>
+<div>
+
+    <div *ngIf="titulos$ | async as titulos">
+        <ares-loading *ngIf="loaded$ | async " class="spinner"></ares-loading>
+        <div>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <td>Situação atual</td>
+                        <td>Orientação</td>
+                        <td>Recomendação</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of titulos">
+                        <td tooltip="Clique para utilizar e editar este modelo." (click)="onThisSelection(p)">
+                            {{p.SITUACAO}}
+                        </td>
+                        <td tooltip="Clique para utilizar e editar este modelo." (click)="onThisSelection(p)">
+                            {{p.ORIENTACAO}}
+                        </td>
+                        <td tooltip="Clique para utilizar e editar este modelo." (click)="onThisSelection(p)">
+                            {{p.RECOMENDACAO}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>

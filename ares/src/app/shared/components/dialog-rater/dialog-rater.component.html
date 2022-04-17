@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="row">
+        <p>{{confirmMessage}}</p>
+        <form [formGroup]="form" class="m-3">
+                <div class="form-group col-md-12">
+                    <label for="objetivo">Situação atual</label>
+                    <textarea type="text" rows="8" class="form-control" formControlName="situacao" name="situacao"
+                        id="situacao" [value]="situacaoTxt"></textarea>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="orientacao">Orientações</label>
+                    <textarea type="text" rows="8" class="form-control" formControlName="orientacao" name="orientacao"
+                        id="orientacao" [value]="orientacaoTxt"></textarea>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="recomendacao">Recomendações</label>
+                    <textarea type="text" rows="6" class="form-control" formControlName="recomendacao" name="recomendacao"
+                        id="recomendacao" [value]="recomendacaoTxt"></textarea>
+                </div>
+        </form>
+    </div>
+    <div class="row mb-3 d-flex justify-content-end">
+        <div class="col">
+            <button type="button" [disabled]="!formValid()" class="btn btn-primary" (click)="onConfirm()">{{confirmText}}</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">{{cancelTxt}}</button>
+        </div>
+    </div>
+</div>

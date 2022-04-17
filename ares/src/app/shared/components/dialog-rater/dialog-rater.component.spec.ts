@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AterIaComponent } from './ater-ia.component';
+import { DialogRaterComponent } from './dialog-rater.component';
 
-describe('AterIaComponent', () => {
-  let component: AterIaComponent;
-  let fixture: ComponentFixture<AterIaComponent>;
+describe('DialogRaterComponent', () => {
+  let component: DialogRaterComponent;
+  let fixture: ComponentFixture<DialogRaterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AterIaComponent ]
+      declarations: [ DialogRaterComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AterIaComponent);
+    fixture = TestBed.createComponent(DialogRaterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

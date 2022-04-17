@@ -46,8 +46,8 @@
                         <td>Area</td>
                         <td>% posse</td>
                         <td>Área total(ha)</td>
-                        <td>Área Mod. rural</td>
-                        <td>Qtd. Mod.rurais</td>
+                        <td>Área Mod. fiscal</td>
+                        <td>Qtd. Mod.fiscais</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,15 +66,31 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td>Totais</td>
-                        <td>{{_QTD_PROPRIEDADES  | number: '2.0-0'}} propriedades rurais</td>
+                        <td>
+                            <strong>
+                                Totais
+                            </strong>
+                        </td>
+                        <td>
+                            <strong>
+                                {{_QTD_PROPRIEDADES  | number: '2.0-0'}} propriedades rurais
+                            </strong>
+                        </td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>{{_AREA_TOTAL  | number: '1.2-2'}} ha</td>
+                        <td>
+                            <strong>
+                                {{_AREA_TOTAL  | number: '1.2-2'}} ha
+                            </strong>
+                        </td>
                         <td></td>
-                        <td>{{_NUM_MOD  | number: '1.2-2'}} modulos</td>
+                        <td>
+                            <strong>
+                                {{_NUM_MOD  | number: '1.2-2'}} mds
+                            </strong>
+                        </td>
                     </tr>
                 </tfoot>
             </table>

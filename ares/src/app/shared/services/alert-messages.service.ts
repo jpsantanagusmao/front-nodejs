@@ -1,3 +1,4 @@
+import { DialogRaterComponent } from './../components/dialog-rater/dialog-rater.component';
 import { Injectable } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from '../components/alert-modal/alert-modal.component';
@@ -58,5 +59,21 @@ export class AlertMessagesService {
     }
 
     return (<DialogConfirmComponent>bsModalRef.content).confirmResult;
+  }
+
+  /**
+   * 
+   * @param situacao 
+   * @param orientacao 
+   * @param recomendacao 
+   * @returns 
+   */
+  showRaterConfirm(situacao: string, orientacao:string, recomendacao: string){
+    const bsModalRef: BsModalRef = this.modalService.show(DialogRaterComponent, { class: 'modal-lg' });
+    bsModalRef.content.situacaoTxt = situacao;
+    bsModalRef.content.orientacaoTxt = orientacao;
+    bsModalRef.content.recomendacaoTxt = recomendacao;
+    
+    return (<DialogRaterComponent>bsModalRef.content).confirmResult;
   }
 }
