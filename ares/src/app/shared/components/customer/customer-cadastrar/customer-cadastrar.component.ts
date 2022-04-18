@@ -111,16 +111,17 @@ export class CustomerCadastrarComponent implements OnInit {
      * Configura o formulário
      */
     const obj = this;
-    obj.form.controls.name.patchValue({value: customer.name, disabled: true});
+
+    obj.form.controls.name.patchValue(customer.name);
     obj.form.controls.cpf.patchValue(customer.cpf);
-    obj.form.controls.nickname.patchValue({value: customer.nickname, disabled: true});
-    obj.form.controls.birth_date.patchValue({value: customer?.birth_date, disabled: true});
-    obj.form.controls.address.patchValue({value: customer.address, disabled: true});
-    obj.form.controls.num.patchValue({value: customer.num, disabled: true});
-    obj.form.controls.district.patchValue({value: customer.district, disabled: true});
-    obj.form.controls.complement.patchValue({value: customer.complement, disabled: true});
-    obj.form.controls.cep.patchValue({value: customer.cep, disabled: true});
-    obj.form.controls.phone.patchValue({value: customer.phone, disabled: true});
+    obj.form.controls.nickname.patchValue(customer.nickname);
+    obj.form.controls.birth_date.patchValue(customer?.birth_date);
+    obj.form.controls.address.patchValue(customer.address);
+    obj.form.controls.num.patchValue(customer.num);
+    obj.form.controls.district.patchValue(customer.district);
+    obj.form.controls.complement.patchValue(customer.complement);
+    obj.form.controls.cep.patchValue(customer.cep);
+    obj.form.controls.phone.patchValue(customer.phone);
   }
 
   async createFormNew() {

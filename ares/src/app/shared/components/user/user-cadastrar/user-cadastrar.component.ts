@@ -140,11 +140,13 @@ export class UserCadastrarComponent implements OnInit {
     const _formValid = this.form.valid;
     const _divisionNecessary = this.divisionNecessary();
 
-    return !( 
-    ( !_roleSel ) 
-    //|| !(this.divisionNecessary()) 
-    //|| (!_citySel)
-    || (!this.form.valid));
+    const formok = !( 
+      ( !_roleSel ) 
+      //|| !(this.divisionNecessary()) 
+      //|| (!_citySel)
+      || (!_formValid));
+    
+      return formok;
 
   }
   registrar() {

@@ -26,7 +26,7 @@ export class DapWebComponent implements OnInit {
   /**
    * 
    */
-  pronome_tratamento_fem: string[] = ['Sra. ', 'Dra. ', 'Sua '];
+  pronome_tratamento_fem: string[] = ['Sra. ', 'Dna '];
   pronome_tratamento_masc: string[] = ['Sr. ', 'Seu '];
 
   recomendacoesVector: string[] = [
@@ -36,14 +36,13 @@ export class DapWebComponent implements OnInit {
 
   orientacoesVector: string[] = [
     `A DAP - Declaração de Aptidão do PRONAF é utilizada como instrumento de identificação do agricultor familiar para acessar políticas públicas do Governo Federal, e é necessário apresentar no ato da elaboração da DAP os seguintes documentos: 
-     CPF - do agricultor (a) familiar e cônjuge;
+ CPF - do agricultor (a) familiar e cônjuge;
  Identidade (RG) do agricultor (a) familiar e cônjuge;
  Certidão de casamento;
  Comprovante de residência (conta de energia);
- Contrato de Compra e Venda, Declaração de Posse ou Matrícula do Cartório de
-Registro de Imóveis dos estabelecimentos rurais beneficiados com o crédito;
+ Contrato de Compra e Venda, Declaração de Posse ou Matrícula do Cartório de Registro de Imóveis dos estabelecimentos rurais beneficiados com o crédito;
  Comprovante de renda dos últimos 12 meses, tais como: notas fiscais de entrada;
-holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
+ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
     `
   ];
 
@@ -59,6 +58,7 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
   }
 
   async emitReport() {
+    console.log('clicou aqui merda!')
     /**
  * Consulta irregularidades
  */
@@ -69,6 +69,7 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
 
     this.dap$ = this._dapService.findByCpf(cpf).pipe(
       tap((d) => {
+        console.log(d);
         obj.loadingToggle()
       })
     );
@@ -78,7 +79,7 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
   async loadingToggle() {
     this._loading = !(Boolean(this._loading));
   }
- 
+
   async registerTreatment(dap) {
 
     let situacao = '';
@@ -86,9 +87,9 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
 
     let pronome = '';
 
-    if(dap.titular.genero == 'Masculino'){
+    if (dap.titular.genero == 'Masculino') {
       pronome = this.pronome_tratamento_masc[Math.floor(Math.random() * this.pronome_tratamento_masc.length)]
-    }else{
+    } else {
       pronome = this.pronome_tratamento_fem[Math.floor(Math.random() * this.pronome_tratamento_fem.length)]
 
     }
@@ -113,9 +114,9 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
     });
     const area = Number(dap.areaDaPropriedade).toFixed(2);
 
-    if(!dapVencida){
+    if (!dapVencida) {
       situacao = `O ${pronome} ${dap.titular.nome}, proprietario de uma área total de ${area} hectares no local denominado "${dap.nomeImovelPrincipal}" possui a DAP de número ${dap.numDap} com validade até ${moment(dap.validade).format('DD/MM/yyyy')} na qual consta a produção de ${producao_texto}.`;
-    }else{
+    } else {
       situacao = `O ${pronome} ${dap.titular.nome}, proprietario de uma área total de ${area} hectares no local denominado "${dap.nomeImovelPrincipal}" possui a DAP de número ${dap.numDap} que expirou na data de ${moment(dap.validade).format('DD/MM/yyyy')}. Neste documento consta a produção de ${producao_texto}.`;
     }
 
@@ -140,12 +141,12 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
       address: dap.titular.endereco,
       city: dap.titular.municipio,
     };
-    
+
     customers.push(titular);
     /**
      * Caso haja um segundo beneficiário
      */
-    if(dap.titular2.cpf){
+    if (dap.titular2.cpf) {
       customers.push({
         name: dap.titular2.nome,
         cpf: dap.titular2.cpf,
@@ -158,7 +159,7 @@ holerite do agricultor (a), cônjuge e agregados (se possuir); recibos;
     }
 
     const ater: AterModel = {
-      local,customers, situacao, orientacao, recomendacao
+      local, customers, situacao, orientacao, recomendacao
     };
     /**
      * Registra a ater no cookie
