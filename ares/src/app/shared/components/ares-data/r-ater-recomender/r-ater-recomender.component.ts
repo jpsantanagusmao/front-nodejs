@@ -2,9 +2,11 @@ import { AresDataService } from './../ares-data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EMPTY, Observable, of } from 'rxjs';
-import { delay, map, switchMap, take } from 'rxjs/operators';
+import { delay, map, switchMap, take, tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { AlertMessagesService } from '../../../services/alert-messages.service';
+import { AterModel } from 'src/app/shared/models/ater.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-r-ater-recomender',
@@ -20,12 +22,15 @@ export class RAterRecomenderComponent implements OnInit {
   loaded$: Observable<any>
 
   constructor(
+    private _router: Router,
+    private _route: ActivatedRoute,
     private _raterService: AresDataService,
     private _userCache: UserCacheService,
     private _messageService: AlertMessagesService
   ) { }
 
   ngOnInit(): void {
+    
     this.form = new FormGroup({
       search: new FormControl('', [Validators.required, Validators.minLength(5)])
     });
@@ -67,7 +72,7 @@ export class RAterRecomenderComponent implements OnInit {
 
     ).subscribe(
       success => {
-        const texto = success.situacao + success.orientacao + success.recomendacao
+        //const texto = success.situacao + success.orientacao + success.recomendacao
         obj.sendReportAter(success);
         obj._messageService.handleSuccess('Conclusão de Tarefa', 'Relatório registrado com sucesso.')
       },
@@ -79,10 +84,30 @@ export class RAterRecomenderComponent implements OnInit {
 
   }
   sendReportAter(rater) {
+    this.onCreateTreatment(rater);
   }
 
   storedRater(rater): Observable<any> {
+    const local = '';
+    const customers = [];
+    const situacao = rater.situacao;
+    const orientacao = rater.orientacao;
+    const recomendacao = rater.recomendacao;
+
+    const ater: AterModel = {
+      local,customers, situacao, orientacao, recomendacao
+    };
+    /**
+     * Registra a ater no cookie
+     */
+    this._userCache.createAter(JSON.stringify(ater));
+
+    const obj = this;
+
     return this._raterService.sendReportAter(rater).pipe(
     );
+  }
+  onCreateTreatment(event){
+    this._router.navigate(["../service/"],  { relativeTo: this._route });
   }
 }
