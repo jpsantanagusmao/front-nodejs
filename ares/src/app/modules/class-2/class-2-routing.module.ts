@@ -69,6 +69,7 @@ const routes: Routes = [
     path: 'rater',
     component: RAterRecomenderComponent
   },
+  
   {
     path: 'titulos',
     component: TitulosComponent
