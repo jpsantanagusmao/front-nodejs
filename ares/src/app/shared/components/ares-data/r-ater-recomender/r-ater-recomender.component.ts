@@ -27,7 +27,7 @@ export class RAterRecomenderComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      search: new FormControl('milho dap chamada', [Validators.required, Validators.minLength(5)])
+      search: new FormControl('', [Validators.required, Validators.minLength(5)])
     });
   }
 
