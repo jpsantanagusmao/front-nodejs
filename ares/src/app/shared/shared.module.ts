@@ -52,8 +52,8 @@ import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker
 import { AgroIndicadoresComponent } from './components/indicadores/agro-indicadores/agro-indicadores.component';
 import { RPnaeComponent } from './reports/aters/r-pnae/r-pnae.component';
 import { TitulosComponent } from './components/ares-data/titulos/titulos.component';
-import { RAterRecomenderComponent } from './components/ares-data/r-ater-recomender/r-ater-recomender.component';
 import { DialogRaterComponent } from './components/dialog-rater/dialog-rater.component';
+import { RAterRecomenderComponent } from './components/ares-data/r-ater-recomender/r-ater-recomender.component';
 
 @NgModule({
   declarations: [

@@ -18,8 +18,8 @@ import { Class4DimPastagemComponent } from './components/class4-dim-pastagem/cla
 import { ProdHortalicasComponent } from 'src/app/shared/components/agro/prod-hortalicas/prod-hortalicas.component';
 import { AgroIndicadoresComponent } from 'src/app/shared/components/indicadores/agro-indicadores/agro-indicadores.component';
 import { TreatmentsByDateComponent } from 'src/app/shared/reports/treatments-by-date/treatments-by-date.component';
-import { RAterRecomenderComponent } from 'src/app/shared/components/ares-data/r-ater-recomender/r-ater-recomender.component';
 import { TitulosComponent } from 'src/app/shared/components/ares-data/titulos/titulos.component';
+import { RAterRecomenderComponent } from 'src/app/shared/components/ares-data/r-ater-recomender/r-ater-recomender.component';
 
 
 const routes: Routes = [
@@ -61,7 +61,7 @@ const routes: Routes = [
     component: Class4DapQueryComponent
   },
   {
-    path: 'rater',
+    path: 'print-rater',
     component: RaterComponent
   },
   {
