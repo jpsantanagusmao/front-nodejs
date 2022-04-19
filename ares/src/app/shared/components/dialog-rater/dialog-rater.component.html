@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <h3 class="modal-title">{{title}}</h3>
+        <p class="p-3 mt-3 form-tittle">{{title}}</p>
     </div>
     <div class="row">
         <p>{{confirmMessage}}</p>
@@ -25,6 +25,9 @@
         </form>
     </div>
     <div class="row mb-3 d-flex justify-content-end">
+        <div class="col">
+            <button type="button" [disabled]="!formValid()" class="btn btn-success" (click)="onCopy()">Copiar texto</button>
+        </div>
         <div class="col">
             <button type="button" [disabled]="!formValid()" class="btn btn-primary" (click)="onConfirm()">{{confirmText}}</button>
         </div>
