@@ -30,7 +30,7 @@ export class RAterRecomenderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+    this._userCache.regRoute().subscribe();
     this.form = new FormGroup({
       search: new FormControl('', [Validators.required, Validators.minLength(5)])
     });

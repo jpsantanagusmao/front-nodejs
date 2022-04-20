@@ -4,20 +4,21 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserModel } from '../shared/models/user.model';
 import * as moment from 'moment';
 import { environment as env } from '../../environments/environment.prod';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserCacheService  implements OnInit {
+export class UserCacheService implements OnInit {
 
   public static readonly TOKEN_STORAGE_VAR: string = 'token';
   public static readonly ATER_STORAGE_VAR: string = 'ater';
 
   private static readonly PRIVATE_LINK = '/users/private/';
-  private static readonly PRIVATE_TASKS_API = '/users';
-  
+  private static readonly PRIVATE_TASKS_API = 'users';
+
   private PATH: string = 'users';
 
   public static readonly WELCOME: string = '/welcome/start';
@@ -53,32 +54,37 @@ export class UserCacheService  implements OnInit {
   ngOnInit(): void {
 
   }
-
-  get token(){
+  regRoute(): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('route', this.router.routerState.snapshot.url);
+    return this.http.post(`${env.BASE_API_URL}${UserCacheService.PRIVATE_TASKS_API}/reg-route`, params).pipe(
+    );
+  }
+  get token() {
     this._token = localStorage.getItem(UserCacheService.TOKEN_STORAGE_VAR);
     return this._token;
-    
+
   }
-  set token(value){
+  set token(value) {
     localStorage.setItem(UserCacheService.TOKEN_STORAGE_VAR, value);
     this._token = value;
   }
 
 
-  get isExpired(){
+  get isExpired() {
     this._GetTokenDecoded();
 
     const dtExp = moment(this.user.expiresIn);
 
     return moment().isAfter(dtExp);
   }
-  
-  get isLoggedIn(){
+
+  get isLoggedIn() {
     this._GetTokenDecoded();
 
-    const logged = this.user?true:false;
+    const logged = this.user ? true : false;
 
-    if(!logged){
+    if (!logged) {
       this.logout();
     }
 
@@ -86,14 +92,14 @@ export class UserCacheService  implements OnInit {
   }
 
   private _GetTokenDecoded() {
-    try{
+    try {
       this.user = (this.jwtHelper.decodeToken(this.token));
-    }catch(e){
+    } catch (e) {
       this.user = undefined;
       this.logout();
     }
   }
-  
+
   private _getTokenExpirationDate() {
     this.expirationDate = this.jwtHelper.getTokenExpirationDate(this.token);
   }
@@ -101,12 +107,12 @@ export class UserCacheService  implements OnInit {
   get isAuthenticated() {
     this._GetTokenDecoded();
     /*Verifica se está autenticado*/
-   return this.isLoggedIn;
-   
+    return this.isLoggedIn;
+
   }
 
   public async decode(token: any) {
-    
+
     this.token = token.token;
     this._GetTokenDecoded();
     this._getTokenExpirationDate();
@@ -118,14 +124,14 @@ export class UserCacheService  implements OnInit {
     const classe = await this.user.role_class;
 
     //this.gotoUrl(classe);
-    this.gotoHome(); 
-    
+    this.gotoHome();
+
   }
 
   /**
    * Retorna à página principal do usuário logado
    */
-  async gotoHome(){
+  async gotoHome() {
     this.token = localStorage.getItem(UserCacheService.TOKEN_STORAGE_VAR);
     this._GetTokenDecoded();
     this._getTokenExpirationDate();
@@ -133,12 +139,12 @@ export class UserCacheService  implements OnInit {
     await this.gotoUrl(role_class);
   }
 
-  gotoRoot(){
+  gotoRoot() {
     this.gotoUrl(0);
   }
 
-  gotoUrl(role_class){
-    
+  gotoUrl(role_class) {
+
     if (role_class === 0)
       this.router.navigate([UserCacheService.CLASS_0]);
     if (role_class === 1)
@@ -174,7 +180,7 @@ export class UserCacheService  implements OnInit {
     const u = this.user;
 
     this.isLoggedIn;
-    
+
     return this.user;
   }
 
@@ -190,14 +196,14 @@ export class UserCacheService  implements OnInit {
 
   }
 
-  public createAter(ater){
+  public createAter(ater) {
     localStorage.setItem(UserCacheService.ATER_STORAGE_VAR, ater);
   }
 
-  public removeAter(){
+  public removeAter() {
     localStorage.removeItem(UserCacheService.ATER_STORAGE_VAR);
   }
-  public getAter(){
+  public getAter() {
     return localStorage.getItem(UserCacheService.ATER_STORAGE_VAR);
   }
 

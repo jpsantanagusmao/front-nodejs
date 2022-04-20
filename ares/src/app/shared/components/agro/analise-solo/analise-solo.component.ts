@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TIPO_SOLO } from './tbl-p';
 import { ModelosCalagem } from './modelo-calagem';
 import { CULTURAS } from './tbl-exig-nutricionais';
+import { UserCacheService } from 'src/app/core/user-cache.service';
 
 @Component({
   selector: 'analise-solo',
@@ -23,6 +24,7 @@ export class AnaliseSoloComponent implements OnInit {
   culturaSelected: any;
 
   constructor(
+    private _userCache: UserCacheService,
     private _router: Router,
     private _route: ActivatedRoute
   ) {
@@ -30,6 +32,7 @@ export class AnaliseSoloComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._userCache.regRoute().subscribe();
   }
   selectSolo(event) {
     this.soloSelected = this.form.controls.classificacao.value;

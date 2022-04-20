@@ -34,12 +34,13 @@ export class ProdHortalicasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._userCache.regRoute().subscribe();
+
   }
   async loadForm() {
 
     const dataInicial = await moment().add(30, 'days').format('YYYY-MM-DD');
 
-    console.log(dataInicial)
     this.formCalc = this.fb.group({
       cultura: ['', Validators.required],
       demanda: ['', Validators.required],

@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { UserCacheService } from 'src/app/core/user-cache.service';
 
 @Component({
   selector: 'agro-indicadores',
@@ -16,6 +17,7 @@ export class AgroIndicadoresComponent implements OnInit {
   indicadoresCepea$: Observable<any>;
   
   constructor(
+    private _userCache: UserCacheService,
     private _userService: UserService
   ) { }
   async cepeaBoiChart(){
@@ -63,6 +65,7 @@ export class AgroIndicadoresComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this._userCache.regRoute().subscribe();
     this.cepeaLeiteMgChart();
     this.cepeaBoiChart();
     this.indicadoresCepea$ = this._userService.getIndicadoresCepea().pipe(

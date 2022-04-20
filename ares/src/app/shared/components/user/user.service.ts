@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, EMPTY, of, BehaviorSubject } from 'rxjs';
@@ -25,6 +25,7 @@ export class UserService {
     private usercache: UserCacheService,
     private router: Router,
   ) { }
+
 
   getIndicadoresCepea(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-actual-prices`).pipe(

@@ -46,7 +46,7 @@ export class DmPastagensComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this._userCache.regRoute().subscribe();
     this.form = this.fb.group({
       pasto: ['Mombaça', Validators.required],
       ocupacao: ['1', Validators.required],

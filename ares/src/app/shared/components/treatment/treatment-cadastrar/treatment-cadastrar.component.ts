@@ -52,7 +52,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-
+    this._userCache.regRoute().subscribe();
     const ater = JSON.parse(this._userCache.getAter());
     if (ater) {
       this.customers = ater['customers'];

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
+import { UserCacheService } from 'src/app/core/user-cache.service';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { UserService } from '../user.service';
 
@@ -14,12 +15,14 @@ export class MyTasksComponent implements OnInit {
   tasks$: Observable<any>;
 
   constructor(
+    private _userCache: UserCacheService,
     private _userService: UserService,
     private _messageService: AlertMessagesService
   ) {
   }
 
   ngOnInit(): void {
+    this._userCache.regRoute().subscribe();
     this.loadMyTasks();
   } 
   loadMyTasks() {

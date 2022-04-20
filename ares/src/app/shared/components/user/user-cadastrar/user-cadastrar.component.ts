@@ -42,6 +42,7 @@ export class UserCadastrarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.usercache.regRoute().subscribe();
   }
   async loadForm() {
     if (this.id) {

@@ -52,6 +52,7 @@ export class DapWebComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this._userCache.regRoute().subscribe();
     this.form = new FormGroup({
       search: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)])
     });

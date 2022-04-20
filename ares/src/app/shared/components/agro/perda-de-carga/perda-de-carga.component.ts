@@ -32,6 +32,7 @@ export class PerdaDeCargaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this._userCache.regRoute().subscribe();
     this.formCalc = this.fb.group({
       descricao: ['Linha principal', Validators.required],
       tubo: [''],

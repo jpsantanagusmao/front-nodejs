@@ -13,6 +13,7 @@ export class LogoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userCacheService.regRoute().subscribe();
     this.logout();
   }
   logout(){

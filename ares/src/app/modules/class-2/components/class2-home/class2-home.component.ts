@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { UserCacheService } from 'src/app/core/user-cache.service';
 import { UserService } from 'src/app/shared/components/user/user.service';
 
 @Component({
@@ -17,10 +18,12 @@ export class Class2HomeComponent implements OnInit {
   loading$: Observable<any>;
 
   constructor(
+    private _userCache: UserCacheService,
     private _userService: UserService
   ) { }
 
   ngOnInit(): void {
+    this._userCache.regRoute().subscribe();
     const obj = this;
     obj.updatePanel()
     UserService.updatePanel.subscribe(

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserCacheService } from 'src/app/core/user-cache.service';
 
 @Component({
   selector: 'app-class2-tools',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Class2ToolsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _userCache: UserCacheService
+  ) { }
 
   ngOnInit(): void {
+    this._userCache.regRoute().subscribe();
   }
 
 }
