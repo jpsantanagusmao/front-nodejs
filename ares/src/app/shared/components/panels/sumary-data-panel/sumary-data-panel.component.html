@@ -1,0 +1,24 @@
+<div id="dashboard">
+    <div class="card-panel" tooltip="Clique aqui para visualizar seus projetos">
+        <div class="card-body" (click)="myprojects($event)">
+            <h5 class="card-title">Meus projetos</h5>
+            <p *ngIf="qtdprojetos$ | async as qtdprj; else loading" class="card-text">{{qtdprj.length}}</p>
+        </div>
+    </div>
+    <div class="card-panel">
+        <div class="card-body">
+            <h5 class="card-title">Qtd. Atendimentos</h5>
+            <p *ngIf="qtdatd$ | async as qtd; else loading" class="card-text">{{qtd.atendimentos}}</p>
+        </div>
+    </div>
+    <div class="card-panel">
+        <div class="card-body">
+            <h5 class="card-title">Total de beneficiários</h5>
+            <p *ngIf="qtdcustomers$ | async as qtd; else loading" class="card-text">{{qtd.length}}</p>
+        </div>
+    </div>
+</div>
+<p><em>*Dados consolidados por este setor durante o ano corrente</em></p>
+<ng-template #loading>
+    <i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i>
+</ng-template>

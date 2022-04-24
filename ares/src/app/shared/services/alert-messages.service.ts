@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from '../components/alert-modal/alert-modal.component';
 import { DialogConfirmComponent } from '../components/dialog-confirm/dialog-confirm.component';
+import { PointsGenerateComponent } from '../components/maps/points-generate/points-generate.component';
 
 @Injectable({
   providedIn: 'root'
@@ -75,5 +76,13 @@ export class AlertMessagesService {
     bsModalRef.content.recomendacaoTxt = recomendacao;
     
     return (<DialogRaterComponent>bsModalRef.content).confirmResult;
+  }
+  
+  showPointSelect(){
+    
+    const bsModalRef: BsModalRef = this.modalService.show(PointsGenerateComponent);
+   
+    return (<PointsGenerateComponent>bsModalRef.content).confirmResult;
+
   }
 }

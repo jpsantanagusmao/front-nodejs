@@ -1,11 +1,14 @@
+import { switchMap, take, tap } from 'rxjs/operators';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { statusModel } from 'src/app/shared/models/status.model';
+import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { v4 as uuidv4 } from 'uuid';
 import { TreatmentService } from '../treatment.service';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'treatment-cadastrar',
@@ -18,6 +21,11 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   formAction: FormGroup;
   _loading: boolean = false;
   _file: File;
+
+  /**
+   * Localização do atendimento
+   */
+  marker: google.maps.Marker;
 
   @Output() onStore = new EventEmitter();
   //ID para esta operação
@@ -40,7 +48,8 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   constructor(
     private _treatmentService: TreatmentService,
     private _userCache: UserCacheService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _messageService: AlertMessagesService
   ) {
 
     this.data = this._userCache.getUserData();
@@ -52,7 +61,8 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    this._userCache.regRoute().subscribe();
+    //this._userCache.regRoute().subscribe();
+
     const ater = JSON.parse(this._userCache.getAter());
     if (ater) {
       this.customers = ater['customers'];
@@ -71,18 +81,18 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   }
 
   onSelectCustomer(value) {
-    
-        //verifica se já existe este atendimento por classificação de atendimento
 
-        const exists = this.customers.filter(c=>c['cpf']==value['cpf']);
+    //verifica se já existe este atendimento por classificação de atendimento
 
-        if(exists.length>0){
-          alert('Você á registrou atendimento para este produtor nesta visita');
-          return;
-        }
-        
+    const exists = this.customers.filter(c => c['cpf'] == value['cpf']);
+
+    if (exists.length > 0) {
+      alert('Você á registrou atendimento para este produtor nesta visita');
+      return;
+    }
+
     this.customers.push(value);
-    
+
   }
 
   onSelectAction(value) {
@@ -103,9 +113,9 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   onIncludeAction($event) {
     //verifica se já existe este atendimento por classificação de atendimento
 
-    const exists = this.tasks.filter(t=>t.action_id==this.taskSelected.action_id);
+    const exists = this.tasks.filter(t => t.action_id == this.taskSelected.action_id);
 
-    if(exists.length>0){
+    if (exists.length > 0) {
       alert('Você á registrou este atendimento nesta visita');
       return;
     }
@@ -122,7 +132,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     this.userDesigned = undefined;
     this.cleanTaskForm();
   }
-  cleanTaskForm(){
+  cleanTaskForm() {
     this.formAction.controls.description.patchValue('');
     this.formAction.controls.valor.patchValue('0');
   }
@@ -136,6 +146,14 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
 
     treatment.rater = this._file;
     treatment.id = uuidv4().toUpperCase();
+
+    /**
+     * Define as coordenadas do atendimento a se registrar
+     */
+    if(this.marker){
+      const point = { type: 'Point', coordinates: [this.marker.getPosition().lat(), this.marker.getPosition().lat()]}
+      treatment.point = point;
+    }
 
     //console.log(treatment);
     this.onStore.emit(treatment);
@@ -344,10 +362,10 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     return this.data.division_fone;
   }
 
-  taskOk(){
-    if(this.formAction.valid
+  taskOk() {
+    if (this.formAction.valid
       && this.userDesigned
-      ){
+    ) {
       return true;
     }
     return false;
@@ -377,6 +395,27 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
 
   }
 
+  onGeo(event: any) {
+
+    const obj = this;
+    this._messageService.showPointSelect().asObservable().pipe(
+      take(1),
+      //switchMap(async (result) => result ? result : EMPTY)
+    )
+    .subscribe(
+      data=>{
+        obj.marker = data;
+        //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
+      },
+      error=>{
+        console.error(error);
+      }
+    )
+    ;
+  }
+  private _setGeo(value: google.maps.Marker){
+    this.marker = value;
+  }
   async createFormNew() {
     const hoje: string = moment().format('YYYY-MM-DD');
 

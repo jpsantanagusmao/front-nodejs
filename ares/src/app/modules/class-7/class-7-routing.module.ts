@@ -1,3 +1,4 @@
+import { PointsGenerateComponent } from './../../shared/components/maps/points-generate/points-generate.component';
 import { Class7DivisionUpdateComponent } from './components/class7-division-update/class7-division-update.component';
 import { Class7DivisionAllComponent } from './components/class7-division-all/class7-division-all.component';
 import { Class7CadastrarDivisionComponent } from './components/class7-cadastrar-division/class7-cadastrar-division.component';
@@ -53,6 +54,10 @@ const routes: Routes = [
       {
         path: 'division-all',
         component: Class7DivisionAllComponent
+      },
+      {
+        path: 'map',
+        component: PointsGenerateComponent
       }
     ]
   }

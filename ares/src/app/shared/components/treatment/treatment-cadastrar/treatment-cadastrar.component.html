@@ -1,18 +1,27 @@
 <form [formGroup]="form">
     <div class="row">
-        <div class="form-group col-md-10">
+        <div class="form-group ml-2 col-md-8">
             <label for="local">Local</label>
-            <input type="text" class="form-control" formControlName="local" name="local" id="local" required>
-            <error-message
-                *ngIf="form.controls.local.invalid && (form.controls.local.dirty || form.controls.local.touched)"
-                errorMessage="É necessário informar o local do atendimento com 05 a 150 caracteres"></error-message>
+            <div class="row">
+                <input type="text" class="form-control col" formControlName="local" name="local" id="local" required>
+                <button class="col-1 ml-2 btn btn-primary" (click)="onGeo($event)">
+                    <i class="bi bi-globe2"></i>
+                </button>
+                <error-message
+                    *ngIf="form.controls.local.invalid && (form.controls.local.dirty || form.controls.local.touched)"
+                    errorMessage="É necessário informar o local do atendimento com 05 a 150 caracteres"></error-message>
+            </div>
         </div>
         <div class="form-group col-md-2">
             <label for="data">Data</label>
             <input type="date" class="form-control" formControlName="data" name="data" id="data" required>
             <error-message
-                *ngIf="form.controls.data.invalid && (form.controls.data.dirty || form.controls.data.touched)"
-                errorMessage="É necessário informar a data do atendimento"></error-message>
+            *ngIf="form.controls.data.invalid && (form.controls.data.dirty || form.controls.data.touched)"
+            errorMessage="É necessário informar a data do atendimento"></error-message>
+        </div>
+        <div class="coodrs" *ngIf="marker">
+            Latitude: {{marker.getPosition().lat()}}
+            Longitude: {{marker.getPosition().lng()}}
         </div>
     </div>
     <details>

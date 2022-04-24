@@ -1,0 +1,24 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nome do projeto</th>
+        <th scope="col">Num. de ações</th>
+        <th scope="col">Previsão de atds</th>
+        <th scope="col">início</th>
+        <th scope="col">fim</th>
+        <th scope="col">...</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prj of projects$ | async">
+        <td>{{prj.description}}</td>
+        <td>{{prj.qtd_acoes | number: '2.0'}}</td>
+        <td>{{prj.prev_atd | number: '2.0'}}</td>
+        <td>{{prj.inicio | date: 'dd/MM/yyyy'}}</td>
+        <td>{{prj.fim | date: 'dd/MM/yyyy'}}</td>
+        <td>
+            <button (click)="onselecAction(prj.id)">detalhar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

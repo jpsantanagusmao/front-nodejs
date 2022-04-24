@@ -1,3 +1,4 @@
+import { ViewProjectComponent } from './../../shared/components/project/view-project/view-project.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -6,6 +7,7 @@ import { AuthGuard } from 'src/app/shared/guards/auth-guard.service';
 import { ContractComponent } from 'src/app/shared/components/contract/contract.component';
 import { DocumentationComponent } from 'src/app/shared/components/documentation/documentation.component';
 import { MyTasksComponent } from 'src/app/shared/components/user/my-tasks/my-tasks.component';
+import { MyProjectsComponent } from 'src/app/shared/components/project/my-projects/my-projects.component';
 
 
 const routes: Routes = [
@@ -69,7 +71,15 @@ const routes: Routes = [
       {
         path: 'documentation',
         component: DocumentationComponent
-      }
+      },
+      {
+        path: 'my-projects',
+        component: MyProjectsComponent
+      },
+      {
+        path: 'view-actions',
+        component: ViewProjectComponent
+      },
     ]
   }
 ];

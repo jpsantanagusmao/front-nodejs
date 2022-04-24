@@ -24,19 +24,6 @@ export class Class2HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this._userCache.regRoute().subscribe();
-    const obj = this;
-    obj.updatePanel()
-    UserService.updatePanel.subscribe(
-      updated=>obj.updatePanel()
-    );
   }
-  updatePanel(){
-    this.qtdprojetos$ = this._userService.allProjects().pipe(
-    );
-    this.qtdatd$ = this._userService.allTreatmens().pipe(
-      );
-      this.qtdcustomers$ = this._userService.allCustomers().pipe(
-    );
 
-  }
 }

@@ -171,7 +171,7 @@ export class UserCacheService implements OnInit {
 
   public logout() {
     this._deleteToken();
-    this.router.navigate([UserCacheService.WELCOME]);
+    this.router.navigate(['./']);//[UserCacheService.WELCOME]);
 
   }
 

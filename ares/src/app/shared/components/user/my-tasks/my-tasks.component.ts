@@ -1,3 +1,4 @@
+import { PointsGenerateComponent } from './../../maps/points-generate/points-generate.component';
 import { Component, OnInit } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';

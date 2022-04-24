@@ -54,6 +54,10 @@ import { RPnaeComponent } from './reports/aters/r-pnae/r-pnae.component';
 import { TitulosComponent } from './components/ares-data/titulos/titulos.component';
 import { DialogRaterComponent } from './components/dialog-rater/dialog-rater.component';
 import { RAterRecomenderComponent } from './components/ares-data/r-ater-recomender/r-ater-recomender.component';
+import { PointsGenerateComponent } from './components/maps/points-generate/points-generate.component';
+import { MyProjectsComponent } from './components/project/my-projects/my-projects.component';
+import { SumaryDataPanelComponent } from './components/panels/sumary-data-panel/sumary-data-panel.component';
+import { ViewProjectComponent } from './components/project/view-project/view-project.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +107,11 @@ import { RAterRecomenderComponent } from './components/ares-data/r-ater-recomend
     RPnaeComponent,
     TitulosComponent,
     RAterRecomenderComponent,
-    DialogRaterComponent,   
+    DialogRaterComponent,
+    PointsGenerateComponent,
+    MyProjectsComponent,
+    SumaryDataPanelComponent,
+    ViewProjectComponent,   
   ],
   imports: [
     CommonModule,
@@ -163,7 +171,9 @@ import { RAterRecomenderComponent } from './components/ares-data/r-ater-recomend
     DialogConfirmComponent,
     AgroIndicadoresComponent,
     TitulosComponent,
-    RAterRecomenderComponent
+    RAterRecomenderComponent,
+    PointsGenerateComponent,
+    SumaryDataPanelComponent
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

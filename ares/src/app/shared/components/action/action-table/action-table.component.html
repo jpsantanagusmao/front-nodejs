@@ -23,23 +23,23 @@
           <strong>
             Vigente apartir de
           </strong>
-          {{action.start}}
+          {{action.start | date: 'dd/MM/yyyy'}}
           <strong>
             a
           </strong>
-          {{action.end}}
+          {{action.end | date: 'dd/MM/yyyy'}}
         </p>
         <p class="col col-md-3">
           <strong>
             Custo médio por beneficiario de R$:
           </strong>
-          {{action.valorPorAtendimento}}
+          {{action.valorPorAtendimento | number: '1.2'}}
         </p>
         <p class="col col-md-3">
           <strong>
             Quantidade estimada de atendimentos:
           </strong>
-          {{action.qtdAtendimentos}}
+          {{action.qtdAtendimentos | number: '2.0'}}
         </p>
       </div>
     </section>
