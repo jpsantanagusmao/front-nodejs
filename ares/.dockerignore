@@ -6,3 +6,7 @@
 /docs
 .gitignore
 *.zip
+**/dist
+**/e2e
+**/server
+**/.firebase

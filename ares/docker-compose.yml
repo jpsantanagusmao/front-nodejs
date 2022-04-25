@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  ares-server:
+    image: angular_app
+    build: .
+    ports:
+      - 5500:5500
