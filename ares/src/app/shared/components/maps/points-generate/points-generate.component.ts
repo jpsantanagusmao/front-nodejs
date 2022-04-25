@@ -34,6 +34,7 @@ export class PointsGenerateComponent implements OnInit {
             obj._loadMap(p)
         }, (err) => {
             console.log(err)
+            obj._loadMap(null);
         }, {
             enableHighAccuracy: true,
             timeout: 5000,
@@ -44,11 +45,18 @@ export class PointsGenerateComponent implements OnInit {
 
     private _loadMap(point) {
         const obj = this;
-
+        
+        let pc;
+        
+        if(point){
+            pc = { lat: point['coords'].latitude, lng: point['coords'].longitude }
+        }else{
+            pc = { lat: -19.46545, lng: -42.4148877 }
+        }
         //center: { lat: point['coords'].latitude, lng: point['coords'].longitude },
         this.loader.load().then(() => {
             this.map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -19.46545, lng: -42.4148877 },
+                center: pc,
                 zoom: 10,
                 streetViewControl: false
             });
