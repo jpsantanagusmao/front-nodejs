@@ -45,9 +45,10 @@ export class PointsGenerateComponent implements OnInit {
     private _loadMap(point) {
         const obj = this;
 
+        //center: { lat: point['coords'].latitude, lng: point['coords'].longitude },
         this.loader.load().then(() => {
             this.map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: point['coords'].latitude, lng: point['coords'].longitude },
+                center: { lat: -19.46545, lng: -42.4148877 },
                 zoom: 10,
                 streetViewControl: false
             });
