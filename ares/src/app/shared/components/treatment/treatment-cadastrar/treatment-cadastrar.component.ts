@@ -151,7 +151,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
      * Define as coordenadas do atendimento a se registrar
      */
     if(this.marker){
-      const point = { type: 'Point', coordinates: [this.marker.getPosition().lat(), this.marker.getPosition().lat()]}
+      const point = { type: 'Point', coordinates: [this.marker.getPosition().lat(), this.marker.getPosition().lng()]}
       treatment.point = point;
     }
 
