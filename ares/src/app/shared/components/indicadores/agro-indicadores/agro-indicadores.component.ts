@@ -11,8 +11,10 @@ import { UserCacheService } from 'src/app/core/user-cache.service';
   styleUrls: ['./agro-indicadores.component.css']
 })
 export class AgroIndicadoresComponent implements OnInit {
-  @ViewChild("cepealeite", { static: true })cepealeite: ElementRef;
+  @ViewChild("leite", { static: true })cepealeite: ElementRef;
   @ViewChild("boigordo", { static: true })cepeaboi: ElementRef;
+  @ViewChild("bezerro", { static: true })cepeabezerro: ElementRef;
+  @ViewChild("milho", { static: true })cepeamilho: ElementRef;
   
   indicadoresCepea$: Observable<any>;
   
@@ -31,6 +33,26 @@ export class AgroIndicadoresComponent implements OnInit {
       }
     );
   }
+  async cepeaMilhoChart(){
+
+    const obj = this;
+    const dados = await this._userService.getCepeaMilho()
+    .subscribe(
+      data=>{
+        obj.drawChartLine(data, obj.cepeamilho);
+      }
+    );
+  }
+  async cepeaBezerroChart(){
+
+    const obj = this;
+    const dados = await this._userService.getCepeaBezerro()
+    .subscribe(
+      data=>{
+        obj.drawChartLine(data, obj.cepeabezerro);
+      }
+    );
+  }
   async cepeaLeiteMgChart(){
 
     const obj = this;
@@ -42,8 +64,8 @@ export class AgroIndicadoresComponent implements OnInit {
     );
   }
   drawChartLine(dataset, canvas){
-    const x = dataset.dados.map(v=>v.ano);
-    const y = dataset.dados.map(v=>v.preco);
+    const x = dataset.dados.map(v=>v.Ano);
+    const y = dataset.dados.map(v=>v.Valor_R$);
       const data = {
         labels: x,
         datasets: [{
@@ -68,6 +90,8 @@ export class AgroIndicadoresComponent implements OnInit {
     this._userCache.regRoute().subscribe();
     this.cepeaLeiteMgChart();
     this.cepeaBoiChart();
+    this.cepeaBezerroChart();
+    this.cepeaMilhoChart();
     this.indicadoresCepea$ = this._userService.getIndicadoresCepea().pipe(
     );
   }

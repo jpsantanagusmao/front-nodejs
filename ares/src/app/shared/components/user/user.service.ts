@@ -36,6 +36,14 @@ export class UserService {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/all-treatments-by-date/${moment(rangeDate[0]).utc().format('yyyy-MM-DD')}/${moment(rangeDate[1]).utc().format('yyyy-MM-DD')}`).pipe(
     );
   }
+  getCepeaMilho(): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-last-10-milho`).pipe(
+    );
+  }
+  getCepeaBezerro(): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-last-10-bezerro`).pipe(
+    );
+  }
   getCepeaBoi(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-last-10-boi`).pipe(
     );

@@ -11,65 +11,26 @@
     </thead>
     <tbody>
         <tr *ngFor="let d of ds"  >
-            <td>{{d.data}}</td>
+            <td>{{d.data | date: 'dd/MM/yyyy'}}</td>
             <td>{{d.producao}}</td>
             <td>{{d.unidade}}</td>
             <td>{{d.valor}}</td>
             <td><em>{{d.coments}}</em></td>           
         </tr>
     </tbody>
-    <!--
-    <tbody>
-        <tr>
-            <td>03/2022</td>
-            <td>Leite MG</td>
-            <td>lt</td>
-            <td>2,2403</td>
-            <td><em>*fonte CEPEA MG</em></td>
-        </tr>
-        <tr>
-            <td>01/04/2022</td>
-            <td>Boi gordo</td>
-            <td>@</td>
-            <td>341.60</td>
-            <td><em>*fonte CEPEA</em></td>
-        </tr>
-        <tr>
-            <td>01/04/2022</td>
-            <td>Bezerro</td>
-            <td>Cab-217.56Kg</td>
-            <td>2880.50</td>
-            <td><em>*fonte CEPEA</em></td>
-        </tr>
-        <tr>
-            <td>01/04/2022</td>
-            <td>Milho</td>
-            <td>Sc</td>
-            <td>92.04</td>
-            <td><em>*fonte CEPEA</em></td>
-        </tr>
-        <tr>
-            <td>01/04/2022</td>
-            <td>Café arábica</td>
-            <td>Sc</td>
-            <td>1245.32</td>
-            <td><em>*fonte CEPEA</em></td>
-        </tr>
-        <tr>
-            <td>01/04/2022</td>
-            <td>Café robusta</td>
-            <td>Sc</td>
-            <td>807.75</td>
-            <td><em>*fonte CEPEA</em></td>
-        </tr>
-    </tbody>
--->
+
 </table>
 <div class="row">
-    <div class="col col-6">
-        <canvas #cepealeite></canvas>
+    <div class="col">
+        <canvas #leite></canvas>
     </div>
-    <div class="col col-6">
+    <div class="col">
         <canvas #boigordo></canvas>
+    </div>
+    <div class="col">
+        <canvas #bezerro></canvas>
+    </div>
+    <div class="col">
+        <canvas #milho></canvas>
     </div>
 </div>
