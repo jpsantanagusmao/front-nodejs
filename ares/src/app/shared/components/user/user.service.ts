@@ -40,8 +40,24 @@ export class UserService {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-last-10-milho`).pipe(
     );
   }
+  getCepeaCafeArabica(): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-last-10-cafe-arabica`).pipe(
+    );
+  }
+  getCepeaCafeRobusta(): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-last-10-cafe-robusta`).pipe(
+    );
+  }
   getCepeaBezerro(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-last-10-bezerro`).pipe(
+    );
+  }
+  updateCepea(): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/update-cepea`).pipe(
+    );
+  }
+  reloadCepea(): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/reload-cepea`).pipe(
     );
   }
   getCepeaBoi(): Observable<any> {

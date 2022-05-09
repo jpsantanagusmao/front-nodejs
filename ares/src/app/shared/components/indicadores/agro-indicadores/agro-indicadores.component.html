@@ -3,6 +3,7 @@
     <thead>
         <tr>
             <th scope="col col-md-1">Data</th>
+            <th scope="col col-md-1">...</th>
             <th scope="col col-md-3">Produção</th>
             <th scope="col col-md-1">Unid</th>
             <th scope="col col-md-1">Preço (R$)</th>
@@ -12,6 +13,13 @@
     <tbody>
         <tr *ngFor="let d of ds"  >
             <td>{{d.data | date: 'dd/MM/yyyy'}}</td>
+            <td>
+                <button class="btn" (click)="viewChart(d.producao)" data-toggle="tooltip" title="Visualizar gráfico com série histórica">
+                    <span class="material-icons text-success">
+                        leaderboard
+                    </span>
+                </button>
+            </td>
             <td>{{d.producao}}</td>
             <td>{{d.unidade}}</td>
             <td>{{d.valor}}</td>
@@ -20,6 +28,9 @@
     </tbody>
 
 </table>
+<div class="col">
+    <canvas #chart></canvas>
+</div>
 <div class="row">
     <div class="col">
         <canvas #leite></canvas>
@@ -33,4 +44,5 @@
     <div class="col">
         <canvas #milho></canvas>
     </div>
+
 </div>

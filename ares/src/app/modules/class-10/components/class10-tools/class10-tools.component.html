@@ -1,1 +1,24 @@
-<p>class10-tools works!</p>
+<div class="container">
+    <div class="row mb-5 mt-3 d-flex justify-content-center">
+        <div class="card col-6">
+            <img class="card-img-top"
+                src="https://www.investimentosenoticias.com.br/media/k2/items/cache/8e4adf1c6f61c112ebfe6072d1d60236_L.jpg"
+                alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Recarregar planilhas CEPEA</h5>
+                <p class="card-text">Recarrega os dados das planilhas</p>
+                <button (click)="reloadCepea()" class="btn btn-primary">Verificar</button>
+            </div>
+        </div>
+        <div class="card col-6">
+            <img class="card-img-top"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQC3UMGTAwM5P9acdwYvWbTb34IscEy6FN1Fw&usqp=CAU"
+                alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Atualizar planilhas CEPEA</h5>
+                <p class="card-text">Sincroniza as planilhas com os dados atuais CEPEA</p>
+                <button (click)="updateCepea()" class="btn btn-primary">Sicronizar</button>
+            </div>
+        </div>
+    </div>
+</div>

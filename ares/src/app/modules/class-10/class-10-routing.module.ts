@@ -1,3 +1,4 @@
+import { Class10ToolsComponent } from './components/class10-tools/class10-tools.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/shared/guards/auth-guard.service';
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'root',
         component: Class10HomeComponent
+      },
+      {
+        path: 'commands',
+        component: Class10ToolsComponent
       },
       {
         path: 'create-contract',

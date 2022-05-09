@@ -16,12 +16,43 @@ export class AgroIndicadoresComponent implements OnInit {
   @ViewChild("bezerro", { static: true })cepeabezerro: ElementRef;
   @ViewChild("milho", { static: true })cepeamilho: ElementRef;
   
+  @ViewChild("chart", { static: true })chart: ElementRef;
+  
+  grafico;
+
   indicadoresCepea$: Observable<any>;
   
   constructor(
     private _userCache: UserCacheService,
     private _userService: UserService
   ) { }
+
+  async viewChart(producao){
+
+    if(producao==='Leite MG'){
+      this.viewChartJs(this._userService.getCepeaLeiteMg());
+    }
+
+    if(producao==='Bezerro'){
+      this.viewChartJs(this._userService.getCepeaBezerro());
+    }
+
+    if(producao==='Milho'){
+      this.viewChartJs(this._userService.getCepeaMilho());
+    }
+
+    if(producao==='Café arábica'){
+      this.viewChartJs(this._userService.getCepeaCafeArabica());
+    }
+
+    if(producao==='Boi gordo'){
+      this.viewChartJs(this._userService.getCepeaBoi());
+    }
+
+    if(producao==='Café robusta'){
+      this.viewChartJs(this._userService.getCepeaCafeRobusta());
+    }
+  }
   async cepeaBoiChart(){
 
     const obj = this;
@@ -30,6 +61,16 @@ export class AgroIndicadoresComponent implements OnInit {
       data=>{
         obj.drawChartLine(data, obj.cepeaboi);
         
+      }
+    );
+  }
+  async viewChartJs(dataObs){
+
+    const obj = this;
+    const dados = await dataObs
+    .subscribe(
+      data=>{
+        obj.drawChartLine(data, obj.chart);
       }
     );
   }
@@ -75,9 +116,12 @@ export class AgroIndicadoresComponent implements OnInit {
           data: y,
         }]
       };
-
+      
+      if(this.grafico){
+        this.grafico.destroy();
+      }
       Chart.register(...registerables);
-      new Chart(
+      this.grafico = new Chart(
         canvas.nativeElement, {
           type: 'line',
           data,
@@ -88,10 +132,10 @@ export class AgroIndicadoresComponent implements OnInit {
   }
   ngOnInit(): void {
     this._userCache.regRoute().subscribe();
-    this.cepeaLeiteMgChart();
-    this.cepeaBoiChart();
-    this.cepeaBezerroChart();
-    this.cepeaMilhoChart();
+    //this.cepeaLeiteMgChart();
+    //this.cepeaBoiChart();
+    //this.cepeaBezerroChart();
+    //this.cepeaMilhoChart();
     this.indicadoresCepea$ = this._userService.getIndicadoresCepea().pipe(
     );
   }
