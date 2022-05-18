@@ -25,6 +25,7 @@
         <thead>
           <tr>
             <th scope="col col-md-1">Data</th>
+            <th scope="col col-md-1">...</th>
             <th scope="col col-md-3">Beneficiários/Cliente</th>
             <th scope="col col-md-3">Serviço</th>
             <th scope="col col-md-2">Local do serviço</th>
@@ -35,7 +36,12 @@
         <tbody>
           <tr *ngFor="let tr of treatments">
             <td>{{tr.data | date:'dd/MM/yyyy'}}</td>
-            <td (dblclick)="copyValue(tr.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">{{tr.customer}}</td>
+            <button class="btn" (click)="copyValue(tr.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">
+                <span class="material-icons text-success">
+                    leaderboard
+                </span>
+            </button>
+            <td>{{tr.customer}}</td>
             <td>{{tr.description}}</td>
             <td>{{tr.local}}</td> 
             <td>{{tr.user}}</td>
@@ -49,3 +55,4 @@
         Nenhum registro encontrado!
     </div>
 </ng-template>
+<div class="dados"></div>

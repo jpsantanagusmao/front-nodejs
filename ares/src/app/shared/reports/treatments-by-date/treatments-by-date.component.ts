@@ -36,11 +36,53 @@ export class TreatmentsByDateComponent implements OnInit {
       bsRangeValue: new FormControl('', [Validators.required])
     });
   }
+  fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
 
-  copyValue(value) {
-    navigator.clipboard.writeText(value);
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Fallback: Copying text command was ' + msg);
+    } catch (err) {
+      console.error('Fallback: Oops, unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
   }
+  async copyValue(value) {
+    if (!navigator.clipboard) {
+      this.fallbackCopyTextToClipboard(value);
+      return;
+    }
+    navigator.clipboard.writeText(value).then(function () {
+      console.log('Async: Copying to clipboard was successful!');
+    }, function (err) {
+      console.error('Async: Could not copy text: ', err);
+    });
+
+    /*
+    console.log(value);
+    navigator.clipboard.writeText(value);
   
+    try {
+      await navigator.clipboard.writeText(value);
+      alert('CPF copied to clipboard');
+    } catch (err) {
+      alert(err);
+    }
+    */
+  }
+
   find() {
 
     if (!this.form.valid) {
