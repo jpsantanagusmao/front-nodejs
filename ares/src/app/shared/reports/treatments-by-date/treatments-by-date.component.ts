@@ -53,12 +53,14 @@ export class TreatmentsByDateComponent implements OnInit {
       var successful = document.execCommand('copy');
       var msg = successful ? 'successful' : 'unsuccessful';
       console.log('Fallback: Copying text command was ' + msg);
+      alert('Número de CPF copiado com sucesso');
     } catch (err) {
       console.error('Fallback: Oops, unable to copy', err);
     }
-
+    
     document.body.removeChild(textArea);
   }
+  
   async copyValue(value) {
     if (!navigator.clipboard) {
       this.fallbackCopyTextToClipboard(value);
@@ -66,21 +68,10 @@ export class TreatmentsByDateComponent implements OnInit {
     }
     navigator.clipboard.writeText(value).then(function () {
       console.log('Async: Copying to clipboard was successful!');
+      alert('Número de CPF copiado com sucesso');
     }, function (err) {
       console.error('Async: Could not copy text: ', err);
     });
-
-    /*
-    console.log(value);
-    navigator.clipboard.writeText(value);
-  
-    try {
-      await navigator.clipboard.writeText(value);
-      alert('CPF copied to clipboard');
-    } catch (err) {
-      alert(err);
-    }
-    */
   }
 
   find() {
