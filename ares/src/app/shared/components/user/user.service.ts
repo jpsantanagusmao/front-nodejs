@@ -14,6 +14,7 @@ export class UserService {
 
 
   private PATH: string = 'users';
+  private PATH_TASK: string = 'tasks';
 
   totalTasks$: BehaviorSubject<number>;
 
@@ -121,6 +122,11 @@ export class UserService {
 
     return EMPTY;
   };
+  sendComments(task): Observable<any>{
+    return this.http.post(`${env.BASE_API_URL}${this.PATH_TASK}/add-comment`, task).pipe(
+      //      tap(console.log),
+    );  
+  }
   save(usuario) {
     return this.http.post(`${env.BASE_API_URL}${this.PATH}`, usuario).pipe(
       //      tap(console.log),

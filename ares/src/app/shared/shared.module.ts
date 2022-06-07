@@ -58,6 +58,7 @@ import { PointsGenerateComponent } from './components/maps/points-generate/point
 import { MyProjectsComponent } from './components/project/my-projects/my-projects.component';
 import { SumaryDataPanelComponent } from './components/panels/sumary-data-panel/sumary-data-panel.component';
 import { ViewProjectComponent } from './components/project/view-project/view-project.component';
+import { DialogCommentsComponent } from './components/dialog-comments/dialog-comments.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { ViewProjectComponent } from './components/project/view-project/view-pro
     PointsGenerateComponent,
     MyProjectsComponent,
     SumaryDataPanelComponent,
-    ViewProjectComponent,   
+    ViewProjectComponent,
+    DialogCommentsComponent,   
   ],
   imports: [
     CommonModule,
@@ -173,7 +175,8 @@ import { ViewProjectComponent } from './components/project/view-project/view-pro
     TitulosComponent,
     RAterRecomenderComponent,
     PointsGenerateComponent,
-    SumaryDataPanelComponent
+    SumaryDataPanelComponent,
+    DialogCommentsComponent
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

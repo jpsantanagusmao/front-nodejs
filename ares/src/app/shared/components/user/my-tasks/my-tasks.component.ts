@@ -34,6 +34,33 @@ export class MyTasksComponent implements OnInit {
   cpfCopy(cpf){
     navigator.clipboard.writeText(cpf);
   } 
+  onSendComment(id, beneficiario, task) {
+    const obj = this;
+    this._messageService.showSendComment(id, task, beneficiario).asObservable().pipe(
+      take(1),
+      //switchMap(async (result) => result ? result : EMPTY)
+    )
+    .subscribe(
+      data=>{
+        obj.sendTask(data)
+      },
+      error=>{
+        console.error(error);
+      }
+    )
+    ;
+  }
+  sendTask(task){
+    //Registra no banco de dados
+    this._userService.sendComments(task).subscribe(
+      data=>{
+        this.loadMyTasks();
+      },
+      error=>{
+        console.error(error);
+      }
+    );
+  }
   onFinalizeTask(id) {
     const obj = this;
     const confirm$ = this._messageService.showConfirm('Conclusão de Tarefa', 'Esta tarefa está concluída?', 'Confirmar', 'Cancelar');

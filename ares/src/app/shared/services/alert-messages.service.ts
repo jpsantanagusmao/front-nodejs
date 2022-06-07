@@ -4,6 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from '../components/alert-modal/alert-modal.component';
 import { DialogConfirmComponent } from '../components/dialog-confirm/dialog-confirm.component';
 import { PointsGenerateComponent } from '../components/maps/points-generate/points-generate.component';
+import { DialogCommentsComponent } from '../components/dialog-comments/dialog-comments.component';
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +76,21 @@ export class AlertMessagesService {
     bsModalRef.content.orientacaoTxt = orientacao;
     bsModalRef.content.recomendacaoTxt = recomendacao;
     
+    return (<DialogRaterComponent>bsModalRef.content).confirmResult;
+  }
+
+  /**
+   * 
+   * @param idTask id da tarefa
+   * @param task texto da tarefa
+   * @param beneficiario beneficiario desta tarefa
+   * @returns 
+   */
+  showSendComment(idTask: string, task: string, beneficiario: string){
+    const bsModalRef: BsModalRef = this.modalService.show(DialogCommentsComponent, { class: 'modal-lg' });
+    bsModalRef.content.idTask = idTask;
+    bsModalRef.content.task = task;
+    bsModalRef.content.beneficiario = beneficiario;
     return (<DialogRaterComponent>bsModalRef.content).confirmResult;
   }
   

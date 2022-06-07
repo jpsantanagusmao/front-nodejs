@@ -13,6 +13,9 @@
       <td (dblclick)="cpfCopy(t.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">{{t.customername}}</td>
       <td (dblclick)="cpfCopy(t.cpf)">{{t.description}}</td>
       <td>
+        <button (click)="onSendComment(t.id, t.customername, t.description)" class="btn text-success" tooltip="Encaminhar para outra pessoa">
+          <i class="bi bi-envelope"></i>
+        </button>
         <button (click)="onFinalizeTask(t.id)" class="btn text-success" tooltip="Definir como concluída">
           <i class="bi bi-check-circle"></i>
         </button>
