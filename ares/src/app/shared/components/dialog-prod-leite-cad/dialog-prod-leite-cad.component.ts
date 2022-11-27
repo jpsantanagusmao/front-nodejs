@@ -83,7 +83,7 @@ export class DialogProdLeiteCadComponent implements OnInit {
       if(target.id == 'precoreais'){
         this.reais = target.value;
       }
-      this.valorlitroleite = Number(this.reais) + Number(this.centavos/100);
+      this.valorlitroleite = Number(((Number(this.reais) + Number(this.centavos/100))).toFixed(2));
 
   }
   ngOnInit(): void {

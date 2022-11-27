@@ -104,7 +104,7 @@ export class AlertMessagesService {
   }
   showRegProdLeite(){
     
-    const bsModalRef: BsModalRef = this.modalService.show(DialogProdLeiteCadComponent, { class: 'modal-lg' });
+    const bsModalRef: BsModalRef = this.modalService.show(DialogProdLeiteCadComponent, {class: 'modal-xl'});
    
     return (<DialogProdLeiteCadComponent>bsModalRef.content).confirmResult;
 

@@ -381,7 +381,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   }
 
   formOk() {
-    return true;
+
     if (this.form.valid === true && this.tasks.length > 0 && this.customers.length > 0) {
       return true;
     }
