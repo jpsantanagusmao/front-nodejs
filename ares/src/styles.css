@@ -17,6 +17,14 @@
     margin: 5px;
     padding-top: 10px;
 }
+.btn-image {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 10px;
+}
+.btn-image:hover {
+    opacity: 70%;
+}
 
 .card-title {
     font-weight: bold;

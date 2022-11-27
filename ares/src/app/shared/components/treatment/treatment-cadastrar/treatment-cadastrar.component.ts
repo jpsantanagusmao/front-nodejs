@@ -9,6 +9,7 @@ import { AlertMessagesService } from 'src/app/shared/services/alert-messages.ser
 import { v4 as uuidv4 } from 'uuid';
 import { TreatmentService } from '../treatment.service';
 import { EMPTY } from 'rxjs';
+import { ProdLeiteModel } from 'src/app/shared/models/prod.leite.model';
 
 @Component({
   selector: 'treatment-cadastrar',
@@ -44,6 +45,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   userDesigned: any = undefined;
 
   data: any;
+  producao: ProdLeiteModel;
 
   constructor(
     private _treatmentService: TreatmentService,
@@ -154,6 +156,13 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       const point = { type: 'Point', coordinates: [this.marker.getPosition().lat(), this.marker.getPosition().lng()]}
       treatment.point = point;
     }
+
+    /**
+     * Verifica se houver registro de produção de leite e insere no corpo do objeto treatment
+     */
+      if(this.producao){
+        treatment.prodLeite = this.producao;
+      }
 
     //console.log(treatment);
     this.onStore.emit(treatment);
@@ -372,6 +381,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   }
 
   formOk() {
+    return true;
     if (this.form.valid === true && this.tasks.length > 0 && this.customers.length > 0) {
       return true;
     }
@@ -395,6 +405,23 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
 
   }
 
+  onRegistraProdLeite(){
+    const obj = this;
+    this._messageService.showRegProdLeite().asObservable().pipe(
+      take(1),
+      //switchMap(async (result) => result ? result : EMPTY)
+    )
+    .subscribe(
+      data=>{
+        obj.producao = data;
+        //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
+      },
+      error=>{
+        console.error(error);
+      }
+    )
+    ;   
+  }
   onGeo(event: any) {
 
     const obj = this;

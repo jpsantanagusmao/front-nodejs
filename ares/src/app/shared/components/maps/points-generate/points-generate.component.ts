@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
     selector: 'app-points-generate',
     templateUrl: './points-generate.component.html',
     styleUrls: ['./points-generate.component.css']
-})
+}) 
 export class PointsGenerateComponent implements OnInit {
 
     confirmResult: Subject<google.maps.Marker>;

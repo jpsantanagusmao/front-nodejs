@@ -24,32 +24,18 @@
             Longitude: {{marker.getPosition().lng()}}
         </div>
     </div>
-    <details>
-        <summary>Relatório
-        </summary>
-        <div class="form-group col-md-12">
-            <label for="objetivo">Situação atual</label>
-            <textarea type="text" rows="4" class="form-control" formControlName="situacao" name="situacao"
-                id="situacao"></textarea>
-        </div>
-        <div class="form-group col-md-12">
-            <label for="objetivo">Orientações</label>
-            <textarea type="text" rows="4" class="form-control" formControlName="orientacao" name="orientacao"
-                id="orientacao"></textarea>
-        </div>
-        <div class="form-group col-md-12">
-            <label for="objetivo">Recomendações</label>
-            <textarea type="text" rows="4" class="form-control" formControlName="recomendacao" name="recomendacao"
-                id="recomendacao"></textarea>
-        </div>
-    </details>
-
-    <details>
+    <details open>
         <summary>Registro de beneficiários
         </summary>
         <customer-cadastrar (onSelected)="onSelectCustomer($event)"></customer-cadastrar>
     </details>
-    <details>
+    <details open>
+        <summary>
+            Lista de beneficiários
+        </summary>
+        <customer-list [customers]="customers" (deleted)="onDeleteCustomer($event)"></customer-list>
+    </details>
+    <details open>
         <summary>Registro de tarefas</summary>
         <form [formGroup]="formAction">
             <div class="row">
@@ -92,11 +78,38 @@
         <task-list [tasks]="tasks" (deleted)="onDeleteTask($event)"></task-list>
     </details>
     <details open>
-        <summary>
-            Lista de beneficiários
+        <summary>Relatório
         </summary>
-        <customer-list [customers]="customers" (deleted)="onDeleteCustomer($event)"></customer-list>
+        <div class="form-group col-md-12">
+            <label for="objetivo">Situação atual</label>
+            <textarea type="text" rows="10" class="form-control" formControlName="situacao" name="situacao"
+                id="situacao"></textarea>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="objetivo">Orientações</label>
+            <textarea type="text" rows="10" class="form-control" formControlName="orientacao" name="orientacao"
+                id="orientacao"></textarea>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="objetivo">Recomendações</label>
+            <textarea type="text" rows="10" class="form-control" formControlName="recomendacao" name="recomendacao"
+                id="recomendacao"></textarea>
+        </div>
     </details>
+
+<div class="row">
+    <div class="col">
+        <div class="row">
+            Levantamento de dados
+        </div>
+        <div class="row">
+            <div class="col">
+                <img class="btn-image" src="https://blog4.mfrural.com.br/wp-content/uploads/2021/01/post_thumbnail-24cbb213153bac61cddc93f7a3832c3d-1090x660.jpeg" alt="Registrar produção de leite" (click)="onRegistraProdLeite()">
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="row mt-3">
         <div class="col-2">
             <button class="btn btn-primary ml-5" [disabled]="!formOk()" (click)="viewRater()">Imprimir</button>

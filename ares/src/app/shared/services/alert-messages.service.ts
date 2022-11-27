@@ -5,6 +5,7 @@ import { AlertModalComponent } from '../components/alert-modal/alert-modal.compo
 import { DialogConfirmComponent } from '../components/dialog-confirm/dialog-confirm.component';
 import { PointsGenerateComponent } from '../components/maps/points-generate/points-generate.component';
 import { DialogCommentsComponent } from '../components/dialog-comments/dialog-comments.component';
+import { DialogProdLeiteCadComponent } from '../components/dialog-prod-leite-cad/dialog-prod-leite-cad.component';
 
 @Injectable({
   providedIn: 'root'
@@ -96,9 +97,16 @@ export class AlertMessagesService {
   
   showPointSelect(){
     
-    const bsModalRef: BsModalRef = this.modalService.show(PointsGenerateComponent);
+    const bsModalRef: BsModalRef = this.modalService.show(PointsGenerateComponent, { class: 'modal-lg' });
    
     return (<PointsGenerateComponent>bsModalRef.content).confirmResult;
+
+  }
+  showRegProdLeite(){
+    
+    const bsModalRef: BsModalRef = this.modalService.show(DialogProdLeiteCadComponent, { class: 'modal-lg' });
+   
+    return (<DialogProdLeiteCadComponent>bsModalRef.content).confirmResult;
 
   }
 }

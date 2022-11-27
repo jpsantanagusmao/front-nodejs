@@ -59,6 +59,7 @@ import { MyProjectsComponent } from './components/project/my-projects/my-project
 import { SumaryDataPanelComponent } from './components/panels/sumary-data-panel/sumary-data-panel.component';
 import { ViewProjectComponent } from './components/project/view-project/view-project.component';
 import { DialogCommentsComponent } from './components/dialog-comments/dialog-comments.component';
+import { DialogProdLeiteCadComponent } from './components/dialog-prod-leite-cad/dialog-prod-leite-cad.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { DialogCommentsComponent } from './components/dialog-comments/dialog-com
     MyProjectsComponent,
     SumaryDataPanelComponent,
     ViewProjectComponent,
-    DialogCommentsComponent,   
+    DialogCommentsComponent,
+    DialogProdLeiteCadComponent,   
   ],
   imports: [
     CommonModule,
