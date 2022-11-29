@@ -1,0 +1,103 @@
+<form [formGroup]="formprop">
+
+    <div class="container">
+        <div class="row">
+            <p class="p-3 mt-3 form-tittle">{{title}}</p>
+        </div>
+        <div class="row">
+            <div class="col-4 col-md-6">
+                <label class="form-label" for="banco">Banco Financiador</label>
+                <select id="banco" class="form-control" formControlName="banco" style="width: 250px;"
+                    tooltip="Selecione o banco financiador da proposta">
+                    <option *ngFor='let i of BANCO_FINANCIADOR_DATA' value="{{i.representacaobd}}">{{i.descricao}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-4 col-md-4">
+                <label class="form-label" for="linha">Linha de crédito</label>
+                <select id="linha" class="form-control" formControlName="linha" style="width: 250px;"
+                    tooltip="Selecione a linha de crédito aplicada à proposta">
+                    <option *ngFor='let i of LINHA_CREDITO_DATA' value="{{i.representacaobd}}">{{i.descricao}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-4 col-md-2">
+                <label class="form-label" for="txjuros">Taxa de juros (R$):</label>
+                <input type="text" class="form-control" name="txjuros" id="txjuros" formControlName="txjurosaa">
+            </div>
+
+            <div class="col-4 col-md-6">
+                <label class="form-label" for="anoprimpgm">Ano desembolso:</label>
+                <input type="month" name="anoprimpgm" id="anoprimpgm" class="form-control" formControlName="anoprimpgm"
+                    style="width: 250px;">
+            </div>
+            <div class="col-4 col-md-6">
+                <label class="form-label" for="anoultpgm">Ano Ultimo pagamento:</label>
+                <input type="month" name="anoultpgm" id="anoultpgm" class="form-control" formControlName="anoultpgm"
+                    style="width: 250px;">
+            </div>
+
+
+        </div>
+        <form [formGroup]="formitem">
+            <div class="row">
+                <div class="col-4 col-md-6">
+                    <label class="form-label" for="finalidade">Finalidade</label>
+                    <select id="finalidade" class="form-control" formControlName="finalidade" style="width: 250px;"
+                        tooltip="Selecione a finalidade de financiamento">
+                        <option *ngFor='let i of ITENS_FINANCIAVEIS_DATA' value="{{i.descricao}}">{{i.descricao}}
+                            ({{i.unidade}})
+                        </option>
+                    </select>
+                </div>
+                <div class="col-4 col-md-2">
+                    <label class="form-label" for="qtditemfinanc">Quantidade:</label>
+                    <input type="text" class="form-control" name="qtditemfinanc" id="qtditemfinanc" formControlName="qtditemfinanc">
+                </div>
+                <div class="col-4 col-md-2">
+                    <label class="form-label" for="qtditemfinanc">Valor unitário (R$):</label>
+                    <input type="text" class="form-control" name="valorunit" id="valorunit" formControlName="valorunit">
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-4 col-md-2">
+                    <button type="button" class="btn btn-primary" (click)="onAddNewItem()">Novo item</button>
+                </div>
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Qtd</th>
+                        <th scope="col">Vl. Unit</th>
+                        <th scope="col">Vl. item</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of itensFinanciados">
+                        <th scope="col">#</th>
+                        <th scope="col">{{i.finalidadetexto}}</th>
+                        <th scope="col">{{i.qtditemfinanc}}</th>
+                        <th scope="col">{{i.valorunit}}</th>
+                        <th scope="col">{{multiplica(i.qtditemfinanc, i.valorunit)}}</th>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th scope="row">Total da proposta (R$):</th>
+                        <td>{{total}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+        <div class="d-flex justify-content-end m-3">
+            <button type="button" class="btn btn-secondary mr-5" (click)="onClose()">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="onConfirm()">Registrar</button>
+        </div>
+    </div>
+</form>

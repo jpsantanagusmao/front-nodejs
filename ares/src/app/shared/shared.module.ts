@@ -60,6 +60,7 @@ import { SumaryDataPanelComponent } from './components/panels/sumary-data-panel/
 import { ViewProjectComponent } from './components/project/view-project/view-project.component';
 import { DialogCommentsComponent } from './components/dialog-comments/dialog-comments.component';
 import { DialogProdLeiteCadComponent } from './components/dialog-prod-leite-cad/dialog-prod-leite-cad.component';
+import { DialogCredRuralCadComponent } from './components/dialog-cred-rural-cad/dialog-cred-rural-cad.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { DialogProdLeiteCadComponent } from './components/dialog-prod-leite-cad/
     SumaryDataPanelComponent,
     ViewProjectComponent,
     DialogCommentsComponent,
-    DialogProdLeiteCadComponent,   
+    DialogProdLeiteCadComponent,  
+    DialogCredRuralCadComponent, 
   ],
   imports: [
     CommonModule,
@@ -178,7 +180,8 @@ import { DialogProdLeiteCadComponent } from './components/dialog-prod-leite-cad/
     RAterRecomenderComponent,
     PointsGenerateComponent,
     SumaryDataPanelComponent,
-    DialogCommentsComponent
+    DialogCommentsComponent,
+    DialogCredRuralCadComponent
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

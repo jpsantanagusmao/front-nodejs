@@ -1,3 +1,4 @@
+import { DialogCredRuralCadComponent } from './../components/dialog-cred-rural-cad/dialog-cred-rural-cad.component';
 import { DialogRaterComponent } from './../components/dialog-rater/dialog-rater.component';
 import { Injectable } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -100,6 +101,13 @@ export class AlertMessagesService {
     const bsModalRef: BsModalRef = this.modalService.show(PointsGenerateComponent, { class: 'modal-lg' });
    
     return (<PointsGenerateComponent>bsModalRef.content).confirmResult;
+
+  }
+  showRegCredRural(){
+    
+    const bsModalRef: BsModalRef = this.modalService.show(DialogCredRuralCadComponent, {class: 'modal-xl'});
+   
+    return (<DialogProdLeiteCadComponent>bsModalRef.content).confirmResult;
 
   }
   showRegProdLeite(){

@@ -405,6 +405,23 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
 
   }
 
+  onRegistraCredRural(){
+    const obj = this;
+    this._messageService.showRegCredRural().asObservable().pipe(
+      take(1),
+      //switchMap(async (result) => result ? result : EMPTY)
+    )
+    .subscribe(
+      data=>{
+        obj.producao = data;
+        //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
+      },
+      error=>{
+        console.error(error);
+      }
+    )
+    ;   
+  }
   onRegistraProdLeite(){
     const obj = this;
     this._messageService.showRegProdLeite().asObservable().pipe(
