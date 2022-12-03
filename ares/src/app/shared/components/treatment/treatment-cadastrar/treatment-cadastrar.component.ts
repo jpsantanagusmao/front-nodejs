@@ -45,7 +45,8 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   userDesigned: any = undefined;
 
   data: any;
-  producao: ProdLeiteModel;
+  producaoLeite: ProdLeiteModel;
+  plnCredRural: ProdLeiteModel;
 
   constructor(
     private _treatmentService: TreatmentService,
@@ -152,17 +153,17 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     /**
      * Define as coordenadas do atendimento a se registrar
      */
-    if(this.marker){
-      const point = { type: 'Point', coordinates: [this.marker.getPosition().lat(), this.marker.getPosition().lng()]}
+    if (this.marker) {
+      const point = { type: 'Point', coordinates: [this.marker.getPosition().lat(), this.marker.getPosition().lng()] }
       treatment.point = point;
     }
 
     /**
      * Verifica se houver registro de produção de leite e insere no corpo do objeto treatment
      */
-      if(this.producao){
-        treatment.prodLeite = this.producao;
-      }
+    if (this.producaoLeite) {
+      treatment.prodLeite = this.producaoLeite;
+    }
 
     //console.log(treatment);
     this.onStore.emit(treatment);
@@ -405,39 +406,39 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
 
   }
 
-  onRegistraCredRural(){
+  onRegistraCredRural() {
     const obj = this;
     this._messageService.showRegCredRural().asObservable().pipe(
       take(1),
       //switchMap(async (result) => result ? result : EMPTY)
     )
-    .subscribe(
-      data=>{
-        obj.producao = data;
-        //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
-      },
-      error=>{
-        console.error(error);
-      }
-    )
-    ;   
+      .subscribe(
+        data => {
+          obj.plnCredRural = data;
+          //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
+        },
+        error => {
+          console.error(error);
+        }
+      )
+      ;
   }
-  onRegistraProdLeite(){
+  onRegistraProdLeite() {
     const obj = this;
     this._messageService.showRegProdLeite().asObservable().pipe(
       take(1),
       //switchMap(async (result) => result ? result : EMPTY)
     )
-    .subscribe(
-      data=>{
-        obj.producao = data;
-        //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
-      },
-      error=>{
-        console.error(error);
-      }
-    )
-    ;   
+      .subscribe(
+        data => {
+          obj.producaoLeite = data;
+          //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
+        },
+        error => {
+          console.error(error);
+        }
+      )
+      ;
   }
   onGeo(event: any) {
 
@@ -446,18 +447,18 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       take(1),
       //switchMap(async (result) => result ? result : EMPTY)
     )
-    .subscribe(
-      data=>{
-        obj.marker = data;
-        //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
-      },
-      error=>{
-        console.error(error);
-      }
-    )
-    ;
+      .subscribe(
+        data => {
+          obj.marker = data;
+          //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
+        },
+        error => {
+          console.error(error);
+        }
+      )
+      ;
   }
-  private _setGeo(value: google.maps.Marker){
+  private _setGeo(value: google.maps.Marker) {
     this.marker = value;
   }
   async createFormNew() {

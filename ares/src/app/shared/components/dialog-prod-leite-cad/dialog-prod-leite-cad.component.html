@@ -9,7 +9,7 @@
                 <p>
                     Rebanho total:
                 </p>
-                <input type="range" name="rebanho" id="rebanho" value={{rebanhototal}} min="0" max="100"
+                <input type="range" name="rebanho" id="rebanho" value={{rebanhototal}} min="0" max="1000"
                     (input)="oninput($event)" formControlName="totalrebanho">
                 <output id="rebanhorangevalue">{{rebanhototal}}</output> cabeças
             </div>
@@ -17,7 +17,7 @@
                 <p>
                     Total de vacas:
                 </p>
-                <input type="range" name="vacas" id="vacas" value={{rebanhototal}} min="0" max={{rebanhototal}}
+                <input type="range" name="totalvacas" id="totalvacas" value="{{totalVacas}}" min="0" max={{rebanhototal}}
                     (input)="oninput($event)" formControlName="totalvacas">
                 <output id="vacasrangevalue">{{totalVacas}}</output> vacas
             </div>
@@ -25,7 +25,7 @@
                 <p>
                     Quantidade de vacas ordenhadas:
                 </p>
-                <input type="range" name="vacasord" id="vacasord" value={{totalVacas}} min="0" max={{totalVacas}}
+                <input type="range" name="totalvacasord" id="totalvacasord" value="{{totalVacasOrdenhadas}}" min="0" max={{totalVacas}}
                     (input)="oninput($event)" formControlName="totalvacasord">
                 <output id="vacasordrangevalue">{{totalVacasOrdenhadas}}</output> vacas
             </div>
@@ -33,17 +33,17 @@
         <div class="row">
             <div class="col-3">
                 <p>
-                    Produção litros/vaca/dia::
+                    Produção de leite por dia
                 </p>
-                <input type="range" name="litrosdia" id="litrosdia" value="30" min="0" max="100"
+                <input type="range" name="litrosdia" id="litrosdia" value="0" min="0" max="1000"
                     oninput="litrosdiarangevalue.value=value" formControlName="producaodiaria">
-                <output id="litrosdiarangevalue">30</output> l/vaca/dia
+                <output id="litrosdiarangevalue">0</output> litros por dia
             </div>
             <div class="col-5">
                 <p>
                     Preço do litro de leite:(último valor recebido)
                 </p>
-                <input type="range" name="precoreais" id="precoreais" value="1" min="0" max="5"
+                <input type="range" name="precoreais" id="precoreais" value="0" min="0" max="5"
                     (input)="onupdateprice($event)" formControlName="precoporlitro" class="mr-2">
                 <input type="range" name="precocentavos" id="precocentavos" value="0" min="0" max="99"
                     (input)="onupdateprice($event)" formControlName="precoporlitro">
@@ -53,25 +53,15 @@
                 </p>
             </div>
             <div class="col-4">
-                <p>
-                    Suplementação alimentar:
-                </p>
-                <select name="" id="suplementacao" formControlName="suplementacao">
-                    <option value="nenhum" selected>Não usa ração</option>
-                    <option value="formlocal">Ração Formulação local</option>
-                    <!-- Ração de formulação própria que as casas agro elaboram sem critérios conhecidos. -->
-                    <option value="fuba">Fubá</option>
-                    <option value="soja_fuba">Soja + fubá</option>
-                    <option value="concentrado">Concentrado</option>
-                    <option value="cama_frango">Cama de frango</option>
-                    <option value="cama_frango_outros">Cama de frango e outros</option>
-                    <option value="soja">Soja</option>
-                    <option value="algodao">Farelo de algodão</option>
-                    <option value="soja_algodao">Soja + farelo de algodão</option>
-                    <option value="concentrado18">Concentrado 18%</option>
-                    <option value="concentrado20">Concentrado 20%</option>
-                    <option value="concentrado24">Concentrado 24%</option>
-                </select>
+                <div class="col-4 col-md-6">
+                    <label class="form-label" for="suplementacao">Suplementação alimentar</label>
+                    <select id="suplementacao" class="form-control" formControlName="suplementacao"
+                        style="width: 250px;"
+                        tooltip="Defina a suplementacao alimentar que o produtor utiliza em sua propriedade;">
+                        <option *ngFor='let i of SUPLEMENTACAO_DATA' value="{{i.representacaobd}}">{{i.descricao}}
+                        </option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -92,56 +82,52 @@
                 <output id="vendaBoiGordorangevalue">0</output> %
             </div>
             <div class="col-4">
-                <p>
-                    Custo médio mensal:
-                </p>
-                <input type="range" name="custoProducao" id="custoProducao" value="0" min="0" max="100"
-                    oninput="custoProducaorangevalue.value=value" formControlName="customensalestimado">
-                <output id="custoProducaorangevalue">0</output> x 1000 R$/mês
+                <div class="col-4 col-md-6">
+                    <label class="form-label" for="custoopmensal">Custo operacional mensal</label>
+                    <select id="custoopmensal" class="form-control" formControlName="custoopmensal"
+                        style="width: 250px;"
+                        tooltip="Indique a faixa de custo operacional mensal aplicado na propriedade;">
+                        <option *ngFor='let i of CUSTOOPERACIONAL_DATA' value="{{i.representacaobd}}">{{i.descricao}}
+                        </option>
+                    </select>
+                </div>
             </div>
 
         </div>
         <div class="row">
             <div class="col-4">
-                <p>
-                    Forrageira para corte:
-                </p>
-                <select name="" id="forrageira" formControlName="forrageiratipo">
-                    <option value="nenhum" selected>Não tem capineira</option>
-                    <option value="capiacu">Capiaçu</option>
-                    <option value="cana">Cana-de-açúcar</option>
-                    <option value="capim_elefante">Capim elefante</option>
-                    <option value="milho">Milho</option>
-                    <option value="sorgo">Sorgo</option>
-                    <option value="cana_capim">Cana + capim</option>
-                    <option value="cana_cana">Cana + milho</option>
-                    <option value="milho_capim">Milho + capim</option>
-                    <option value="milho_sorgo">Milho + sorgo</option>
-                    <option value="milho_capiacu">Milho + Capiaçu</option>
-                    <option value="milho_cana_capim">Milho + Cana + capim</option>
-                    <option value="sorgo_cana_capim">Sorgo + Cana + capim</option>
-                </select>
+
+                <div class="col-4 col-md-6">
+                    <label class="form-label" for="forrageira">Suplementação alimentar</label>
+                    <select id="forrageira" class="form-control" formControlName="forrageiratipo" style="width: 250px;"
+                        tooltip="Especifique a forrageira para corte que o produtor utiliza em sua propriedade;">
+                        <option *ngFor='let i of FORRAGEIRA_DATA' value="{{i.representacaobd}}">{{i.descricao}}
+                        </option>
+                    </select>
+                </div>
             </div>
             <div class="col-4">
                 <p>
                     Área forrageira:
                 </p>
-                <input type="range" name="areaForragem" id="areaForragem" value="1" min="0" max="30"
-                    oninput="areaForragemrangevalue.value=value" formControlName='forrageiraarea'>
-                <output id="areaForragemrangevalue">1</output> hectare
+                <input type="range" name="areaForragem" id="areaForragem" value="0" min="0" max="30"
+                    (input)="onInputAreaForragem($event)" formControlName='forrageiraarea'>
+                <output id="areaForragemrangevalue">{{areaForragem}}</output> hectare
             </div>
             <div class="col-4">
-                <p>
-                    Mão-de-obra contratada:
-                </p>
-                <input type="range" name="maodeobraqtd" id="maodeobraqtd" value="1" min="0" max="10"
-                    oninput="maodeobraqtdrangevalue.value=value" formControlName="maodeobracontratada">
-                <output id="maodeobraqtdrangevalue">1</output> funcionário
+                <div class="col-4 col-md-6">
+                    <label class="form-label" for="maodeobrautilizada">Mão-de-obra aplicada</label>
+                    <select id="maodeobrautilizada" class="form-control" formControlName="maodeobrautilizada" style="width: 250px;"
+                        tooltip="Especifique a classe de mão-de-obra aplicada na propriedade;">
+                        <option *ngFor='let i of MAO_DE_OBRA_DATA' value="{{i.representacaobd}}">{{i.descricao}}
+                        </option>
+                    </select>
+                </div>
             </div>
 
         </div>
         <div class="d-flex justify-content-end m-3">
-            <button type="button" class="btn btn-secondary mr-5" (click)="onClose()">Cancelar</button>
+            <button type="button" class="btn btn-secondary mr-5"  (click)="onClose()">Cancelar</button>
             <button type="button" class="btn btn-primary" (click)="onConfirm()">Registrar</button>
         </div>
     </div>

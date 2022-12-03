@@ -7,8 +7,8 @@ export interface ProdLeiteModel {
     suplementacao: string;
     percentvendabezerros: number;
     percentboigordo: number;
-    customensalestimado: number;
+    custoopmensal: string;
     forrageiratipo: string;
     forrageiraarea: number;
-    maodeobracontratada: number;
+    maodeobrautilizada: string;
 }
