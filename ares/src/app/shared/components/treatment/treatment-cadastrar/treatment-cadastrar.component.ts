@@ -164,7 +164,14 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     if (this.producaoLeite) {
       treatment.prodLeite = this.producaoLeite;
     }
-
+    
+    /**
+     * Verifica se houver registro de proposta de crédito rural e insere no corpo do objeto treatment
+     */
+    if (this.plnCredRural) {
+      treatment.plnCredRural = this.plnCredRural;
+    }
+    
     //console.log(treatment);
     this.onStore.emit(treatment);
 

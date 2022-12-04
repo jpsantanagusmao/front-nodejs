@@ -22,7 +22,7 @@
                 </select>
             </div>
             <div class="col-4 col-md-2">
-                <label class="form-label" for="txjuros">Taxa de juros (R$):</label>
+                <label class="form-label" for="txjuros">Taxa de juros(%a.a.):</label>
                 <input type="text" class="form-control" name="txjuros" id="txjuros" formControlName="txjurosaa">
             </div>
 
@@ -32,27 +32,28 @@
                     style="width: 250px;">
             </div>
             <div class="col-4 col-md-6">
-                <label class="form-label" for="anoultpgm">Ano Ultimo pagamento:</label>
+                <label class="form-label" for="anoultpgm">Ano Ultima parcela:</label>
                 <input type="month" name="anoultpgm" id="anoultpgm" class="form-control" formControlName="anoultpgm"
                     style="width: 250px;">
             </div>
 
 
         </div>
-        <form [formGroup]="formitem">
-            <div class="row">
+        <form [formGroup]="formitem" class="d-flex flex-column">
+            <div class="d-flex justify-content-between">
                 <div class="col-4 col-md-6">
                     <label class="form-label" for="finalidade">Finalidade</label>
-                    <select id="finalidade" class="form-control" formControlName="finalidade" style="width: 250px;"
-                        tooltip="Selecione a finalidade de financiamento">
-                        <option *ngFor='let i of ITENS_FINANCIAVEIS_DATA' value="{{i.descricao}}">{{i.descricao}}
+                    <select id="finalidade" class="form-control" style="width: 250px;" formControlName="finalidade"
+                        tooltip="Selecione a finalidade de financiamento" (change)="onSelecItemFin($event)">
+                        <option *ngFor='let i of ITENS_FINANCIAVEIS_DATA' [value]='i | json'>{{i.descricao}}
                             ({{i.unidade}})
                         </option>
                     </select>
                 </div>
                 <div class="col-4 col-md-2">
                     <label class="form-label" for="qtditemfinanc">Quantidade:</label>
-                    <input type="text" class="form-control" name="qtditemfinanc" id="qtditemfinanc" formControlName="qtditemfinanc">
+                    <input type="text" class="form-control" name="qtditemfinanc" id="qtditemfinanc"
+                        formControlName="qtditemfinanc">
                 </div>
                 <div class="col-4 col-md-2">
                     <label class="form-label" for="qtditemfinanc">Valor unitário (R$):</label>
@@ -61,42 +62,42 @@
 
             </div>
 
-            <div class="row">
-                <div class="col-4 col-md-2">
-                    <button type="button" class="btn btn-primary" (click)="onAddNewItem()">Novo item</button>
-                </div>
+            <div class="d-flex justify-content-end mt-3">
+                <button type="button" class="btn btn-primary" (click)="onAddNewItem()">Incluir item</button>
             </div>
 
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Item</th>
-                        <th scope="col">Qtd</th>
-                        <th scope="col">Vl. Unit</th>
-                        <th scope="col">Vl. item</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let i of itensFinanciados">
-                        <th scope="col">#</th>
-                        <th scope="col">{{i.finalidadetexto}}</th>
-                        <th scope="col">{{i.qtditemfinanc}}</th>
-                        <th scope="col">{{i.valorunit}}</th>
-                        <th scope="col">{{multiplica(i.qtditemfinanc, i.valorunit)}}</th>
-                    </tr>
+            <div class="d-flex justify-content-between mt-3">
 
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th scope="row">Total da proposta (R$):</th>
-                        <td>{{total}}</td>
-                    </tr>
-                </tfoot>
-            </table>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Qtd</th>
+                            <th scope="col">Vl. Unit</th>
+                            <th scope="col">Vl. item</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of itensFinanciados">
+                            <th scope="col-5">{{i.descricao}}</th>
+                            <th scope="col-2">{{i.qtditemfinanc}} {{i.unidade}}</th>
+                            <th scope="col-2">{{i.valorunit}}</th>
+                            <th scope="col-2">{{multiplica(i.qtditemfinanc, i.valorunit)}}</th>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th scope="row" colspan="3">Total da proposta (R$):</th>
+                            <td>{{total}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </form>
         <div class="d-flex justify-content-end m-3">
             <button type="button" class="btn btn-secondary mr-5" (click)="onClose()">Cancelar</button>
+            <button type="button" class="btn btn-warning mr-5" (click)="onRemove()">Refazer proposta</button>
             <button type="button" class="btn btn-primary" (click)="onConfirm()">Registrar</button>
         </div>
     </div>

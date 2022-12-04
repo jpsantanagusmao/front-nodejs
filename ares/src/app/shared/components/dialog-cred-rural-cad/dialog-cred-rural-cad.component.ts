@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup,  FormBuilder } from '@angular/forms';
 import { CredRuralModel, itemfinanciado } from '../../models/cred-rural.model';
 import * as moment from 'moment';
 import { Itemfinanciavel, ITENS_FINANCIAVEIS } from './model/item-financiaveis.model';
 import { Banco, BANCO_FINANCIADOR } from './model/banco-financiador.model';
 import { LinhaCredito, LINHA_CREDITO } from './model/linha-credito.model';
+import { AlertMessagesService } from '../../services/alert-messages.service';
 
 @Component({
   selector: 'app-dialog-prod-leite-cad',
@@ -34,12 +35,13 @@ export class DialogCredRuralCadComponent implements OnInit {
 
   public constructor(
     public bsModalRef: BsModalRef,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _messageService: AlertMessagesService
   ) {
+
     this.formprop = this.fb.group({
       banco: [''],
       linha: [''],
-      apltxjuros: [''],
       anoprimpgm: [''],
       anoultpgm: [''],
       txjurosaa: [''],
@@ -51,9 +53,16 @@ export class DialogCredRuralCadComponent implements OnInit {
       valorunit: ['']
     });
   }
+
   async onAddNewItem() {
-    this.itemFinanciadoSelected = await this.formitem.value;
-    this.itensFinanciados.push(this.formitem.value);
+
+    if (!this.formitensok()) {
+      return;
+    }
+
+    this.itemFinanciadoSelected.qtditemfinanc = Number(this.formitem.get('qtditemfinanc').value),
+    this.itemFinanciadoSelected.valorunit = Number(this.formitem.get('valorunit').value)
+    this.itensFinanciados.push(this.itemFinanciadoSelected);
   }
 
   multiplica(valor01, valor2) {
@@ -69,6 +78,17 @@ export class DialogCredRuralCadComponent implements OnInit {
       });
     }
     return 0;
+  }
+
+  onSelecItemFin(value) {
+    this.itemFinanciadoSelected = {
+      finalidade: JSON.parse(this.formitem.get('finalidade').value).representacaobd,
+      atividade: JSON.parse(this.formitem.get('finalidade').value).atividade,
+      descricao: JSON.parse(this.formitem.get('finalidade').value).descricao,
+      unidade: JSON.parse(this.formitem.get('finalidade').value).unidade,
+      qtditemfinanc: Number(this.formitem.get('qtditemfinanc').value),
+      valorunit: Number(this.formitem.get('valorunit').value)
+    };
   }
 
   ngOnInit(): void {
@@ -89,13 +109,110 @@ export class DialogCredRuralCadComponent implements OnInit {
   }
   onConfirm() {
     const obj = this;
-    //this._confirmAndClose();
+    this.propostacred = this.formprop.value;
+    this.propostacred.itens = this.itensFinanciados;
+    //console.log(this.propostacred);
+    if (!this.formPropostaok(this.propostacred)) {
+      return;
+    }
+    this._confirmAndClose(this.propostacred);
   }
 
   onClose() {
     this._confirmAndClose(undefined);
   }
+  onRemove() {
+    this.itensFinanciados = [];
+  }
 
+  formitensok() {
+
+    const msghead = 'Registros incompletos';
+
+    const qtd = this.formitem.controls.qtditemfinanc.value;
+    if ((isNaN(qtd)) || qtd == 0) {
+      let msg = 'A quantidade deve ser um número valido e  maior que 0.';
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+
+    const vlunit = this.formitem.controls.valorunit.value;
+    if ((isNaN(vlunit)) || vlunit == 0) {
+      let msg = 'O valor do unitário precisa ser um número valido e maior que zero.';
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+
+    const itm = this.formitem.controls.finalidade.value;
+
+    if (!itm) {
+      let msg = 'É preciso especificar qual o item financiado nesta proposta.';
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+
+    return true;
+
+  }
+  formPropostaok(proposta) {
+    /**
+     Faz a verificação das variaveis se foram configuradas corretamente e valida o formulário
+     * 
+     */
+    const msghead = 'Registros incompletos';
+    
+    const bank = this.formprop.controls.banco.value;
+    
+    if (!bank) {
+      let msg = 'É preciso especificar qual o Banco financiador da proposta.';
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+    
+    const linha = this.formprop.controls.linha.value;
+    if (!linha) {
+      let msg = 'É preciso especificar a linha de crédito aplicada.';
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+
+    const txjurosaa = this.formprop.controls.txjurosaa.value;
+    if ((isNaN(txjurosaa)) || txjurosaa == 0) {
+      let msg = 'A taxa anual de juros deve ser um número válido e maior que 0.';
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+
+    const anoprimpgm = moment(this.formprop.controls.anoprimpgm.value);
+    const anoultpgm = moment(this.formprop.controls.anoultpgm.value);
+
+    if ((!anoprimpgm.isValid())) {
+      let msg = 'É preciso especificar a data da primeira parcela.';
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+    if ((!anoultpgm.isValid())) {
+      let msg = 'É preciso especificar a data da última parcela.';
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+    
+    const dtmin = anoprimpgm.add(12, 'month');
+
+    if (!(anoultpgm.isAfter(dtmin))) {
+      let msg = `A data da última parcela deve ser após ${dtmin.format("DD/MM/YYYY")}`;
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+
+    if (!(this.itensFinanciados.length>0) || (!this.itensFinanciados)) {
+      let msg = 'Deve haver pelo menos um item a ser financiado nesta proposta..';
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+
+    return true;
+  }
   private _confirmAndClose(value: CredRuralModel) {
     try {
       this.confirmResult.next(value);
