@@ -1,0 +1,108 @@
+<form [formGroup]="form">
+
+    <div class="container">
+        <div class="row">
+            <p class="p-3 mt-3 form-tittle">{{title}}</p>
+        </div>
+        <div class="d-flex justify-content-start gap-3">
+            <div class="">
+                <label class="form-label" for="banco">Produto</label>
+                <select id="produto" class="form-control" formControlName="produto" style="width: 250px;"
+                    tooltip="Selecione o item produzido" (change)="onSelecProduto()">
+                    <option *ngFor='let i of PRODUTO_DATA' [value]="i | json">{{i.descricao}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="">
+                <label class="form-label" for="precoatual">Preço atual{{precoatualtxt}}:</label>
+                <input type="text" class="form-control" name="precoatual" id="precoatual" formControlName="precoatual">
+            </div>
+
+            <div class="">
+                <label class="form-label" for="mesinicioprod">Mês início da produção:</label>
+                <select id="mesinicioprod" class="form-control" formControlName="mesinicioprod" style="width: 250px;"
+                    tooltip="Selecione  mês que inicia a produção">
+                    <option *ngFor='let i of MESES_DATA' [value]="i.value">{{i.mes}}
+                    </option>
+                </select>
+            </div>
+            <div class="">
+                <label class="form-label" for="mesfimprod">Mês final da produção:</label>
+                <select id="mesfimprod" class="form-control" formControlName="mesfimprod" style="width: 250px;"
+                    tooltip="Selecione  mês que finaliza a produção">
+                    <option *ngFor='let i of MESES_DATA' [value]="i.value">{{i.mes}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-start gap-3">
+            <div class="">
+                <label class="form-label" for="prdanual">Quantidade produzida no ano{{prdanualtxt}}:</label>
+                <input type="text" name="prdanual" id="prdanual" class="form-control" formControlName="prdanual"
+                    style="width: 250px;">
+            </div>
+            <div class="">
+                <label class="form-label" for="origemmp">Origem da matéria prima:</label>
+                <select id="origemmp" class="form-control" formControlName="origemmp" style="width: 250px;"
+                    tooltip="Defina a origem da matéria prima utilizada no processo" (change)="onSelectmp()">
+                    <option *ngFor='let i of ORIGEM_DATA' [value]="i | json">{{i.descricao}}
+                    </option>
+                </select>
+            </div>
+            <div class="">
+                <label class="form-label" for="situacaocertif">Certificação:</label>
+                <select id="situacaocertif" class="form-control" formControlName="situacaocertif" style="width: 250px;"
+                    tooltip="Situação quanto a certificação da agroindústria" (change)="onSelectCertificacao()">
+                    <option *ngFor='let i of CONDCERTIFICACAO_DATA' [value]="i | json">{{i.descricao}}
+                    </option>
+                </select>
+            </div>
+            <div class="">
+                <label class="form-label" for="tipoagro">Classe da agroindústria:</label>
+                <select id="mesfimprod" class="form-control" formControlName="tipoagro" style="width: 250px;"
+                    tooltip="Defina a classe da agroindustria" (change)="onSelectClassAgro()">
+                    <option *ngFor='let i of TIPOAGRO_DATA' [value]="i | json">{{i.descricao}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start gap-3">
+            <div class="">
+                <label class="form-label" for="ppmp">Quantidade da matéria prima utilizada
+                    anualmente{{ppmptxt}}:</label>
+                <input type="text" name="ppmp" id="ppmp" class="form-control" formControlName="ppmp"
+                    style="width: 250px;">
+            </div>
+        </div>
+        <div class="d-flex justify-content-end mt-3">
+            <button type="button" class="btn btn-primary" (click)="onAddNew()">Nova produção</button>
+        </div>
+
+        <div class="row mt-3" *ngIf="hasTable">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Qtd</th>
+                        <th scope="col">Vl. Unit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of agroindustria">
+                        <th scope="col-5">{{i?.produto?.descricao}}</th>
+                        <th scope="col-2">{{i?.prdanual}} {{i?.produto?.unid}}</th>
+                        <th scope="col-2">{{i?.precoatual}}</th>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-end m-3">
+            <button type="button" class="btn btn-warning mr-5" (click)="onRemove()">Excluir produções</button>
+            <button type="button" class="btn btn-secondary mr-5" (click)="onClose()">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="onConfirm()">Registrar</button>
+        </div>
+    </div>
+</form>

@@ -47,6 +47,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   data: any;
   producaoLeite: ProdLeiteModel;
   plnCredRural: ProdLeiteModel;
+  producaoAgroindustria: any;
 
   constructor(
     private _treatmentService: TreatmentService,
@@ -171,8 +172,17 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     if (this.plnCredRural) {
       treatment.plnCredRural = this.plnCredRural;
     }
+
+    /**
+     * Verifica se houver registro de agroindustria e insere no corpo do objeto treatment
+     */
+
+    if (this.producaoAgroindustria) {
+      treatment.producaoAgroindustria = this.producaoAgroindustria;
+    }
     
     //console.log(treatment);
+
     this.onStore.emit(treatment);
 
   }
@@ -423,6 +433,21 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
         data => {
           obj.plnCredRural = data;
           //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
+        },
+        error => {
+          console.error(error);
+        }
+      )
+      ;
+  }
+  onRegistraAgroindustria() {
+    const obj = this;
+    this._messageService.showRegAgroindustria().asObservable().pipe(
+      take(1),
+    )
+      .subscribe(
+        data => {
+          obj.producaoAgroindustria = data;
         },
         error => {
           console.error(error);

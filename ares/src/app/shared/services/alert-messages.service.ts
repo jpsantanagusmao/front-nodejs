@@ -7,6 +7,7 @@ import { DialogConfirmComponent } from '../components/dialog-confirm/dialog-conf
 import { PointsGenerateComponent } from '../components/maps/points-generate/points-generate.component';
 import { DialogCommentsComponent } from '../components/dialog-comments/dialog-comments.component';
 import { DialogProdLeiteCadComponent } from '../components/dialog-prod-leite-cad/dialog-prod-leite-cad.component';
+import { DialogAgroindustriaCadComponent } from '../components/dialog-agroindustria-cad/dialog-agroindustria-cad.component';
 
 @Injectable({
   providedIn: 'root'
@@ -108,6 +109,13 @@ export class AlertMessagesService {
     const bsModalRef: BsModalRef = this.modalService.show(DialogCredRuralCadComponent, {class: 'modal-xl'});
    
     return (<DialogProdLeiteCadComponent>bsModalRef.content).confirmResult;
+
+  }
+  showRegAgroindustria(){
+    
+    const bsModalRef: BsModalRef = this.modalService.show(DialogAgroindustriaCadComponent, {class: 'modal-xl'});
+   
+    return (<DialogAgroindustriaCadComponent>bsModalRef.content).confirmResult;
 
   }
   showRegProdLeite(){

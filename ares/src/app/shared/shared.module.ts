@@ -61,6 +61,7 @@ import { ViewProjectComponent } from './components/project/view-project/view-pro
 import { DialogCommentsComponent } from './components/dialog-comments/dialog-comments.component';
 import { DialogProdLeiteCadComponent } from './components/dialog-prod-leite-cad/dialog-prod-leite-cad.component';
 import { DialogCredRuralCadComponent } from './components/dialog-cred-rural-cad/dialog-cred-rural-cad.component';
+import { DialogAgroindustriaCadComponent } from './components/dialog-agroindustria-cad/dialog-agroindustria-cad.component';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { DialogCredRuralCadComponent } from './components/dialog-cred-rural-cad/
     DialogCommentsComponent,
     DialogProdLeiteCadComponent,  
     DialogCredRuralCadComponent, 
+    DialogAgroindustriaCadComponent, 
   ],
   imports: [
     CommonModule,
@@ -181,7 +183,8 @@ import { DialogCredRuralCadComponent } from './components/dialog-cred-rural-cad/
     PointsGenerateComponent,
     SumaryDataPanelComponent,
     DialogCommentsComponent,
-    DialogCredRuralCadComponent
+    DialogCredRuralCadComponent,
+    DialogAgroindustriaCadComponent
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent
