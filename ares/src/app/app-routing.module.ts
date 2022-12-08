@@ -3,6 +3,7 @@ import { LogoutComponent } from './shared/components/logout/logout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RPnaeComponent } from './shared/reports/aters/r-pnae/r-pnae.component';
+import { FindCarComponent } from './shared/components/car/find-car/find-car.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
     path: 'pnae',
     component: RPnaeComponent
   }
+
 ];
 
 @NgModule({

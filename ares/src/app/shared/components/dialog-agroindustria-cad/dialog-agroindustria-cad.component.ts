@@ -192,20 +192,20 @@ export class DialogAgroindustriaCadComponent implements OnInit {
     }
 
     const inicio = this.form.controls.mesinicioprod.value;
-    if ((isNaN(inicio)) || inicio < 1 || inicio > 12) {
+    if ((isNaN(inicio)) || Number(inicio) < 1 || Number(inicio) > 12) {
       let msg = 'O mês de início dever ser entre janeiro e dezembro.';
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
 
     const fim = this.form.controls.mesfimprod.value;
-    if ((isNaN(fim)) || fim < 1 || fim > 12) {
+    if ((isNaN(fim)) || Number(fim) < 1 || Number(fim) > 12) {
       let msg = 'O mês de fim da produção dever ser entre janeiro e dezembro.';
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
 
-    if (!(fim >= inicio)) {
+    if (!(Number(fim) >= Number(inicio))) {
       let msg = 'O mês de fim da produção dever após o mês inicial.';
       this._messageService.handleError(msghead, `${msg}`);
       return false;

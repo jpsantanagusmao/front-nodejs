@@ -20,6 +20,7 @@ import { AgroIndicadoresComponent } from 'src/app/shared/components/indicadores/
 import { TreatmentsByDateComponent } from 'src/app/shared/reports/treatments-by-date/treatments-by-date.component';
 import { TitulosComponent } from 'src/app/shared/components/ares-data/titulos/titulos.component';
 import { RAterRecomenderComponent } from 'src/app/shared/components/ares-data/r-ater-recomender/r-ater-recomender.component';
+import { FindCarComponent } from 'src/app/shared/components/car/find-car/find-car.component';
 
 
 const routes: Routes = [
@@ -92,7 +93,10 @@ const routes: Routes = [
     path: 'rater',
     component: RAterRecomenderComponent
   },
-  
+  {
+    path: 'find-car',
+    component: FindCarComponent
+  },
   {
     path: 'titulos',
     component: TitulosComponent

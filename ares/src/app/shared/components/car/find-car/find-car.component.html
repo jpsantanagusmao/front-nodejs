@@ -1,0 +1,24 @@
+ 
+<form [formGroup]="form">
+    <p class="mt-2 form-tittle">Consultar CAR</p>
+    <div class="row">
+
+        <div class="form-group col col-md-4">
+            <label for="search">Localizar por registro</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" (click)="emitSearch()" id="basic-addon">
+                        <span class="material-icons" tooltip="Localizar registro de CAR com esta informação">
+                            manage_search
+                        </span>
+                    </span>
+                </div>
+                <input type="text" class="form-control" (keyup.enter)="emitSearch()" formControlName="search" name="search"
+                    id="search" required>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+<ares-loading *ngIf="_loading" class="spinner"></ares-loading>

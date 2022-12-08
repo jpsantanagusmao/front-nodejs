@@ -62,6 +62,7 @@ import { DialogCommentsComponent } from './components/dialog-comments/dialog-com
 import { DialogProdLeiteCadComponent } from './components/dialog-prod-leite-cad/dialog-prod-leite-cad.component';
 import { DialogCredRuralCadComponent } from './components/dialog-cred-rural-cad/dialog-cred-rural-cad.component';
 import { DialogAgroindustriaCadComponent } from './components/dialog-agroindustria-cad/dialog-agroindustria-cad.component';
+import { FindCarComponent } from './components/car/find-car/find-car.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,7 @@ import { DialogAgroindustriaCadComponent } from './components/dialog-agroindustr
     DialogCommentsComponent,
     DialogProdLeiteCadComponent,  
     DialogCredRuralCadComponent, 
-    DialogAgroindustriaCadComponent, 
+    DialogAgroindustriaCadComponent, FindCarComponent, 
   ],
   imports: [
     CommonModule,

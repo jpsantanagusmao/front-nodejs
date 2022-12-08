@@ -59,7 +59,6 @@ export class DapWebComponent implements OnInit {
   }
 
   async emitReport() {
-    console.log('clicou aqui merda!')
     /**
  * Consulta irregularidades
  */

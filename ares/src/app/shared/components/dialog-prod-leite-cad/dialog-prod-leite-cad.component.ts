@@ -117,31 +117,31 @@ export class DialogProdLeiteCadComponent implements OnInit {
      */
     const msghead = 'Registros incompletos';
 
-    if(producao.totalrebanho <= 1){
+    if(Number(producao.totalrebanho) <= 1){
       let msg = 'O Rebanho total não pode ser zero para este registro.';
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
     
-    if((producao.totalvacas > producao.totalrebanho)){
-      let msg = `Total de vacas não pode ser maior que ${producao.totalrebanho}`;
+    if((Number(producao.totalvacas) > Number(producao.totalrebanho))){
+      let msg = `Total de vacas(${producao.totalvacas}) não pode ser maior que ${producao.totalrebanho}`;
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
     
-    if((producao.totalvacas < producao.totalvacasord)){
-      let msg = `Não é possível haver mais de ${producao.totalvacas} vacas ordenhadas`;
+    if((Number(producao.totalvacas)) < (Number(producao.totalvacasord))){
+      let msg = `Você informaou ${producao.totalvacasord} e não é possível haver mais de ${producao.totalvacas} vacas ordenhadas`;
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
     
-    if(producao.producaodiaria == 0){
+    if(Number(producao.producaodiaria) == 0){
       let msg = 'A produção diária de leite não pode ser 0.00';
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
 
-    if(producao.precoporlitro == 0){
+    if(Number(producao.precoporlitro) == 0){
       let msg = 'Preço do leite não pode ser 0.00';
       this._messageService.handleError(msghead, `${msg}`);
       return false;

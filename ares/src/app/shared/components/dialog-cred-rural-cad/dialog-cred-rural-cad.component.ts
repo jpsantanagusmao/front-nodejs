@@ -94,24 +94,12 @@ export class DialogCredRuralCadComponent implements OnInit {
   ngOnInit(): void {
     this.confirmResult = new Subject();
     const obj = this;
-    /*
-        this.form = new FormGroup({
-          banco: new FormControl(''),
-          linha: new FormControl(''),
-          modalidade: new FormControl(''),
-          apltxjuros: new FormControl('0'),
-          anoprimpgm: new FormControl(this.hoje),
-          anoultpgm: new FormControl(this.hoje),
-          txjurosaa: new FormControl('0'),
-        });
-      */
 
   }
   onConfirm() {
     const obj = this;
     this.propostacred = this.formprop.value;
     this.propostacred.itens = this.itensFinanciados;
-    //console.log(this.propostacred);
     if (!this.formPropostaok(this.propostacred)) {
       return;
     }
@@ -177,7 +165,7 @@ export class DialogCredRuralCadComponent implements OnInit {
     }
 
     const txjurosaa = this.formprop.controls.txjurosaa.value;
-    if ((isNaN(txjurosaa)) || txjurosaa == 0) {
+    if ((isNaN(txjurosaa)) || Number(txjurosaa) == 0) {
       let msg = 'A taxa anual de juros deve ser um número válido e maior que 0.';
       this._messageService.handleError(msghead, `${msg}`);
       return false;
@@ -197,10 +185,10 @@ export class DialogCredRuralCadComponent implements OnInit {
       return false;
     }
     
-    const dtmin = anoprimpgm.add(12, 'month');
+    const dtmin = anoprimpgm;//.add(12, 'month');
 
-    if (!(anoultpgm.isAfter(dtmin))) {
-      let msg = `A data da última parcela deve ser após ${dtmin.format("DD/MM/YYYY")}`;
+    if ( (anoultpgm.isBefore(dtmin)) ) {
+      let msg = `A data da última parcela será em ${anoultpgm.format('MM/YY')}, mas deve ser após ${dtmin.format("MM/YYYY")}`;
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
