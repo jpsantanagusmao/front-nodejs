@@ -28,7 +28,7 @@
             <div class="card-body">
                 <h5 class="card-title">Pesquisa CAR</h5>
                 <p class="card-text">Aqui você encontra uma registros de CAR por informações específicas.</p>
-                <a href="users/private/class2/find-car/" class="btn btn-primary">Acessar</a>
+                <a href="users/private/class4/find-car/" class="btn btn-primary">Acessar</a>
             </div>
         </div>
         <div class="card col-6">

@@ -13,7 +13,7 @@ import { Class2HomeComponent } from './components/class2-home/class2-home.compon
 import { Class2ToolsComponent } from './components/class2-tools/class2-tools.component';
 import { Class2DimPastagemComponent } from './components/dim-pastagem/dim-pastagem.component';
 import { RAterRecomenderComponent } from 'src/app/shared/components/ares-data/r-ater-recomender/r-ater-recomender.component';
-
+import { FindCarComponent } from 'src/app/shared/components/car/find-car/find-car.component';
 
 const routes: Routes = [
   {
@@ -69,7 +69,10 @@ const routes: Routes = [
     path: 'rater',
     component: RAterRecomenderComponent
   },
-  
+    {
+    path: 'find-car',
+    component: FindCarComponent
+  },
   {
     path: 'titulos',
     component: TitulosComponent
