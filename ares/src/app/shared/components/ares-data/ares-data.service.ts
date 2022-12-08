@@ -15,7 +15,7 @@ export class AresDataService {
     private http: HttpClient,
     private router: Router,
   ) { }
-
+ 
   findTitulos(nome): Observable<any> {
     let params = new HttpParams();
     params = params.append('prop', nome);

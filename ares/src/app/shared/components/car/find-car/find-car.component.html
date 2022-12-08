@@ -7,13 +7,13 @@
             <label for="search">Localizar por registro</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" (click)="emitSearch()" id="basic-addon">
+                    <span class="input-group-text" (click)="onSearch()" id="basic-addon">
                         <span class="material-icons" tooltip="Localizar registro de CAR com esta informação">
                             manage_search
                         </span>
                     </span>
                 </div>
-                <input type="text" class="form-control" (keyup.enter)="emitSearch()" formControlName="search" name="search"
+                <input type="text" class="form-control" (keyup.enter)="onSearch()" formControlName="search" name="search"
                     id="search" required>
             </div>
         </div>
@@ -21,4 +21,33 @@
     </div>
 
 </form>
+<div>
+  *obs: O banco de dados foi atualizado a 04 anos, portanto estes registros podem estar diferentes atualmente.
+</div>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Cadastrante</th>
+        <th scope="col">Proprietário(s)</th>
+        <th scope="col">Num CAR</th>
+        <th scope="col">Área</th>
+        <th scope="col">Município</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="cars$ | async as cars; else nocars">
+      <tr *ngFor="let c of cars">
+        <td>{{c.CADASTRANTE}}</td>
+        <td>{{c.PROPRIETARIOS}}</td>
+        <td>{{c.NUM_CAR}}</td>
+        <td>{{c.AREA}}</td>
+        <td>{{c.MUNICIPIO}}</td>
+      </tr>
+    </tbody>
+  </table>
 <ares-loading *ngIf="_loading" class="spinner"></ares-loading>
+<ng-template #nocars>
+    <tr>
+        <td class="danger-text">Nenhum CAR encontrado!</td>
+    </tr>
+
+</ng-template>

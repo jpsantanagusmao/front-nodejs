@@ -88,7 +88,7 @@ export class TitulosComponent implements OnInit {
       ),
     );
   }
-
+ 
   async onSearch() {
     const nome = this.form.controls.search.value;
 

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
+import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { CarServiceService } from 'src/app/shared/services/car-service.service';
 
 @Component({
@@ -16,11 +17,12 @@ export class FindCarComponent implements OnInit {
   form: FormGroup;
 
   _loading: boolean = Boolean(false);
-  car$: Observable<any>;
+  cars$: Observable<any>;
 
   constructor(
     private _userCache: UserCacheService,
-    private _carservice: CarServiceService
+    private _carservice: CarServiceService,
+    private _messageService: AlertMessagesService
   ) { }
 
   ngOnInit(): void {
@@ -30,24 +32,25 @@ export class FindCarComponent implements OnInit {
     });
   }
 
-  async emitSearch() {
-    //    await this.loadingToggle();
+  async onSearch() {
+    //await this.loadingToggle();
     const obj = this;
-    const formData: FormData = new FormData();
-    
-    formData.append('data', this.form.controls.search.value);
-    this._carservice.findCar(this.form.controls.search.value).subscribe(
-      data=>{
-        obj.car$ = data;
-      },
-      error=>{
-        console.log('error');
-        console.error(error);
 
-      }
-    );
+    const data = this.form.controls.search.value
+    const size = data.length;
+    const msghead = 'Não é possível realizar esta busca';
+
+    if (size < 10) {
+      let msg = 'Você deve informar pelo menos 10 caracteres para realizar a busca'
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
+
+    this.cars$ = this._carservice.findCar(data).pipe();
+
   }
   async loadingToggle() {
     this._loading = !(Boolean(this._loading));
   }
+
 }
