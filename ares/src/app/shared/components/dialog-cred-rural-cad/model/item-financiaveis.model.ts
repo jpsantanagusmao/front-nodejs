@@ -21,19 +21,37 @@ export const ITENS_FINANCIAVEIS:  Itemfinanciavel[] = [
     {
         representacaobd: 'AQ_BEZERROS_CORTE_CUSTEIO',
         atividade: 'BOVINOCULTURA_CORTE',
-        descricao: 'Aquisição de Bezerros + Custeio',
+        descricao: 'Aquisição de Bezerros com Custeio',
+        unidade: 'CAB'
+    },
+    {
+        representacaobd: 'CUSTEIO_BEZERROS_CORTE',
+        atividade: 'BOVINOCULTURA_CORTE',
+        descricao: 'Custeio de bezerros de corte',
+        unidade: 'CAB'
+    },
+    {
+        representacaobd: 'CUSTEIO_MATRIZES_LEITE',
+        atividade: 'BOVINOCULTURA_LEITE',
+        descricao: 'Custeio de matrizes leiteiras',
+        unidade: 'CAB'
+    },
+    {
+        representacaobd: 'CUSTEIO_MATRIZES_CORTE',
+        atividade: 'BOVINOCULTURA_CORTE',
+        descricao: 'Custeio de matrizes zebuinas',
         unidade: 'CAB'
     },
     {
         representacaobd: 'AQ_MATRIZES_CORTE_CUSTEIO',
         atividade: 'BOVINOCULTURA_CORTE',
-        descricao: 'Aquisição de matrizes zebuinas + Custeio',
+        descricao: 'Aquisição de matrizes zebuinas com Custeio',
         unidade: 'CAB'
     },
     {
         representacaobd: 'AQ_MATRIZES_LEITE_CUSTEIO',
-        atividade: 'BOVINOCULTURA_CORTE',
-        descricao: 'Aquisição de matrizes leiteiras + Custeio',
+        atividade: 'BOVINOCULTURA_LEITE',
+        descricao: 'Aquisição de matrizes leiteiras com Custeio',
         unidade: 'CAB'
     },
     {
@@ -71,6 +89,18 @@ export const ITENS_FINANCIAVEIS:  Itemfinanciavel[] = [
         atividade: 'BOVINOCULTURA',
         descricao: 'Reforma de pastagem',
         unidade: 'hectare'
+    },
+    {
+        representacaobd: 'REFORMA_CERCA',
+        atividade: 'BOVINOCULTURA',
+        descricao: 'Reforma de cerca',
+        unidade: 'km'
+    },
+    {
+        representacaobd: 'CONSTRUCAO_CERCA',
+        atividade: 'BOVINOCULTURA',
+        descricao: 'Construção de cerca',
+        unidade: 'km'
     },
     {
         representacaobd: 'FORMACAO_PASTAGEM',
