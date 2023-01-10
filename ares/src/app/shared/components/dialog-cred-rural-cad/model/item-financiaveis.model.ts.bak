@@ -82,7 +82,7 @@ export const ITENS_FINANCIAVEIS:  Itemfinanciavel[] = [
         representacaobd: 'REFORMA_CURRAL',
         atividade: 'BOVINOCULTURA',
         descricao: 'Reforma de curral',
-        unidade: 'metro'
+        unidade: 'metro linear'
     },
     {
         representacaobd: 'REFORMA_PASTAGEM',
@@ -112,13 +112,13 @@ export const ITENS_FINANCIAVEIS:  Itemfinanciavel[] = [
         representacaobd: 'CONSTRUCAO_CURRAL',
         atividade: 'BOVINOCULTURA',
         descricao: 'Construção de curral',
-        unidade: 'metro'
+        unidade: 'metro linear'
     },
     {
         representacaobd: 'CONSTRUCAO_GALPAO',
         atividade: 'CAFE',
-        descricao: 'Construção de galpão beneficiamento café',
-        unidade: 'm2'
+        descricao: 'Construção de galpãp beneficiamento café',
+        unidade: 'metro quadrado'
     },
     {
         representacaobd: 'AQ_SECADOR_CAFE',
