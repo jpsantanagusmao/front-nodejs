@@ -27,6 +27,10 @@ const routes: Routes = [
   {
     path: 'pnae',
     component: RPnaeComponent
+  },
+  {
+    path: 'ater',
+    loadChildren: () => import('./modules/acomp/acomp.module').then(m => m.AcompModule)
   }
 
 ];

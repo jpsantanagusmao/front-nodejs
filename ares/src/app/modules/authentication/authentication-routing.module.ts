@@ -16,7 +16,7 @@ const routes: Routes = [
     redirectTo: '/users/private/class0/root',
     pathMatch: 'full'
   },
-  {
+  { 
     path: 'login',
     component: LoginComponent
   },
