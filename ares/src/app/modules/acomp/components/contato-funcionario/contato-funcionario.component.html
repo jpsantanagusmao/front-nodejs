@@ -5,7 +5,7 @@
     </header>
     <section>
 
-        <img src="../../../../../assets/images/connections.webp" alt="...">
+        <img src="{{info.img}}" alt="">
         <br>
         <table class="table">
             <thead>
@@ -23,9 +23,9 @@
 
               </tr>
               <tr>
-                <th scope="row">João Paulo Santana Gusmão</th>
-                <td>10639-7</td>
-                <td>(33) 9 9128-0315</td>
+                <th scope="row">{{info.nome}}</th>
+                <td>{{info.matricula}}</td>
+                <td>{{info.contato}}</td>
 
               </tr>
             </tbody>
@@ -41,14 +41,15 @@
                 <th scope="row">email</th>
               </tr>
               <tr>
-                <th scope="row">joao.gusmao@emater.mg.gov.br
+                <th scope="row">{{info.email}}
                 </th>
               </tr>
             </tbody>
           </table>
 
 
-        <a aria-label="Chat on WhatsApp" href="https://wa.me/55033991770213?text=Bom%20dia,%20preciso%20da%20sua%20orientação."><img alt="Chat on WhatsApp" src="../../../../../assets/images/wame.png" />
+        <a aria-label="Chat on WhatsApp" href="{{expressaozap}}"><img alt="Chat on WhatsApp" 
+          src="../../../../../assets/images/wame.png" />
         </a>
 
     </section>

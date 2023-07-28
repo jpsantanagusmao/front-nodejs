@@ -19,7 +19,7 @@ const routes: Routes = [
         component: PropriedadeRuralComponent
       },
       {
-        path: 'contato',
+        path: 'contato/:id',
         component: ContatoFuncionarioComponent
       },
     ]

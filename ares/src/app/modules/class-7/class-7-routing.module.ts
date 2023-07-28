@@ -32,7 +32,7 @@ const routes: Routes = [
         component: Class7CadastrarUsuarioComponent
       },
       {
-        path: 'atualizar/:id',
+        path: 'atualizar/:id', 
         component: UserUpdateComponent
       },
       {
