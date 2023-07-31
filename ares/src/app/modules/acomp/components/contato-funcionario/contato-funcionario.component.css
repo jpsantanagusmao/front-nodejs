@@ -1,0 +1,49 @@
+*{
+
+}
+.notify-horario{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+article{
+    font-size: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+header{
+    font-size: 2.5rem;
+    color: darkgreen;
+    font-weight: bold;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+footer{
+    color: #ffffff;
+    background-color: darkgreen;
+    position:absolute;
+    bottom:0; 
+    width:100vh;
+    height: 5rem;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.missao_visao > article{
+    width: 50vh;
+    font-size: 1.2rem;
+    text-align: justify;
+}
+.missao_visao{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+    align-content: center;
+
+}
