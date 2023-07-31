@@ -1,20 +1,22 @@
-<p>Unidade Familiar atendida e acompanhada pela EMATER/MG de Tarumirim</p>
-
-Produtor acompanhado: Ronaldo Rodrigues
-Comunidade rural: Córrego da Laginha
-
-Produtos cadastrados: Abóbora, milho, mandioca, feijão, alface, couve, laranja, banana
-
-Visitas realizadas neste ano:
-05/04/2023
-29/04/2023
-08/05/2023
-16/06/2023
-
-Fotos
-
-
-
-
-
+<header>
+    <p>Unidade Familiar atendida e acompanhada pela EMATER/MG de Tarumirim</p>
+</header>
+<section>
+    <aside>
+        <article>
+            <p>Produtor acompanhado: {{info.beneficiario}}</p>
+            <p>Comunidade rural: {{info.propriedade}}</p>
+                <figure>
+                    <img src="{{info.img}}" width="30%">
+                    <figcaption>Produtos cadastrados: Abóbora, milho, mandioca, feijão, alface, couve, laranja, banana</figcaption>
+                </figure>
+        </article>
+    </aside>
+</section>
+<section>
+    <p>Últimas visitas realizadas pela EMATER/MG</p>
+    <ul *ngFor="let v of info.visitas">
+        <li>{{v.data}}</li>
+    </ul>
+</section>
 

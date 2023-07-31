@@ -15,7 +15,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'propriedade-rural',
+        path: 'propriedade-rural/:id',
         component: PropriedadeRuralComponent
       },
       {

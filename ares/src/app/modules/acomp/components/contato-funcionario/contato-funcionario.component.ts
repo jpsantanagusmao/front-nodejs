@@ -33,8 +33,7 @@ export class ContatoFuncionarioComponent implements OnInit {
     const id = this._route.snapshot.paramMap.get('id');
 
     this.info = this.colabs.find((obj) => {
-      // Note que o callback retornará `true` se o objeto
-      // atual tiver propriedade `id` igual a 2.
+
       return obj.id === id
     })
     
