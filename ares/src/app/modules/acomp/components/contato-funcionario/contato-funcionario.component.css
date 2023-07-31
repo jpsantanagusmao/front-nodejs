@@ -1,49 +1,66 @@
-*{
-
-}
-.notify-horario{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-article{
-    font-size: 1.5rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-}
-header{
-    font-size: 2.5rem;
-    color: darkgreen;
-    font-weight: bold;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-}
-footer{
-    color: #ffffff;
-    background-color: darkgreen;
-    position:absolute;
-    bottom:0; 
-    width:100vh;
-    height: 5rem;
-    font-size: 1.1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.missao_visao > article{
-    width: 50vh;
-    font-size: 1.2rem;
-    text-align: justify;
-}
-.missao_visao{
-    
+.container-sm{
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;  
-    align-content: center;
+}
+header{
+    padding-top: 5px;
+    font-size: 1.1em;
+    text-align: center;
+    font-weight: bold;
+    color: darkolivegreen;
+}
+.contato{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    padding-bottom: 15px;
+}
+.contato > aside{
+    max-width: 20%;
+}
+.contato > aside > img{
+    max-width: 100%;
+}
+.contato > section{
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+}
+
+.contato > section > div{
+    align-self: flex-end;
+}
+.send-zap {
+    width: 40%;
+}
+.notify-horario{
+    width: 60%;
+}
+.missao_visao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.missao_visao > article {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 3px;
+    width: 60%;
+}
+.missao_visao > article > p{
+    align-self: center; 
+    text-align: justify;
+    
+}
+footer{
+    background-color: darkolivegreen;
+    margin-top: 10vh;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 5px;
+    color: aliceblue;
 
 }

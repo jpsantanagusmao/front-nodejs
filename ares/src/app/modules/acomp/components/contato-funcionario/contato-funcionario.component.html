@@ -1,38 +1,40 @@
-<div class="container">
-
+<div class="container-sm">
   <header>
     <p>EMATER-MG - Escritório local de Tarumirim/MG</p>
   </header>
-  <aside>
-    <img src="{{info.img}}" alt="" width="20%">
-  </aside>
-  <section>
-    <article>
-      <p>Nome: {{info.nome}} - Matrícula: {{info.matricula}}</p>
-      <p>email: {{info.email}}</p>
-      
-    </article>
-
-    <div *ngIf="isopen">
-      <a aria-label="Chat on WhatsApp" href="{{expressaozap}}"><img alt="Chat on WhatsApp"
-          src="../../../../../assets/images/wame.png" />
-      </a>
-    </div>
-    <div *ngIf="!isopen" class="notify-horario">
-      O Escritório está fechado neste momento, retorne nos dias entre {{dia_semana_comeca | date:'EEEE': 'pt-BR'}} e
-      {{dia_semana_termina | date:'EEEE': '': 'pt-BR'}} no horário de {{abre | date:'HH:mm'}} e {{almoco_sai |
-      date:'HH:mm'}} e das {{almoco_ret | date:'HH:mm'}} às {{fecha | date:'HH:mm'}} que você terá acesso aos contatos.
-    </div>
-
+  <section class="contato">
+    <aside>
+      <img src="{{info.img}}" class="rounded float-left" alt="">
+    </aside>
+    <section>
+      <article>
+        <p>Nome: {{info.nome}} - Matrícula: {{info.matricula}}</p>
+        <p>email: {{info.email}}</p>
+      </article>
+  
+      <div *ngIf="isopen" >
+        <a aria-label="Chat on WhatsApp" href="{{expressaozap}}"><img alt="Chat on WhatsApp" class="send-zap"
+            src="../../../../../assets/images/wame.png" />
+        </a>
+      </div>
+    </section>
+    
   </section>
+  <div *ngIf="!isopen" class="notify-horario">
+    O Escritório está fechado neste momento, retorne nos dias entre {{dia_semana_comeca | date:'EEEE': 'pt-BR'}} e
+    {{dia_semana_termina | date:'EEEE': '': 'pt-BR'}} no horário de {{abre | date:'HH:mm'}} e {{almoco_sai |
+    date:'HH:mm'}} e das {{almoco_ret | date:'HH:mm'}} às {{fecha | date:'HH:mm'}} que você terá acesso aos contatos.
+  </div>
   <section class="missao_visao">
     <article>
       <header>Missão</header>
-      <p>Promover o desenvolvimento sustentável, por meio de assistência técnica e extensão rural, assegurando a melhoria de qualidade de vida da sociedade mineira.</p>
+      <p>Promover o desenvolvimento do sustentável, por meio de assistência técnica e extensão rural, assegurando a
+        melhoria de qualidade de vida da sociedade mineira.</p>
     </article>
     <article>
       <header>Visão</header>
-      <p>Ser essencial à sociedade mineira, com excelência na prestação de serviços de assistência técnica e extensão rural, para promoção do desenvolvimento sustentável dos municípios de Minas Gerais.</p>
+      <p>Ser essencial à sociedade mineira, com excelência na prestação de serviços de assistência técnica e extensão
+        rural, para promoção do desenvolvimento sustentável dos municípios de Minas Gerais.</p>
     </article>
   </section>
 
