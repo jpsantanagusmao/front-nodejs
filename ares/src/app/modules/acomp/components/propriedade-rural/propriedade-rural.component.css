@@ -1,0 +1,15 @@
+header{
+    padding-top: 5px;
+    font-size: 1.1em;
+    text-align: center;
+    font-weight: bold;
+    color: darkolivegreen;
+}
+.imagens{
+    padding-left: 30%;
+    padding-right: 30%;
+}
+img{
+    height: 30vh;
+    width: auto;
+}

@@ -1,5 +1,5 @@
 <div class="container-sm">
-  <header>
+  <header class="logo">
     <p>EMATER-MG - Escritório local de Tarumirim/MG</p>
   </header>
   <section class="contato">
@@ -18,7 +18,7 @@
         </a>
       </div>
     </section>
-    
+
   </section>
   <div *ngIf="!isopen" class="notify-horario">
     O Escritório está fechado neste momento, retorne nos dias entre {{dia_semana_comeca | date:'EEEE': 'pt-BR'}} e
@@ -37,7 +37,40 @@
         rural, para promoção do desenvolvimento sustentável dos municípios de Minas Gerais.</p>
     </article>
   </section>
+  <section>
+    <p>Nossa equipe</p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Nome</th>
+          <th scope="col">Função</th>
+          <th scope="col">Contato</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th></th>
+          <td>João Paulo Santana Gusmão</td>
+          <td>Extensionista Agropecuário I</td>
+          <td>(33) 9 9977-0315</td>
+        </tr>
+        <tr>
+          <th></th>
+          <td>Guinter João de Oliveira</td>
+          <td>Auxiliar Administrativo Cedido</td>
+          <td>(33) 9 9977-0315</td>
+        </tr>
+        <tr>
+          <th></th>
+          <td>Sirlene Ferreira Peron</td>
+          <td>Auxiliar Administrativo Cedido</td>
+          <td>(33) 9 9977-0315</td>
+        </tr>
 
+      </tbody>
+    </table>
+  </section>
   <footer>
     Endereço: Prç São João, 84 - Bairro: Centro
     Cidade: Tarumirim/MG

@@ -13,7 +13,7 @@ export class DialogCommentsComponent implements OnInit {
   @Input() title: string = 'Encaminhar tarefa';
   @Input() confirmMessage: string;
 
-  @Input() confirmText: string = 'Cofirmar';
+  @Input() confirmText: string = 'Confirmar';
   @Input() cancelTxt: string = 'Cancelar';
 
   @Input() idTask: string;

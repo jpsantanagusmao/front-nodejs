@@ -20,6 +20,10 @@ import { Class6ToolsComponent } from './modules/class-6/components/class6-tools/
 import { Class8ToolsComponent } from './modules/class-8/components/class8-tools/class8-tools.component';
 import { Class9ToolsComponent } from './modules/class-9/components/class9-tools/class9-tools.component';
 
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,8 +46,12 @@ import { Class9ToolsComponent } from './modules/class-9/components/class9-tools/
     WelcomeModule,
     AuthenticationModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
+    TooltipModule.forRoot(),
+    ModalModule.forRoot()
   ],
+  exports: [BsDropdownModule, TooltipModule, ModalModule],
   providers: [
     UserCacheService,
     AlertMessagesService,
