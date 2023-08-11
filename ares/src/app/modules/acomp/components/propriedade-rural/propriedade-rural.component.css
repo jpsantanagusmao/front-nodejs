@@ -1,15 +1,12 @@
-header{
-    padding-top: 5px;
-    font-size: 1.1em;
+.card{
+    width: 100%;
+    border: none;
+}
+.card-title{
     text-align: center;
-    font-weight: bold;
-    color: darkolivegreen;
+    font-size: 1.3rem;
 }
-.imagens{
-    padding-left: 30%;
-    padding-right: 30%;
-}
-img{
-    height: 30vh;
-    width: auto;
+.card > img{
+    max-height: 30vh;
+    max-width: 30vh;
 }
