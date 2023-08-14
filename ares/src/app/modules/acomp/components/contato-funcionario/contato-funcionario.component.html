@@ -1,6 +1,6 @@
 <div class="container-sm">
   <header class="logo">
-    <p>EMATER-MG - Escritório local de Tarumirim/MG</p>
+    <p>{{esloc.descricao}}</p>
   </header>
   <section class="contato">
     <aside>
@@ -49,30 +49,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr *ngFor="let ps of colabs">
           <th></th>
-          <td>João Paulo Santana Gusmão</td>
-          <td>Extensionista Agropecuário I</td>
-          <td>(33) 9 9977-0315</td>
+          <td>{{ps.nome}}</td>
+          <td>{{ps.funcao}}</td>
+          <td>{{ps.contato}}</td>
         </tr>
-        <tr>
-          <th></th>
-          <td>Guinter João de Oliveira</td>
-          <td>Auxiliar Administrativo Cedido</td>
-          <td>(33) 9 9977-0315</td>
-        </tr>
-        <tr>
-          <th></th>
-          <td>Sirlene Ferreira Peron</td>
-          <td>Auxiliar Administrativo Cedido</td>
-          <td>(33) 9 9977-0315</td>
-        </tr>
-
       </tbody>
     </table>
   </section>
   <footer>
-    Endereço: Prç São João, 84 - Bairro: Centro
-    Cidade: Tarumirim/MG
+    Endereço: {{esloc.endereco}}
+    Cidade: {{esloc.cidade}}
   </footer>
 </div>

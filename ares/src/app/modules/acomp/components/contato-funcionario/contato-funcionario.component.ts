@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { COLABORARORES, colaborador } from '../../models/colab';
+import { COLABORARORES, ESLOC, colaborador } from '../../models/colab';
 import { ActivatedRoute } from '@angular/router';
 
 import * as moment from 'moment';
@@ -11,7 +11,8 @@ import * as moment from 'moment';
 })
 export class ContatoFuncionarioComponent implements OnInit {
 
-  colabs = COLABORARORES;
+  esloc = ESLOC;
+  colabs = this.esloc.colabs;
   info: colaborador;
   expressaozap: string;
   isopen:boolean = true;
