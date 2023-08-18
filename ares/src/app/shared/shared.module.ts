@@ -63,6 +63,7 @@ import { DialogProdLeiteCadComponent } from './components/dialog-prod-leite-cad/
 import { DialogCredRuralCadComponent } from './components/dialog-cred-rural-cad/dialog-cred-rural-cad.component';
 import { DialogAgroindustriaCadComponent } from './components/dialog-agroindustria-cad/dialog-agroindustria-cad.component';
 import { FindCarComponent } from './components/car/find-car/find-car.component';
+import { Pnae2023RaterComponent } from './components/reports/rater/pnae2023-rater/pnae2023-rater.component';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,9 @@ import { FindCarComponent } from './components/car/find-car/find-car.component';
     DialogCommentsComponent,
     DialogProdLeiteCadComponent,  
     DialogCredRuralCadComponent, 
-    DialogAgroindustriaCadComponent, FindCarComponent, 
+    DialogAgroindustriaCadComponent, 
+    FindCarComponent, 
+    Pnae2023RaterComponent,
   ],
   imports: [
     CommonModule,
@@ -185,7 +188,8 @@ import { FindCarComponent } from './components/car/find-car/find-car.component';
     SumaryDataPanelComponent,
     DialogCommentsComponent,
     DialogCredRuralCadComponent,
-    DialogAgroindustriaCadComponent
+    DialogAgroindustriaCadComponent,
+    Pnae2023RaterComponent
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

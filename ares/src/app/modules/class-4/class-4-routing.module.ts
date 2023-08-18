@@ -21,6 +21,7 @@ import { TreatmentsByDateComponent } from 'src/app/shared/reports/treatments-by-
 import { TitulosComponent } from 'src/app/shared/components/ares-data/titulos/titulos.component';
 import { RAterRecomenderComponent } from 'src/app/shared/components/ares-data/r-ater-recomender/r-ater-recomender.component';
 import { FindCarComponent } from 'src/app/shared/components/car/find-car/find-car.component';
+import { Pnae2023RaterComponent } from 'src/app/shared/components/reports/rater/pnae2023-rater/pnae2023-rater.component';
 
 
 const routes: Routes = [
@@ -64,6 +65,10 @@ const routes: Routes = [
   {
     path: 'print-rater',
     component: RaterComponent
+  },
+  {
+    path: 'print-rater-pnae',
+    component: Pnae2023RaterComponent
   },
   {
     path: 'calc-irrigacao',

@@ -24,6 +24,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +34,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     Class6ToolsComponent,
     Class8ToolsComponent,
     Class9ToolsComponent,
+
   ],
   imports: [
     BrowserModule,

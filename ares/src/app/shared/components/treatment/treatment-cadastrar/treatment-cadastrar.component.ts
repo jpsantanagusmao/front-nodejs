@@ -1,7 +1,7 @@
 import { switchMap, take, tap } from 'rxjs/operators';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { statusModel } from 'src/app/shared/models/status.model';
@@ -53,6 +53,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     private _treatmentService: TreatmentService,
     private _userCache: UserCacheService,
     private _route: ActivatedRoute,
+    private _router: Router,
     private _messageService: AlertMessagesService
   ) {
 
@@ -372,7 +373,25 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     win.close();
     //window.print();
   }
+  viewRaterPnae(){
 
+    //window.open("./users/private/class4/service/print-rater-pnae");
+    //this._router.navigate(['print-rater-pnae'], { relativeTo: this._route });
+
+    //Formando os dados
+    const tecnico = this._userCache.getUserData()
+    console.log(tecnico)
+    const rater = {
+      extensionista: tecnico['name'],
+      matricula: tecnico['id'],
+      produtor_nome: this.customerSelected //290.546.996-04
+      
+    }
+    console.log(rater);
+    return
+    this._router.navigate(['../print-rater-pnae'], { relativeTo: this._route });
+    //qwqwq
+  }
   get empresa() {
     return this.data.partner_name;
   }

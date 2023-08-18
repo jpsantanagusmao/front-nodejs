@@ -174,7 +174,7 @@ export class DmPastagensComponent implements OnInit {
     const ater: AterModel = {
       local, customers, situacao, orientacao, recomendacao
     };
-    /**
+    /** 
      * Registra a ater no cookie
      */
     this._userCache.createAter(JSON.stringify(ater));

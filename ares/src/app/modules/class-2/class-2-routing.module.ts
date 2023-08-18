@@ -14,6 +14,7 @@ import { Class2ToolsComponent } from './components/class2-tools/class2-tools.com
 import { Class2DimPastagemComponent } from './components/dim-pastagem/dim-pastagem.component';
 import { RAterRecomenderComponent } from 'src/app/shared/components/ares-data/r-ater-recomender/r-ater-recomender.component';
 import { FindCarComponent } from 'src/app/shared/components/car/find-car/find-car.component';
+import { Pnae2023RaterComponent } from 'src/app/shared/components/reports/rater/pnae2023-rater/pnae2023-rater.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,7 @@ const routes: Routes = [
   {
     path: 'ater-analise-solo',
     component: AnaliseSoloComponent
-  }, 
+  },
   {
     path: 'dim-pastagem',
     component: Class2DimPastagemComponent
@@ -48,7 +49,7 @@ const routes: Routes = [
   {
     path: 'ater-dap-query',
     component: Class2DapQueryComponent
-  }, 
+  },
   {
     path: 'prod-hortalicas',
     component: ProdHortalicasComponent
@@ -69,7 +70,11 @@ const routes: Routes = [
     path: 'rater',
     component: RAterRecomenderComponent
   },
-    {
+  {
+    path: 'print-rater-pnae',
+    component: Pnae2023RaterComponent
+  },
+  {
     path: 'find-car',
     component: FindCarComponent
   },
