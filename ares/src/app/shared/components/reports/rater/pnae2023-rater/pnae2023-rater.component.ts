@@ -30,6 +30,8 @@ export class Pnae2023RaterComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this._print()
+    
   }
   
   _print() {

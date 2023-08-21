@@ -1,4 +1,4 @@
-import { switchMap, take, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +8,6 @@ import { statusModel } from 'src/app/shared/models/status.model';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { v4 as uuidv4 } from 'uuid';
 import { TreatmentService } from '../treatment.service';
-import { EMPTY } from 'rxjs';
 import { ProdLeiteModel } from 'src/app/shared/models/prod.leite.model';
 
 @Component({
@@ -187,6 +186,216 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     this.onStore.emit(treatment);
 
   }
+
+  
+
+  postRater(event) {
+    const fileup = event.target.files;
+    //console.log(fileup);
+
+    if (event.target.files.length > 0) {
+      this._file = event.target.files[0];
+
+      /*
+            this.form.patchValue({
+              rater: file
+            });
+            */
+    }
+  }
+  viewRater() {
+
+    const view = document.getElementById('printable');
+    const style = this.style();
+
+    let htmlToPrint =
+      '<style type="text/css">' +
+      style +
+      '</style>';
+    htmlToPrint += view.outerHTML;
+    var win = window.open();
+    self.focus();
+    win.document.open();
+    win.document.write('<' + 'html' + '><' + 'body' + '>');
+    win.document.write(htmlToPrint);
+    win.document.write('<' + '/body' + '><' + '/html' + '>');
+    win.document.close();
+    win.print();
+    win.close();
+    //window.print();
+  }
+
+  viewRaterPnae(){
+
+    //Formando os dados
+    const tecnico = this._userCache.getUserData()
+    const rater = {
+      situacao: this.form.controls.situacao.value,
+      orientacao: this.form.controls.orientacao.value,
+      recomendacao: this.form.controls.recomendacao.value,
+      extensionista: tecnico['name'],
+      matricula: tecnico['registry'],
+      //produtor: ,
+      //cpf: ,
+      //assunto: 
+    }
+
+    //console.log(rater);
+    
+    //return
+    this._router.navigate(['../print-rater-pnae'], { relativeTo: this._route });
+
+  }
+
+  get empresa() {
+    return this.data.partner_name;
+  }
+  get departamento() {
+    return this.data.division_name;
+  }
+  get endereco() {
+    return this.data.division_address;
+  }
+  get funcionario() {
+    return this.data.name;
+  }
+  get contato() {
+    return this.data.division_fone;
+  }
+
+  taskOk() {
+    if (this.formAction.valid
+      && this.userDesigned
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  formOk() {
+
+    if (this.form.valid === true && this.tasks.length > 0 && this.customers.length > 0) {
+      return true;
+    }
+    return false;
+  }
+  onDeleteTask(task) {
+    this.tasks.splice(this.tasks.indexOf(task), 1);
+  }
+
+  onDeleteCustomer(customer) {
+    this.customers.splice(this.customers.indexOf(customer), 1);
+
+  }
+
+  async createFormWithOrientacao(ater) {
+    await this.createFormNew();
+    this.form.controls.situacao.patchValue(ater.situacao);
+    this.form.controls.orientacao.patchValue(ater.orientacao);
+    this.form.controls.recomendacao.patchValue(ater.recomendacao);
+    this.form.controls.local.patchValue(ater.local);
+
+  }
+
+  onRegistraCredRural() {
+    const obj = this;
+    this._messageService.showRegCredRural().asObservable().pipe(
+      take(1),
+      //switchMap(async (result) => result ? result : EMPTY)
+    )
+      .subscribe(
+        data => {
+          obj.plnCredRural = data;
+          //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
+        },
+        error => {
+          console.error(error);
+        }
+      )
+      ;
+  }
+
+  onRegistraAgroindustria() {
+    const obj = this;
+    this._messageService.showRegAgroindustria().asObservable().pipe(
+      take(1),
+    )
+      .subscribe(
+        data => {
+          obj.producaoAgroindustria = data;
+        },
+        error => {
+          console.error(error);
+        }
+      )
+      ;
+  }
+
+  onRegistraProdLeite() {
+    const obj = this;
+    this._messageService.showRegProdLeite().asObservable().pipe(
+      take(1),
+      //switchMap(async (result) => result ? result : EMPTY)
+    )
+      .subscribe(
+        data => {
+          obj.producaoLeite = data;
+          //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
+        },
+        error => {
+          console.error(error);
+        }
+      )
+      ;
+  }
+
+  onGeo(event: any) {
+
+    const obj = this;
+    this._messageService.showPointSelect().asObservable().pipe(
+      take(1),
+      //switchMap(async (result) => result ? result : EMPTY)
+    )
+      .subscribe(
+        data => {
+          obj.marker = data;
+          //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
+        },
+        error => {
+          console.error(error);
+        }
+      )
+      ;
+  }
+  private _setGeo(value: google.maps.Marker) {
+    this.marker = value;
+  }
+
+  async createFormNew() {
+    const hoje: string = moment().format('YYYY-MM-DD');
+
+    this.form = new FormGroup({
+      local: new FormControl('', [Validators.minLength(5), Validators.maxLength(150)]),
+      data: new FormControl(hoje),
+      situacao: new FormControl(''),
+      orientacao: new FormControl(''),
+      recomendacao: new FormControl(''),
+      rater: new FormControl('')
+    });
+
+    this.createFormAction();
+
+  }
+
+  createFormAction() {
+    this.formAction = new FormGroup({
+      description: new FormControl('', [Validators.required]),
+      qtd: new FormControl('1', [Validators.required]),
+      valor: new FormControl('0', Validators.required),
+    });
+
+  }
+
   style() {
     return `
     form {
@@ -340,200 +549,4 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   }
     `
   }
-  postRater(event) {
-    const fileup = event.target.files;
-    //console.log(fileup);
-
-    if (event.target.files.length > 0) {
-      this._file = event.target.files[0];
-
-      /*
-            this.form.patchValue({
-              rater: file
-            });
-            */
-    }
-  }
-  viewRater() {
-    const view = document.getElementById('printable');
-    const style = this.style();
-    let htmlToPrint =
-      '<style type="text/css">' +
-      style +
-      '</style>';
-    htmlToPrint += view.outerHTML;
-    var win = window.open();
-    self.focus();
-    win.document.open();
-    win.document.write('<' + 'html' + '><' + 'body' + '>');
-    win.document.write(htmlToPrint);
-    win.document.write('<' + '/body' + '><' + '/html' + '>');
-    win.document.close();
-    win.print();
-    win.close();
-    //window.print();
-  }
-  viewRaterPnae(){
-
-    //window.open("./users/private/class4/service/print-rater-pnae");
-    //this._router.navigate(['print-rater-pnae'], { relativeTo: this._route });
-
-    //Formando os dados
-    const tecnico = this._userCache.getUserData()
-    console.log(tecnico)
-    const rater = {
-      extensionista: tecnico['name'],
-      matricula: tecnico['id'],
-      produtor_nome: this.customerSelected //290.546.996-04
-      
-    }
-    console.log(rater);
-    return
-    this._router.navigate(['../print-rater-pnae'], { relativeTo: this._route });
-    //qwqwq
-  }
-  get empresa() {
-    return this.data.partner_name;
-  }
-  get departamento() {
-    return this.data.division_name;
-  }
-  get endereco() {
-    return this.data.division_address;
-  }
-  get funcionario() {
-    return this.data.name;
-  }
-  get contato() {
-    return this.data.division_fone;
-  }
-
-  taskOk() {
-    if (this.formAction.valid
-      && this.userDesigned
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-  formOk() {
-
-    if (this.form.valid === true && this.tasks.length > 0 && this.customers.length > 0) {
-      return true;
-    }
-    return false;
-  }
-  onDeleteTask(task) {
-    this.tasks.splice(this.tasks.indexOf(task), 1);
-  }
-
-  onDeleteCustomer(customer) {
-    this.customers.splice(this.customers.indexOf(customer), 1);
-
-  }
-
-  async createFormWithOrientacao(ater) {
-    await this.createFormNew();
-    this.form.controls.situacao.patchValue(ater.situacao);
-    this.form.controls.orientacao.patchValue(ater.orientacao);
-    this.form.controls.recomendacao.patchValue(ater.recomendacao);
-    this.form.controls.local.patchValue(ater.local);
-
-  }
-
-  onRegistraCredRural() {
-    const obj = this;
-    this._messageService.showRegCredRural().asObservable().pipe(
-      take(1),
-      //switchMap(async (result) => result ? result : EMPTY)
-    )
-      .subscribe(
-        data => {
-          obj.plnCredRural = data;
-          //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
-        },
-        error => {
-          console.error(error);
-        }
-      )
-      ;
-  }
-  onRegistraAgroindustria() {
-    const obj = this;
-    this._messageService.showRegAgroindustria().asObservable().pipe(
-      take(1),
-    )
-      .subscribe(
-        data => {
-          obj.producaoAgroindustria = data;
-        },
-        error => {
-          console.error(error);
-        }
-      )
-      ;
-  }
-  onRegistraProdLeite() {
-    const obj = this;
-    this._messageService.showRegProdLeite().asObservable().pipe(
-      take(1),
-      //switchMap(async (result) => result ? result : EMPTY)
-    )
-      .subscribe(
-        data => {
-          obj.producaoLeite = data;
-          //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
-        },
-        error => {
-          console.error(error);
-        }
-      )
-      ;
-  }
-  onGeo(event: any) {
-
-    const obj = this;
-    this._messageService.showPointSelect().asObservable().pipe(
-      take(1),
-      //switchMap(async (result) => result ? result : EMPTY)
-    )
-      .subscribe(
-        data => {
-          obj.marker = data;
-          //console.log('lat: ' + data.getPosition().lat() + ' lng: ' + data.getPosition().lng());
-        },
-        error => {
-          console.error(error);
-        }
-      )
-      ;
-  }
-  private _setGeo(value: google.maps.Marker) {
-    this.marker = value;
-  }
-  async createFormNew() {
-    const hoje: string = moment().format('YYYY-MM-DD');
-
-    this.form = new FormGroup({
-      local: new FormControl('', [Validators.minLength(5), Validators.maxLength(150)]),
-      data: new FormControl(hoje),
-      situacao: new FormControl(''),
-      orientacao: new FormControl(''),
-      recomendacao: new FormControl(''),
-      rater: new FormControl('')
-    });
-
-    this.createFormAction();
-
-  }
-  createFormAction() {
-    this.formAction = new FormGroup({
-      description: new FormControl('', [Validators.required]),
-      qtd: new FormControl('1', [Validators.required]),
-      valor: new FormControl('0', Validators.required),
-    });
-
-  }
-
 }
