@@ -32,6 +32,7 @@ export class CustomerCadastrarComponent implements OnInit {
   citySelected: any = {};
   cityName: string;
   schoolingSelected: any = {};
+  customerselected: any;
 
   ngOnInit(): void {
     this.createFormNew();
@@ -110,7 +111,9 @@ export class CustomerCadastrarComponent implements OnInit {
     /**
      * Configura o formulário
      */
+
     const obj = this;
+    this.customerselected = customer;
 
     obj.form.controls.name.patchValue(customer.name);
     obj.form.controls.cpf.patchValue(customer.cpf);
@@ -167,7 +170,12 @@ export class CustomerCadastrarComponent implements OnInit {
      */
     customer.schooling = this.schoolingSelected.schooling;
 
-    this.onSelected.emit(customer);
+
+    this.customerselected.schooling =  customer.schooling;
+    this.customerselected.city =  customer.city;
+    this.customerselected.uf =  customer.uf;
+
+    this.onSelected.emit(this.customerselected);
   }
 
   cancelar() {
@@ -206,7 +214,9 @@ export class CustomerCadastrarComponent implements OnInit {
             cep: customerWeb?.cep,
             phone: customerWeb?.phone,
             city: customerWeb?.city,
-            schooling: ''
+            schooling: '',
+            dap: customerWeb?.numDap,
+            vencDap: customerWeb?.validade
           }
           obj.setForm(customer);
           /**
@@ -243,7 +253,7 @@ export class CustomerCadastrarComponent implements OnInit {
      */
     const cpfValid = cpf.isValid(this.form.controls.cpf.value);
 
-    if(!cpfValid){
+    if (!cpfValid) {
       alert('É preciso informar um CPF válido')
       return;
     }
@@ -275,10 +285,15 @@ export class CustomerCadastrarComponent implements OnInit {
           cep: customerWeb.titular.cep,
           phone: '',
           city: '',
-          schooling: ''
+          schooling: '',
+          dap: data['numDap'],
+          vencDap: validade
         }
+
+        obj.customerselected = customer;
         obj.setForm(customer);
         obj.loadingToggle();
+
       },
       error => {
         console.log(error);

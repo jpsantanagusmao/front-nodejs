@@ -1,5 +1,5 @@
 import { take } from 'rxjs/operators';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
@@ -9,12 +9,15 @@ import { AlertMessagesService } from 'src/app/shared/services/alert-messages.ser
 import { v4 as uuidv4 } from 'uuid';
 import { TreatmentService } from '../treatment.service';
 import { ProdLeiteModel } from 'src/app/shared/models/prod.leite.model';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'treatment-cadastrar',
   templateUrl: './treatment-cadastrar.component.html',
-  styleUrls: ['./treatment-cadastrar.component.css']
+  styleUrls: ['./treatment-cadastrar.component.css'],
+
 })
+
 export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
@@ -48,23 +51,53 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   plnCredRural: ProdLeiteModel;
   producaoAgroindustria: any;
 
+
+  modalRef: BsModalRef;
+
   constructor(
     private _treatmentService: TreatmentService,
     private _userCache: UserCacheService,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _messageService: AlertMessagesService
+    private _messageService: AlertMessagesService,
+    private modalService: BsModalService
   ) {
 
     this.data = this._userCache.getUserData();
 
     this.createFormNew();
   }
+  async openModal(template: TemplateRef<any>) {
+
+    const tecnico = this._userCache.getUserData()
+    const agricultor = this.customers[0]
+
+
+    const rater = {
+      situacao: await this.form.controls.situacao.value,
+      orientacao: await this.form.controls.orientacao.value,
+      recomendacao: await this.form.controls.recomendacao.value,
+      extensionista: await tecnico['name'],
+      matricula: tecnico['registry'],
+      agricultor: agricultor['name'],
+      cpfaf: agricultor['cpf'],
+      dap: agricultor['dap'],
+      municipio: tecnico['division_city'],
+      numvisita: await this.form.controls.visita.value,
+      data: this.form.controls.data.value,
+      assunto: await this.form.controls.assunto.value,
+    }
+    
+    
+    this._userCache.createAterpnae(JSON.stringify(rater));
+    this.modalRef = this.modalService.show(template, { class: 'modal-pdf' });
+ }
   ngOnDestroy(): void {
     this._userCache.removeAter();
   }
 
   async ngOnInit() {
+
     //this._userCache.regRoute().subscribe();
 
     const ater = JSON.parse(this._userCache.getAter());
@@ -136,10 +169,12 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     this.userDesigned = undefined;
     this.cleanTaskForm();
   }
+
   cleanTaskForm() {
     this.formAction.controls.description.patchValue('');
     this.formAction.controls.valor.patchValue('0');
   }
+
   onRegisterTreatment() {
     //Remove o storage de ATER
     this._userCache.removeAter();
@@ -203,6 +238,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
             */
     }
   }
+
   viewRater() {
 
     const view = document.getElementById('printable');
@@ -223,28 +259,6 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     win.print();
     win.close();
     //window.print();
-  }
-
-  viewRaterPnae(){
-
-    //Formando os dados
-    const tecnico = this._userCache.getUserData()
-    const rater = {
-      situacao: this.form.controls.situacao.value,
-      orientacao: this.form.controls.orientacao.value,
-      recomendacao: this.form.controls.recomendacao.value,
-      extensionista: tecnico['name'],
-      matricula: tecnico['registry'],
-      //produtor: ,
-      //cpf: ,
-      //assunto: 
-    }
-
-    //console.log(rater);
-    
-    //return
-    this._router.navigate(['../print-rater-pnae'], { relativeTo: this._route });
-
   }
 
   get empresa() {
@@ -380,7 +394,9 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       situacao: new FormControl(''),
       orientacao: new FormControl(''),
       recomendacao: new FormControl(''),
-      rater: new FormControl('')
+      rater: new FormControl(''),
+      visita: new FormControl('1'),
+      assunto: new FormControl('', [Validators.minLength(15), Validators.maxLength(150)]),
     });
 
     this.createFormAction();

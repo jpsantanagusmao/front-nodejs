@@ -1,8 +1,17 @@
+#pagereport{
+
+    display: block;
+    padding-top: 30px;
+    width: 150vh;
+    min-height: 80%;
+}
 #rater > DIV{
     width: 225mm;
     height: auto;
 }
-
+button{
+    align-items: flex-end;
+}
 #rater{
     /*background-image: url("../../../../../../assets/images/RATER_PNAE_NO_MARGIN.jpg");
     height: 240mm;

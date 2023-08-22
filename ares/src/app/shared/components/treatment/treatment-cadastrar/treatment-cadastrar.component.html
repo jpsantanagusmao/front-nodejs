@@ -16,8 +16,8 @@
             <label for="data">Data</label>
             <input type="date" class="form-control" formControlName="data" name="data" id="data" required>
             <error-message
-            *ngIf="form.controls.data.invalid && (form.controls.data.dirty || form.controls.data.touched)"
-            errorMessage="É necessário informar a data do atendimento"></error-message>
+                *ngIf="form.controls.data.invalid && (form.controls.data.dirty || form.controls.data.touched)"
+                errorMessage="É necessário informar a data do atendimento"></error-message>
         </div>
         <div class="coodrs" *ngIf="marker">
             Latitude: {{marker.getPosition().lat()}}
@@ -80,6 +80,18 @@
     <details open>
         <summary>Relatório
         </summary>
+        <div class="form-group col-md-3">
+            <label for="visita">Núm Visita</label>
+            <input type="Number" class="form-control" formControlName="visita" name="visita" id="visita"
+                >
+
+        </div>
+        <div class="form-group col-md-12">
+            <label for="assunto">Assunto abordado</label>
+            <input type="text" class="form-control" formControlName="assunto" name="assunto" id="assunto"
+                >
+
+        </div>
         <div class="form-group col-md-12">
             <label for="objetivo">Situação atual</label>
             <textarea type="text" rows="10" class="form-control" formControlName="situacao" name="situacao"
@@ -97,36 +109,43 @@
         </div>
     </details>
 
-<div class="row">
-    <div class="col">
-        <div class="row">
-            <h2>
-                Levantamento de dados
-            </h2>
-        </div>
-        <div class="row">
-            <div class="col">
-                <img class="btn-image" src="https://blog4.mfrural.com.br/wp-content/uploads/2021/01/post_thumbnail-24cbb213153bac61cddc93f7a3832c3d-1090x660.jpeg" alt="Registrar produção de leite" (click)="onRegistraProdLeite()">
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <h2>
+                    Levantamento de dados
+                </h2>
             </div>
-            <div class="col">
-                <img class="btn-image" src="https://www.cdnconecta.com.br/ftp/tenants/delpaolo/imgs/produtoimagem/2021118202410321538xmgi0.png" alt="Registrar agroindústria" (click)="onRegistraAgroindustria()">
-            </div>
-            <div class="col mr-3">
-                <img class="btn-image" src="https://concursosnobrasil.com/wp-content/uploads/2022/06/credito-rural.jpg" (click)="onRegistraCredRural()">
+            <div class="row">
+                <div class="col">
+                    <img class="btn-image"
+                        src="https://blog4.mfrural.com.br/wp-content/uploads/2021/01/post_thumbnail-24cbb213153bac61cddc93f7a3832c3d-1090x660.jpeg"
+                        alt="Registrar produção de leite" (click)="onRegistraProdLeite()">
+                </div>
+                <div class="col">
+                    <img class="btn-image"
+                        src="https://www.cdnconecta.com.br/ftp/tenants/delpaolo/imgs/produtoimagem/2021118202410321538xmgi0.png"
+                        alt="Registrar agroindústria" (click)="onRegistraAgroindustria()">
+                </div>
+                <div class="col mr-3">
+                    <img class="btn-image"
+                        src="https://concursosnobrasil.com/wp-content/uploads/2022/06/credito-rural.jpg"
+                        (click)="onRegistraCredRural()">
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <div class="row mt-3">
         <div class="col-2">
-            <button class="btn btn-primary ml-5" [disabled]="!formOk()" (click)="viewRater()">Imprimir</button>
-            <button class="btn btn-primary ml-5"  (click)="viewRaterPnae()">Imprimir PNAE</button>
+            <!-- <button class="btn btn-primary ml-5" [disabled]="!formOk()" (click)="viewRater()">Imprimir</button> -->
+            <button class="btn btn-primary mt-5 ml-5" (click)="openModal(template)">Rater Pnae</button>
         </div>
         <div class="col mb-3 mt-3">
             <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg, application/pdf"
                 formControlName="rater" name="rater" (change)="postRater($event)">
         </div>
+
     </div>
     <div class="row">
         <div class="col d-flex justify-content-end">
@@ -318,3 +337,13 @@
 
     </div>
 </div>
+
+
+
+
+<!-- Modal -->
+<ng-template #template style="min-width: 50vh; height: auto;">
+
+    <app-pnae2023-rater></app-pnae2023-rater>
+
+</ng-template>

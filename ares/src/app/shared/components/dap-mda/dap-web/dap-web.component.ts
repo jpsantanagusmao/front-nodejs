@@ -69,7 +69,7 @@ export class DapWebComponent implements OnInit {
 
     this.dap$ = this._dapService.findByCpf(cpf).pipe(
       tap((d) => {
-        console.log(d);
+
         obj.loadingToggle()
       })
     );

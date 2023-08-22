@@ -15,6 +15,7 @@ export class UserCacheService implements OnInit {
 
   public static readonly TOKEN_STORAGE_VAR: string = 'token';
   public static readonly ATER_STORAGE_VAR: string = 'ater';
+  public static readonly ATER_STORAGE_VAR_PNAE: string = 'aterpnae';
 
   private static readonly PRIVATE_LINK = '/users/private/';
   private static readonly PRIVATE_TASKS_API = 'users';
@@ -199,12 +200,21 @@ export class UserCacheService implements OnInit {
   public createAter(ater) {
     localStorage.setItem(UserCacheService.ATER_STORAGE_VAR, ater);
   }
+  public createAterpnae(ater) {
+    localStorage.setItem(UserCacheService.ATER_STORAGE_VAR_PNAE, ater);
+  }
 
   public removeAter() {
     localStorage.removeItem(UserCacheService.ATER_STORAGE_VAR);
   }
+  public removeAterpnae() {
+    localStorage.removeItem(UserCacheService.ATER_STORAGE_VAR_PNAE);
+  }
   public getAter() {
     return localStorage.getItem(UserCacheService.ATER_STORAGE_VAR);
+  }
+  public getAterpnae() {
+    return localStorage.getItem(UserCacheService.ATER_STORAGE_VAR_PNAE);
   }
 
 }
