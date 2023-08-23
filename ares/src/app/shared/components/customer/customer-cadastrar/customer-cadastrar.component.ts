@@ -171,9 +171,9 @@ export class CustomerCadastrarComponent implements OnInit {
     customer.schooling = this.schoolingSelected.schooling;
 
 
-    this.customerselected.schooling =  customer.schooling;
-    this.customerselected.city =  customer.city;
-    this.customerselected.uf =  customer.uf;
+    this.customerselected.schooling = customer.schooling;
+    this.customerselected.city = customer.city;
+    this.customerselected.uf = customer.uf;
 
     this.onSelected.emit(this.customerselected);
   }
@@ -272,17 +272,25 @@ export class CustomerCadastrarComponent implements OnInit {
 
         const validade = moment(data['validade']).format('DD/MM/YYYY');
         this._messageService.handleInfo('Declaração de aptidão', `A DAP ${data['numDap']} vence em ${validade}.`);
+        console.log('customerWeb')
+
+        let bnf: any[] = [];
+
+        bnf.push(customerWeb.titular);
+        bnf.push(customerWeb.titular2);
+
+        const beneficiario = bnf.filter(b => b.cpf == this.form.controls.cpf.value)[0];
 
         const customer = {
-          name: customerWeb.titular.nome,
-          nickname: `Filho de ${customerWeb.titular.mae}`,
-          cpf: customerWeb.titular.cpf,
-          birth_date: moment(customerWeb.titular.nascimento).format('YYYY-MM-DD'),
-          address: customerWeb.titular.endereco,
+          name: beneficiario['nome'],
+          nickname: `Filho de ${beneficiario['mae']}`,
+          cpf: this.form.controls.cpf.value,
+          birth_date: moment(beneficiario['nascimento']).format('YYYY-MM-DD'),
+          address: beneficiario['endereco'],
           num: '',
           district: '',
           complement: '',
-          cep: customerWeb.titular.cep,
+          cep: bnf['cep'],
           phone: '',
           city: '',
           schooling: '',
@@ -291,6 +299,7 @@ export class CustomerCadastrarComponent implements OnInit {
         }
 
         obj.customerselected = customer;
+
         obj.setForm(customer);
         obj.loadingToggle();
 

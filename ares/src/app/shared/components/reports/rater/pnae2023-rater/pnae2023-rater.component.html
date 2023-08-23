@@ -30,18 +30,18 @@
             </div>
             <div class="body-rater">
                 <p>
-                    {{situacao}}
+                    <strong>Situação atual: </strong>{{situacao}}
                 </p>
                 <p>
-                    {{orientacao}}
+                    <strong>Orientações: </strong>{{orientacao}}
                 </p>
                 <p>
-                    {{recomendacao}}
+                    <strong>Recomendações: </strong>{{recomendacao}}
                 </p>
     
             </div>
             <div class="data">
-                {{data}}
+                {{data | date: 'dd/MM/yyyy'}}
             </div>
         </div>
     

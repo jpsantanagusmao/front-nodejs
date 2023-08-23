@@ -72,7 +72,6 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     const tecnico = this._userCache.getUserData()
     const agricultor = this.customers[0]
 
-
     const rater = {
       situacao: await this.form.controls.situacao.value,
       orientacao: await this.form.controls.orientacao.value,
@@ -87,11 +86,11 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       data: this.form.controls.data.value,
       assunto: await this.form.controls.assunto.value,
     }
-    
-    
+
+
     this._userCache.createAterpnae(JSON.stringify(rater));
     this.modalRef = this.modalService.show(template, { class: 'modal-pdf' });
- }
+  }
   ngOnDestroy(): void {
     this._userCache.removeAter();
   }
@@ -200,7 +199,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     if (this.producaoLeite) {
       treatment.prodLeite = this.producaoLeite;
     }
-    
+
     /**
      * Verifica se houver registro de proposta de crédito rural e insere no corpo do objeto treatment
      */
@@ -215,14 +214,14 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     if (this.producaoAgroindustria) {
       treatment.producaoAgroindustria = this.producaoAgroindustria;
     }
-    
+
     //console.log(treatment);
 
     this.onStore.emit(treatment);
 
   }
 
-  
+
 
   postRater(event) {
     const fileup = event.target.files;
@@ -293,6 +292,26 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
     }
     return false;
   }
+
+  formpnaeOk() {
+    const numvisita = this.form.controls.visita.value;
+    const assunto = this.form.controls.assunto.value;
+    let hasDap = undefined
+    try{
+      hasDap = this.customers[0]['dap'];
+    }catch(e){}
+
+    if (
+      (numvisita >= 1)
+      && (assunto.length >= 15)
+      && (this.formOk() === true)
+      && (hasDap)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   onDeleteTask(task) {
     this.tasks.splice(this.tasks.indexOf(task), 1);
   }
