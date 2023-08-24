@@ -82,14 +82,12 @@
         </summary>
         <div class="form-group col-md-3">
             <label for="visita">Núm Visita</label>
-            <input type="Number" class="form-control" formControlName="visita" name="visita" id="visita"
-                >
+            <input type="Number" class="form-control" formControlName="visita" name="visita" id="visita">
 
         </div>
         <div class="form-group col-md-12">
             <label for="assunto">Assunto abordado</label>
-            <input type="text" class="form-control" formControlName="assunto" name="assunto" id="assunto"
-                >
+            <input type="text" class="form-control" formControlName="assunto" name="assunto" id="assunto">
 
         </div>
         <div class="form-group col-md-12">
@@ -137,11 +135,6 @@
     </div>
 
     <div class="row mt-3">
-        <div class="col-2">
-            <!-- <button class="btn btn-primary ml-5" [disabled]="!formOk()" (click)="viewRater()">Imprimir</button> -->
-            <button class="btn btn-success mt-5 ml-5" [disabled]="!formpnaeOk()" (click)="openModal(template)">
-                <i class="bi bi-printer"></i>Rater Pnae</button>
-        </div>
         <div class="col mb-3 mt-3">
             <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg, application/pdf"
                 formControlName="rater" name="rater" (change)="postRater($event)">
@@ -149,9 +142,20 @@
 
     </div>
     <div class="row">
+        <div class="col-2">
+            <!-- <button class="btn btn-primary ml-5" [disabled]="!formOk()" (click)="viewRater()">Imprimir</button> -->
+            <button class="btn btn-success mt-5 ml-5" [disabled]="!formpnaeOk()" (click)="openModal(template)">
+                <i class="bi bi-printer"></i> Rater Pnae</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-success mt-5 ml-5" [disabled]="!formOk()" (click)="openModal(templateconv)">
+                <i class="bi bi-printer"></i> Rater Convencional</button>
+        </div>
         <div class="col d-flex justify-content-end">
+
             <button class="btn btn-primary" [disabled]="!formOk()" (click)="onRegisterTreatment()">Registrar
                 atendimento</button>
+
         </div>
     </div>
 </form>
@@ -346,5 +350,10 @@
 <ng-template #template style="min-width: 50vh; height: auto;">
 
     <app-pnae2023-rater></app-pnae2023-rater>
+
+</ng-template>
+<ng-template #templateconv style="min-width: 50vh; height: auto;">
+
+    <app-rater-conv></app-rater-conv>
 
 </ng-template>

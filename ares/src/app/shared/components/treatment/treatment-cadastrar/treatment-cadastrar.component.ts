@@ -45,12 +45,12 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
 
   //Usuário designado para determinada tarefe
   userDesigned: any = undefined;
+  user_rater: any = undefined; //Usuário prestador do serviço/orientação
 
   data: any;
   producaoLeite: ProdLeiteModel;
   plnCredRural: ProdLeiteModel;
   producaoAgroindustria: any;
-
 
   modalRef: BsModalRef;
 
@@ -69,7 +69,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
   }
   async openModal(template: TemplateRef<any>) {
 
-    const tecnico = this._userCache.getUserData()
+    const tecnico = this.user_rater;
     const agricultor = this.customers[0]
 
     const rater = {
@@ -81,10 +81,12 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       agricultor: agricultor['name'],
       cpfaf: agricultor['cpf'],
       dap: agricultor['dap'],
-      municipio: tecnico['division_city'],
+      municipio: tecnico['city'],
       numvisita: await this.form.controls.visita.value,
       data: this.form.controls.data.value,
       assunto: await this.form.controls.assunto.value,
+      local: await this.form.controls.local.value
+
     }
 
 
@@ -112,6 +114,9 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
 
   onSelectUserDesigned(value) {
     if (value) {
+      console.log('treatment-cadastrar.component - onSelectUserDesigned - value')
+      console.log(value)
+      this.user_rater = value;
       this.userDesigned = value.id;
     }
   }

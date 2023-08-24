@@ -66,6 +66,7 @@ export class UserSelectComponent implements OnInit {
   }
   onSelect(event): void {
     this.selected = event.item;
+    console.log(this.selected);
     this.onSelected.emit(event.item);
   }
 

@@ -1,0 +1,77 @@
+#pagereport{
+
+    display: block;
+    padding-top: 30px;
+    width: 150vh;
+    min-height: 80%;
+} 
+#rater > DIV{
+    width: 225mm;
+    height: auto;
+}
+button{
+    align-items: flex-end;
+}
+#rater{
+    /*background-image: url("../../../../../../assets/images/RATER_PNAE_NO_MARGIN.jpg");
+    height: 240mm;
+    background-repeat: no-repeat;
+    background-size: cover;
+    */
+    position: relative;
+}
+ 
+img {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    height: 215mm;
+}
+  
+#texto {
+    width: 210mm;
+    position: absolute;
+    font-size: 11px;
+
+}
+#texto > DIV{
+    position: absolute;
+}
+.nome{
+    padding-top: 14.5mm;
+    padding-left: 24mm;
+}
+.cpf{
+    padding-top: 14.5mm;
+    padding-left: 130mm;
+}
+.municipio{
+    padding-top: 20mm;
+    padding-left: 24mm;
+}
+.local{
+    padding-top: 20mm;
+    padding-left: 105mm;
+}
+
+.extensionista{
+    padding-top: 29.5mm;
+    padding-left: 48mm;
+}
+
+.body-rater{
+    width: 100%;
+    padding-top: 48.3mm;
+    padding-left: 5mm;
+    padding-right: 72.3mm;
+    text-align: justify;
+}
+
+.data{
+    padding-top: 202.6mm;
+    padding-left: 7.5mm;
+}
+
+p{
+    line-height: 1;
+}

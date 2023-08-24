@@ -1,0 +1,41 @@
+<button type="button" class="btn btn-primary" (click)="_print()">Imprimir</button>
+<div id="pagereport">
+
+    <div id="rater" #rater>
+        <img src="../../../../../../assets/images/RATER_CONV.jpg" alt="">
+        <div id="texto">
+            <div class="nome">
+                {{agricultor}}
+            </div>
+            <div class="cpf">
+                {{cpfaf}}
+            </div>
+
+            <div class="municipio">
+                {{municipio}}
+            </div>
+            <div class="local">
+                {{local}}
+            </div>
+            <div class="extensionista">
+                {{extensionista}} / {{matricula}}
+            </div>
+            <div class="body-rater">
+                <p>
+                    <strong>Situação atual: </strong>{{situacao}}
+                </p>
+                <p>
+                    <strong>Orientações: </strong>{{orientacao}}
+                </p>
+                <p>
+                    <strong>Recomendações: </strong>{{recomendacao}}
+                </p>
+    
+            </div>
+            <div class="data">
+                {{data | date: 'dd/MM/yyyy'}}
+            </div>
+        </div>
+    
+    </div>
+</div>
