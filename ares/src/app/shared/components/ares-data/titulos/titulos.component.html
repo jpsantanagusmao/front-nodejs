@@ -12,7 +12,7 @@
                         </span>
                     </span>
                 </div>
-                <input type="text" class="form-control" formControlName="search" name="search" id="search" required>
+                <input type="text" (keyup.enter)="onSearch()" class="form-control" formControlName="search" name="search" id="search" required>
             </div>
             <error-message
                 *ngIf="form.controls.search.invalid && (form.controls.search.dirty || form.controls.search.touched)"

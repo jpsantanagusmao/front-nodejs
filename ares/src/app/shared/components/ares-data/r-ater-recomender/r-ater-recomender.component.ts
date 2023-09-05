@@ -36,6 +36,8 @@ export class RAterRecomenderComponent implements OnInit {
     });
   }
 
+
+
   async onSearch() {
     const words = this.form.controls.search.value;
 

@@ -49,6 +49,7 @@ export class FindCarComponent implements OnInit {
     this.cars$ = this._carservice.findCar(data).pipe();
 
   }
+  
   async loadingToggle() {
     this._loading = !(Boolean(this._loading));
   }

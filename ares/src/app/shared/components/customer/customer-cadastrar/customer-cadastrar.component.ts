@@ -32,7 +32,7 @@ export class CustomerCadastrarComponent implements OnInit {
   citySelected: any = {};
   cityName: string;
   schoolingSelected: any = {};
-  customerselected: any;
+  customerselected: any = {};
 
   ngOnInit(): void {
     this.createFormNew();
@@ -168,12 +168,26 @@ export class CustomerCadastrarComponent implements OnInit {
     /**
      * Define a escolaridade
      */
-    customer.schooling = this.schoolingSelected.schooling;
+    customer.schooling = this.schoolingSelected.schooling?this.schoolingSelected.schooling:'';
+    customer.schooling = this.schoolingSelected.schooling?this.schoolingSelected.schooling:'';
 
 
-    this.customerselected.schooling = customer.schooling;
-    this.customerselected.city = customer.city;
-    this.customerselected.uf = customer.uf;
+    this.customerselected.schooling = this.schoolingSelected.schooling ?? '';
+    this.customerselected.city = customer.city ?? '';
+    this.customerselected.uf = customer.uf ?? '';
+
+    this.customerselected.name = customer.name;
+    this.customerselected.cpf = customer.cpf;
+    this.customerselected.nickname = customer.nickname;
+    this.customerselected.birth_date = customer.birth_date;
+    this.customerselected.address = customer.address;
+    this.customerselected.num = customer.num;
+    this.customerselected.district = customer.district;
+    this.customerselected.complement = customer.complement;
+    this.customerselected.cep = customer.cep;
+    this.customerselected.phone = customer.phone;
+
+
 
     this.onSelected.emit(this.customerselected);
   }
@@ -272,7 +286,6 @@ export class CustomerCadastrarComponent implements OnInit {
 
         const validade = moment(data['validade']).format('DD/MM/YYYY');
         this._messageService.handleInfo('Declaração de aptidão', `A DAP ${data['numDap']} vence em ${validade}.`);
-        console.log('customerWeb')
 
         let bnf: any[] = [];
 
