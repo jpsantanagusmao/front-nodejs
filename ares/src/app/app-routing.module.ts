@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'ater',
     loadChildren: () => import('./modules/acomp/acomp.module').then(m => m.AcompModule)
+  },
+  {
+    path: 'simulacao',
+    loadChildren: () => import('./modules/simulacao-salario/simulacao-salario.module').then(m => m.SimulacaoSalarioModule)
   }
 
 ];

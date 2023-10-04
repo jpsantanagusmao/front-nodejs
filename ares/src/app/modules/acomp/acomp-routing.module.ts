@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TelaAcompComponent } from './components/tela-acomp/tela-acomp.component';
 import { PropriedadeRuralComponent } from './components/propriedade-rural/propriedade-rural.component';
 import { ContatoFuncionarioComponent } from './components/contato-funcionario/contato-funcionario.component';
-
+ 
 const routes: Routes = [
   {
     path:'acompanhamentos',
