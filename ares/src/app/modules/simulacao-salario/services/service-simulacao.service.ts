@@ -17,15 +17,15 @@ export class ServiceSimulacaoService {
   ) { 
 
   }
+  //:3355/api/v1/ares-data/simula
   simularsalario(body): Observable<any> {
-    //return this.http.post(`${env.BASE_API_URL}${this.PATH}`, body).pipe(
-    return this.http.post(`localhost:5000/${this.PATH}`, body).pipe(
+
+    return this.http.post(`${env.BASE_API_URL}ares-data/${this.PATH}`, {body: body}).pipe(
       tap(console.log)
       );
     }
     niveis(): Observable<any> {
-      //return this.http.get(`${env.BASE_API_URL}${this.PATH_NIVEIS}`).pipe(
-      return this.http.get(`localhost:5000/${this.PATH_NIVEIS}`).pipe(
+      return this.http.get(`${env.BASE_API_URL}ares-data/${this.PATH_NIVEIS}`).pipe(
       tap(console.log)
     );
   }

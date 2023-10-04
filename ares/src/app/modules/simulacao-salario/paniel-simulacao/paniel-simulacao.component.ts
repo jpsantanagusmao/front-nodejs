@@ -49,7 +49,7 @@ export class PanielSimulacaoComponent implements OnInit {
   ngOnInit(): void {
     this.niveis$ = this.service.niveis().pipe(
       tap((d) => {
-
+       
         //obj.loadingToggle()
 
       })
@@ -58,14 +58,15 @@ export class PanielSimulacaoComponent implements OnInit {
 
 
 showData(){
-  return false;
+  return true;
 }
 
 simular(){
   //this.service.simularsalario(this.form.value)
+  console.log('simulando')
   this.pagamentos$ = this.service.simularsalario(this.form.value).pipe(
     tap((d) => {
-
+      console.log(d)
       //obj.loadingToggle()
 
     })
