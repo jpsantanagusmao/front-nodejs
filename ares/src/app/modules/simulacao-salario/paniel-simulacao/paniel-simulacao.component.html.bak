@@ -66,12 +66,13 @@
 
     <button type="button" class="btn btn-primary" (click)="simular()">Simular</button>
 </form>
-<ng-template #notActions>
     <h3>
         <p>Não são contabilizados descontos ou correções monetárias.</p>
         <p>Nesta simulação consideramos a tabela disponível em: <a href="'https://www.sinter-mg.org.br/wp-content/uploads/2023/01/Tabela-salarial-de-janeiro-de-2022.pdf">TABELA SALARIAL / 01/2022</a></p>
 		<p>As simulações são possíveis para contratos anteriores a 2014.</p>
-    </h3>  
+    </h3>
+<ng-template #notActions>
+  
 </ng-template>
 <div *ngIf="showData(); else notActions">
     <h1>
