@@ -35,7 +35,8 @@ export class PanielSimulacaoComponent implements OnInit {
     private _route: ActivatedRoute,
     private _customerService: CustomerService,
     private _messageService: AlertMessagesService,
-    private service: ServiceSimulacaoService
+    private service: ServiceSimulacaoService,
+    private _userCache: UserCacheService
   ) {
     this.form = new FormGroup({
       nivel: new FormControl(''),
@@ -48,7 +49,7 @@ export class PanielSimulacaoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this._userCache.regRoute().subscribe();
     this.niveis$ = this.service.niveis().pipe(
 
       tap((d) => {

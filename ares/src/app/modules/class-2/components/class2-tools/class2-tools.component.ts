@@ -11,7 +11,7 @@ export class Class2ToolsComponent implements OnInit {
   constructor(
     private _userCache: UserCacheService
   ) { }
-
+ 
   ngOnInit(): void {
     this._userCache.regRoute().subscribe();
   }
