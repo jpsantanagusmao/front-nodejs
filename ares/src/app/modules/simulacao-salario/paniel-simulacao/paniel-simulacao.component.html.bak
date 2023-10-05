@@ -28,7 +28,8 @@
                 <input type="date" class="form-control" id="datagraduacao" aria-describedby="datagraduacao"
                     placeholder="Enter email" formControlName="datagraduacao">
                 <small id="datagraduacao" class="form-text text-muted">Informe a data de concessão do adicional de
-                    Graduação (10%).</small>
+                    Graduação
+                    (10%).</small>
             </div>
         </div>
         <div class="col">
@@ -37,7 +38,7 @@
                 <input type="date" class="form-control" id="datapos1" aria-describedby="datapos1"
                     placeholder="Enter email" formControlName="datapos1">
                 <small id="datapos1" class="form-text text-muted">Informe a data de concessão do adicional de pós
-                    Graduação (10%).</small>
+                    Graduação(10%).</small>
             </div>
         </div>
     </div>
@@ -48,16 +49,16 @@
                 <input type="date" class="form-control" id="datapos2" aria-describedby="datapos2"
                     placeholder="Enter email" formControlName="datapos2">
                 <small id="datapos2" class="form-text text-muted">Informe a data de concessão do adicional de pós
-                    Graduação (10%).</small>
+                    Graduação(10%).</small>
             </div>
         </div>
         <div class="col">
             <div class="form-group">
-                <label for="exampleInputEmail1">Adicional Mestrado</label>
+                <label for="exampleInputEmail1">Adicional 2º Pós Graduação</label>
                 <input type="date" class="form-control" id="datamestrado" aria-describedby="datamestrado"
                     placeholder="Enter email" formControlName="datamestrado">
                 <small id="datamestrado" class="form-text text-muted">Informe a data de concessão do adicional de
-                    mestrado (17%).</small>
+                    mestrado(17%).</small>
             </div>
         </div>
     </div>
@@ -72,7 +73,7 @@
     <h3>
         <p>Não são contabilizados descontos ou correções monetárias.</p>
         <p>Nesta simulação consideramos a tabela disponível em: <a href="'https://www.sinter-mg.org.br/wp-content/uploads/2023/01/Tabela-salarial-de-janeiro-de-2022.pdf">TABELA SALARIAL / 01/2022</a></p>
-    </h3>
+    </h3>   
 </div>
 <table class="table table-hover" *ngIf="pagamentos$ | async as pags">
     <thead>
@@ -82,10 +83,10 @@
             <th scope="col">Salário conf. projeção</th>
             <th scope="col">Dif. anuênio</th>
             <th scope="col">Dif. Graduação</th>
-            <th scope="col">Dif. Pos Graduação</th>
-            <th scope="col">Dif. 2ª Pos Graduação</th>
-            <th scope="col">Dif. Mestrado</th>
-            <th scope="col">Diferença total (R$)</th>
+            <th scope="col">Dif. pos 01</th>
+            <th scope="col">Dif. pos 2</th>
+            <th scope="col">Dif. mestrado</th>
+            <th scope="col">Diferença total</th>
         </tr>
     </thead>
     <tbody>
@@ -105,6 +106,6 @@
 
 <ng-template #notActions>
     <article class="danger-text card">
-        Não houve resultados para simulações!
+        Não há resultados para simulações!
     </article>
 </ng-template>
