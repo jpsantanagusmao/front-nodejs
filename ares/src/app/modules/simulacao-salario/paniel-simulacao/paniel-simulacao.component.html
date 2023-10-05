@@ -1,82 +1,107 @@
-<p>paniel-simulacao works!</p>
-
+<h1>
+    Simulação de ajuste de salário
+</h1>
 <form [formGroup]="form">
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">Nível do cargo</label>
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="form-group">
+                <label for="nivel">Nível do cargo</label>
+                <select class="custom-select" id="nivel" formControlName="nivel">
+                    <option *ngFor="let n of niveis$ | async" value="{{n}}">{{n}}</option>
+                </select>
+            </div>
         </div>
-        <select class="custom-select" id="inputGroupSelect01" formControlName="nivel">
-            <option *ngFor="let n of niveis$ | async" value="{{n}}">{{n}}</option>
-        </select>
+        <div class="col col-md-6">
+            <div class="form-group">
+                <label for="datacontrato">Data Contrato com a EMATER/MG</label>
+                <input type="date" class="form-control" id="datacontrato" aria-describedby="datacontrato"
+                    placeholder="Enter email" formControlName="datacontrato">
+                <small id="datacontrato" class="form-text text-muted">Informe a data em que você foi contratado.</small>
+            </div>
+
+        </div>
     </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Data Contrato com a EMATER/MG</label>
-        <input type="date" class="form-control" id="datacontrato" aria-describedby="datacontrato"
-            placeholder="Enter email" formControlName="datacontrato">
-        <small id="datacontrato" class="form-text text-muted">Informe a data em que você foi contratado.</small>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Adicional Graduação</label>
+                <input type="date" class="form-control" id="datagraduacao" aria-describedby="datagraduacao"
+                    placeholder="Enter email" formControlName="datagraduacao">
+                <small id="datagraduacao" class="form-text text-muted">Informe a data de concessão do adicional de
+                    Graduação
+                    (10%).</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Adicional Pós Graduação</label>
+                <input type="date" class="form-control" id="datapos1" aria-describedby="datapos1"
+                    placeholder="Enter email" formControlName="datapos1">
+                <small id="datapos1" class="form-text text-muted">Informe a data de concessão do adicional de pós
+                    Graduação(10%).</small>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Adicional Graduação</label>
-        <input type="date" class="form-control" id="datagraduacao" aria-describedby="datagraduacao"
-            placeholder="Enter email" formControlName="datagraduacao">
-        <small id="datagraduacao" class="form-text text-muted">Informe a data, caso tenha o adicional de Graduação
-            (10%).</small>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Adicional Pós Graduação</label>
-        <input type="date" class="form-control" id="datapos1" aria-describedby="datapos1" placeholder="Enter email"
-            formControlName="datapos1">
-        <small id="datapos1" class="form-text text-muted">Informe a data, caso tenha o adicional de pós
-            Graduação(10%).</small>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Adicional 2º Pós Graduação</label>
-        <input type="date" class="form-control" id="datapos2" aria-describedby="datapos2" placeholder="Enter email"
-            formControlName="datapos2">
-        <small id="datapos2" class="form-text text-muted">Informe a data, caso tenha um segundo adicional de pós
-            Graduação(10%).</small>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Adicional 2º Pós Graduação</label>
-        <input type="date" class="form-control" id="datamestrado" aria-describedby="datamestrado"
-            placeholder="Enter email" formControlName="datamestrado">
-        <small id="datamestrado" class="form-text text-muted">Informe a data, caso tenha um adicional de
-            mestrado(17%).</small>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Adicional 2º Pós Graduação</label>
+                <input type="date" class="form-control" id="datapos2" aria-describedby="datapos2"
+                    placeholder="Enter email" formControlName="datapos2">
+                <small id="datapos2" class="form-text text-muted">Informe a data de concessão do adicional de pós
+                    Graduação(10%).</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Adicional 2º Pós Graduação</label>
+                <input type="date" class="form-control" id="datamestrado" aria-describedby="datamestrado"
+                    placeholder="Enter email" formControlName="datamestrado">
+                <small id="datamestrado" class="form-text text-muted">Informe a data de concessão do adicional de
+                    mestrado(17%).</small>
+            </div>
+        </div>
     </div>
 
     <button type="button" class="btn btn-primary" (click)="simular()">Simular</button>
 </form>
 
 <div *ngIf="showData(); else notActions">
+    <h1>
+        Valor a restituir: R{{total$ | currency : 'BRL'}}
+    </h1>
+    <h3>
+        Não são contabilizado descontos.
+    </h3>
 </div>
-    <table class="table table-hover" *ngIf="pagamentos$ | async as pags">
-        <thead>
-            <tr>
-                <th scope="col">MES_REFERENCIA</th>
-                <th scope="col">SALARIO_ATUAL</th>
-                <th scope="col">SALARIO_TABELA</th>
-                <th scope="col">DIFF_ANUENIO</th>
-                <th scope="col">DIFF_GRADUACAO</th>
-                <th scope="col">DIFF_POS_GRADUACAO_1</th>
-                <th scope="col">DIFF_POS_GRADUACAO_2</th>
-                <th scope="col">DIFF_MESTRADO</th>
-                <th scope="col">DIFERECA</th>
-            </tr>
-        </thead>
-        <tbody >
-            <tr *ngFor="let pg of pags">
-                <th scope="row">{{pg.MES_REFERENCIA}}</th>
-                <td>{{pg.SALARIO_ATUAL}}</td>
-                <td>{{pg.SALARIO_TABELA}}</td>
-                <td>{{pg.DIFF_ANUENIO}}</td>
-                <td>{{pg.DIFF_GRADUACAO}}</td>
-                <td>{{pg.DIFF_POS_GRADUACAO_1}}</td>
-                <td>{{pg.DIFF_POS_GRADUACAO_2}}</td>
-                <td>{{pg.DIFF_MESTRADO}}</td>
-                <td>{{pg.DIFERECA}}</td>
-            </tr>
-        </tbody>
-    </table>
+<table class="table table-hover" *ngIf="pagamentos$ | async as pags">
+    <thead>
+        <tr>
+            <th scope="col">Mês de referência</th>
+            <th scope="col">Salário base atual</th>
+            <th scope="col">Salário conf. projeção</th>
+            <th scope="col">Dif. anuênio</th>
+            <th scope="col">Dif. Graduação</th>
+            <th scope="col">Dif. pos 01</th>
+            <th scope="col">Dif. pos 2</th>
+            <th scope="col">Dif. mestrado</th>
+            <th scope="col">Diferença total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pg of pags">
+            <th scope="row">{{pg.MES_REFERENCIA}}</th>
+            <td>{{pg.SALARIO_ATUAL}}</td>
+            <td>{{pg.SALARIO_TABELA}}</td>
+            <td>{{pg.DIFF_ANUENIO}}</td>
+            <td>{{pg.DIFF_GRADUACAO}}</td>
+            <td>{{pg.DIFF_POS_GRADUACAO_1}}</td>
+            <td>{{pg.DIFF_POS_GRADUACAO_2}}</td>
+            <td>{{pg.DIFF_MESTRADO}}</td>
+            <td>{{pg.DIFERECA}}</td>
+        </tr>
+    </tbody>
+</table>
 
 <ng-template #notActions>
     <article class="danger-text card">
