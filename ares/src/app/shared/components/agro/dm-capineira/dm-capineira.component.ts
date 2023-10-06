@@ -86,7 +86,7 @@ export class DmCapineiraComponent implements OnInit {
     //Cálculo
 
     //const arearequerida = Math.round(producao['prd_anual'] * epoca_trato['indice'])
-    let arearequerida = producao['f_ua'] * epoca_trato['indice']
+    let arearequerida = (producao['f_ua'] * epoca_trato['indice'] * lotacao) / 10
 
     this.createTreatment({
       area: arearequerida,
@@ -134,7 +134,7 @@ export class DmCapineiraComponent implements OnInit {
      * Orienta adubação
      */
 
-    orientacao +=  ` A área deve ser preparada no inal do período seco (novembro a dezembro), por meio da limpeza da vegetação, aração e gradagem ou simplesmente gradagem (grade aradora e niveladora) do solo. Caso a vegetação original necessite ser derrubada, a operação seguinte deve ser a destoca, antes do preparo do solo.`
+    orientacao +=  ` A área deve ser preparada no final do período seco (novembro a dezembro), por meio da limpeza da vegetação, aração e gradagem ou simplesmente gradagem (grade aradora e niveladora) do solo. Caso a vegetação original necessite ser derrubada, a operação seguinte deve ser a destoca, antes do preparo do solo.`
     orientacao +=  ` O plantio deve ser feito logo após as primeiras chuvas. O material de propagação é o colmo (não se usa sementes). Para assegurar maior índice de pega, os colmos do capim devem ser retirados de plantas matrizes com rebrote de 90 a 120 dias.`
     orientacao +=  ` O espaçamento pode ser em distribuição uniforme, de 1,00 ou 1,20 x 0,50 m.`
     orientacao +=  ` Aplicar ${(dados.area * 350).toFixed(0)} kg de Sulfato de amônio, ${(dados.area * 277).toFixed(0)} kg de Superfosfato simples e ${(dados.area * 86).toFixed(0)} kg de cloreto de potássio. Por ocasião do plantio, deve ser aplicado todo o supersimples e metade do sulfato de amônio e do cloreto de potássio. Após o primeiro corte, aplica-se a outra metade, a lanço, sobre as touceiras.`
