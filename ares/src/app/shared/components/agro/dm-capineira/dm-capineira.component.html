@@ -1,15 +1,25 @@
 <!-- <p class="mt-2 form-tittle">Dimensionamento de Capineiras</p> -->
 <div class="h5 text-center mt-3">
-    Informações da Capineira
+    Informações para o dimensionamento da Capineira
 </div>
 <h3>
-    <p>*Metodologia aplicada de acordo com o <a href="https://ainfo.cnptia.embrapa.br/digital/bitstream/CPPSE/16797/1/Comunicado-Tecnico-65.pdf">CT 65 - Embrapa: Dimensionamento de piquetes para bovinos leiteiros,em sistemas de pastejo rotacionado</a>.</p>
+    <p>* Metodologia aplicada de acordo com a publicação da Embrapa: <a href="https://ainfo.cnptia.embrapa.br/digital/bitstream/CPPSE/16797/1/Comunicado-Tecnico-65.pdf">Formação e Utilização de Capineira</a>.</p>
 </h3>
+<p>
+    - A área da capineira atenderá 25% do consumo diário das vacas (a pastagem fornecerá os 75% restantes).
+</p>
+<p>
+    - Forragem verde com 25% de matéria seca.
+</p>
+<p>
+    - Vaca com 450 kg de peso vivo.
+</p>
+
 <form [formGroup]="form" class="m-3">
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="cultura">Cultura/Pastagem</label>
-            <select id="cultura" class="form-control" formControlName="pasto">
+            <label for="cultura">Cultura forrageira</label>
+            <select id="cultura" class="form-control" formControlName="cultura">
                 <option *ngFor='let cult of culturas' [ngValue]="cult">{{cult.cultura}}</option>
             </select>
         </div>
@@ -17,17 +27,11 @@
     <div class="form-row mb-3">
         <div class="form-group col-md-12 mt-3">
             <div class="row align-items-start">
-                <div class="col">
-                    <label for="aguas">Periodo das águas(dias)</label>
-                </div>
-                <div class="col col-md-2">
-                    <input class="form-control" type="number" formControlName="aguas" id="aguas">
-                </div>
-                <div class="col col">
-                    <label for="ocupacao">Periodo de ocupação do pasto(dias)</label>
-                </div>
-                <div class="col col-md-2">
-                    <input type="number" class="form-control" formControlName="ocupacao" id="ocupacao">
+                <div class="form-group col-md-6">
+                    <label for="cultura">Época de trato dos animais</label>
+                    <select id="cultura" class="form-control" formControlName="eptrato">
+                        <option *ngFor='let ep of epocaTrato' [ngValue]="ep">{{ep.descricao}}</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -43,4 +47,4 @@
     <div class="col col-2">
         <button class="btn btn-ok" [disabled]="!dadosok()" id="calcular" (click)='calcular($event)' >Calcular</button>
     </div>
-</div>nto de capineira</p>
+</div>

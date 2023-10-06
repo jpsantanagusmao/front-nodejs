@@ -11,6 +11,7 @@ import { Class2DapQueryComponent } from './components/ater-dap-query/ater-dap-qu
 import { Class2PerdaDeCargaCalcComponent } from './components/calc-irrigacaocalc-irrigacao/calc-irrigacaocalc-irrigacao.component';
 import { Class2DimPastagemComponent } from './components/dim-pastagem/dim-pastagem.component';
 import { Class2ProdHortalicasComponent } from './components/class2-prod-hortalicas/class2-prod-hortalicas.component';
+import { DmCapineiraComponent } from './components/dm-capineira/dm-capineira.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { Class2ProdHortalicasComponent } from './components/class2-prod-hortalic
     Class2PerdaDeCargaCalcComponent,
     Class2CadastrarTreatmentComponent,
     Class2DimPastagemComponent,
-    Class2ProdHortalicasComponent
+    Class2ProdHortalicasComponent,
+    DmCapineiraComponent
   ],
   imports: [
     CommonModule,

@@ -1,15 +1,12 @@
 export interface CapineiraModel {
     cultura: string,
-    descanso: number,
-    ms: number,
+    int_corte: number, // intervalo de corte
+    prd_anual:number, //produção anual em ton/ha de forragem verde
+    f_ua: number, //função de ajuste conforme tabels no artigo utilizado
 }
 export const CULTURAS: CapineiraModel[] = [
-    {cultura: 'Mombaça', descanso: 28, ms: 40},
-    {cultura: 'Colonião', descanso: 28, ms: 40},
-    {cultura: 'Elefante', descanso: 35, ms: 40},
-    {cultura: 'Tanzânia', descanso: 28, ms: 30},
-    {cultura: 'Brachiaria Bryzantha', descanso: 28, ms: 20},
-    {cultura: 'Brachiaria decumbens', descanso: 28, ms: 18},
-    {cultura: 'Tifton', descanso: 21, ms: 18},
-    {cultura: 'Grama estrela', descanso: 21, ms: 18},
+    {cultura: 'capim elefante', int_corte: 42, prd_anual: 120, f_ua: 0.34},
+    {cultura: 'napier', int_corte: 42, prd_anual: 120, f_ua: 0.34},
+    {cultura: 'cameron', int_corte: 42, prd_anual: 120, f_ua: 0.34},
+    {cultura: 'capim-tobiatã', int_corte: 42, prd_anual: 80, f_ua: 0.52},
 ];

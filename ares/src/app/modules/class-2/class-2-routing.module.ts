@@ -15,6 +15,7 @@ import { Class2DimPastagemComponent } from './components/dim-pastagem/dim-pastag
 import { RAterRecomenderComponent } from 'src/app/shared/components/ares-data/r-ater-recomender/r-ater-recomender.component';
 import { FindCarComponent } from 'src/app/shared/components/car/find-car/find-car.component';
 import { Pnae2023RaterComponent } from 'src/app/shared/components/reports/rater/pnae2023-rater/pnae2023-rater.component';
+import { Class4DimCapineiraComponent } from '../class-4/components/class4-dim-capineira/class4-dim-capineira.component';
 
 const routes: Routes = [
   {
@@ -82,6 +83,10 @@ const routes: Routes = [
     path: 'titulos',
     component: TitulosComponent
   },
+  {
+    path: 'dim-capineira',
+    component: Class4DimCapineiraComponent
+  }
 ];
 
 

@@ -1,31 +1,43 @@
-<table class="col-6 table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Categoria</th>
-        <th>Quantidade</th>
-        <th>UA categoria</th>
-      </tr>
-    </thead>
-    <tbody *ngIf = "!inputRebanho.length">
-      <th class="text-danger" colspan="3">
-        Para efetuar os cálculos, é necessário informar seu rebanho!
-      </th>
-      
-    </tbody>
-    <tbody *ngIf = "inputRebanho.length">
-      <tr *ngFor="let rb of inputRebanho">
-        <td>
-          <button type="button" class="btn btn-danger btn-sm btn-custom" (click)="removerCategoria(rb, $event)">
-            <i class="far fa-calendar-times"></i>
-          </button>
-        </td>
-        <td>{{rb.categoria.descricao}}</td>
-        <td>{{rb.qtd}}</td>
-        <td>{{totalUa(rb)}}</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      Total de UA {{uaRebanho()}}
-    </tfoot>
-  </table>
+<div *ngIf="inputRebanho.length; else notActions">
+
+  <div class="row">
+    <div class="col">
+      <strong>
+        Categoria:
+      </strong>
+    </div>
+    <div class="col">
+      <strong>
+        Quantidade
+      </strong>
+    </div>
+    <div class="col">
+      <strong>
+        UA da categoria
+      </strong>
+    </div>
+  </div>
+  <article class="" *ngFor="let rb of inputRebanho">
+    <div class="row linha">
+      <div class="col">
+        <span (click)="removerCategoria(rb, $event)" tooltip="Excluir esta categoria"
+          class='mr-2 danger-text material-icons'>cancel</span>
+        {{rb.categoria.descricao}}
+      </div>
+      <div class="col">
+        {{rb.quantidade}}
+      </div>
+      <div class="col">
+        {{totalUa(rb)}}
+      </div>
+    </div>
+  </article>
+  <div class="row">
+    <h2><p><strong>Total de UA {{uaRebanho()}}</strong></p></h2>
+  </div>
+</div>
+<ng-template #notActions>
+  <article class="text-danger" colspan="3">
+    Para efetuar os cálculos, é necessário informar seu rebanho!
+  </article>
+</ng-template>
