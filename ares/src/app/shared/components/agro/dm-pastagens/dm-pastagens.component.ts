@@ -69,6 +69,12 @@ export class DmPastagensComponent implements OnInit {
     const lotacao = this.rebanho.reduce(function(total, rb){
       return total + (rb.categoria.ua * rb.quantidade);
     },0);
+
+    const qtd_animais = this.rebanho.reduce(function(total, rb){
+      return total + (rb.quantidade);
+
+    },0);
+
     this._lotacao = Math.round(lotacao);
 
     //Obtem a produção anual de forragem
@@ -121,7 +127,9 @@ export class DmPastagensComponent implements OnInit {
       tamanhoPiquete: tamanhoPiquete.toFixed(2),
       areaPiquete: this._areaPiquete.toFixed(0),
       cultura: this._pastagem,
-      lotacao: this.uaRebanho.toFixed(2)
+      lotacao: this.uaRebanho.toFixed(2),
+      cabecas: qtd_animais,
+      recomendacao: producao['recs']
     });
     /* finalizando os cálculo */
   }
@@ -144,31 +152,37 @@ export class DmPastagensComponent implements OnInit {
       i--;
     });
     
-    situacao += ` para um rebanho composto por ${rebanhoTxt} o que gera uma lotação de ${dados.lotacao} UA - Unidade animal.`
+    situacao += ` para um rebanho composto por ${rebanhoTxt} o que representa uma lotação de ${dados.lotacao} UA (Unidade animal).`
 
     const local = '';
     
     const customers = [];
     
-    let orientacao = `Desta forma, para esta lotação, a necessidade de matéria seca anual é de aproximadamente ${dados.necessidadeMSano} kg de MS/ano. `;
+    let orientacao = ` Desta forma, para esta lotação, a necessidade de matéria seca anual é de aproximadamente ${dados.necessidadeMSano} kg de MS/ano.`;
     if(Number(dados.area)>1){
-      orientacao += `Sendo necessário para isso, uma área total de ${(dados.area)} hectares divididos em ${dados.qtdPiquetes} piquetes de ${dados.areaPiquete} metros quadrados`;
+      orientacao += ` Sendo necessário para isso, uma área total de ${(dados.area)} hectares divididos em ${dados.qtdPiquetes} piquetes de ${dados.areaPiquete} metros quadrados.`;
     }else{
-      orientacao += `Sendo necessário para isso, uma área total de ${(dados.area*10000).toFixed(0)} metros quadrados que serão divididos em ${dados.qtdPiquetes} piquetes de ${dados.areaPiquete} metros quadrados`;
+      orientacao += ` Sendo necessário para isso, uma área total de ${(dados.area*10000).toFixed(0)} metros quadrados que serão divididos em ${dados.qtdPiquetes} piquetes de ${dados.areaPiquete} metros quadrados.`;
     }
 
+    orientacao += ``
+    orientacao += `${dados.recomendacao}`
+    orientacao += ` O sombreamento pode ser natural ou artificial, com área de sombra com tamanho de ${dados.cabecas*10} m2, para que não ocorram acidentes, como animais pisando sobre outros e machucando principalmente tetos e cauda. As áreas de descanso ajudam a evitar o estresse térmico, que pode provocar queda na produção de leite e comprometimento da reprodução. Podem ser planejadas uma ou duas áreas de descanso, conforme a necessidade. O seu posicionamento deve ser tal que os animais não precisem caminhar mais do que 500 m para terem acesso à água, sombra e sal. Se houver necessidade, devem ser construídos corredores de acesso.`
+    orientacao += ` O bebedouro e o saleiro também podem ser colocados na área de descanso, em local próximo à sombra, mas não é aconselhável que estejam dentro da área de sombra, porque a presença deles propicia a formação de barro.`
+    orientacao += ` A vazão dos bebedouros deve ser dimensionada para suprir pelo menos ${(dados.cabecas * 50)>1000? ((dados.cabecas * 50)/1000).toFixed(1).toString().concat(' mil litros'): ((dados.cabecas * 50)).toString().concat( ' litros')} de água por por dia.`
+    orientacao += ` O consumo de sal costuma ser baixo nos sistemas rotacionados e adubados, mas é importante para a nutrição das vacas. De acordo com a época do ano e o tipo de sal, o consumo é próximo a ${(dados.cabecas * 150)>1000? ((dados.cabecas * 150)/1000).toFixed(1).toString().concat(' Kg') : (dados.cabecas * 150).toString().concat(' gramas') } por dia e, portanto, os cochos de sal devem ter tamanho suficiente para a quantidade de sal necessária para suplementação adequada.`
     /**
      * Orienta adubação
      */
     const recomendaAdubacao = await this.calculaAdubacao(dados.lotacao);
 
     if(recomendaAdubacao){
-      orientacao += ` - Fazer a 03 adubações anuais com adubação com ${(recomendaAdubacao/0.2).toFixed(0)} Kg de Sulfato de amônio ou ${(recomendaAdubacao/0.48).toFixed(0)} de Uréia. É recomendável fazer a intercalação entre estes dois produtos como uma forma de fornecer Enxofre que também é essencial.`;
+      orientacao += ` Fazer a 03 adubações anuais com adubação com ${(recomendaAdubacao/0.2).toFixed(0)} Kg de Sulfato de amônio ou ${(recomendaAdubacao/0.48).toFixed(0)} Kg de Uréia. É recomendável fazer a intercalação entre estes dois produtos como uma forma de fornecer Enxofre que também é essencial.`;
     }
     
     const recomendacao = `1) - Realizar a análise de solo e fazer as devidas correções a adubações, principalmente a adubação fosfatada no momento do plantio.
-    2) - Obter do órgão competente as devidas licencas para instalação e funcionamento deste sistema;
-    3) - Verificar e adequar as áreas de axploração da atividade em conformidade com a legislação ambiental.
+2) - Obter do órgão competente as devidas licencas para instalação e funcionamento deste sistema;
+3) - Verificar e adequar as áreas de axploração da atividade em conformidade com a legislação ambiental.
     `;
     
     const ater: AterModel = {
