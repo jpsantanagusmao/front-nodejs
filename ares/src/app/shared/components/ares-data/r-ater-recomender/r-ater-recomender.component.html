@@ -24,7 +24,7 @@
 </form>
 <div>
 
-    <div *ngIf="titulos$ | async as titulos">
+    <div *ngIf="relatorios$ | async as relatorios">
         <ares-loading *ngIf="loaded$ | async " class="spinner"></ares-loading>
         <div>
             <table class="table table-hover table-striped">
@@ -36,15 +36,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let p of titulos">
-                        <td tooltip="Clique para utilizar e editar este modelo." (click)="onThisSelection(p)">
-                            {{p.SITUACAO}}
+                    <tr *ngFor="let r of relatorios">
+                        <td tooltip="Clique para utilizar e editar este modelo." (click)="onThisSelection(r)">
+                            {{r.SITUACAO}}
                         </td>
-                        <td tooltip="Clique para utilizar e editar este modelo." (click)="onThisSelection(p)">
-                            {{p.ORIENTACAO}}
+                        <td tooltip="Clique para utilizar e editar este modelo." (click)="onThisSelection(r)">
+                            {{r.ORIENTACAO}}
                         </td>
-                        <td tooltip="Clique para utilizar e editar este modelo." (click)="onThisSelection(p)">
-                            {{p.RECOMENDACAO}}
+                        <td tooltip="Clique para utilizar e editar este modelo." (click)="onThisSelection(r)">
+                            {{r.RECOMENDACAO}}
                         </td>
                     </tr>
                 </tbody>

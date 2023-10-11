@@ -17,7 +17,7 @@ export class RAterRecomenderComponent implements OnInit {
   form: FormGroup;
   formSearch: FormGroup;
 
-  titulos$: Observable<any>
+  relatorios$: Observable<any>
 
   loaded$: Observable<any>
 
@@ -44,7 +44,7 @@ export class RAterRecomenderComponent implements OnInit {
     const obj = this;
 
     if (this.form.valid) {
-      this.titulos$ = this._raterService.findModels(words).pipe(
+      this.relatorios$ = this._raterService.findModels(words).pipe(
         delay(10),
         map(
           (value) => {
@@ -63,8 +63,9 @@ export class RAterRecomenderComponent implements OnInit {
     const situacao = rater.SITUACAO;
     const orientacao = rater.ORIENTACAO;
     const recomendacao = rater.RECOMENDACAO;
+    const origin = rater.ID;
 
-    const confirm$ = this._messageService.showRaterConfirm(situacao, orientacao, recomendacao);
+    const confirm$ = this._messageService.showRaterConfirm(situacao, orientacao, recomendacao, origin);
 
     confirm$.asObservable().pipe(
       take(1),
@@ -95,9 +96,10 @@ export class RAterRecomenderComponent implements OnInit {
     const situacao = rater.situacao;
     const orientacao = rater.orientacao;
     const recomendacao = rater.recomendacao;
+    const origin = rater.origin;
 
-    const ater: AterModel = {
-      local,customers, situacao, orientacao, recomendacao
+    const ater = {
+      local,customers, situacao, orientacao, recomendacao, origin
     };
     /**
      * Registra a ater no cookie

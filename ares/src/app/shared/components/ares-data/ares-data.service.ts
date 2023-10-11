@@ -38,6 +38,7 @@ export class AresDataService {
     params = params.append('situacao', rater.situacao);
     params = params.append('orientacao', rater.orientacao);
     params = params.append('recomendacao', rater.recomendacao);
+    params = params.append('origin', rater.origin);
 
     return this.http.post(`${env.BASE_API_URL}${this.PATH}/send-ater`, params).pipe(
     );

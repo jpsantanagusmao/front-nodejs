@@ -19,6 +19,7 @@ export class DialogRaterComponent implements OnInit {
   @Input() situacaoTxt: string;
   @Input() orientacaoTxt: string;
   @Input() recomendacaoTxt: string;
+  @Input() origin: string;
 
   confirmResult: Subject<boolean>;
 
@@ -32,8 +33,9 @@ export class DialogRaterComponent implements OnInit {
     const s = await this.situacaoTxt;
     const o = await this.orientacaoTxt;
     const r = await this.recomendacaoTxt;
+    const or = await this.origin;
 
-    return { situacao: s, orientacao: o, recomendacao: r };
+    return { situacao: s, orientacao: o, recomendacao: r, origin: or };
   }
   ngOnInit(): void {
     this.confirmResult = new Subject();
@@ -60,6 +62,7 @@ export class DialogRaterComponent implements OnInit {
       situacao: this.form.controls.situacao.value,
       orientacao: this.form.controls.orientacao.value,
       recomendacao: this.form.controls.recomendacao.value,
+      origin: this.origin
     }
 
     const ratertxt = `Situação atual: 
@@ -82,6 +85,7 @@ ${rater.recomendacao}`;
       situacao: this.form.controls.situacao.value,
       orientacao: this.form.controls.orientacao.value,
       recomendacao: this.form.controls.recomendacao.value,
+      origin: this.origin
     }
     this._confirmAndClose(rater);
   }

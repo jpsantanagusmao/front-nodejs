@@ -73,11 +73,12 @@ export class AlertMessagesService {
    * @param recomendacao 
    * @returns 
    */
-  showRaterConfirm(situacao: string, orientacao:string, recomendacao: string){
+  showRaterConfirm(situacao: string, orientacao:string, recomendacao: string, origin: string){
     const bsModalRef: BsModalRef = this.modalService.show(DialogRaterComponent, { class: 'modal-lg' });
     bsModalRef.content.situacaoTxt = situacao;
     bsModalRef.content.orientacaoTxt = orientacao;
     bsModalRef.content.recomendacaoTxt = recomendacao;
+    bsModalRef.content.origin = origin;
     
     return (<DialogRaterComponent>bsModalRef.content).confirmResult;
   }
