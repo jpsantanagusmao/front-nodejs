@@ -16,10 +16,11 @@ import { Class4DimCapineiraComponent } from './components/class4-dim-capineira/c
 import { Class4AnaliseSoloComponent } from './components/class4-analise-solo/class4-analise-solo.component';
 import { Class4ToolsComponent } from './components/class4-tools/class4-tools.component';
 import { Clas4ProdHortalicasComponent } from './components/clas4-prod-hortalicas/clas4-prod-hortalicas.component';
+import { Class4InfracoesConsultaComponent } from './components/class4-infracoes-consulta/class4-infracoes-consulta.component';
 
 
 @NgModule({
-  declarations: [Class4HomeComponent, Class4CadastrarUsuarioComponent, Class4CadastrarProjetoComponent, Class4UsersAllComponent, Class4CadastrarTreatmentComponent, Class4DapQueryComponent, Class4DapAcerbityComponent, Class4PerdaDeCargaCalcComponent, Class4DimPastagemComponent, Class4DimCapineiraComponent, Class4AnaliseSoloComponent, Class4ToolsComponent, Clas4ProdHortalicasComponent],
+  declarations: [Class4HomeComponent, Class4CadastrarUsuarioComponent, Class4CadastrarProjetoComponent, Class4UsersAllComponent, Class4CadastrarTreatmentComponent, Class4DapQueryComponent, Class4DapAcerbityComponent, Class4PerdaDeCargaCalcComponent, Class4DimPastagemComponent, Class4DimCapineiraComponent, Class4AnaliseSoloComponent, Class4ToolsComponent, Clas4ProdHortalicasComponent, Class4InfracoesConsultaComponent],
   imports: [
     CommonModule,
     Class4RoutingModule,

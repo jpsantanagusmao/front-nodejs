@@ -66,6 +66,8 @@ import { FindCarComponent } from './components/car/find-car/find-car.component';
 import { Pnae2023RaterComponent } from './components/reports/rater/pnae2023-rater/pnae2023-rater.component';
 import { RaterConvencionalComponent } from './components/reports/rater/rater-convencional/rater-convencional.component';
 import { DmCapineiraComponent } from './components/agro/dm-capineira/dm-capineira.component';
+import { ConsultaInfracoesComponent } from './components/meioambiente/consulta-infracoes.ts/consulta-infracoes.component';
+
 
 @NgModule({
   declarations: [
@@ -127,7 +129,8 @@ import { DmCapineiraComponent } from './components/agro/dm-capineira/dm-capineir
     FindCarComponent, 
     Pnae2023RaterComponent, 
     RaterConvencionalComponent, 
-    DmCapineiraComponent
+    DmCapineiraComponent, 
+    ConsultaInfracoesComponent
   ],
   imports: [
     CommonModule,
@@ -195,7 +198,8 @@ import { DmCapineiraComponent } from './components/agro/dm-capineira/dm-capineir
     DialogAgroindustriaCadComponent,
     Pnae2023RaterComponent,
     RaterConvencionalComponent,
-    DmCapineiraComponent
+    DmCapineiraComponent,
+    ConsultaInfracoesComponent
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

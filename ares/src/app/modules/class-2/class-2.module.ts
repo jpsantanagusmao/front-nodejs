@@ -12,6 +12,7 @@ import { Class2PerdaDeCargaCalcComponent } from './components/calc-irrigacaocalc
 import { Class2DimPastagemComponent } from './components/dim-pastagem/dim-pastagem.component';
 import { Class2ProdHortalicasComponent } from './components/class2-prod-hortalicas/class2-prod-hortalicas.component';
 import { DmCapineiraComponent } from './components/dm-capineira/dm-capineira.component';
+import { Class2InfracoesConsultaComponent } from './components/class2-infracoes-consulta/class2-infracoes-consulta.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { DmCapineiraComponent } from './components/dm-capineira/dm-capineira.com
     Class2CadastrarTreatmentComponent,
     Class2DimPastagemComponent,
     Class2ProdHortalicasComponent,
-    DmCapineiraComponent
+    DmCapineiraComponent,
+    Class2InfracoesConsultaComponent
   ],
   imports: [
     CommonModule,

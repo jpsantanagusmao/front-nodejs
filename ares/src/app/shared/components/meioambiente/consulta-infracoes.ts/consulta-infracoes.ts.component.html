@@ -1,0 +1,38 @@
+<form [formGroup]="form">
+    <p class="mt-2 form-tittle">Consultar De Multas/Infrações no Meio Ambiente</p>
+    <div class="row">
+
+        <div class="form-group col col-md-4">
+            <label for="search">Informe o CPF</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" (click)="emitReport()" id="basic-addon">
+                        <span class="material-icons" tooltip="Localizar registro deste CPF">
+                            manage_search
+                        </span>
+                    </span>
+                </div>
+                <input type="text" class="form-control" mask="000.000.000-00" formControlName="search" name="search"
+                    id="search" required>
+            </div>
+            <error-message
+                *ngIf="form.controls.search.invalid && (form.controls.search.dirty || form.controls.search.touched)"
+                errorMessage="É necessário informar o CPF do beneficiário"></error-message>
+        </div>
+
+    </div>
+
+</form>
+
+<div class="row" *ngIf="infracoes$ | async as inf">
+    <div class="row border-bottom mb-3">
+        <div *ngFor="let d of inf.response.data" class="row">
+            <div class="col col-md-6">
+                <strong>
+                    {{d.Parametro}}: 
+                </strong>
+                {{d.resultado}}
+            </div>
+        </div>
+    </div>
+</div>

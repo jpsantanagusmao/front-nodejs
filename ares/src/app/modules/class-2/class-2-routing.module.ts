@@ -16,6 +16,7 @@ import { RAterRecomenderComponent } from 'src/app/shared/components/ares-data/r-
 import { FindCarComponent } from 'src/app/shared/components/car/find-car/find-car.component';
 import { Pnae2023RaterComponent } from 'src/app/shared/components/reports/rater/pnae2023-rater/pnae2023-rater.component';
 import { Class4DimCapineiraComponent } from '../class-4/components/class4-dim-capineira/class4-dim-capineira.component';
+import { Class2InfracoesConsultaComponent } from './components/class2-infracoes-consulta/class2-infracoes-consulta.component';
 
 const routes: Routes = [
   {
@@ -86,6 +87,10 @@ const routes: Routes = [
   {
     path: 'dim-capineira',
     component: Class4DimCapineiraComponent
+  },
+  {
+    path: 'cons-infracoes',
+    component: Class2InfracoesConsultaComponent
   }
 ];
 

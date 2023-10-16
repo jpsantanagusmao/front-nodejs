@@ -181,8 +181,8 @@ export class DmPastagensComponent implements OnInit {
     }
     
     const recomendacao = `1) - Realizar a análise de solo e fazer as devidas correções a adubações, principalmente a adubação fosfatada no momento do plantio.
-2) - Obter do órgão competente as devidas licencas para instalação e funcionamento deste sistema;
-3) - Verificar e adequar as áreas de axploração da atividade em conformidade com a legislação ambiental.
+2) - Obter do órgão competente o devido liecenciamento de instalação e funcionamento deste sistema;
+3) - Verificar e adequar as áreas de exploração da atividade em conformidade com a legislação ambiental.
     `;
     
     const ater: AterModel = {
