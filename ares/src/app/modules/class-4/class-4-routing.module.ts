@@ -111,7 +111,7 @@ const routes: Routes = [
   {
     path: 'dim-capineira',
     component: Class4DimCapineiraComponent
-  },
+  }, 
   {
     path: 'cons-infracoes',
     component: Class4InfracoesConsultaComponent

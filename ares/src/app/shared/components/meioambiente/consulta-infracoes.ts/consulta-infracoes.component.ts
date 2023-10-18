@@ -52,11 +52,10 @@ export class ConsultaInfracoesComponent implements OnInit {
  * Consulta irregularidades
  */
     const cpf = this.form.controls.search.value;
-    const obj = this;
 
     await this.loadingToggle();
 
-    this.infracoes$ = this._maService.findByCpf(cpf);
+    this.infracoes$ = this._maService.findByCpf(cpf).pipe(tap(console.log));
   }
 
   async loadingToggle() {

@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-    <p class="mt-2 form-tittle">Consultar De Multas/Infrações no Meio Ambiente</p>
+    <p class="mt-2 form-tittle">Consulta Multas/Infrações no Meio Ambiente</p>
     <div class="row">
 
         <div class="form-group col col-md-4">
@@ -25,13 +25,155 @@
 </form>
 
 <div class="row" *ngIf="infracoes$ | async as inf">
-    <div class="row border-bottom mb-3">
-        <div *ngFor="let d of inf.response.data" class="row">
-            <div class="col col-md-6">
-                <strong>
-                    {{d.Parametro}}: 
-                </strong>
-                {{d.resultado}}
+    <div class="row border mb-3 dados">
+        <div class="row">
+            <div class="col-8">
+                <div class="row">
+                    <strong>Nome do Autuado</strong>
+                </div>
+                <div class="row registros">
+                    {{inf.data.data.NomeDoautuado}}
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="row">
+                    <strong>Núm do processo</strong>
+                </div>
+                <div class="row registros">
+                    {{inf.data.data.NumerodoProcesso}}
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <div class="row">
+                        <strong>Valor total das Multas</strong>
+                    </div>
+                    <div class="row registros">
+                        {{inf.data.data.ValorTotalDasMultas}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="row">
+                        <strong>Valor da reposição</strong>
+                    </div>
+                    <div class="row registros">
+                        {{inf.data.data.ValordaReposicao}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="row">
+                        <strong>Situação do débito</strong>
+                    </div>
+                    <div class="row registros">
+                        {{inf.data.data.SituacaodoDebito}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="row">
+                        <strong>Valor do Status do AI</strong>
+                    </div>
+                    <div class="row registros">
+                        {{inf.data.data.DescricaodoStatusdoAI}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="row">
+                        <strong>Descrição da Receita da Multa</strong>
+                    </div>
+                    <div class="row registros">
+                        {{inf.data.data.DescricaodaReceitadaMulta}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="row">
+                        <strong>Descrição da Receita da Reposição</strong>
+                    </div>
+                    <div class="row registros">
+                        {{inf.data.data.DescricaodaReceitadaReposicao}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="row">
+                        <strong>Valor do Status do processo</strong>
+                    </div>
+                    <div class="row registros">
+                        {{inf.data.data.DescricaodoStatusdoProcesso}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="row">
+                        <strong>Valor do Status do processo</strong>
+                    </div>
+                    <div class="row registros">
+                        {{inf.data.data.DescricaodoStatusdoProcesso}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="row">
+                        <strong>Unidade Administrativa</strong>
+                    </div>
+                    <div class="row registros">
+                        {{inf.data.data.NomedaUnidadeAdministrativaAtual}}
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <strong>Descrição da infração</strong>
+                    </div>
+                    <div class="row registros">
+                        {{inf.data.data.DescricaodaInfracao}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <strong>Suspensão da atividade?</strong>
+                    {{inf.data.data.SuspensaodeAtividade}}
+                </div>
+                <div class="col-2">
+                    <strong>Restritiva de direito?</strong>
+                    {{inf.data.data.RestritivaDireito}}
+                </div>
+                <div class="col-2">
+                    <strong>Advertência e multa diária?</strong>
+                    {{inf.data.data.AdvertenciaMultaDiaria}}
+                </div>
+                <div class="col-2">
+                    <strong>Advertência e Apreensão?</strong>
+                    {{inf.data.data.AdvertenciaApreensao}}
+                </div>
+                <div class="col-2">
+                    <strong>Embargo da Atividade?</strong>
+                    {{inf.data.data.EmbargodeAtividade}}
+                </div>
+                <div class="col-2">
+                    <strong>Embargo da Obra?</strong>
+                    {{inf.data.data.EmbargodeObra}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <strong>Demolição da obra?</strong>
+                    {{inf.data.data.DemolicaodeObra}}
+                </div>
+                <div class="col-2">
+                    <strong>Suspensão da fábrica?</strong>
+                    {{inf.data.data.SuspensaodeFabrica}}
+                </div>
+                <div class="col-4">
+                    <strong>Suspensão de comercialização?</strong>
+                    {{inf.data.data.SuspensaodeVenda}}
+                </div>
+                <div class="col-2">
+                    <strong>Embargo?</strong>
+                    {{inf.data.data.Embargo}}
+                </div>
+            </div>
+            <div class="row">
+                <a href="{{inf.data.link}}">Você pode conferir os registros clicando neste link: {{inf.data.link}}</a>
             </div>
         </div>
     </div>
