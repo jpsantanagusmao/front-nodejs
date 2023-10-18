@@ -43,7 +43,7 @@ export class ConsultaInfracoesComponent implements OnInit {
   ngOnInit(): void {
     this._userCache.regRoute().subscribe();
     this.form = new FormGroup({
-      search: new FormControl('33928592734', [Validators.required, Validators.minLength(11), Validators.maxLength(11)])
+      search: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)])
     });
   }
 
