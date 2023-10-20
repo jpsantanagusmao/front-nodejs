@@ -39,7 +39,7 @@ export class DialogCommentsComponent implements OnInit {
     const coment = {
       taskid: this.idTask,
       comments: this.form.controls.comentario.value,
-      to: this.userDesigned,
+      touser: this.userDesigned,
     }
     if(this.formValid){
       this._confirmAndClose(coment);
