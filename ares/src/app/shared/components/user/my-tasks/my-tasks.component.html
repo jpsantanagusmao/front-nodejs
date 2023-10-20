@@ -11,15 +11,15 @@
     <tr *ngFor="let t of tasks$ | async">
       <td (dblclick)="cpfCopy(t.cpf)">{{t.data | date:'dd/MM/yyyy'}}</td>
       <td (dblclick)="cpfCopy(t.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">{{t.customername}}</td>
-      <td (dblclick)="cpfCopy(t.cpf)" tooltip="{{t.comments}}">{{t.description}}</td>
+      <td (dblclick)="cpfCopy(t.cpf)" tooltip="{{t.comments}}">{{t.description}} ({{t.emissor_username}})</td>
       <td>
-        <button (click)="onFinalizeTask(t.id)"  *ngIf="t.hasprojectid" class="btn text-success" tooltip="Detalhes da visita">
+        <button (click)="openproject(t.hasprojectid)"  *ngIf="t.hasprojectid" class="btn text-success" tooltip="Detalhes da visita">
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button (click)="onFinalizeTask(t.id)"  *ngIf="!t.hasprojectid" class="btn text-secondary" tooltip="Detalhes da visita: não há projetos">
+        <button (click)="openproject(t.hasprojectid)"  *ngIf="!t.hasprojectid" class="btn text-secondary" tooltip="Detalhes da visita: não há projetos">
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button (click)="onSendComment(t.id, t.customername, t.description)" class="btn text-success" tooltip="Encaminhar tarefa para outra pessoa.">
+        <button (click)="onSendComment(t.id, t.customername, t.description)" class="btn text-primary" tooltip="Encaminhar tarefa para outra pessoa.">
           <i class="bi bi-arrow-up-right-square-fill"></i>
         </button>
         <button (click)="onFinalizeTask(t.id)" class="btn text-success" tooltip="Definir como concluída">

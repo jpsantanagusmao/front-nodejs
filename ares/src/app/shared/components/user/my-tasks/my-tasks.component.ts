@@ -55,6 +55,10 @@ export class MyTasksComponent implements OnInit {
     )
     ;
   }
+  openproject(idproject){
+    alert(`Estamos desenvolvendo esta ação para acessar o projeto de ID ${idproject}`);
+    return
+  }
   sendTask(task){
     //Registra no banco de dados
     this._userService.sendComments(task).subscribe(
