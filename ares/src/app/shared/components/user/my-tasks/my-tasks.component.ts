@@ -31,6 +31,11 @@ export class MyTasksComponent implements OnInit {
     this.tasks$ = this._userService.myTasks().pipe(
     );
   }
+  
+  hasprojet(){
+    return true;
+  }
+
   cpfCopy(cpf){
     navigator.clipboard.writeText(cpf);
   } 
