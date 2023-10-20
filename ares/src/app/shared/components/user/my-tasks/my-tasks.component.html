@@ -11,7 +11,7 @@
     <tr *ngFor="let t of tasks$ | async">
       <td (dblclick)="cpfCopy(t.cpf)">{{t.data | date:'dd/MM/yyyy'}}</td>
       <td (dblclick)="cpfCopy(t.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">{{t.customername}}</td>
-      <td (dblclick)="cpfCopy(t.cpf)" tooltip="{{t.comments}}">{{t.description}} ({{t.emissor_username}})</td>
+      <td (dblclick)="cpfCopy(t.cpf)" tooltip="{{t.comments}} - ({{t.emissor_username}})">{{t.description}} </td>
       <td>
         <button (click)="openproject(t.hasprojectid)"  *ngIf="t.hasprojectid" class="btn text-success" tooltip="Detalhes da visita">
           <i class="bi bi-pencil-square"></i>
