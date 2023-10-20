@@ -19,8 +19,8 @@
         <button (click)="onFinalizeTask(t.id)"  *ngIf="!t.hasprojectid" class="btn text-secondary" tooltip="Detalhes da visita: não há projetos">
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button (click)="onSendComment(t.id, t.customername, t.description)" class="btn text-success" tooltip="Encaminhar para outra pessoa">
-          <i class="bi bi-envelope"></i>
+        <button (click)="onSendComment(t.id, t.customername, t.description)" class="btn text-success" tooltip="Encaminhar tarefa para outra pessoa.">
+          <i class="bi bi-arrow-up-right-square-fill"></i>
         </button>
         <button (click)="onFinalizeTask(t.id)" class="btn text-success" tooltip="Definir como concluída">
           <i class="bi bi-check-circle"></i>
