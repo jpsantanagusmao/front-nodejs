@@ -31,13 +31,13 @@ export class DapWebComponent implements OnInit {
 
   recomendacoesVector: string[] = [
     '- Providenciar os documentos solicitados e encaminhar ao escritório local para que possa ser realizado o seu registro. ',
-    `A DAP é um documento de direito do Agricultor Familiar e a emissão da mesma é GRATUITA. Como é um documento federal, qualquer ação judicial será desferida na esfera federal (Polícia Federal).`
+    `A DAP/CAF é um documento de direito do Agricultor Familiar e a emissão da mesma é GRATUITA. Por ser um documento de domínio público, qualquer ação judicial será desferida na esfera federal .`
   ]
 
   orientacoesVector: string[] = [
-    `A DAP - Declaração de Aptidão do PRONAF é utilizada como instrumento de identificação do agricultor familiar para acessar políticas públicas do Governo Federal, e é necessário apresentar no ato da elaboração da DAP os seguintes documentos: 
- CPF - do agricultor (a) familiar e cônjuge;
- Identidade (RG) do agricultor (a) familiar e cônjuge;
+    `
+A antiga DAP - Declaração de Aptidão do PRONAF ou CAF(atual) é utilizada como instrumento de identificação do agricultor familiar para acessar políticas públicas do Governo Federal, e é necessário apresentar no ato da elaboração da DAP os seguintes documentos: 
+ CPF e Identidade - do agricultor (a) familiar e de todos os membros desta uniadade familiar (pessoa que residem na mesma propriedade);
  Certidão de casamento;
  Comprovante de residência (conta de energia);
  Contrato de Compra e Venda, Declaração de Posse ou Matrícula do Cartório de Registro de Imóveis dos estabelecimentos rurais beneficiados com o crédito;

@@ -1,0 +1,26 @@
+<form [formGroup]="form" class="m-3">
+    <div class="h5 text-center mt-3">
+        Informações da Cultivar
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="sistema">Sistema de produção</label>
+            <select id="sistema" class="form-control" formControlName="sistema">
+                <option *ngFor='let m of SISTEMA_PRODUCAO' [ngValue]="m">{{m.descricao}}</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="h5 text-center mt-5">
+        Informações do rebanho
+    </div>
+    <template-rebanho [rebanho]="rebanho" (updated)="calcular($event)"></template-rebanho>
+    <template-table-rebanho [inputRebanho]="rebanho" (remove)=remove($event)></template-table-rebanho>
+</form>
+
+<div class="row mt-2 mb-5">
+    <div class="col col-2">
+        <button class="btn btn-ok" [disabled]="!dadosok()" id="calcular" (click)='calcular($event)' >Calcular</button>
+    </div>
+</div>
+

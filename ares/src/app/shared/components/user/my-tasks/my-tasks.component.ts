@@ -1,10 +1,11 @@
 import { PointsGenerateComponent } from './../../maps/points-generate/points-generate.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { UserService } from '../user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'my-tasks',
@@ -12,10 +13,14 @@ import { UserService } from '../user.service';
   styleUrls: ['./my-tasks.component.css']
 })
 export class MyTasksComponent implements OnInit {
-
+  
+  @Output() onReport = new EventEmitter();
+  
   tasks$: Observable<any>;
 
   constructor(
+    private _router: Router,
+    private _route: ActivatedRoute,
     private _userCache: UserCacheService,
     private _userService: UserService,
     private _messageService: AlertMessagesService
@@ -66,10 +71,12 @@ export class MyTasksComponent implements OnInit {
       return;
     }
     navigator.clipboard.writeText(value).then(function () {
-      console.log('Async: Copying to clipboard was successful!');
+
       alert('Número de CPF copiado com sucesso');
     }, function (err) {
+
       console.error('Async: Could not copy text: ', err);
+
     });
   }
 
@@ -89,10 +96,13 @@ export class MyTasksComponent implements OnInit {
     )
     ;
   }
+
   openproject(idproject){
-    alert(`Estamos desenvolvendo esta ação para acessar o projeto de ID ${idproject}`);
-    return
+
+    this._router.navigate([`../details`], {queryParams: {id: idproject}, relativeTo: this._route });
+
   }
+
   sendTask(task){
     //Registra no banco de dados
     this._userService.sendComments(task).subscribe(

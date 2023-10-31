@@ -24,6 +24,8 @@ import { FindCarComponent } from 'src/app/shared/components/car/find-car/find-ca
 import { Pnae2023RaterComponent } from 'src/app/shared/components/reports/rater/pnae2023-rater/pnae2023-rater.component';
 import { Class4DimCapineiraComponent } from './components/class4-dim-capineira/class4-dim-capineira.component';
 import { Class4InfracoesConsultaComponent } from './components/class4-infracoes-consulta/class4-infracoes-consulta.component';
+import { DimEsterqueiraComponent } from './components/dim-esterqueira/dim-esterqueira.component';
+import { Class4ProjetoRegionalComponent } from './components/class4-projeto-regional/class4-projeto-regional.component';
 
 
 const routes: Routes = [
@@ -80,6 +82,7 @@ const routes: Routes = [
     path: 'dim-pastagem',
     component: Class4DimPastagemComponent
   },
+
   {
     path: 'prod-hortalicas',
     component: ProdHortalicasComponent
@@ -115,7 +118,15 @@ const routes: Routes = [
   {
     path: 'cons-infracoes',
     component: Class4InfracoesConsultaComponent
-  }
+  },
+  {
+    path: 'dim-esterqueira',
+    component: DimEsterqueiraComponent
+  },
+  {
+    path: 'projeto-regional',
+    component: Class4ProjetoRegionalComponent
+  },
 ];
 
 @NgModule({

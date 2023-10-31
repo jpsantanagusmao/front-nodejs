@@ -24,6 +24,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PanielSimulacaoComponent } from './modules/simulacao-salario/paniel-simulacao/paniel-simulacao.component';
+import { DetailsComponent } from './share/components/details/details.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { PanielSimulacaoComponent } from './modules/simulacao-salario/paniel-sim
     Class6ToolsComponent,
     Class8ToolsComponent,
     Class9ToolsComponent,
+    DetailsComponent,
   ],
   imports: [
     BrowserModule,

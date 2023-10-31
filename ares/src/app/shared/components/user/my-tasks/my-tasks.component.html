@@ -14,10 +14,10 @@
       <td class="text-success" *ngIf="t.comments" tooltip="{{t.comments}} - ({{t.emissor_username}})">{{t.description}} </td>
       <td *ngIf="!t.comments" >{{t.description}} </td>
       <td>
-        <button (click)="openproject(t.hasprojectid)"  *ngIf="t.hasprojectid" class="btn text-warning" tooltip="Ver detalhes da visita com Projetos elaborados">
+        <button (click)="openproject(t.idvisita)"  *ngIf="t.hasprojectid" class="btn text-warning" tooltip="Ver detalhes da visita com Projetos elaborados">
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button (click)="openproject(t.hasprojectid)"  *ngIf="!t.hasprojectid" class="btn text-info" tooltip="Ver detalhes da visita">
+        <button (click)="openproject(t.idvisita)"  *ngIf="!t.hasprojectid" class="btn text-info" tooltip="Ver detalhes da visita">
           <i class="bi bi-pencil-fill"></i>
         </button>
         <button (click)="onSendComment(t.id, t.customername, t.description)" class="btn text-primary" tooltip="Encaminhar tarefa para outra pessoa.">

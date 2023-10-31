@@ -13,6 +13,8 @@ import { Class2DimPastagemComponent } from './components/dim-pastagem/dim-pastag
 import { Class2ProdHortalicasComponent } from './components/class2-prod-hortalicas/class2-prod-hortalicas.component';
 import { DmCapineiraComponent } from './components/dm-capineira/dm-capineira.component';
 import { Class2InfracoesConsultaComponent } from './components/class2-infracoes-consulta/class2-infracoes-consulta.component';
+import { DimEsterqueiraComponent } from './components/dim-esterqueira/dim-esterqueira.component';
+import { Class2ProjetoRegionalComponent } from './components/class2-projeto-regional/class2-projeto-regional.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { Class2InfracoesConsultaComponent } from './components/class2-infracoes-
     Class2DimPastagemComponent,
     Class2ProdHortalicasComponent,
     DmCapineiraComponent,
-    Class2InfracoesConsultaComponent
+    Class2InfracoesConsultaComponent,
+    DimEsterqueiraComponent,
+    Class2ProjetoRegionalComponent
   ],
   imports: [
     CommonModule,

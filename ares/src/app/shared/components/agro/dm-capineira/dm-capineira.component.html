@@ -6,38 +6,31 @@
     <p>* Metodologia aplicada de acordo com a publicação da Embrapa: <a href="https://www.alice.cnptia.embrapa.br/alice/bitstream/doc/392557/1/Cap9.pdf">Criação de Gado Leiteiro na Zona Bragantina - Formação e Utilização de Capineira</a>.</p>
 </h3>
 <p>
-    - A área da capineira atenderá 25% do consumo diário das vacas (a pastagem fornecerá os 75% restantes).
+    <em>
+        *A área da capineira atenderá 25% do consumo diário das vacas (a pastagem fornecerá os 75% restantes).
+    </em>
 </p>
-<p>
-    - Forragem verde com 25% de matéria seca.
-</p>
-<p>
-    - Vaca com 450 kg de peso vivo.
-</p>
-
+ 
 <form [formGroup]="form" class="m-3">
+    <div class="h5 text-center mt-3">
+        Informações da Cultivar
+    </div>
     <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="cultura">Cultura forrageira</label>
             <select id="cultura" class="form-control" formControlName="cultura">
                 <option *ngFor='let cult of culturas' [ngValue]="cult">{{cult.cultura}}</option>
             </select>
         </div>
-    </div>
-    <div class="form-row mb-3">
-        <div class="form-group col-md-12 mt-3">
-            <div class="row align-items-start">
-                <div class="form-group col-md-6">
-                    <label for="cultura">Época de trato dos animais</label>
-                    <select id="cultura" class="form-control" formControlName="eptrato">
-                        <option *ngFor='let ep of epocaTrato' [ngValue]="ep">{{ep.descricao}}</option>
-                    </select>
-                </div>
-            </div>
+        <div class="form-group col-md-2 ml-4">
+            <label for="cultura">Época de trato dos animais</label>
+            <select id="cultura" class="form-control" formControlName="eptrato">
+                <option *ngFor='let ep of epocaTrato' [ngValue]="ep">{{ep.descricao}}</option>
+            </select>
         </div>
     </div>
     
-    <div class="h5 text-center">
+    <div class="h5 text-center mt-5">
         Informações do rebanho
     </div>
     <template-rebanho [rebanho]="rebanho" (updated)="calcular($event)"></template-rebanho>

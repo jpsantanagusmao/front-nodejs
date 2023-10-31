@@ -17,10 +17,12 @@ import { Class4AnaliseSoloComponent } from './components/class4-analise-solo/cla
 import { Class4ToolsComponent } from './components/class4-tools/class4-tools.component';
 import { Clas4ProdHortalicasComponent } from './components/clas4-prod-hortalicas/clas4-prod-hortalicas.component';
 import { Class4InfracoesConsultaComponent } from './components/class4-infracoes-consulta/class4-infracoes-consulta.component';
+import { DimEsterqueiraComponent } from './components/dim-esterqueira/dim-esterqueira.component';
+import { Class4ProjetoRegionalComponent } from './components/class4-projeto-regional/class4-projeto-regional.component';
 
 
 @NgModule({
-  declarations: [Class4HomeComponent, Class4CadastrarUsuarioComponent, Class4CadastrarProjetoComponent, Class4UsersAllComponent, Class4CadastrarTreatmentComponent, Class4DapQueryComponent, Class4DapAcerbityComponent, Class4PerdaDeCargaCalcComponent, Class4DimPastagemComponent, Class4DimCapineiraComponent, Class4AnaliseSoloComponent, Class4ToolsComponent, Clas4ProdHortalicasComponent, Class4InfracoesConsultaComponent],
+  declarations: [Class4HomeComponent, Class4CadastrarUsuarioComponent, Class4CadastrarProjetoComponent, Class4UsersAllComponent, Class4CadastrarTreatmentComponent, Class4DapQueryComponent, Class4DapAcerbityComponent, Class4PerdaDeCargaCalcComponent, Class4DimPastagemComponent, Class4DimCapineiraComponent, Class4AnaliseSoloComponent, Class4ToolsComponent, Clas4ProdHortalicasComponent, Class4InfracoesConsultaComponent, DimEsterqueiraComponent, Class4ProjetoRegionalComponent],
   imports: [
     CommonModule,
     Class4RoutingModule,

@@ -27,12 +27,24 @@ export class UserService {
     private router: Router,
   ) { }
 
+  // Obtem as tasks referente a uma visita informada
+  tasksByTreatment(id): Observable<any> {
 
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/tasks-by-treatment/${id}`).pipe(
+    );
+  }
+
+  // Obtem os projetos de crédito rural referente a uma visita informada
+  projectsCrByTreatment(id): Observable<any> {
+
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/projcr-by-treatment/${id}`).pipe(
+    );
+  }
   getIndicadoresCepea(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-actual-prices`).pipe(
     );
   }
-  
+
   getTreatmentsByDate(rangeDate: any[]): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/all-treatments-by-date/${moment(rangeDate[0]).utc().format('yyyy-MM-DD')}/${moment(rangeDate[1]).utc().format('yyyy-MM-DD')}`).pipe(
     );
@@ -100,10 +112,11 @@ export class UserService {
 
   countTasks(): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/count-my-tasks`).pipe(
-      filter(t=> t['tasks']>0)
+      filter(t => t['tasks'] > 0)
     );
-  }  
+  }
   myTasks(): Observable<any> {
+    //tasks-by-treatment/:id
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/my-tasks`).pipe(
     );
   }
@@ -122,10 +135,10 @@ export class UserService {
 
     return EMPTY;
   };
-  sendComments(task): Observable<any>{
+  sendComments(task): Observable<any> {
     return this.http.post(`${env.BASE_API_URL}${this.PATH_TASK}/add-comment`, task).pipe(
       //      tap(console.log),
-    );  
+    );
   }
   save(usuario) {
     return this.http.post(`${env.BASE_API_URL}${this.PATH}`, usuario).pipe(
@@ -154,7 +167,7 @@ export class UserService {
       tap(this.atualizaTasks)
     );
   }
-  atualizaTasks(value:boolean){
+  atualizaTasks(value: boolean) {
     UserService.updateTotalTask.emit(true);
     UserService.updatePanel.emit(true);
   }

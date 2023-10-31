@@ -67,6 +67,11 @@ import { Pnae2023RaterComponent } from './components/reports/rater/pnae2023-rate
 import { RaterConvencionalComponent } from './components/reports/rater/rater-convencional/rater-convencional.component';
 import { DmCapineiraComponent } from './components/agro/dm-capineira/dm-capineira.component';
 import { ConsultaInfracoesComponent } from './components/meioambiente/consulta-infracoes.ts/consulta-infracoes.component';
+import { DmEsterqueiraComponent } from './components/agro/dm-esterqueira/dm-esterqueira.component';
+import { DmDietaComponent } from './components/agro/dm-dieta/dm-dieta.component';
+import { DmSupForragComponent } from './components/agro/dm-sup-forrag/dm-sup-forrag.component';
+import { SoloMilhoComponent } from './components/agro/solo-milho/solo-milho.component';
+import { SoloCapiacuComponent } from './components/agro/solo-capiacu/solo-capiacu.component';
 
 
 @NgModule({
@@ -123,14 +128,19 @@ import { ConsultaInfracoesComponent } from './components/meioambiente/consulta-i
     SumaryDataPanelComponent,
     ViewProjectComponent,
     DialogCommentsComponent,
-    DialogProdLeiteCadComponent,  
-    DialogCredRuralCadComponent, 
-    DialogAgroindustriaCadComponent, 
-    FindCarComponent, 
-    Pnae2023RaterComponent, 
-    RaterConvencionalComponent, 
-    DmCapineiraComponent, 
-    ConsultaInfracoesComponent
+    DialogProdLeiteCadComponent,
+    DialogCredRuralCadComponent,
+    DialogAgroindustriaCadComponent,
+    FindCarComponent,
+    Pnae2023RaterComponent,
+    RaterConvencionalComponent,
+    DmCapineiraComponent,
+    ConsultaInfracoesComponent,
+    DmEsterqueiraComponent,
+    DmDietaComponent,
+    DmSupForragComponent,
+    SoloMilhoComponent,
+    SoloCapiacuComponent
   ],
   imports: [
     CommonModule,
@@ -199,7 +209,12 @@ import { ConsultaInfracoesComponent } from './components/meioambiente/consulta-i
     Pnae2023RaterComponent,
     RaterConvencionalComponent,
     DmCapineiraComponent,
-    ConsultaInfracoesComponent
+    ConsultaInfracoesComponent,
+    DmEsterqueiraComponent,
+    DmDietaComponent,
+    DmSupForragComponent,
+    SoloMilhoComponent,
+    SoloCapiacuComponent
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

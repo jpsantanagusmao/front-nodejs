@@ -8,6 +8,7 @@ import { ContractComponent } from 'src/app/shared/components/contract/contract.c
 import { DocumentationComponent } from 'src/app/shared/components/documentation/documentation.component';
 import { MyTasksComponent } from 'src/app/shared/components/user/my-tasks/my-tasks.component';
 import { MyProjectsComponent } from 'src/app/shared/components/project/my-projects/my-projects.component';
+import { DetailsComponent } from 'src/app/share/components/details/details.component';
 
 
 const routes: Routes = [
@@ -79,6 +80,10 @@ const routes: Routes = [
       {
         path: 'view-actions',
         component: ViewProjectComponent
+      },
+      {
+        path: 'details',
+        component: DetailsComponent
       },
     ]
   }
