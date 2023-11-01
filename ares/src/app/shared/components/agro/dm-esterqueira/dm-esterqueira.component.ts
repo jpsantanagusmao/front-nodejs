@@ -117,20 +117,30 @@ export class DmEsterqueiraComponent implements OnInit {
 
     const customers = [];
 
-    let orientacao = `Desta forma, para esta lotação, é necessário realizar a costrução com as seguinter dimensões.`;
+    let orientacao = `Desta forma, para esta lotação, é necessário realizar a costrução com as seguintes dimensões:
+    `;
 
     /**
      * Orienta adubação
      {altura, largura, comprimento, volume};
      */
     orientacao +=  ` A Estequeira para dejetos sólidos dever ter dimensões de  ${dados.estsolid.altura} metros de altura, ${dados.estsolid.largura} metros de largura, ${dados.estsolid.comprimento} metros de comprimento com capacidade total de armazenamento de ${dados.estsolid.volume} mil litros.`;
+
+    const totalcompartimentos = this.form.controls.sistema.value.tempo / this.form.controls.sistema.value.tempoArmazenamento;
+    orientacao += `
+    Serão necessários ${ totalcompartimentos } compartimentos de ${dados.estsolid.volume} m³ cada para totalizar os ${ totalcompartimentos * this.form.controls.sistema.value.tempoArmazenamento } dias de tratamento.
+    `
+
     /**
      * {altura, Bmaior, Bmenor, comprimento, volume};
      */
-    orientacao +=  ` A Estequeira para dejetos líquidos deverser construída em formato trapezoidal com dimensões de  ${dados.estliquid.altura} metros de altura, ${dados.estliquid.Bmaior} metros na base maior, ${dados.estliquid.Bmenor} metros na base menor, ${dados.estliquid.comprimento} metros de comprimento com capacidade total de armazenamento de ${dados.estliquid.volume} mil litros.`
+    orientacao +=  `A Estequeira para dejetos líquidos Impede que os dejetos sejam carreados para os cursos d'água subterrâneos e/ou superficiais e dever ser construída em formato trapezoidal com dimensões de ${dados.estliquid.altura} metros de altura, ${dados.estliquid.Bmaior} metros na base maior, ${dados.estliquid.Bmenor} metros na base menor, ${dados.estliquid.comprimento} metros de comprimento com capacidade total de armazenamento de ${dados.estliquid.volume} mil litros.`
+    
+    let recomendacao = `
+    
+    `;
 
-
-    const recomendacao = `
+    recomendacao += `A Estequeira para dejetos líquidos Utiliza maior quantidade de água, mas que pode ser reaproveitada da lavagem do curral. Antes de encaminhar o efluente proveniente da lavagem do curral diretamente para a esterqueira, ele deve passar por uma caixa de areia.
     `;
 
     const ater: AterModel = {
@@ -168,7 +178,8 @@ export class DmEsterqueiraComponent implements OnInit {
     // A base menor e 75% menor que a Bmaior
     Bmenor = Bmaior*0.75;
 
-    comprimento = Number((v / altura / ((Bmaior + Bmenor)/2) ).toFixed(2));
+    comprimento = Number((v / altura / ((Bmaior + Bmenor)/2) ).toFixed(1));
+    comprimento = Number(comprimento.toFixed(2));
 
     // Deve garantir que a altura é o menor valor, depois a largura
     if(altura > Bmaior){
@@ -192,7 +203,7 @@ export class DmEsterqueiraComponent implements OnInit {
       comprimento = n;
     }
 
-    const volume = (altura * Bmaior * comprimento).toFixed(2);
+    const volume = ( altura * ( ( Bmaior + Bmenor ) / 2 ) * comprimento ).toFixed(2);
 
     return {altura, Bmaior, Bmenor, comprimento, volume};
   }
