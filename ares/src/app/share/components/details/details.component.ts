@@ -4,13 +4,18 @@ import { UserCacheService } from 'src/app/core/user-cache.service';
 import { UserService } from 'src/app/shared/components/user/user.service';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { tap, delay } from 'rxjs/operators';
+import { Observable, pipe } from 'rxjs';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  orderObj
+
+  tasks$: Observable<any>;
+
+  projects$: Observable<any>;
+
   constructor(
     private _route: ActivatedRoute,
     private _userCache: UserCacheService,
@@ -19,21 +24,23 @@ export class DetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
     let id = this._route.snapshot.queryParamMap.get('id')
-    this.getTasks(id);
-    this.getProjetcs(id);
-  }
-  getTasks(id) {
-    this._userService.tasksByTreatment(id).subscribe(
-      data=>{
-        console.log(data)
-      }
-    )
-    // .pipe(tap(console.log));
-    
-  }
-  getProjetcs(id) {
-    this._userService.projectsCrByTreatment(id).pipe(tap(console.log));
+    const obj = this;
+
+    this.tasks$ = this._userService.tasksByTreatment(id)
+      .pipe(
+        // tap(console.log)
+      );
+
+    this.projects$ = this._userService.projectsCrByTreatment(id)
+      .pipe(
+        // tap(console.log)
+      );
+
   }
 
 }

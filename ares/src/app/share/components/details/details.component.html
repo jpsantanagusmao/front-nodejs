@@ -1,17 +1,37 @@
 <p>Visita ocorrida na data de 12/0/2023</p>
-<div class="acoes">
-    <p>Serviços prestados nesta visita:</p>
-</div>
-<div class="projetos">
-    <p>Dados do projeto de crédito rural</p>
-    <div class="row">
-        <div class="col">
-            item: Construção de cerca
-        </div>
-        <div class="col">
-            Valor unitário
-        </div>
+
+<div *ngIf="tasks$ | async as tasks; else notasks">
+    <p>Serviços Registrados</p>
+    <div class="row" *ngFor="let i of tasks">
+        <div class="col">{{i.data}}</div>
+        <div class="col">{{i.description}}</div>
+        <div class="col">{{i.status}}</div>
+        <div class="col">{{i.name}}</div>
     </div>
 </div>
 
+<div *ngIf="projects$ | async as projects; else noprojets">
+    <p>Projetos Registrados</p>
+    <div class="row" *ngFor="let i of projects">
+        <div class="col">{{i.data}}</div>
+        <div class="col">{{i.descricao}}</div>
+        <div class="col">{{i.banco}}</div>
+        <div class="col">{{i.linha}}</div>
+        <div class="col">{{i.qtditemfinanc}}</div>
+        <div class="col">{{i.unidade}}</div>
+        <div class="col">{{i.valorunit}}</div>
+        <div class="col">{{i.valorTotalItem}}</div>
+    </div>
 
+</div>
+<ng-template #notasks>
+    <div class="text-danger mt-3">
+        Nenhum serviço encontrado!
+    </div>
+</ng-template>
+
+<ng-template #noprojets>
+    <div class="text-danger mt-3">
+        Nenhum projeto encontrado!
+    </div>
+</ng-template>

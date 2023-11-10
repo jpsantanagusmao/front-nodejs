@@ -30,19 +30,17 @@ export class UserService {
   // Obtem as tasks referente a uma visita informada
   tasksByTreatment(id): Observable<any> {
 
-    return this.http.get(`${env.BASE_API_URL}${this.PATH}/tasks-by-treatment/${id}`).pipe(
-    );
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/tasks-by-treatment/${id}`)
+      ;
   }
 
   // Obtem os projetos de crédito rural referente a uma visita informada
   projectsCrByTreatment(id): Observable<any> {
-
-    return this.http.get(`${env.BASE_API_URL}${this.PATH}/projcr-by-treatment/${id}`).pipe(
-    );
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/projcr-by-treatment/${id}`)
+      ;
   }
   getIndicadoresCepea(): Observable<any> {
-    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-actual-prices`).pipe(
-    );
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/reports/indicators-actual-prices`);
   }
 
   getTreatmentsByDate(rangeDate: any[]): Observable<any> {
@@ -116,7 +114,7 @@ export class UserService {
     );
   }
   myTasks(): Observable<any> {
-    //tasks-by-treatment/:id
+
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/my-tasks`).pipe(
     );
   }

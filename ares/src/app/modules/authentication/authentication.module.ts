@@ -9,11 +9,13 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { PrivatedComponent } from './components/privated/privated.component';
 import { Class0Module } from '../class-0/class-0.module';
+import { DetailsComponent } from 'src/app/share/components/details/details.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    PrivatedComponent
+    PrivatedComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { Class0Module } from '../class-0/class-0.module';
     UserCacheService,
   ],
   exports:[
-    LoginComponent
+    LoginComponent,
+    DetailsComponent
   ]
 })
 export class AuthenticationModule { }
