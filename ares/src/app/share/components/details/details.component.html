@@ -1,32 +1,69 @@
 <div *ngIf="visita$ | async as v; else notasks">
-    <p>Produtor: {{v.produtor}} - CPF: {{v.cpf}}</p>
-    <div class="row">
-        <div class="col">Data: {{v.data}}</div>
-        <div class="col">Local: {{v.local}}</div>
-    </div>
-    <div *ngIf="v.tasks as t; else notasks">
-        <p>Serviços Registrados</p>
-        <div class="row" *ngFor="let i of t">
-            <div class="col">{{i.data}}</div>
-            <div class="col">{{i.description}}</div>
-            <div class="col">{{i.status}}</div>
-            <div class="col">{{i.name}}</div>
+    <strong>
+        <h1>
+            <p>{{v.produtor}} - {{v.cpf}}</p>
+            <div class="row">
+                <div class="col">Data: {{v.data | date: 'dd/MM/yyyy'}}</div>
+                <div class="col">Local: {{v.local}}</div>
+            </div>
+        </h1>
+    </strong>
+    <div class="mt-5">
+        <div class="cabecalho-tarefas">
+            <div class="col-1">
+                <button type="button" (click)="addTask(v.id)" class="btn btn-primary">Add +</button>
+            </div>
+            <div class="title">Serviços Registrados</div>
         </div>
+        <table class="table table-hover" *ngIf="v.tasks.length > 0; else notasks">
+            <thead>
+              <tr>
+                <th scope="col">Descrição do serviço</th>
+                <th scope="col">Status</th>
+                <th scope="col">Funcionário Responsável</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let t of v.tasks">
+                <td>{{t.description}}</td>
+                <td>{{t.status}}</td>
+                <td>{{t.user}}</td>
+              </tr>
+            </tbody>
+          </table>
     </div>
 
-    <div *ngIf="v.projects as p; else noprojets">
-        <p>Projeto de Crédito Rural</p>
-        <div class="row" *ngFor="let i of projects">
-            <div class="col">{{p.data}}</div>
-            <div class="col">{{p.descricao}}</div>
-            <div class="col">{{p.banco}}</div>
-            <div class="col">{{p.linha}}</div>
-            <div class="col">{{p.qtditemfinanc}}</div>
-            <div class="col">{{p.unidade}}</div>
-            <div class="col">{{p.valorunit}}</div>
-            <div class="col">{{p.valorTotalItem}}</div>
+    <div class="mt-5">
+        <div class="cabecalho-tarefas">
+            <div class="col-1">
+                <button type="button" (click)="addProject(v.id)" class="btn btn-primary">Add +</button>
+            </div>
+            <div class="title">Projeto de Crédito Rural</div>
         </div>
-
+        <table class="table table-hover" *ngIf="v.projects.length > 0; else noprojets">
+            <thead>
+              <tr>
+                <th scope="col">Descrição</th>
+                <th scope="col">Banco</th>
+                <th scope="col">Linha de crédito</th>
+                <th scope="col">Qtd</th>
+                <th scope="col">Unidade</th>
+                <th scope="col">Valor item</th>
+                <th scope="col">Valor Total (R$)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of v.projects">
+                <td>{{p.descricao}}</td>
+                <td>{{p.banco}}</td>
+                <td>{{p.linha}}</td>
+                <td>{{p.qtditemfinanc}}</td>
+                <td>{{p.unidade}}</td>
+                <td>{{p.valorunit}}</td>
+                <td>{{p.valorTotalItem}}</td>
+              </tr>
+            </tbody>
+          </table>
     </div>
 
 </div>

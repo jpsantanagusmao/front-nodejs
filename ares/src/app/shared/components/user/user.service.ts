@@ -184,5 +184,11 @@ export class UserService {
       tap(this.atualizaTasks)
     );
   }
+  addTask(task: any): Observable<any> {
+    const id = task;
+
+    return this.http.post(`${env.BASE_API_URL}${this.PATH}/add-tasks-on-treatment/${id}`, task);
+    
+  }
 }
 

@@ -1,0 +1,15 @@
+.cabecalho-tarefas{
+    display: flex;
+    flex-direction: row;    
+    align-content: center;
+    margin-top: 15px;
+    background-color: rgb(228, 227, 227);
+    font-size: 1.5rem;
+    padding: 2px;
+}
+.title{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+
+}

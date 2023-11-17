@@ -72,7 +72,7 @@ import { DmDietaComponent } from './components/agro/dm-dieta/dm-dieta.component'
 import { DmSupForragComponent } from './components/agro/dm-sup-forrag/dm-sup-forrag.component';
 import { SoloMilhoComponent } from './components/agro/solo-milho/solo-milho.component';
 import { SoloCapiacuComponent } from './components/agro/solo-capiacu/solo-capiacu.component';
-
+import { DialogAddTaskComponent } from './components/add-task/dialogAddTask.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +140,8 @@ import { SoloCapiacuComponent } from './components/agro/solo-capiacu/solo-capiac
     DmDietaComponent,
     DmSupForragComponent,
     SoloMilhoComponent,
-    SoloCapiacuComponent
+    SoloCapiacuComponent,
+    DialogAddTaskComponent,
   ],
   imports: [
     CommonModule,
@@ -206,6 +207,7 @@ import { SoloCapiacuComponent } from './components/agro/solo-capiacu/solo-capiac
     DialogCommentsComponent,
     DialogCredRuralCadComponent,
     DialogAgroindustriaCadComponent,
+    DialogAddTaskComponent,
     Pnae2023RaterComponent,
     RaterConvencionalComponent,
     DmCapineiraComponent,
@@ -214,7 +216,7 @@ import { SoloCapiacuComponent } from './components/agro/solo-capiacu/solo-capiac
     DmDietaComponent,
     DmSupForragComponent,
     SoloMilhoComponent,
-    SoloCapiacuComponent
+    SoloCapiacuComponent,
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

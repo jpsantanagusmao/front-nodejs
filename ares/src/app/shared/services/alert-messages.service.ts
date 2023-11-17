@@ -8,6 +8,7 @@ import { PointsGenerateComponent } from '../components/maps/points-generate/poin
 import { DialogCommentsComponent } from '../components/dialog-comments/dialog-comments.component';
 import { DialogProdLeiteCadComponent } from '../components/dialog-prod-leite-cad/dialog-prod-leite-cad.component';
 import { DialogAgroindustriaCadComponent } from '../components/dialog-agroindustria-cad/dialog-agroindustria-cad.component';
+import { DialogAddTaskComponent } from '../components/add-task/dialogAddTask.component';
 
 @Injectable({
   providedIn: 'root'
@@ -110,6 +111,13 @@ export class AlertMessagesService {
     const bsModalRef: BsModalRef = this.modalService.show(DialogCredRuralCadComponent, {class: 'modal-xl'});
    
     return (<DialogProdLeiteCadComponent>bsModalRef.content).confirmResult;
+
+  }
+  showDialgoAddTask(){
+    
+    const bsModalRef: BsModalRef = this.modalService.show(DialogAddTaskComponent, {class: 'modal-xl'});
+   
+    return (<DialogAddTaskComponent>bsModalRef.content).confirmResult;
 
   }
   showRegAgroindustria(){

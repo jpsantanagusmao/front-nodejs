@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { UserService } from 'src/app/shared/components/user/user.service';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
-import { tap, delay } from 'rxjs/operators';
-import { Observable, pipe } from 'rxjs';
+import { tap, delay, take, switchMap } from 'rxjs/operators';
+import { EMPTY, Observable, pipe } from 'rxjs';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -25,14 +25,38 @@ export class DetailsComponent implements OnInit {
     this.loadData();
   }
 
+  addProject(id){
+
+  }
+  addTask(id) {
+
+    const obj = this;
+    const confirm$ = this._messageService.showDialgoAddTask();
+
+    confirm$.asObservable().pipe(
+      take(1),
+      switchMap(result => result ? obj._userService.addTask(id) : EMPTY)
+
+    ).subscribe(
+      success => {
+        obj._messageService.handleSuccess('Encerrando Tarefa', 'Serviço cancelado com sucesso.')
+        
+        // Atualizar dados
+        obj.loadData();
+      },
+      error => {
+        console.error(error);
+        obj._messageService.handleError('Registrando Serviço', 'Não foi possível registrar o novo serviço neste momento.')
+      }
+    );
+
+  }
+
   loadData() {
     let id = this._route.snapshot.queryParamMap.get('id')
     const obj = this;
 
-    this.visita$ = this._userService.taksAndProjectsCrByTreatment(id)
-      .pipe(
-        tap(console.log)
-      );
+    this.visita$ = this._userService.taksAndProjectsCrByTreatment(id);
 
   }
 
