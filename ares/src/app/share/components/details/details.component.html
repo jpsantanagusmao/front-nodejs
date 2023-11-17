@@ -1,26 +1,32 @@
-<p>Visita ocorrida na data de 12/0/2023</p>
-
-<div *ngIf="tasks$ | async as tasks; else notasks">
-    <p>Serviços Registrados</p>
-    <div class="row" *ngFor="let i of tasks">
-        <div class="col">{{i.data}}</div>
-        <div class="col">{{i.description}}</div>
-        <div class="col">{{i.status}}</div>
-        <div class="col">{{i.name}}</div>
+<div *ngIf="visita$ | async as v; else notasks">
+    <p>Produtor: {{v.produtor}} - CPF: {{v.cpf}}</p>
+    <div class="row">
+        <div class="col">Data: {{v.data}}</div>
+        <div class="col">Local: {{v.local}}</div>
     </div>
-</div>
+    <div *ngIf="v.tasks as t; else notasks">
+        <p>Serviços Registrados</p>
+        <div class="row" *ngFor="let i of t">
+            <div class="col">{{i.data}}</div>
+            <div class="col">{{i.description}}</div>
+            <div class="col">{{i.status}}</div>
+            <div class="col">{{i.name}}</div>
+        </div>
+    </div>
 
-<div *ngIf="projects$ | async as projects; else noprojets">
-    <p>Projetos Registrados</p>
-    <div class="row" *ngFor="let i of projects">
-        <div class="col">{{i.data}}</div>
-        <div class="col">{{i.descricao}}</div>
-        <div class="col">{{i.banco}}</div>
-        <div class="col">{{i.linha}}</div>
-        <div class="col">{{i.qtditemfinanc}}</div>
-        <div class="col">{{i.unidade}}</div>
-        <div class="col">{{i.valorunit}}</div>
-        <div class="col">{{i.valorTotalItem}}</div>
+    <div *ngIf="v.projects as p; else noprojets">
+        <p>Projeto de Crédito Rural</p>
+        <div class="row" *ngFor="let i of projects">
+            <div class="col">{{p.data}}</div>
+            <div class="col">{{p.descricao}}</div>
+            <div class="col">{{p.banco}}</div>
+            <div class="col">{{p.linha}}</div>
+            <div class="col">{{p.qtditemfinanc}}</div>
+            <div class="col">{{p.unidade}}</div>
+            <div class="col">{{p.valorunit}}</div>
+            <div class="col">{{p.valorTotalItem}}</div>
+        </div>
+
     </div>
 
 </div>

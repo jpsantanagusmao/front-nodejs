@@ -34,6 +34,11 @@ export class UserService {
       ;
   }
 
+  // Obtem os dados da visita com as tasks e projetos de crédito rural
+  taksAndProjectsCrByTreatment(id): Observable<any> {
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/tasks-and-projcr-by-treatment/${id}`)
+    ;
+  }
   // Obtem os projetos de crédito rural referente a uma visita informada
   projectsCrByTreatment(id): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/projcr-by-treatment/${id}`)

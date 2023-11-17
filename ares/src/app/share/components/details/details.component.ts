@@ -12,9 +12,7 @@ import { Observable, pipe } from 'rxjs';
 })
 export class DetailsComponent implements OnInit {
 
-  tasks$: Observable<any>;
-
-  projects$: Observable<any>;
+  visita$: Observable<any>;
 
   constructor(
     private _route: ActivatedRoute,
@@ -31,14 +29,9 @@ export class DetailsComponent implements OnInit {
     let id = this._route.snapshot.queryParamMap.get('id')
     const obj = this;
 
-    this.tasks$ = this._userService.tasksByTreatment(id)
+    this.visita$ = this._userService.taksAndProjectsCrByTreatment(id)
       .pipe(
-        // tap(console.log)
-      );
-
-    this.projects$ = this._userService.projectsCrByTreatment(id)
-      .pipe(
-        // tap(console.log)
+        tap(console.log)
       );
 
   }
