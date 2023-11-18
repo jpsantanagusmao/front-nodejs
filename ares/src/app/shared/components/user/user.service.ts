@@ -184,6 +184,12 @@ export class UserService {
       tap(this.atualizaTasks)
     );
   }
+  addItem(item: any): Observable<any> {
+    const id = item.idproposta;
+
+    return this.http.post(`${env.BASE_API_URL}${this.PATH}/add-item-on-project/${id}`, item);
+
+  }
   addTask(task: any): Observable<any> {
     const id = task.treatment_id;
 

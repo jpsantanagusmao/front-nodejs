@@ -73,6 +73,7 @@ import { DmSupForragComponent } from './components/agro/dm-sup-forrag/dm-sup-for
 import { SoloMilhoComponent } from './components/agro/solo-milho/solo-milho.component';
 import { SoloCapiacuComponent } from './components/agro/solo-capiacu/solo-capiacu.component';
 import { DialogAddTaskComponent } from './components/add-task/dialogAddTask.component';
+import { DialogCredRuralAddItensCadComponent } from './components/dialog-cred-rural-add-itens-cad/dialog-cred-rural-add-itens-cad.component';
 
 @NgModule({
   declarations: [
@@ -142,6 +143,7 @@ import { DialogAddTaskComponent } from './components/add-task/dialogAddTask.comp
     SoloMilhoComponent,
     SoloCapiacuComponent,
     DialogAddTaskComponent,
+    DialogCredRuralAddItensCadComponent,
   ],
   imports: [
     CommonModule,

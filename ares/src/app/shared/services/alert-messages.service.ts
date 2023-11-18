@@ -9,6 +9,7 @@ import { DialogCommentsComponent } from '../components/dialog-comments/dialog-co
 import { DialogProdLeiteCadComponent } from '../components/dialog-prod-leite-cad/dialog-prod-leite-cad.component';
 import { DialogAgroindustriaCadComponent } from '../components/dialog-agroindustria-cad/dialog-agroindustria-cad.component';
 import { DialogAddTaskComponent } from '../components/add-task/dialogAddTask.component';
+import { DialogCredRuralAddItensCadComponent } from '../components/dialog-cred-rural-add-itens-cad/dialog-cred-rural-add-itens-cad.component';
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +42,11 @@ export class AlertMessagesService {
     bsModalRef.content.message = message;
     bsModalRef.content.title = title;
     bsModalRef.content.type = type;
-    
+
   }
 
   /**
-   * 
+   *
    * @param title titulo da caixa de confirmação
    * @param confirmMessage mensagem de confiração
    * @param confirmText opcional texto do botõ de confirmação
@@ -55,7 +56,7 @@ export class AlertMessagesService {
     const bsModalRef: BsModalRef = this.modalService.show(DialogConfirmComponent);
     bsModalRef.content.title = title;
     bsModalRef.content.confirmMessage = confirmMessage;
-    
+
     if(confirmText){
       bsModalRef.content.confirmText = confirmText;
     }
@@ -68,11 +69,11 @@ export class AlertMessagesService {
   }
 
   /**
-   * 
-   * @param situacao 
-   * @param orientacao 
-   * @param recomendacao 
-   * @returns 
+   *
+   * @param situacao
+   * @param orientacao
+   * @param recomendacao
+   * @returns
    */
   showRaterConfirm(situacao: string, orientacao:string, recomendacao: string, origin: string){
     const bsModalRef: BsModalRef = this.modalService.show(DialogRaterComponent, { class: 'modal-lg' });
@@ -80,16 +81,16 @@ export class AlertMessagesService {
     bsModalRef.content.orientacaoTxt = orientacao;
     bsModalRef.content.recomendacaoTxt = recomendacao;
     bsModalRef.content.origin = origin;
-    
+
     return (<DialogRaterComponent>bsModalRef.content).confirmResult;
   }
 
   /**
-   * 
+   *
    * @param idTask id da tarefa
    * @param task texto da tarefa
    * @param beneficiario beneficiario desta tarefa
-   * @returns 
+   * @returns
    */
   showSendComment(idTask: string, task: string, beneficiario: string){
     const bsModalRef: BsModalRef = this.modalService.show(DialogCommentsComponent, { class: 'modal-lg' });
@@ -98,39 +99,46 @@ export class AlertMessagesService {
     bsModalRef.content.beneficiario = beneficiario;
     return (<DialogRaterComponent>bsModalRef.content).confirmResult;
   }
-  
+
   showPointSelect(){
-    
+
     const bsModalRef: BsModalRef = this.modalService.show(PointsGenerateComponent, { class: 'modal-lg' });
-   
+
     return (<PointsGenerateComponent>bsModalRef.content).confirmResult;
 
   }
   showRegCredRural(){
-    
+
     const bsModalRef: BsModalRef = this.modalService.show(DialogCredRuralCadComponent, {class: 'modal-xl'});
-   
+
     return (<DialogProdLeiteCadComponent>bsModalRef.content).confirmResult;
 
   }
+  showDialgAddItensFinance(){
+
+    const bsModalRef: BsModalRef = this.modalService.show(DialogCredRuralAddItensCadComponent, {class: 'modal-xl'});
+
+    return (<DialogAddTaskComponent>bsModalRef.content).confirmResult;
+
+  }
   showDialgoAddTask(){
-    
+
     const bsModalRef: BsModalRef = this.modalService.show(DialogAddTaskComponent, {class: 'modal-xl'});
-   
+
     return (<DialogAddTaskComponent>bsModalRef.content).confirmResult;
 
   }
   showRegAgroindustria(){
-    
+
     const bsModalRef: BsModalRef = this.modalService.show(DialogAgroindustriaCadComponent, {class: 'modal-xl'});
-   
+
     return (<DialogAgroindustriaCadComponent>bsModalRef.content).confirmResult;
 
   }
   showRegProdLeite(){
-    
+
     const bsModalRef: BsModalRef = this.modalService.show(DialogProdLeiteCadComponent, {class: 'modal-xl'});
-   
+
     return (<DialogProdLeiteCadComponent>bsModalRef.content).confirmResult;
 
   }

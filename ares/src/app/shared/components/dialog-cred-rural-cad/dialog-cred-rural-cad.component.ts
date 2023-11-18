@@ -10,7 +10,7 @@ import { LinhaCredito, LINHA_CREDITO } from './model/linha-credito.model';
 import { AlertMessagesService } from '../../services/alert-messages.service';
 
 @Component({
-  selector: 'app-dialog-prod-leite-cad',
+  selector: 'app-dialog-cred-rural-cad',
   templateUrl: './dialog-cred-rural-cad.component.html',
   styleUrls: ['./dialog-cred-rural-cad.component.css']
 })
@@ -145,18 +145,18 @@ export class DialogCredRuralCadComponent implements OnInit {
   formPropostaok(proposta) {
     /**
      Faz a verificação das variaveis se foram configuradas corretamente e valida o formulário
-     * 
+     *
      */
     const msghead = 'Registros incompletos';
-    
+
     const bank = this.formprop.controls.banco.value;
-    
+
     if (!bank) {
       let msg = 'É preciso especificar qual o Banco financiador da proposta.';
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
-    
+
     const linha = this.formprop.controls.linha.value;
     if (!linha) {
       let msg = 'É preciso especificar a linha de crédito aplicada.';
@@ -184,7 +184,7 @@ export class DialogCredRuralCadComponent implements OnInit {
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
-    
+
     const dtmin = anoprimpgm;//.add(12, 'month');
 
     if ( (anoultpgm.isBefore(dtmin)) ) {
