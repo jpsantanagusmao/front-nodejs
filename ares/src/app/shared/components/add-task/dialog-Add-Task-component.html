@@ -1,32 +1,40 @@
-<summary>Registro de tarefas</summary>
-<form [formGroup]="form">
-    <div class="row">
-        <div class="col col-md-6 mt-3">
-            <select-action (onSelected)="onSelectAction($event)"></select-action>
-        </div>
-        <div class="form-group col-md-12">
-            <label for="description">Descrição</label>
-            <input type="text" class="form-control" formControlName="description" name="description" id="description"
-                required>
-        </div>
-        <div class="form-group col-md-1">
-            <label for="qtd">Quantidade</label>
-            <input type="text" mask="999" class="form-control" formControlName="qtd" name="qtd" id="qtd" required>
+<div class="content m-5">
+  <h2>
+    Registro de tarefas
 
-        </div>
-        <div class="form-group col-md-1">
-            <label for="valor">Valor</label>
-            <input type="text" mask="999" class="form-control" formControlName="valor" name="valor" id="valor" required>
+  </h2>
+  <form [formGroup]="form">
+      <div class="row">
+          <div class="col col-md-6 mt-3">
+              <select-action (onSelected)="onSelectAction($event)"></select-action>
+          </div>
+          <div class="form-group col-md-12">
+              <label for="description">Descrição</label>
+              <input type="text" class="form-control" formControlName="description" name="description" id="description"
+                  required>
+          </div>
+          <div class="row dados">
 
-        </div>
-        <div class="col col-md-5 mt-3">
-            <user-select (onSelected)="onSelectUserDesigned($event)"></user-select>
-        </div>
-        <div class="col col-md-5 mt-3">
-            <button class="btn btn-primary"  (click)="onIncludeTask($event)">+</button>
-        </div>
+            <div class="form-group col-md-1">
+                <label for="qtd">Quantidade</label>
+                <input type="text" mask="999" class="form-control" formControlName="qtd" name="qtd" id="qtd" required>
+            </div>
+            <div class="form-group col-md-1">
+                <label for="valor">Valor</label>
+                <input type="text" mask="999" class="form-control" formControlName="valor" name="valor" id="valor" required>
+
+            </div>
+            <div class="form-group col col-md-5">
+                <user-select (onSelected)="onSelectUserDesigned($event)"></user-select>
+            </div>
+            <div class="form-group col col-md-5 mt-3">
+                <button class="btn btn-primary"  (click)="onIncludeTask($event)">+</button>
+            </div>
+          </div>
 
 
-    </div>
+      </div>
 
-</form>
+  </form>
+
+</div>

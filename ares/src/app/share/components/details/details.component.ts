@@ -5,6 +5,7 @@ import { UserService } from 'src/app/shared/components/user/user.service';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { tap, delay, take, switchMap } from 'rxjs/operators';
 import { EMPTY, Observable, pipe } from 'rxjs';
+import { log } from 'console';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -13,6 +14,7 @@ import { EMPTY, Observable, pipe } from 'rxjs';
 export class DetailsComponent implements OnInit {
 
   visita$: Observable<any>;
+  task: any;
 
   constructor(
     private _route: ActivatedRoute,
@@ -25,7 +27,7 @@ export class DetailsComponent implements OnInit {
     this.loadData();
   }
 
-  addProject(id){
+  addProject(id) {
 
   }
   addTask(id) {
@@ -35,28 +37,51 @@ export class DetailsComponent implements OnInit {
 
     confirm$.asObservable().pipe(
       take(1),
-      switchMap(result => result ? obj._userService.addTask(id) : EMPTY)
-
-    ).subscribe(
-      success => {
-        obj._messageService.handleSuccess('Encerrando Tarefa', 'Serviço cancelado com sucesso.')
-        
-        // Atualizar dados
-        obj.loadData();
-      },
-      error => {
-        console.error(error);
-        obj._messageService.handleError('Registrando Serviço', 'Não foi possível registrar o novo serviço neste momento.')
-      }
-    );
-
+    )
+      .subscribe(
+        data => {
+          obj.task = data;
+          let id = obj._route.snapshot.queryParamMap.get('id')
+          obj.task.treatment_id = id;
+          obj.registerTask(obj.task);
+        },
+        error => {
+          console.error(error);
+          obj._messageService.handleWarning('Encerrando Tarefa', 'Serviço cancelado com sucesso.')
+        }
+      )
   }
 
-  loadData() {
-    let id = this._route.snapshot.queryParamMap.get('id')
+  registerTask(task) {
     const obj = this;
+    this._userService.addTask(task).subscribe(sucess => {
+      obj.loadData();
+      obj._messageService.handleSuccess('Registrado com Sucesso', `${task.description}`)
 
-    this.visita$ = this._userService.taksAndProjectsCrByTreatment(id);
+    }, error => {
+      console.log(error);
+
+      obj._messageService.handleWarning('Encerrando Tarefa', 'Serviço cancelado com sucesso.')
+
+    });
+  }
+
+  get valorProposta() {
+    const obj = this;
+    return this.visita$.subscribe(dados=>{
+      obj.valorProposta = dados.project.itensfinanciados.reduce((i, acc)=>{
+        return parseFloat(acc + parseFloat(i.qtditemfinanc) * parseFloat(i.valorunit));
+      },0);
+    });
+  }
+
+  set valorProposta(valor){
+
+  }
+  loadData() {
+
+    let id = this._route.snapshot.queryParamMap.get('id')
+    this.visita$ = this._userService.taksAndProjectsCrByTreatment(id).pipe(tap(console.log));
 
   }
 

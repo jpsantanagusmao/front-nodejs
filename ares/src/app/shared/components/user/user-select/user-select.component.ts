@@ -17,9 +17,9 @@ export function getTypeaheadConfig(): TypeaheadConfig {
   styleUrls: ['./user-select.component.css']
 })
 export class UserSelectComponent implements OnInit {
-  
+
   @Input() MESSAGE_PLACE_HOLDER = 'Informe aqui o usuário';
-  
+
   noResult: boolean;
 
   @Output() onSelected = new EventEmitter();
@@ -54,7 +54,7 @@ export class UserSelectComponent implements OnInit {
       distinctUntilChanged(),
       switchMap(name => {
         return obj._userService.findByName(name).pipe(
-        ) 
+        )
       }
       ));
   }
@@ -66,7 +66,6 @@ export class UserSelectComponent implements OnInit {
   }
   onSelect(event): void {
     this.selected = event.item;
-    console.log(this.selected);
     this.onSelected.emit(event.item);
   }
 

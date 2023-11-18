@@ -1,6 +1,6 @@
 .cabecalho-tarefas{
     display: flex;
-    flex-direction: row;    
+    flex-direction: row;
     align-content: center;
     margin-top: 15px;
     background-color: rgb(228, 227, 227);

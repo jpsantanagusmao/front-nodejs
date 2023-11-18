@@ -1,80 +1,97 @@
 <div *ngIf="visita$ | async as v; else notasks">
-    <strong>
-        <h1>
-            <p>{{v.produtor}} - {{v.cpf}}</p>
-            <div class="row">
-                <div class="col">Data: {{v.data | date: 'dd/MM/yyyy'}}</div>
-                <div class="col">Local: {{v.local}}</div>
-            </div>
-        </h1>
-    </strong>
-    <div class="mt-5">
-        <div class="cabecalho-tarefas">
-            <div class="col-1">
-                <button type="button" (click)="addTask(v.id)" class="btn btn-primary">Add +</button>
-            </div>
-            <div class="title">Serviços Registrados</div>
-        </div>
-        <table class="table table-hover" *ngIf="v.tasks.length > 0; else notasks">
-            <thead>
-              <tr>
-                <th scope="col">Descrição do serviço</th>
-                <th scope="col">Status</th>
-                <th scope="col">Funcionário Responsável</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr  *ngFor="let t of v.tasks">
-                <td>{{t.description}}</td>
-                <td>{{t.status}}</td>
-                <td>{{t.user}}</td>
-              </tr>
-            </tbody>
-          </table>
+  <strong>
+    <h1>
+      <p>{{v.produtor}} - {{v.cpf}}</p>
+      <div class="row">
+        <div class="col">Data: {{v.data | date: 'dd/MM/yyyy'}}</div>
+        <div class="col">Local: {{v.local}}</div>
+      </div>
+    </h1>
+  </strong>
+  <div class="mt-5">
+    <div class="cabecalho-tarefas">
+      <div class="col-1">
+        <button type="button" (click)="addTask(v.id)" class="btn btn-primary">Add +</button>
+      </div>
+      <div class="title">Serviços Registrados</div>
     </div>
+    <table class="table table-hover" *ngIf="v.tasks.length > 0; else notasks">
+      <thead>
+        <tr>
+          <th scope="col">Descrição do serviço</th>
+          <th scope="col">Status</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Funcionário Responsável</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of v.tasks">
+          <td>{{t.description}}</td>
+          <td>{{t.status}}</td>
+          <td>{{t.valor * t.qtd | number:'1.2-2'}}</td>
+          <td>{{t.user}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="mt-5">
-        <div class="cabecalho-tarefas">
-            <div class="col-1">
-                <button type="button" (click)="addProject(v.id)" class="btn btn-primary">Add +</button>
-            </div>
-            <div class="title">Projeto de Crédito Rural</div>
-        </div>
-        <table class="table table-hover" *ngIf="v.projects.length > 0; else noprojets">
-            <thead>
-              <tr>
-                <th scope="col">Descrição</th>
-                <th scope="col">Banco</th>
-                <th scope="col">Linha de crédito</th>
-                <th scope="col">Qtd</th>
-                <th scope="col">Unidade</th>
-                <th scope="col">Valor item</th>
-                <th scope="col">Valor Total (R$)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let p of v.projects">
-                <td>{{p.descricao}}</td>
-                <td>{{p.banco}}</td>
-                <td>{{p.linha}}</td>
-                <td>{{p.qtditemfinanc}}</td>
-                <td>{{p.unidade}}</td>
-                <td>{{p.valorunit}}</td>
-                <td>{{p.valorTotalItem}}</td>
-              </tr>
-            </tbody>
-          </table>
+  <div class="mt-5">
+    <div class="cabecalho-tarefas">
+      <div class="col-1">
+        <button type="button" (click)="addProject(v.id)" class="btn btn-primary">Add +</button>
+      </div>
+      <div class="title">Projeto de Crédito Rural</div>
     </div>
+    <div class="container" *ngIf="v.project as p">
+      <div class="row">
+        <div class="col">
+          <strong>
+            Banco: {{p.banco}}
+          </strong>
+        </div>
+        <div class="col">
+          <strong>
+            Linha de crédito: {{p.linha}}
+          </strong>
+        </div>
+        <div class="col">
+          <strong>
+            Valor financiado: {{valorProposta | async }}
+          </strong>
+        </div>
+      </div>
+      <table class="table table-hover" *ngIf="p.itensfinanciados.length > 0; else noprojets">
+        <thead>
+          <tr>
+            <th scope="col">Descrição</th>
+            <th scope="col">Qtd</th>
+            <th scope="col">Unidade</th>
+            <th scope="col">Valor item</th>
+            <th scope="col">Valor Total (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of p.itensfinanciados">
+            <td>{{p.descricao}}</td>
+            <td>{{p.qtditemfinanc}}</td>
+            <td>{{p.unidade}}</td>
+            <td>{{p.valorunit}}</td>
+            <td>{{p.valorTotalItem}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
 </div>
 <ng-template #notasks>
-    <div class="text-danger mt-3">
-        Nenhum serviço encontrado!
-    </div>
+  <div class="text-danger mt-3">
+    Nenhum serviço encontrado!
+  </div>
 </ng-template>
 
 <ng-template #noprojets>
-    <div class="text-danger mt-3">
-        Nenhum projeto encontrado!
-    </div>
+  <div class="text-danger mt-3">
+    Nenhum projeto encontrado!
+  </div>
 </ng-template>

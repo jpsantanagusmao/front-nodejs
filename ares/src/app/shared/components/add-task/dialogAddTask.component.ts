@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 import { AlertMessagesService } from '../../services/alert-messages.service';
+import { v4 as uuidv4 } from 'uuid';
+import { statusModel } from '../../models/status.model';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -12,9 +14,13 @@ import { AlertMessagesService } from '../../services/alert-messages.service';
 })
 export class DialogAddTaskComponent implements OnInit {
 
+  @Output() onStore = new EventEmitter();
   confirmResult: Subject<any>;
 
+  taskSelected: any;
+  userSelected: any;
   task: any;
+  id: string = uuidv4();
 
   @Input() title: string = 'Registro de Serviços a executar';
 
@@ -31,16 +37,34 @@ export class DialogAddTaskComponent implements OnInit {
 
     this.form = this.fb.group({
       description: [''],
-      qtd: [''],
+      qtd: ['1'],
       valor: ['']
     });
 
   }
 
-  onSelectAction($event) {
-    alert(JSON.stringify($event))
+
+  onSelectAction(value) {
+    this.form.controls.description.patchValue(value.description);
+    this.form.controls.valor.patchValue(value.valorPorAtendimento);
+
+    this.taskSelected = this.form.value;
+
+    //Determina a chave estrangeira 'action_id"
+    this.taskSelected.action_id = value.id;
+
   }
 
+  cleanTaskForm() {
+    this.form.controls.description.patchValue('');
+    this.form.controls.valor.patchValue('0');
+  }
+
+  onRegisterTreatment() {
+
+    this.onStore.emit(this.task);
+
+  }
   ngOnInit(): void {
     this.confirmResult = new Subject();
 
@@ -55,19 +79,30 @@ export class DialogAddTaskComponent implements OnInit {
     this._confirmAndClose(undefined);
   }
 
-  onSelectUserDesigned(event){
-    alert(JSON.stringify(event));
-
+  onSelectUserDesigned(value) {
+    if (value) {
+      this.userSelected = value.id;
+    }
   }
 
   onIncludeTask(event) {
-    alert(JSON.stringify(event));
+
+    const data = this.form.value;
+
+    const id = this.id;
+
+    data.status = statusModel.INICIADA;
+    data.action_id = this.taskSelected.action_id;
+    data.userDesigned_id = this.userSelected;
+
+    this._confirmAndClose(data);
+
   }
 
   istaskOk() {
     /**
      Faz a verificação das variaveis se foram configuradas corretamente e valida o formulário
-     * 
+     *
      */
     const msghead = 'Registros incompletos';
 
@@ -80,8 +115,7 @@ export class DialogAddTaskComponent implements OnInit {
     }
 
     const qtd = this.form.controls.qtd.value;
-    console.log(qtd);
-    
+
     if (!qtd) {
       let msg = 'É preciso especificar a quantidade do serviço a ser executado.';
       this._messageService.handleError(msghead, `${msg}`);

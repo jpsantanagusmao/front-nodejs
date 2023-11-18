@@ -114,8 +114,6 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
 
   onSelectUserDesigned(value) {
     if (value) {
-      console.log('treatment-cadastrar.component - onSelectUserDesigned - value')
-      console.log(value)
       this.user_rater = value;
       this.userDesigned = value.id;
     }
@@ -444,7 +442,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       border-radius: 5px;
       margin-top: 5px;
   }
-  
+
   /*
   Componentes de visualização
   */
@@ -454,7 +452,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       width: 20cm;
       height: 29;
   }
-  
+
   .title {
       border: 1px solid black;
       display: flex;
@@ -465,12 +463,12 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       margin: 5px 0px 5px 0px;
       border-radius: 15px;
   }
-  
+
   .title>div:nth-child(1) {
       font-size: 1.4rem;
       margin-top: 10px;
   }
-  
+
   .titulares {
       align-items: center;
       justify-content: center;
@@ -478,11 +476,11 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       border: 1px solid black;
       border-radius: 15px;
   }
-  
+
   .titulares .titular-head {
       text-align: center;
   }
-  
+
   .titulares>.titular {
       display: flex;
       width: 100%;
@@ -490,19 +488,19 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       justify-content: flex-start;
       align-items: stretch;
   }
-  
+
   .titulares .titular .cpf {
       margin-left: 10%;
   }
-  
+
   .emissor {
       font-weight: bold;
   }
-  
+
   .texto {
       height: 20cm;
   }
-  
+
   .ater {
       padding: 10px 15px;
       display: flex;
@@ -510,7 +508,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       border: 1px solid black;
       margin-top: 5px;
   }
-  
+
   .ater .ater-head {
       display: flex;
       flex-direction: row;
@@ -518,7 +516,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       margin-bottom: 15px;
       border-bottom: 3px solid black;
   }
-  
+
   .dados-emp {
       width: 100%;
       border-top: 1px solid var(--secondary);
@@ -527,7 +525,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       justify-content: space-around;
       align-items: stretch;
   }
-  
+
   .ater-footer {
       border: 1px solid black;
       display: flex;
@@ -539,7 +537,7 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       padding: 5px 0px;
       font-size: 0.6rem;
     }
-    
+
     .ater-footer .emissor {
       padding: 5px;
       width: 80%;
@@ -548,32 +546,32 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
       display: flex;
       flex-direction: column;
   }
-  
+
   .ater-footer .assinaturas .titular {
       display: flex;
       flex-direction: row;
   }
-  
+
   .ater-footer .assinaturas .titular .nome {
       margin-top: 10mm;
       border-top: 1px solid black;
       font-size: 0.6rem;
   }
-  
+
   #printable {
       display: block;
   }
-  
+
   .funcionario {
       margin-top: 25px;
   }
-  
+
   p {
       text-align: justify;
   }
-  
+
   @media print {
-  
+
       #printable {
           display: block;
           position: absolute;
@@ -583,9 +581,9 @@ export class TreatmentCadastrarComponent implements OnInit, OnDestroy {
           height: 100vh;
           width: 100vw;
       }
-  
-  
-  
+
+
+
   }
     `
   }
