@@ -4,7 +4,7 @@ import { UserCacheService } from 'src/app/core/user-cache.service';
 import { UserService } from 'src/app/shared/components/user/user.service';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { tap, delay, take, switchMap } from 'rxjs/operators';
-import { EMPTY, Observable, pipe } from 'rxjs';
+import { EMPTY, Observable, of, pipe } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -14,8 +14,8 @@ import { EMPTY, Observable, pipe } from 'rxjs';
 export class DetailsComponent implements OnInit {
 
   visita$: Observable<any>;
-  valorproposta$: Observable<any>;
-  valorServicos$: Observable<any>;
+  valorproposta$: any;//Observable<any>;
+  valorServicos$: any;
 
   daevl: any;
   txelab: any;
@@ -77,12 +77,34 @@ export class DetailsComponent implements OnInit {
       )
   }
 
-  quitTrt(value){
-    return;
-  }
+  quitTrt(value) {
+    const obj = this;
+    this._userService.quitarArt(value).subscribe(sucess => {
+      obj.loadData();
+      obj._messageService.handleSuccess('Registrado com Sucesso', `R$ ${sucess}`)
 
+    }, error => {
+      console.log(error);
+
+      obj._messageService.handleWarning('Encerrando Tarefa', 'Item financiado foi cancelado com sucesso.')
+
+    });
+  }
+  quitDae(value) {
+    const obj = this;
+    this._userService.quitarDae(value).subscribe(sucess => {
+      obj.loadData();
+      obj._messageService.handleSuccess('Registrado com Sucesso', `R$ ${sucess}`)
+
+    }, error => {
+      console.log(error);
+
+      obj._messageService.handleWarning('Encerrando Tarefa', 'Item financiado foi cancelado com sucesso.')
+
+    });
+
+  }
   registerItem(item) {
-    console.log(item);
     const obj = this;
     this._userService.addItem(obj.item).subscribe(sucess => {
       obj.loadData();
@@ -118,15 +140,25 @@ export class DetailsComponent implements OnInit {
 
     this.visita$ = this._userService.taksAndProjectsCrByTreatment(id).pipe(
       tap(data => {
-        obj.valorproposta$ = (data.project.itensfinanciados.reduce((acc, i) => {
-          return parseFloat(acc) + parseFloat(i.valorTotalItem);
-        }, 0));
+        if (!data.project) {
 
+          obj.valorproposta$ = 0;
+
+        } else {
+          obj.valorproposta$ = (data.project.itensfinanciados.reduce((acc, i) => {
+            return parseFloat(acc) + parseFloat(i.valorTotalItem);
+          }, 0));
+        }
+      }),
+      tap(data => {
         obj.valorServicos$ = (data.tasks.reduce((acc, i) => {
           return parseFloat(acc) + (parseFloat(i.valor) * parseFloat(i.qtd));
         }, 0));
-        obj.txelab = Number(obj.valorproposta$) * 0.5 / 100;
+      }),
+      tap(data => {
+        obj.txelab = Number(obj.valorproposta$) <= 30000 ? 150.00 : Number(obj.valorproposta$) * 0.5 / 100;
         obj.daevl = Number(obj.valorServicos$) + obj.txelab;
+
       })
     );
 

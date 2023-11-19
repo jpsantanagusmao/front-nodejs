@@ -13,3 +13,15 @@
     align-self: center;
 
 }
+.statusnotif{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+  align-content: stretch;
+}
+.statusnotif > button{
+  margin-left: 10px;
+  margin-bottom: 15px;
+}

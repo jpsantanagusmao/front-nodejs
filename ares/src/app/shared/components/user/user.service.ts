@@ -184,6 +184,16 @@ export class UserService {
       tap(this.atualizaTasks)
     );
   }
+  quitarArt(id: any): Observable<any> {
+
+    return this.http.post(`${env.BASE_API_URL}${this.PATH}/quit-art-on-project/${id}`, null);
+
+  }
+  quitarDae(id: any): Observable<any> {
+
+    return this.http.post(`${env.BASE_API_URL}${this.PATH}/quit-dae-on-project/${id}`, null);
+
+  }
   addItem(item: any): Observable<any> {
     const id = item.idproposta;
 
