@@ -44,7 +44,7 @@
 
   <div class="mt-5">
     <div class="cabecalho-tarefas">
-      <div class="col-1" *ngIf="v.project as p">
+      <div class="col-1">
         <button type="button" (click)="addProject(v.id)" class="btn btn-primary">Add +</button>
       </div>
       <div class="title">Projeto de Crédito Rural</div>
