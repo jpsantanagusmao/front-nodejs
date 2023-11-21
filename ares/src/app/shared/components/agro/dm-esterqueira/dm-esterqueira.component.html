@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="m-3">
     <div class="h5 text-center mt-3">
-        Parâmetros para dimensionamento
+        Parâmetros para dimensionamento de Esterqueiras
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
@@ -10,7 +10,7 @@
             </select>
         </div>
     </div>
-    
+
     <div class="h5 text-center mt-5">
         Informações do rebanho
     </div>
@@ -19,8 +19,21 @@
 </form>
 
 <div class="row mt-2 mb-5">
-    <div class="col col-2">
-        <button class="btn btn-ok" [disabled]="!dadosok()" id="calcular" (click)='calcular($event)' >Calcular</button>
+    <div class="col col-2" >
+        <button class="btn btn-ok" [disabled]="!dadosok()" id="calcular" (click)='memoryCalc($event)'>Calcular</button>
     </div>
 </div>
-
+<div *ngIf="calculated">
+    <div class="memorial">
+        <h2>
+            <strong>
+                Memorial de cálculo:
+            </strong>
+        </h2>
+        <div [innerHtml]="memory"></div>
+        <div class="col col-2" *ngIf="calculated">
+            <button class="btn btn-ok" [disabled]="!dadosok()" id="emitreport" (click)='rateremit($event)'>Emitir
+                Relatório</button>
+        </div>
+    </div>
+</div>

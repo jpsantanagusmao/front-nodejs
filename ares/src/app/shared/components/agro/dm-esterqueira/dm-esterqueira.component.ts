@@ -23,6 +23,9 @@ export class DmEsterqueiraComponent implements OnInit {
 
   rebanho: RebanhoModel[] = [];
 
+  calculated: boolean = false;
+  memory: any = '';
+
   constructor(
     private fb: FormBuilder,
     private _userCache: UserCacheService,
@@ -54,6 +57,10 @@ export class DmEsterqueiraComponent implements OnInit {
 
     return false;
   }
+  memoryCalc(value: any){
+    this.calcular(value);
+    
+  }
   calcular(value: any) {
     /**
      * Cálculo, segundo a apresentação do Julio Merlim
@@ -65,7 +72,7 @@ export class DmEsterqueiraComponent implements OnInit {
 
     let volumesolido = ((sistemprod.producao * totalua) / sistemprod.dds) * sistemprod.tempoArmazenamento;
     
-    volumesolido = this.getDims(volumesolido)
+    const volumesolido_sugerido = this.getDims(volumesolido)
 
     /**
      * Definição das dimensões da caixa de areia para o volume sólido
@@ -80,16 +87,40 @@ export class DmEsterqueiraComponent implements OnInit {
     // volumeliquido = this.getDims(volumesolido)
     // alert(`${sistemprod.producao} * ${totalua} * ${sistemprod.tempoArmazenamento} / ${sistemprod.ddl}`);
     
-    volumeliquido = this.getDimsTrapezoidal(volumeliquido);
+    const volumeliquido_sugerido = this.getDimsTrapezoidal(volumeliquido);
 
-    this.createTreatment({
-      sistema: sistemprod.producao,
+    const response = {
+      sistema: sistemprod,
       lotacao: this.uaRebanho.toFixed(2),
-      estsolid: volumesolido,
+      estsolid: volumesolido_sugerido,
       cxareia: caixaAreia,
-      estliquid: volumeliquido,
-    });
+      estliquid: volumeliquido_sugerido,
+    };
+
+    this.calculated = true;
+
+    this.memory = `
+      <p><strong>VOLUME SÓLIDO</strong> => (("Produção de esterco (Kg/animal/dia)" <strong>x</strong> "Lotação") <strong>/</strong> "Densidade Dejetos Sólidos Bovinos (Kg/m3)") <strong>x</strong> "Tempo de armazenamento (dias)"</p>
+                    <p> => ((${sistemprod.producao} x ${totalua}) / ${sistemprod.dds}) x ${sistemprod.tempoArmazenamento} ==> ${volumesolido} m<sup>3</sup></p>
+                    <p>Sugestão de Dimensões: <strong>Altura:</strong> ${volumesolido_sugerido.altura} m, <strong>Largura:</strong> ${volumesolido_sugerido.largura} m, <strong>Comprimento:</strong> ${volumesolido_sugerido.comprimento} m, <strong>Volume:</strong> ${Number(volumesolido_sugerido.volume).toFixed(2)} m<sup>3</sup></p>
+                    <BR>
+                    <p><strong>VOLUME LÍQUIDO</strong> => (" Produção de esterco (Kg/animal/dia)" <strong>x</strong> "Lotação" <strong>x</strong> Tempo de armazenamento (dias)) <strong>/</strong> "Densidade do Dejeto Líquido (Kg/m3)"
+                    <p> => (${sistemprod.producao} * ${totalua} * ${sistemprod.tempoArmazenamento}) / ${sistemprod.ddl} ==> ${volumeliquido.toFixed(2)} m<sup>3</sup></p>
+                    <p>Sugestão de Dimensões: <strong>Altura:</strong> ${volumeliquido_sugerido.altura} m, 
+                    <strong>Base maior:</strong> ${volumeliquido_sugerido.Bmaior} m, <strong>Base menor:</strong> ${volumeliquido_sugerido.Bmenor} m, 
+                    <strong>Comprimento:</strong> ${volumeliquido_sugerido.comprimento} m, <strong>Volume:</strong> ${Number(volumeliquido_sugerido.volume).toFixed(2)} m<sup>3</sup></p>
+    `
+    
+    return response;
   }
+
+  rateremit(value: any) {
+
+    const response = this.calcular(value);
+    
+    this.createTreatment(response);
+  }
+
   async createTreatment(dados: any) {
 
     let situacao = `
@@ -117,30 +148,30 @@ export class DmEsterqueiraComponent implements OnInit {
 
     const customers = [];
 
-    let orientacao = `Desta forma, para esta lotação, é necessário realizar a costrução com as seguintes dimensões:
+    let orientacao = `Desta forma, para esta lotação, é necessário realizar a construção da seguinte forma:
     `;
 
     /**
      * Orienta adubação
      {altura, largura, comprimento, volume};
      */
-    orientacao +=  ` A Estequeira para dejetos sólidos dever ter dimensões de  ${dados.estsolid.altura} metros de altura, ${dados.estsolid.largura} metros de largura, ${dados.estsolid.comprimento} metros de comprimento com capacidade total de armazenamento de ${dados.estsolid.volume} mil litros.`;
+    orientacao +=  ` A Esterqueira para dejetos sólidos dever ter dimensões de  ${dados.estsolid.altura} metros de altura, ${dados.estsolid.largura} metros de largura, ${dados.estsolid.comprimento} metros de comprimento com capacidade total de armazenamento de ${dados.estsolid.volume} mil litros.`;
 
-    const totalcompartimentos = this.form.controls.sistema.value.tempo / this.form.controls.sistema.value.tempoArmazenamento;
+    const totalcompartimentos = dados.sistema.tempo / dados.sistema.tempoArmazenamento;
     orientacao += `
-    Serão necessários ${ totalcompartimentos } compartimentos de ${dados.estsolid.volume} m³ cada para totalizar os ${ totalcompartimentos * this.form.controls.sistema.value.tempoArmazenamento } dias de tratamento.
+    Serão necessários ${ totalcompartimentos } compartimentos de ${dados.estsolid.volume} m³ cada para totalizar os ${ totalcompartimentos * dados.sistema.tempoArmazenamento } dias de tratamento.
     `
 
     /**
      * {altura, Bmaior, Bmenor, comprimento, volume};
      */
-    orientacao +=  `A Estequeira para dejetos líquidos Impede que os dejetos sejam carreados para os cursos d'água subterrâneos e/ou superficiais e dever ser construída em formato trapezoidal com dimensões de ${dados.estliquid.altura} metros de altura, ${dados.estliquid.Bmaior} metros na base maior, ${dados.estliquid.Bmenor} metros na base menor, ${dados.estliquid.comprimento} metros de comprimento com capacidade total de armazenamento de ${dados.estliquid.volume} mil litros.`
+    orientacao +=  `A Esterqueira para dejetos líquidos impede que os dejetos sejam carreados para os cursos d'água subterrâneos e/ou superficiais e dever ser construída em formato trapezoidal com dimensões de ${dados.estliquid.altura} metros de altura, ${dados.estliquid.Bmaior} metros na base maior, ${dados.estliquid.Bmenor} metros na base menor, ${dados.estliquid.comprimento} metros de comprimento com capacidade total de armazenamento de ${dados.estliquid.volume} mil litros.`
     
     let recomendacao = `
     
     `;
 
-    recomendacao += `A Estequeira para dejetos líquidos Utiliza maior quantidade de água, mas que pode ser reaproveitada da lavagem do curral. Antes de encaminhar o efluente proveniente da lavagem do curral diretamente para a esterqueira, ele deve passar por uma caixa de areia.
+    recomendacao += `A Esterqueira para dejetos líquidos Utiliza maior quantidade de água, mas que pode ser reaproveitada da lavagem do curral. Antes de encaminhar o efluente proveniente da lavagem do curral diretamente para a esterqueira, ele deve passar por uma caixa de areia.
     `;
 
     const ater: AterModel = {

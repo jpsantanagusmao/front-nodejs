@@ -12,4 +12,4 @@ export const PRODUCAO_ESTERCO: ProducaoEstercoModel[] = [
     {descricao: 'Confinado - confinamento integral', tempo: 60, producao: 24, dds: 600, ddl: 1007, tempoArmazenamento:20, razao: 0.5},
     {descricao: 'Semiconfinado - duas ordenhas diárias', tempo: 60, producao: 17, dds: 600, ddl: 1007, tempoArmazenamento:20, razao: 1},
     {descricao: 'Extensivo - uma ordenha diária', tempo: 60, producao: 8, dds: 600, ddl: 1007, tempoArmazenamento: 20, razao: 1},
-];
+]; 
