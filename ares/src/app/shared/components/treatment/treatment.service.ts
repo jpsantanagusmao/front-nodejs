@@ -27,7 +27,9 @@ export class TreatmentService {
   countTasks(){
     this._userService.countTasks();
   }
-  
+
+
+
   findByActionRef(ref: any): Observable<any> {
     if (ref) {
       return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-action/${ref}`).pipe(

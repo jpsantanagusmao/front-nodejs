@@ -91,6 +91,8 @@ export class DialogAddTaskComponent implements OnInit {
 
     const id = this.id;
 
+    if(!this.istaskOk()) return false;
+
     data.status = statusModel.INICIADA;
     data.action_id = this.taskSelected.action_id;
     data.userDesigned_id = this.userSelected;
@@ -123,15 +125,20 @@ export class DialogAddTaskComponent implements OnInit {
     }
 
     const valor = this.form.controls.valor.value;
-    if ((isNaN(valor)) || Number(valor) == 0) {
+
+    if ((isNaN(valor)) || Number(valor) <= 0) {
       let msg = 'O valor unitário para este serviço deve ser informado.';
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
 
+    if (this.userSelected) {
+      let msg = 'Você deve informar usuário responsável por este serviço.';
+      this._messageService.handleError(msghead, `${msg}`);
+      return false;
+    }
     return true;
   }
-
 
   private _confirmAndClose(value: any) {
     try {

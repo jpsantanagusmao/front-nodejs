@@ -44,9 +44,14 @@ export class DetailsComponent implements OnInit {
       .subscribe(
         data => {
           obj.item = data;
+
           let id = obj._route.snapshot.queryParamMap.get('id')
+
+          if(!obj.item) return false;
+
           obj.item.idproposta = id;
           obj.registerItem(obj.item);
+
         },
         error => {
           console.error(error);
@@ -131,6 +136,35 @@ export class DetailsComponent implements OnInit {
 
     });
   }
+  onUnRisk(id) {
+
+    const obj = this;
+    this._userService.unriskItem(id).subscribe(sucess => {
+      obj.loadData();
+      // obj._messageService.handleSuccess('Registrado com Sucesso', `${id}`)
+
+    }, error => {
+      console.log(error);
+
+      obj._messageService.handleWarning('Encerrando Tarefa', 'Serviço cancelado com sucesso.')
+
+    });
+  }
+
+  onRisk(id) {
+
+    const obj = this;
+    this._userService.riskItem(id).subscribe(sucess => {
+      obj.loadData();
+      // obj._messageService.handleSuccess('Registrado com Sucesso', `${id}`)
+
+    }, error => {
+      console.log(error);
+
+      obj._messageService.handleWarning('Encerrando Tarefa', 'Serviço cancelado com sucesso.')
+
+    });
+  };
 
   loadData() {
 
@@ -146,7 +180,13 @@ export class DetailsComponent implements OnInit {
 
         } else {
           obj.valorproposta$ = (data.project.itensfinanciados.reduce((acc, i) => {
-            return parseFloat(acc) + parseFloat(i.valorTotalItem);
+
+            if (!(i.risked)) {
+              return parseFloat(acc) + parseFloat(i.valorTotalItem);
+            } else {
+              return parseFloat(acc) + 0;
+
+            }
           }, 0));
         }
       }),
@@ -156,17 +196,17 @@ export class DetailsComponent implements OnInit {
         }, 0));
       }),
       tap(data => {
-	  	  if(( Number(obj.valorproposta$) == 0 )){
-		obj.txelab = 150.0;  
-	  }
-	  if(( Number(obj.valorproposta$) <= 30000 ) && ( Number(obj.valorproposta$) > 0 )){
-	  obj.txelab = 150.0;
-	  }
-	  if(( Number(obj.valorproposta$) >= 0 )){
-		obj.txelab = Number(obj.valorproposta$) * 0.5 / 100;
-	  }
-        
-		//obj.txelab = Number(obj.valorproposta$) <= 30000 ? 150.00 : Number(obj.valorproposta$) * 0.5 / 100;
+        if ((Number(obj.valorproposta$) == 0)) {
+          obj.txelab = 150.0;
+        }
+        if ((Number(obj.valorproposta$) <= 30000) && (Number(obj.valorproposta$) > 0)) {
+          obj.txelab = 150.0;
+        }
+        if ((Number(obj.valorproposta$) >= 0)) {
+          obj.txelab = Number(obj.valorproposta$) * 0.5 / 100;
+        }
+
+        //obj.txelab = Number(obj.valorproposta$) <= 30000 ? 150.00 : Number(obj.valorproposta$) * 0.5 / 100;
         obj.daevl = Number(obj.valorServicos$) + obj.txelab;
 
       })

@@ -1,0 +1,7 @@
+<form [formGroup]="form">
+  <input formControlName="search" [typeahead]="users$" typeaheadOptionField="descricao" [typeaheadAsync]="true"
+      [typeaheadOptionsLimit]="7" [typeaheadMinLength]="0" [typeaheadOrderBy]="sortConfig"
+      [typeaheadIsFirstItemActive]="true" [typeaheadSelectFirstItem]="true"
+      (typeaheadNoResults)="typeaheadNoResults($event)"
+      (typeaheadOnSelect)="onSelect($event)" placeholder={{MESSAGE_PLACE_HOLDER}} class="form-control">
+</form>

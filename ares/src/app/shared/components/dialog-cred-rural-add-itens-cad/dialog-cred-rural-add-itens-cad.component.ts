@@ -15,9 +15,9 @@ import { AlertMessagesService } from '../../services/alert-messages.service';
 export class DialogCredRuralAddItensCadComponent implements OnInit {
   confirmResult: Subject<any>;
 
-  itemFinanciadoSelected: itemfinanciado;
+  itemFinanciadoSelected: any;
 
-  ITENS_FINANCIAVEIS_DATA: Itemfinanciavel[] = ITENS_FINANCIAVEIS;
+  ITENS_FINANCIAVEIS_DATA: any[] = ITENS_FINANCIAVEIS;
 
   @Input() title: string = 'Registro de operação de crédito rural';
 
@@ -43,9 +43,9 @@ export class DialogCredRuralAddItensCadComponent implements OnInit {
     return (Number(valor01) * Number(valor2)).toFixed(2);
   }
 
-  onSelecItemFin(value) {
+  onSelectItem(value) {
+    this.itemFinanciadoSelected = value;
 
-    // this.onConfirm();
   }
 
   ngOnInit(): void {
@@ -53,15 +53,23 @@ export class DialogCredRuralAddItensCadComponent implements OnInit {
     const obj = this;
 
   }
+
   onConfirm() {
-    this.itemFinanciadoSelected = {
-      finalidade: JSON.parse(this.form.get('finalidade').value).representacaobd,
-      atividade: JSON.parse(this.form.get('finalidade').value).atividade,
-      descricao: JSON.parse(this.form.get('finalidade').value).descricao,
-      unidade: JSON.parse(this.form.get('finalidade').value).unidade,
-      qtditemfinanc: Number(this.form.controls.qtditemfinanc.value),
-      valorunit: Number(this.form.controls.valorunit.value)
-    };
+
+    if(!this.itemFinanciadoSelected) return false;
+
+    this.itemFinanciadoSelected.qtditemfinanc = Number(this.form.controls.qtditemfinanc.value);
+    this.itemFinanciadoSelected.valorunit = Number(this.form.controls.valorunit.value);
+
+    this.itemFinanciadoSelected.finalidade = this.itemFinanciadoSelected.representacaobd;
+
+    // delete this.itemFinanciadoSelected.atividade;
+
+    delete this.itemFinanciadoSelected.created;
+    delete this.itemFinanciadoSelected.createdby;
+    delete this.itemFinanciadoSelected.updated;
+    delete this.itemFinanciadoSelected.updatedby;
+
     this._confirmAndClose(this.itemFinanciadoSelected);
   }
 

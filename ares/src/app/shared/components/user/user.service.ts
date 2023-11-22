@@ -27,6 +27,13 @@ export class UserService {
     private router: Router,
   ) { }
 
+  findbyitensdescription(ref: any): Observable<any> {
+    if (ref) {
+      return this.http.get(`${env.BASE_API_URL}${this.PATH}/find-by-itens-description/${ref}`).pipe(
+      );
+    }
+    return EMPTY;
+  }
   // Obtem as tasks referente a uma visita informada
   tasksByTreatment(id): Observable<any> {
 
@@ -34,10 +41,23 @@ export class UserService {
       ;
   }
 
+  // Risca/Cancela o item financiado em um projeto de crédito rural.
+  riskItem(id): Observable<any> {
+    return this.http.put(`${env.BASE_API_URL}${this.PATH}/risk-item-on-project/${id}`, { toRisked: true })
+      ;
+
+  }
+
+  // Reestabelece  Riscado/Cancelado em um projeto de crédito rural.
+  unriskItem(id): Observable<any> {
+    return this.http.put(`${env.BASE_API_URL}${this.PATH}/risk-item-on-project/${id}`, { toRisked: false })
+      ;
+
+  }
   // Obtem os dados da visita com as tasks e projetos de crédito rural
   taksAndProjectsCrByTreatment(id): Observable<any> {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/tasks-and-projcr-by-treatment/${id}`)
-    ;
+      ;
   }
   // Obtem os projetos de crédito rural referente a uma visita informada
   projectsCrByTreatment(id): Observable<any> {

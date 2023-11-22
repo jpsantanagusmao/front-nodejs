@@ -33,7 +33,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let t of v.tasks">
-          <td>{{t.description}}</td>
+          <td>
+
+            {{t.description}}
+          </td>
           <td>{{t.status}}</td>
           <td>{{t.valor * t.qtd | number:'1.2-2'}}</td>
           <td>{{t.user}}</td>
@@ -73,22 +76,22 @@
         </div>
       </div>
       <div class="statusnotif">
-          <button *ngIf="p.pgmtrt" class="btn btn-success"
-            tooltip="ART/TRT já foi paga e emitida">
-            <i class="bi bi-credit-card-2-front"></i>
-          </button>
-          <!-- -->
-          <button *ngIf="!p.pgmtrt" (click)="quitTrt(p.idprojeto)" class="btn btn-warning" tooltip="Clique aqui para definir como emitida">
-            <i class="bi bi-credit-card-2-front-fill"></i> TRT não emitida!!!
-          </button>
-          <button *ngIf="p.pgmrda" class="btn btn btn-success"
-            tooltip="Ver detalhes da visita com Projetos elaborados">
-            <i class="bi bi-credit-card-2-front"></i>
-          </button>
-          <!--  -->
-          <button  *ngIf="!p.pgmrda" (click)="quitDae(p.idprojeto)" class="btn btn btn-warning" tooltip="Clique aqui para definir como DAE quitado.">
-            <i class="bi bi-credit-card-2-front-fill"></i> Não pagou DAE!!!
-          </button>
+        <button *ngIf="p.pgmtrt" class="btn btn-success" tooltip="ART/TRT já foi paga e emitida">
+          <i class="bi bi-credit-card-2-front"></i>
+        </button>
+        <!-- -->
+        <button *ngIf="!p.pgmtrt" (click)="quitTrt(p.idprojeto)" class="btn btn-warning"
+          tooltip="Clique aqui para definir como emitida">
+          <i class="bi bi-credit-card-2-front-fill"></i> TRT não emitida!!!
+        </button>
+        <button *ngIf="p.pgmrda" class="btn btn btn-success" tooltip="Ver detalhes da visita com Projetos elaborados">
+          <i class="bi bi-credit-card-2-front"></i>
+        </button>
+        <!--  -->
+        <button *ngIf="!p.pgmrda" (click)="quitDae(p.idprojeto)" class="btn btn btn-warning"
+          tooltip="Clique aqui para definir como DAE quitado.">
+          <i class="bi bi-credit-card-2-front-fill"></i> Não pagou DAE!!!
+        </button>
       </div>
       <table class="table table-hover" *ngIf="p.itensfinanciados.length > 0; else noprojects">
         <thead>
@@ -102,12 +105,56 @@
         </thead>
         <tbody>
           <tr *ngFor="let p of p.itensfinanciados">
-            <td>{{p.descricao}}</td>
-            <td>{{p.qtditemfinanc}}</td>
-            <td>{{p.unidade}}</td>
-            <td>{{p.valorunit | number:'1.2-2'}}</td>
-            <td>{{p.valorTotalItem | number:'1.2-2'}}</td>
+            <!-- <td [ngStyle]="{'background': p.risked ? 'blue' : 'red'}"> -->
+            <td *ngIf="!p.risked">
+              <button class="btn text-danger" (click)="onRisk(p.iditemfinanciado)" *ngIf=(!p.risk) tooltip="Cancelar este item da proposta.">
+                <i class="bi bi-journal-x"></i>
+              </button>
+                {{p.descricao}}
+            </td>
+            <td *ngIf="!p.risked">
+                {{p.qtditemfinanc}}
+            </td>
+            <td *ngIf="!p.risked">
+                {{p.unidade}}
+            </td>
+            <td *ngIf="!p.risked">
+                {{p.valorunit | number:'1.2-2'}}
+            </td>
+            <td *ngIf="!p.risked">
+                {{p.valorTotalItem | number:'1.2-2'}}
+            </td>
+
+            <td *ngIf="p.risked">
+              <button class="btn" (click)="onUnRisk(p.iditemfinanciado)" *ngIf=(!p.risk) tooltip="Cancelar este item da proposta.">
+                <i class="bi bi-journal-x"></i>
+              </button>
+              <del>
+                {{p.descricao}}
+              </del>
+            </td>
+            <td *ngIf="p.risked">
+              <del>
+                {{p.qtditemfinanc}}
+              </del>
+            </td>
+            <td *ngIf="p.risked">
+              <del>
+                {{p.unidade}}
+              </del>
+            </td>
+            <td *ngIf="p.risked">
+              <del>
+                {{p.valorunit | number:'1.2-2'}}
+              </del>
+            </td>
+            <td *ngIf="p.risked">
+              <del>
+                {{p.valorTotalItem | number:'1.2-2'}}
+              </del>
+            </td>
           </tr>
+
         </tbody>
       </table>
     </div>

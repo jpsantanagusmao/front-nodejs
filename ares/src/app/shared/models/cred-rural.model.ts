@@ -8,7 +8,7 @@ export interface CredRuralModel {
     anoultpgm: Date;//ano do ultimo pagamento
     txjurosaa: number;//taxa de juros ao ano
 }
-  
+
 export interface  itemfinanciado{
     finalidade: Itemfinanciavel;//finalidade do financiamento
     atividade: string;//finalidade do financiamento

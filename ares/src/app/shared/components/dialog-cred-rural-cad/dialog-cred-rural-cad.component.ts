@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
-import { FormGroup,  FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { CredRuralModel, itemfinanciado } from '../../models/cred-rural.model';
 import * as moment from 'moment';
 import { Itemfinanciavel, ITENS_FINANCIAVEIS } from './model/item-financiaveis.model';
@@ -18,8 +18,8 @@ export class DialogCredRuralCadComponent implements OnInit {
   confirmResult: Subject<CredRuralModel>;
 
   propostacred: CredRuralModel;
-  itensFinanciados: itemfinanciado[] = [];
-  itemFinanciadoSelected: itemfinanciado;
+  itensFinanciados: any[] = [];
+  itemFinanciadoSelected: any;
 
   ITENS_FINANCIAVEIS_DATA: Itemfinanciavel[] = ITENS_FINANCIAVEIS;
   BANCO_FINANCIADOR_DATA: Banco[] = BANCO_FINANCIADOR;
@@ -47,6 +47,7 @@ export class DialogCredRuralCadComponent implements OnInit {
       txjurosaa: [''],
     });
 
+
     this.formitem = this.fb.group({
       finalidade: [''],
       qtditemfinanc: [''],
@@ -61,7 +62,7 @@ export class DialogCredRuralCadComponent implements OnInit {
     }
 
     this.itemFinanciadoSelected.qtditemfinanc = Number(this.formitem.get('qtditemfinanc').value),
-    this.itemFinanciadoSelected.valorunit = Number(this.formitem.get('valorunit').value)
+      this.itemFinanciadoSelected.valorunit = Number(this.formitem.get('valorunit').value)
     this.itensFinanciados.push(this.itemFinanciadoSelected);
   }
 
@@ -81,14 +82,31 @@ export class DialogCredRuralCadComponent implements OnInit {
   }
 
   onSelecItemFin(value) {
-    this.itemFinanciadoSelected = {
-      finalidade: JSON.parse(this.formitem.get('finalidade').value).representacaobd,
-      atividade: JSON.parse(this.formitem.get('finalidade').value).atividade,
-      descricao: JSON.parse(this.formitem.get('finalidade').value).descricao,
-      unidade: JSON.parse(this.formitem.get('finalidade').value).unidade,
-      qtditemfinanc: Number(this.formitem.get('qtditemfinanc').value),
-      valorunit: Number(this.formitem.get('valorunit').value)
-    };
+    // this.itemFinanciadoSelected = {
+    //   finalidade: JSON.parse(this.formitem.get('finalidade').value).representacaobd,
+    //   atividade: JSON.parse(this.formitem.get('finalidade').value).atividade,
+    //   descricao: JSON.parse(this.formitem.get('finalidade').value).descricao,
+    //   unidade: JSON.parse(this.formitem.get('finalidade').value).unidade,
+    //   qtditemfinanc: Number(this.formitem.get('qtditemfinanc').value),
+    //   valorunit: Number(this.formitem.get('valorunit').value)
+    // };
+
+    if (!this.itemFinanciadoSelected) return false;
+
+    this.itemFinanciadoSelected.qtditemfinanc = Number(this.formitem.controls.qtditemfinanc.value);
+    this.itemFinanciadoSelected.valorunit = Number(this.formitem.controls.valorunit.value);
+    // ...AlertMessagesService.    this.itemFinanciadoSelected.finalidade = this.itemFinanciadoSelected.atividade;
+
+    this.itemFinanciadoSelected.finalidade = this.itemFinanciadoSelected.representacaobd;
+
+    // delete this.itemFinanciadoSelected.atividade;
+
+    delete this.itemFinanciadoSelected.created;
+    delete this.itemFinanciadoSelected.createdby;
+    delete this.itemFinanciadoSelected.updated;
+    delete this.itemFinanciadoSelected.updatedby;
+
+    this._confirmAndClose(this.itemFinanciadoSelected);
   }
 
   ngOnInit(): void {
@@ -98,6 +116,9 @@ export class DialogCredRuralCadComponent implements OnInit {
   }
   onConfirm() {
     const obj = this;
+
+
+
     this.propostacred = this.formprop.value;
     this.propostacred.itens = this.itensFinanciados;
     if (!this.formPropostaok(this.propostacred)) {
@@ -111,6 +132,11 @@ export class DialogCredRuralCadComponent implements OnInit {
   }
   onRemove() {
     this.itensFinanciados = [];
+  }
+
+  onSelectItem(value) {
+    this.itemFinanciadoSelected = value;
+
   }
 
   formitensok() {
@@ -187,13 +213,13 @@ export class DialogCredRuralCadComponent implements OnInit {
 
     const dtmin = anoprimpgm;//.add(12, 'month');
 
-    if ( (anoultpgm.isBefore(dtmin)) ) {
+    if ((anoultpgm.isBefore(dtmin))) {
       let msg = `A data da última parcela será em ${anoultpgm.format('MM/YY')}, mas deve ser após ${dtmin.format("MM/YYYY")}`;
       this._messageService.handleError(msghead, `${msg}`);
       return false;
     }
 
-    if (!(this.itensFinanciados.length>0) || (!this.itensFinanciados)) {
+    if (!(this.itensFinanciados.length > 0) || (!this.itensFinanciados)) {
       let msg = 'Deve haver pelo menos um item a ser financiado nesta proposta..';
       this._messageService.handleError(msghead, `${msg}`);
       return false;

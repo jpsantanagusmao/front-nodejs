@@ -74,6 +74,7 @@ import { SoloMilhoComponent } from './components/agro/solo-milho/solo-milho.comp
 import { SoloCapiacuComponent } from './components/agro/solo-capiacu/solo-capiacu.component';
 import { DialogAddTaskComponent } from './components/add-task/dialogAddTask.component';
 import { DialogCredRuralAddItensCadComponent } from './components/dialog-cred-rural-add-itens-cad/dialog-cred-rural-add-itens-cad.component';
+import { SelectItensFinanciaveisComponent } from './components/select-itens-financiaveis/select-itens-financiaveis.component';
 
 @NgModule({
   declarations: [
@@ -144,6 +145,7 @@ import { DialogCredRuralAddItensCadComponent } from './components/dialog-cred-ru
     SoloCapiacuComponent,
     DialogAddTaskComponent,
     DialogCredRuralAddItensCadComponent,
+    SelectItensFinanciaveisComponent,
   ],
   imports: [
     CommonModule,
@@ -219,6 +221,8 @@ import { DialogCredRuralAddItensCadComponent } from './components/dialog-cred-ru
     DmSupForragComponent,
     SoloMilhoComponent,
     SoloCapiacuComponent,
+    SelectItensFinanciaveisComponent,
+    DialogCredRuralAddItensCadComponent
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

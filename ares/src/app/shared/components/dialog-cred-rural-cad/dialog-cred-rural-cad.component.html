@@ -4,6 +4,7 @@
         <div class="row">
             <p class="p-3 mt-3 form-tittle">{{title}}</p>
         </div>
+
         <div class="row">
             <div class="col-4 col-md-6">
                 <label class="form-label" for="banco">Banco Financiador</label>
@@ -42,13 +43,7 @@
         <form [formGroup]="formitem" class="d-flex flex-column">
             <div class="d-flex justify-content-between">
                 <div class="col-4 col-md-6">
-                    <label class="form-label" for="finalidade">Finalidade</label>
-                    <select id="finalidade" class="form-control" style="width: 250px;" formControlName="finalidade"
-                        tooltip="Selecione a finalidade de financiamento" (change)="onSelecItemFin($event)">
-                        <option *ngFor='let i of ITENS_FINANCIAVEIS_DATA' [value]='i | json'>{{i.descricao}}
-                            ({{i.unidade}})
-                        </option>
-                    </select>
+                  <select-itens-financiaveis (onSelected)="onSelectItem($event)"></select-itens-financiaveis>
                 </div>
                 <div class="col-4 col-md-2">
                     <label class="form-label" for="qtditemfinanc">Quantidade:</label>
