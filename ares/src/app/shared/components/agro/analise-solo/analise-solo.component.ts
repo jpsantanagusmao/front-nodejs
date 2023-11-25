@@ -7,7 +7,7 @@ import { CULTURAS } from './tbl-exig-nutricionais';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { ModelosAdubacao } from './modelo-adubacao';
 import { CORRETIVOS, FERTILIZANTES } from './insumos';
-import {resolver} from '../../../../../../solver2';
+import { resolver } from '../../../../../../solver2';
 import Solver from 'javascript-lp-solver'
 
 @Component({
@@ -16,6 +16,9 @@ import Solver from 'javascript-lp-solver'
   styleUrls: ['./analise-solo.component.css']
 })
 export class AnaliseSoloComponent implements OnInit {
+
+  orientacoes: any = {};
+  recomendacoes: any = {};
 
   form: FormGroup;
   // formCalcario: FormGroup;
@@ -53,6 +56,13 @@ export class AnaliseSoloComponent implements OnInit {
   qtd_P2O5: any;
   qtd_K2O: any;
 
+  msgAbubacao;
+
+  FertilizantesCalculated: any;
+
+  calcarioCalculated: Number;
+  hasCalcCalcario: boolean = false;
+  msgCalcario;
   //Classe dos nutrientes
   class_h;
   class_al;
@@ -81,86 +91,134 @@ export class AnaliseSoloComponent implements OnInit {
 
 
   }
+  // groupBy(xs, key) {
+  //   return xs.reduce(function (rv, x) {
+  //     (rv[x[key]] = rv[x[key]] || []).push(x);
+  //     return x[key];
+  //   }, {});
+  // };
 
-  async solver(){
-    if(!(
+  async solver() {
+    const arr = [
+      this.fertilizanteNSelected,
+      this.fertilizantePSelected,
+      this.fertilizanteKSelected
+    ]
+
+    // console.log(
+    //   this.fertilizanteNSelected
+    // );
+    // console.log(
+    //   this.fertilizantePSelected
+    // );
+    // console.log(
+    //   this.fertilizanteKSelected
+    // );
+
+    if (!(
       this.fertilizanteNSelected
       && this.fertilizantePSelected
       && this.fertilizanteKSelected
-    )){
+    )) {
       return
     }
+
+
+    const unique = [...new Set(arr.map(obj => obj))];
+    let variables: any = {};
+
+    unique.forEach(o => {
+      variables[`${o.descricao}`] =
+      {
+        n: o.n || 0,
+        nc: o.n || 0,
+        p: o.p || 0,
+        k: o.k || 0,
+        preco: o.preco || 100
+      };
+    });
 
     const optimize = {
       preco: "min"
     }
 
     const constraints = {
-      'n': { "min": this.qtd_N.plantio * 100, "max": this.qtd_N.plantio * 150},
-      'nc': { "min": this.qtd_N.cobertura * 100, "max": this.qtd_N.cobertura * 130},
+      'n': { "min": this.qtd_N.plantio * 100, "max": this.qtd_N.plantio * 150 },
+      'nc': { "min": this.qtd_N.cobertura * 100, "max": this.qtd_N.cobertura * 130 },
       'p': { "min": this.qtd_P2O5 * 100 },
-      'k': { "min": this.qtd_K2O * 100 , "max": this.qtd_K2O * 150},
+      'k': { "min": this.qtd_K2O * 100, "max": this.qtd_K2O * 150 },
     }
 
-    const variables = {
-      'n':
-      {
-        n: this.fertilizanteNSelected.n || 0,
-        nc: this.fertilizanteNSelected.n || 0,
-        p: this.fertilizanteNSelected.p || 0,
-        k: this.fertilizanteNSelected.k || 0,
-        preco: 100
-      },
-      'nc':
-      {
-        n: this.fertilizanteNSelected.n || 0,
-        nc: this.fertilizanteNSelected.n || 0,
-        p: this.fertilizanteNSelected.p || 0,
-        k: this.fertilizanteNSelected.k || 0,
-        preco: 100
-      },
-      'p':
-      {
-        n: this.fertilizantePSelected.n || 0,
-        nc: this.fertilizantePSelected.n || 0,
-        p: this.fertilizantePSelected.p || 0,
-        k: this.fertilizantePSelected.k || 0,
-        preco: 100
-      },
-      'k':
-      {
-        n: this.fertilizanteKSelected.n || 0,
-        nc: this.fertilizanteKSelected.n || 0,
-        p: this.fertilizanteKSelected.p || 0,
-        k: this.fertilizanteKSelected.k || 0,
-        preco: 100
-      }
-    }
+    // const variables = {
+    //   'n':
+    //   {
+    //     n: this.fertilizanteNSelected.n || 0,
+    //     nc: this.fertilizanteNSelected.n || 0,
+    //     p: this.fertilizanteNSelected.p || 0,
+    //     k: this.fertilizanteNSelected.k || 0,
+    //     preco: 100
+    //   },
+    //   'nc':
+    //   {
+    //     n: this.fertilizanteNSelected.n || 0,
+    //     nc: this.fertilizanteNSelected.n || 0,
+    //     p: this.fertilizanteNSelected.p || 0,
+    //     k: this.fertilizanteNSelected.k || 0,
+    //     preco: 100
+    //   },
+    //   'p':
+    //   {
+    //     n: this.fertilizantePSelected.n || 0,
+    //     nc: this.fertilizantePSelected.n || 0,
+    //     p: this.fertilizantePSelected.p || 0,
+    //     k: this.fertilizantePSelected.k || 0,
+    //     preco: 100
+    //   },
+    //   'k':
+    //   {
+    //     n: this.fertilizanteKSelected.n || 0,
+    //     nc: this.fertilizanteKSelected.n || 0,
+    //     p: this.fertilizanteKSelected.p || 0,
+    //     k: this.fertilizanteKSelected.k || 0,
+    //     preco: 100
+    //   }
+    // }
 
     let model: any = {
       optimize,
       constraints,
       variables
     }
-    console.log(model);
+
+
     const response = await Solver.Solve(model);
     const obj = []
 
-    console.log(response);
+    unique.forEach(r => {
+      Object.keys(response).forEach(k => {
+        if (k == r.descricao) {
+          obj.push({ 'Fertilizante': k, 'quantidade': response[`${k}`] })
+        }
+      })
+    });
 
-    if(response?.n){
-      obj.push({'descricao': this.fertilizanteNSelected.descricao, 'qtd': response.n/100 });
-    }
-    if(response?.nc){
-      obj.push({'descricao': this.fertilizanteNSelected.descricao, 'qtd': response.nc });
-    }
-    if(response?.p){
-      obj.push({'descricao': this.fertilizantePSelected.descricao, 'qtd': response.p });
-    }
-    if(response?.k){
-      obj.push({'descricao': this.fertilizanteKSelected.descricao, 'qtd': response.k });
-    }
-    console.log(obj);
+    this.msgAbubacao = `
+    <h2>
+    <strong>
+      Recomendação de adubação
+    </strong>
+    </h2>
+    <ul>
+    `;
+    obj.map(r => {
+      this.msgAbubacao += `
+      <li>${(r.quantidade * this.formCalc.controls.area.value).toFixed(0)} Kg de ${r.Fertilizante}</li>
+      `;
+    })
+    this.msgAbubacao += `</ul>`;
+    this.FertilizantesCalculated = obj;
+
+
   }
   selectSolo(event) {
     this.soloSelected = this.form.controls.classificacao.value;
@@ -213,6 +271,8 @@ export class AnaliseSoloComponent implements OnInit {
   async classElements(e) {
     // this.classK()
     // this.classP()
+    //Fecha as telas para evitar equívocos. Pode achar que calculou algo quando alterou algum elemento.
+    this.calculated = false;
     const element = e.target.id.toLowerCase();
     const valor = Number(e.target.value);
 
@@ -304,7 +364,7 @@ export class AnaliseSoloComponent implements OnInit {
 
     */
     this.corretivos = this.corretivos.filter(f => {
-      if (this.nc.ca_mg < f.camg) {
+      if (this.nc.ca_mg > f.camg) {
         return f;
       }
     });
@@ -313,7 +373,10 @@ export class AnaliseSoloComponent implements OnInit {
 
   loadtables() {
     this.fertilizantesNSelected = this.fertilizantes.filter(f => {
-      if (f.n) {
+      if (f.n
+        // && !(f.descricao == this.fertilizanteKSelected.descricao)
+        // && !(f.descricao == this.fertilizantePSelected.descricao)
+      ) {
         return f;
       }
     });
@@ -357,7 +420,8 @@ export class AnaliseSoloComponent implements OnInit {
     });
 
 
-    this.createform2();
+    this.createformVacido();
+    // this.createform2();
     // this.createform();
 
     // this.formCalcario = new FormGroup({
@@ -366,17 +430,59 @@ export class AnaliseSoloComponent implements OnInit {
   }
   selectfontN(value) {
     this.fertilizanteNSelected = this.formCalc.controls.fontN.value;
+    this.loadtables();
+
+    //contempla P?
+    //entao desabilita P
+
+    //contempla K?
+    //entao desabilita K
+
+
     this.solver();
   }
   selectfontP(value) {
     this.fertilizantePSelected = this.formCalc.controls.fontP.value;
+    this.loadtables();
+
+    //contempla N?
+    //entao desabilita N
+
+    //contempla K?
+    //entao desabilita K
+
+
     this.solver();
   }
   selectfontK(value) {
     this.fertilizanteKSelected = this.formCalc.controls.fontK.value;
+    this.loadtables();
+    //contempla N?
+    //entao desabilita N
+
+    //contempla P?
+    //entao desabilita P
+
+
     this.solver();
   }
 
+  createformVacido() {
+    this.form = new FormGroup({
+      description: new FormControl('Gleba teste 2', [Validators.required]),
+      classificacao: new FormControl('', [Validators.required]),
+      cultura: new FormControl('', [Validators.required]),
+      producao: new FormControl('', [Validators.required]),
+      ph: new FormControl('4.93', [Validators.required]),
+      p: new FormControl('1.85', [Validators.required]),
+      k: new FormControl('49.67', [Validators.required]),
+      ca: new FormControl('1.31', [Validators.required]),
+      mg: new FormControl('0.28', [Validators.required]),
+      al: new FormControl('0.45', [Validators.required]),
+      h: new FormControl('4.75', [Validators.required]),
+      mo: new FormControl('1.88', [Validators.required])
+    });
+  }
   createform2() {
     this.form = new FormGroup({
       description: new FormControl('Gleba teste 2', [Validators.required]),
@@ -496,7 +602,10 @@ export class AnaliseSoloComponent implements OnInit {
     para esta faixa de produção, com nível de K considerado ${this.class_k.classificacao} recomenda-se ${this.qtd_K2O} Kg K<sub>2</sub>O/ha
 </div>
   `;
+
+
   }
+
   selectPRNT(value) {
     this.prntSelected = this.formCalc.controls.prnt.value;
     this.calculaQtdCalcario()
@@ -506,9 +615,21 @@ export class AnaliseSoloComponent implements OnInit {
     const qtdRecomendade = this.nc.nc;
     const area = this.formCalc.controls.area.value;
 
-    console.log(prntSelected);
-    console.log(qtdRecomendade);
-    console.log((qtdRecomendade / (prntSelected / 100)) * area);
+    this.calcarioCalculated = Number(Number((qtdRecomendade / Number(prntSelected / 100)) * Number(area)).toFixed(0));
+    this.hasCalcCalcario = true;
+
+    this.msgCalcario = `
+      <h2>
+      <strong>
+        Recomendação de calagem
+      </strong>
+      </h2>
+    `;
+    this.msgCalcario += `
+    - QTD de Calcário = (  NC / PRNT(%)  )  x area (ha) => ( ${qtdRecomendade} / (${prntSelected}/100) ) x ${area} = ${this.calcarioCalculated} (ton);
+    `;
+
+
 
   }
   onChangeArea(value) {
@@ -524,6 +645,68 @@ export class AnaliseSoloComponent implements OnInit {
     return true;
   }
   rateremit(event) {
+    this.orientacoes.calagem = this.nc;
+
+    this.orientacoes.area = this.formCalc.controls.area.value;
+    this.orientacoes.cultura = this.culturaSelected;
+    this.orientacoes.produtividade = this.faixaProducaoSelected;
+    this.orientacoes.adubacao = this.FertilizantesCalculated;
+
+    this.orientacoes.consideracoes = {};
+    this.orientacoes.consideracoes.ph = this.class_ph;
+
+    this.recomendacoes = this.culturaSelected.recomendacoes;
+
+    const o = this.orientacoes;
+    let texto = `
+    Com o resultado a análise de solo, foi possível identificar para uma área de ${o.area} onde cultiva ${o.cultura.cultura}
+    e uma produção esperada de ${o.produtividade.producao}. Segue a recomendação de adubação:
+    `;
+    console.log(o);
+
+    o.adubacao.map(r => {
+      texto += `
+        ${r.quantidade} Kg de ${r.Fertilizante};
+      `;
+    })
+
+    if (o.calagem.nc > 0) {
+      texto += `
+      Para a calagem, aplicar ${o.calagem.nc} de calcário ${this.calcarioSelected.descricao}.
+      `;
+      if (o.calagem.nc > 3) {
+        texto += `
+        Para quantidades superiores a ${3} é necessário parcelar a aplicação e fazer o acompanhamento anual das condições químicas deste solon.
+        `;
+
+      }
+    }
+
+    if(o.consideracoes.ph.classificacao== 'Acidez elevada'){
+      texto+= `
+      Como este solo se encontra com ${o.consideracoes.ph.classificacao}, implica nas situações que devem ser observadas:
+      `;
+
+      o.consideracoes.ph.implicacoes.map(i=>{
+        texto += `${i}, `;
+      })
+    }
+    // this.orientacoes.class_h = this.class_h;
+    // this.orientacoes.class_al = this.class_al;
+    // this.orientacoes.class_ca = this.class_ca;
+    // this.orientacoes.class_mg = this.class_mg;
+    // this.orientacoes.class_k = this.class_k;
+    // this.orientacoes.class_ph = this.class_ph;
+    // this.orientacoes.class_mo = this.class_mo;
+    // this.orientacoes.class_tal = this.class_tal;
+    // this.orientacoes.class_v = this.class_v;
+    // this.orientacoes.class_T = this.class_T;
+    // this.orientacoes.class_t = this.class_t;
+    // this.orientacoes.class_p = this.class_p;
+    console.log(this.orientacoes);
+    console.log(this.recomendacoes);
+    console.log(texto);
+
     return true;
   }
   onReport(ater) {

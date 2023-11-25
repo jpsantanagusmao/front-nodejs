@@ -56,7 +56,7 @@ export const CORRETIVOS = [
     ca: 5, //Chute
     mg: 12,
     prnt: [
-      60,70,80,85,90,95
+      80,85,90,95
     ],
     camg: 1, //Relação Ca/Mg ideal para aplicação deste corretivo
     tca: 100,
@@ -68,7 +68,7 @@ export const CORRETIVOS = [
     ca: 45,
     mg: 5, //Chute
     prnt: [
-      60,70,80,85,90,95
+      70,80,85,90,95
     ],
     camg: 3, //Relação Ca/Mg ideal para aplicação deste corretivo
     tca: 55,
@@ -80,7 +80,7 @@ export const CORRETIVOS = [
     ca: 25,
     mg: 12,
     prnt: [
-      60,70,80,85,90,95
+      60,70,80,85
     ],
     camg: 1000, //Relação Ca/Mg ideal para aplicação deste corretivo
     tca: 55,

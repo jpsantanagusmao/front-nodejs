@@ -1,12 +1,15 @@
 export class ModelosCalagem {
 
+  //Limite máximo para aplicação de uma única vez do calcário
+  static limmaxcalc: number = 3;
+
   constructor() { }
   /**
    *
    * Informa um objeto com os dados de Cálcio, Magnésio, potássio, hidrogenio, saturação de bases desejada e PRNT do calcário.
    * @param {ca:number, mg:number, k:number, h:number, al:number, v2:number, PRNT:number}
    * @returns
-   */
+  */
   public static async saturacaoBases(obj: any) {
     /**
      * O cálculo de calagem baseado no método da elevação da porcentagem de saturação de bases consiste na seguinte fórmula:
@@ -26,13 +29,14 @@ export class ModelosCalagem {
     const v2 = parseFloat(obj.v2).toFixed(2);
     const prnt = parseFloat(obj.prnt) | 100;
 
-    const t = Number(await Number(ca + mg + k).toFixed(2));
-    const T = Number(await Number(ca + mg + k + h).toFixed(2));
+    const SB = Number(await Number(ca + mg + k).toFixed(2));
+    const t = Number(await Number(ca + mg + k + al).toFixed(2));
+    const T = Number(await Number(ca + mg + k + al + h).toFixed(2));
     //const T = await Number(ca + mg + (k/391) + h + al).toFixed(2);
-    const v1 = Number((ca + mg + k) * 100 / Number(T)).toFixed(2);
+    const v1 = Number(((SB) / Number(T)) * 100).toFixed(2);
 
     //Calculando a necessidade de calcário em ton/ha
-    let NC = ((Number(v2) - Number(v1)) * Number(T) / Number(prnt)).toFixed(2);
+    let NC = ((Number(v2)/100 - Number(v1)/100) * Number(T) / (Number(prnt) / 100)).toFixed(2);
 
 
     obj.memoria += await `
@@ -42,10 +46,19 @@ export class ModelosCalagem {
       </p>
     </div>
     <div>
-      <strong>CTC a PH 7 (T) = </strong>ca + mg + (k/391) + h => ${ca} + ${mg} + ${k} + ${h} => ${T} cmolc/dm<sup>3</sup>
+      <strong>Soma de Bases (SB) = </strong>Ca + Mg + (K/391) => ${ca} + ${mg} + ${k} => ${SB} cmolc/dm<sup>3</sup>
     </div>
     <div>
-      <strong>Saturação da bases (V) = </strong> (${ca} + ${mg} + ${k}) * 100 / ${T} => ${v1} %
+      <strong>CTC efetiva (t) = </strong>Ca + Mg + (K/391) + Al => ${ca} + ${mg} + ${k} + ${al} => ${t} cmolc/dm<sup>3</sup>
+    </div>
+    <div>
+      <strong>CTC a PH 7 (T) = </strong>Ca + Mg + (K/391) + Al + H => ${ca} + ${mg} + ${k} + ${h} + ${al} => ${T} cmolc/dm<sup>3</sup>
+    </div>
+    <div>
+      <strong>Saturação da bases esperada para a cultura (V<sub>2</sub>) = </strong> ${v2} %
+    </div>
+    <div>
+      <strong>Saturação da bases (V) = </strong> (${SB} / ${T}) * 100 => ${v1} %
     </div>
 
     `;
@@ -58,9 +71,9 @@ export class ModelosCalagem {
 
       <div>
         <strong>
-          NC = ( "V esperado da Cultura ${obj.culturaSelected.cultura}" - "V efetivo") x T / prnt
+          NC = ( "V esperado da Cultura ${obj.culturaSelected.cultura}" - "V efetivo") x T / PRNT (%)
         </strong>
-          => (${v2} - ${v1}) * ${T} / ${prnt} = ${NC}  t.ha-¹ de calcário
+          => (${Number(v2)/100} - ${Number(v1)/100}) * ${T} / (${prnt}/100) = ${NC}  t.ha-¹ de calcário
       </div>
 
       <div>
@@ -72,13 +85,23 @@ export class ModelosCalagem {
       `;
 
     } else {
+      if (Number(NC) > this.limmaxcalc) {
+        obj.memoria += `
+        <div>
+          <strong>
+            <p>* Para quantidade superior a ${this.limmaxcalc} é necessário dividir a aplicação anualmente até atingir a quantidade recomendada. Além disso é importante fazer o acompanhamento com amostras durante a correção.</p>
+          </strong>
+        </div>
+        `;
+
+      }
 
       obj.memoria += `
       <div>
         <strong>
-          NC = ( "V esperado da Cultura ${obj.culturaSelected.cultura}" - "V efetivo") x T / prnt
+          NC = ( "V esperado da Cultura ${obj.culturaSelected.cultura}" - "V efetivo") x T / PRNT(%)
         </strong>
-          => (${v2} - ${v1}) * ${T} / ${prnt} = ${NC}  t.ha-¹ de calcário
+          => (${v2} - ${v1}) * ${T} / (${prnt}/100) = ${NC}  t.ha-¹ de calcário
       </div>
       `;
 
@@ -103,12 +126,12 @@ export class ModelosCalagem {
       t,
       T,
       v: v1,
-      ca_mg: Number(Number(ca/mg)).toFixed(2),
-      mg_k: Number(Number(mg/k)).toFixed(2),
-      ca_k: Number(Number(ca/k)).toFixed(2),
-      t_ca: Number(Number(ca/T)*100).toFixed(2),
-      t_mg: Number(Number(mg/T)*100).toFixed(2),
-      t_k: Number(Number(k/T)*100).toFixed(2),
+      ca_mg: Number(Number(ca / mg)).toFixed(2),
+      mg_k: Number(Number(mg / k)).toFixed(2),
+      ca_k: Number(Number(ca / k)).toFixed(2),
+      t_ca: Number(Number(ca / T) * 100).toFixed(2),
+      t_mg: Number(Number(mg / T) * 100).toFixed(2),
+      t_k: Number(Number(k / T) * 100).toFixed(2),
     }
 
   }

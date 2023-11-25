@@ -100,7 +100,7 @@
     </div>
     <div class="col">
       <div class="form-group col-md-12">
-        <label for="Mg">Mg - Cálcio - Extrator KCL - mol/L(cmolc/dm³)</label>
+        <label for="Mg">Mg - Magnésio - Extrator KCL - mol/L(cmolc/dm³)</label>
         <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" (change)="classElements($event)"
           tooltip="Magnésio - Extrator KCL - mol/L(cmolc/dm³)" class="form-control col col-md-2" formControlName="mg"
           name="mg" id="mg" required>
@@ -152,7 +152,7 @@
 <div *ngIf="calculated">
   <form [formGroup]="formCalc">
 
-    <div class="row">
+    <div class="row" *ngIf="nc.nc > 0">
       <div class="col-4">
         <label class="form-label" for="cultura">Calcário</label>
         <select id="corretivo" class="form-control" formControlName="corretivo" (change)="selectCalcario($event)"
@@ -161,7 +161,7 @@
         </select>
 
       </div>
-      <div class="col-3">
+      <div class="col-3" *ngIf="nc.nc > 0">
         <label class="form-label" for="cultura">PRNT (%)</label>
         <select id="prnt" class="form-control" formControlName="prnt" (change)="selectPRNT($event)"
           style="width: 250px;" tooltip="Selecione o PRNT do Calcario">
@@ -212,6 +212,8 @@
         Memorial de cálculo:
       </strong>
     </h2> -->
+    <div [innerHtml]="msgCalcario" *ngIf="msgCalcario"></div>
+    <div [innerHtml]="msgAbubacao" *ngIf="msgAbubacao"></div>
     <div [innerHtml]="memoria"></div>
     <div class="col col-2" *ngIf="calculated">
       <button class="btn btn-ok" [disabled]="!dadosok()" id="emitreport" (click)='rateremit($event)'>Emitir
