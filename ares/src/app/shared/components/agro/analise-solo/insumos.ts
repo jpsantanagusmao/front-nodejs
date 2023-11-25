@@ -13,11 +13,11 @@ export const FERTILIZANTES = [
   },
   {
     descricao: 'Uréia pecuária',
-    n: 20,
+    n: 440
   },
   {
     descricao: 'Uréia agrícola',
-    n: 20,
+    n: 44,
   },
   {
     descricao: 'Sulfato de amônio',

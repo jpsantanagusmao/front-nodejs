@@ -86,17 +86,7 @@
           </select>
         </div>
       </div>
-      <div *ngIf="nc">
-        <p class="mt-5 text-success" *ngIf="nc.nc > 0">
-          Recomenda-se a incorporação de {{nc.nc}} toneladas por hectare de calcário {{nc.tipodeCalcario}}
-        </p>
-        <p class="mt-5 text-success" *ngIf="!(nc.nc > 0)">
-          Não é necessário realizar calagem.
-        </p>
-        <p><em>
-            *Calculado pelo {{nc.metodo}}
-          </em></p>
-      </div>
+
     </div>
     <div class="col">
       <div class="form-group col-md-12">

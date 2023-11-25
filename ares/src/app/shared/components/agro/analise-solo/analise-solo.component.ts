@@ -9,6 +9,7 @@ import { ModelosAdubacao } from './modelo-adubacao';
 import { CORRETIVOS, FERTILIZANTES } from './insumos';
 import { resolver } from '../../../../../../solver2';
 import Solver from 'javascript-lp-solver'
+import { AterModel } from 'src/app/shared/models/ater.model';
 
 @Component({
   selector: 'analise-solo',
@@ -17,6 +18,7 @@ import Solver from 'javascript-lp-solver'
 })
 export class AnaliseSoloComponent implements OnInit {
 
+  situacao: any = {};
   orientacoes: any = {};
   recomendacoes: any = {};
 
@@ -53,6 +55,7 @@ export class AnaliseSoloComponent implements OnInit {
   calculated: boolean = false;
 
   qtd_N: any;
+  qtd_Nc: any;
   qtd_P2O5: any;
   qtd_K2O: any;
 
@@ -143,10 +146,10 @@ export class AnaliseSoloComponent implements OnInit {
     }
 
     const constraints = {
-      'n': { "min": this.qtd_N.plantio * 100, "max": this.qtd_N.plantio * 150 },
-      'nc': { "min": this.qtd_N.cobertura * 100, "max": this.qtd_N.cobertura * 130 },
-      'p': { "min": this.qtd_P2O5 * 100 },
-      'k': { "min": this.qtd_K2O * 100, "max": this.qtd_K2O * 150 },
+      'n': { "min": (this.qtd_N.plantio + this.qtd_N.cobertura ) * 90, "max": ( this.qtd_N.plantio + this.qtd_N.cobertura ) * 120 },
+      'nc': { "min": this.qtd_N.cobertura * 90, "max": this.qtd_N.cobertura * 120 },
+      'p': { "min": this.qtd_P2O5 * 90, "max": this.qtd_P2O5 * 120 },
+      'k': { "min": this.qtd_K2O * 90, "max": this.qtd_K2O * 120 },
     }
 
     // const variables = {
@@ -197,7 +200,24 @@ export class AnaliseSoloComponent implements OnInit {
     unique.forEach(r => {
       Object.keys(response).forEach(k => {
         if (k == r.descricao) {
-          obj.push({ 'Fertilizante': k, 'quantidade': response[`${k}`] })
+
+          if(Number(response[`${k}`]) > 0){
+            let hasN = false;
+            let hasP = false;
+            let hasK = false;
+
+            if(r?.n){
+              hasN = true;
+            }
+            if(r?.p){
+              hasP = true;
+            }
+            if(r?.k){
+              hasK = true;
+            }
+
+            obj.push({ 'Fertilizante': k, 'quantidade': Number( Number( response[`${k}`] ).toFixed(0)), hasN, hasP, hasK })
+          }
         }
       })
     });
@@ -420,7 +440,7 @@ export class AnaliseSoloComponent implements OnInit {
     });
 
 
-    this.createformVacido();
+    // this.createformVacido();
     // this.createform2();
     // this.createform();
 
@@ -615,7 +635,7 @@ export class AnaliseSoloComponent implements OnInit {
     const qtdRecomendade = this.nc.nc;
     const area = this.formCalc.controls.area.value;
 
-    this.calcarioCalculated = Number(Number((qtdRecomendade / Number(prntSelected / 100)) * Number(area)).toFixed(0));
+    this.calcarioCalculated = Number(Number((qtdRecomendade / Number(prntSelected / 100)) * Number(area)).toFixed(2));
     this.hasCalcCalcario = true;
 
     this.msgCalcario = `
@@ -645,6 +665,7 @@ export class AnaliseSoloComponent implements OnInit {
     return true;
   }
   rateremit(event) {
+
     this.orientacoes.calagem = this.nc;
 
     this.orientacoes.area = this.formCalc.controls.area.value;
@@ -658,40 +679,55 @@ export class AnaliseSoloComponent implements OnInit {
     this.recomendacoes = this.culturaSelected.recomendacoes;
 
     const o = this.orientacoes;
-    let texto = `
-    Com o resultado a análise de solo, foi possível identificar para uma área de ${o.area} onde cultiva ${o.cultura.cultura}
-    e uma produção esperada de ${o.produtividade.producao}. Segue a recomendação de adubação:
-    `;
-    console.log(o);
 
+    let situacao = '';
+    let orientacao = '';
+    let recomendacao = '';
+
+    situacao = `De posse do resultado da análise de solo é possível identificar que nesta área de aproximadamente ${Number(o.area) < 10? '0':''}${Number(o.area).toFixed(0)} ${Number(o.area) > 1? 'hectares': 'hectare'}, ocorre a predominância de solos "${this.soloSelected.classificacao}" onde é cultivado ${o.cultura.cultura} e o proprietário espera que com a correção de solo, obtenha uma produção próxima de ${o.produtividade.producao} ${o.produtividade.unidade}/hectare.
+Nestas condições, segue então as recomendações para correção e adubação:`;
+
+    orientacao += `A adubação deve ser feita na época do plantio, de preferência no fundo das covas ou sulcos, incorporando no solo o${o.adubacao.length > 1?'s':''} seguinte${o.adubacao.length > 1?'s':''} fertilizante${o.adubacao.length > 1?'s':''}
+    `;
     o.adubacao.map(r => {
-      texto += `
-        ${r.quantidade} Kg de ${r.Fertilizante};
+      const constPlantio = o.produtividade.n / (o.produtividade.n + o.produtividade.nCobertura);
+      const constCobertura = o.produtividade.nCobertura / (o.produtividade.n + o.produtividade.nCobertura);
+      if((r.hasN==true)){
+
+        const plantio = Number(r.quantidade * constPlantio).toFixed(0);
+        const cobertura = Number(r.quantidade * constCobertura).toFixed(0);
+        orientacao += `
+      -${plantio} Kg de ${r.Fertilizante} no plantio;
+      -${cobertura} Kg de ${r.Fertilizante} na cobertura;
       `;
+      }else{
+        orientacao += `-${Number(r.quantidade).toFixed(0)} Kg de ${r.Fertilizante};
+      `;
+      }
     })
 
     if (o.calagem.nc > 0) {
-      texto += `
-      Para a calagem, aplicar ${o.calagem.nc} de calcário ${this.calcarioSelected.descricao}.
-      `;
-      if (o.calagem.nc > 3) {
-        texto += `
-        Para quantidades superiores a ${3} é necessário parcelar a aplicação e fazer o acompanhamento anual das condições químicas deste solon.
+      orientacao += `
+Para a correção do solo é necessário realizar a calagem com a aplicação de ${Number(o.calagem.nc) < 1? Number(Number(o.calagem.nc)*1000).toFixed(0).concat(' Kilos') : Number(o.calagem.nc).toFixed(1).concat(' toneladas')} de ${this.calcarioSelected.descricao} com PRNT de ${this.prntSelected}%. Esta aplicação deve ser realizada de 60 a 90 dias antes do plantio para garantir que haja umidade suficiente para ocorrer as reações químicas necessárias para a correção do solo.`;
+
+        if (o.calagem.nc > 3) {
+        orientacao += `Como a quantidade é superiores a ${3} toneladas por hectares é necessário parcelar a aplicação e fazer o acompanhamento anual das condições químicas deste solo.
         `;
 
       }
     }
 
-    if(o.consideracoes.ph.classificacao== 'Acidez elevada'){
-      texto+= `
-      Como este solo se encontra com ${o.consideracoes.ph.classificacao}, implica nas situações que devem ser observadas:
-      `;
+    if(o.consideracoes.ph.classificacao == 'Acidez elevada'){
+      recomendacao += `Este solo possui ${o.consideracoes.ph.classificacao} e isto implica em situações que devem ser observadas:`;
 
       o.consideracoes.ph.implicacoes.map(i=>{
-        texto += `${i}, `;
+        recomendacao += `${i}, `;
       })
     }
-    // this.orientacoes.class_h = this.class_h;
+
+
+    // console.log(
+    // this.orientacoes.class_h = this.class_h);
     // this.orientacoes.class_al = this.class_al;
     // this.orientacoes.class_ca = this.class_ca;
     // this.orientacoes.class_mg = this.class_mg;
@@ -703,13 +739,29 @@ export class AnaliseSoloComponent implements OnInit {
     // this.orientacoes.class_T = this.class_T;
     // this.orientacoes.class_t = this.class_t;
     // this.orientacoes.class_p = this.class_p;
-    console.log(this.orientacoes);
-    console.log(this.recomendacoes);
-    console.log(texto);
 
-    return true;
+    // console.log(this.situacao);
+    // console.log(this.orientacoes);
+    // console.log(this.recomendacoes);
+    // console.log(situacao);
+    // console.log(orientacao);
+    // console.log(recomendacao);
+
+    const local = '';
+    const customers = [];
+
+    const ater: AterModel = {
+      local, customers, situacao, orientacao, recomendacao
+    };
+    /**
+     * Registra a ater no cookie
+     */
+    this._userCache.createAter(JSON.stringify(ater));
+
+    this.onReport(ater);
   }
+
   onReport(ater) {
-    // this._router.navigate(["../service/", ater],  { relativeTo: this._route });
+    this._router.navigate(["../service/", ater],  { relativeTo: this._route });
   }
 }

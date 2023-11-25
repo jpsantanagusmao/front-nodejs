@@ -13,7 +13,7 @@ import { PRODUCAO_ESTERCO } from './producao-model';
 })
 export class DmEsterqueiraComponent implements OnInit {
   /*
-  Dimensionamento de 
+  Dimensionamento de
   Esterqueira para dejetos bovinos sólidos e líquidos
   */
   SISTEMA_PRODUCAO: any = PRODUCAO_ESTERCO;
@@ -59,7 +59,7 @@ export class DmEsterqueiraComponent implements OnInit {
   }
   memoryCalc(value: any){
     this.calcular(value);
-    
+
   }
   calcular(value: any) {
     /**
@@ -71,7 +71,7 @@ export class DmEsterqueiraComponent implements OnInit {
     const totalua = this.uaRebanho;
 
     let volumesolido = ((sistemprod.producao * totalua) / sistemprod.dds) * sistemprod.tempoArmazenamento;
-    
+
     const volumesolido_sugerido = this.getDims(volumesolido)
 
     /**
@@ -86,7 +86,7 @@ export class DmEsterqueiraComponent implements OnInit {
     let volumeliquido = (sistemprod.producao * totalua * sistemprod.tempoArmazenamento) / sistemprod.ddl
     // volumeliquido = this.getDims(volumesolido)
     // alert(`${sistemprod.producao} * ${totalua} * ${sistemprod.tempoArmazenamento} / ${sistemprod.ddl}`);
-    
+
     const volumeliquido_sugerido = this.getDimsTrapezoidal(volumeliquido);
 
     const response = {
@@ -106,18 +106,18 @@ export class DmEsterqueiraComponent implements OnInit {
                     <BR>
                     <p><strong>VOLUME LÍQUIDO</strong> => (" Produção de esterco (Kg/animal/dia)" <strong>x</strong> "Lotação" <strong>x</strong> Tempo de armazenamento (dias)) <strong>/</strong> "Densidade do Dejeto Líquido (Kg/m3)"
                     <p> => (${sistemprod.producao} * ${totalua} * ${sistemprod.tempoArmazenamento}) / ${sistemprod.ddl} ==> ${volumeliquido.toFixed(2)} m<sup>3</sup></p>
-                    <p>Sugestão de Dimensões: <strong>Altura:</strong> ${volumeliquido_sugerido.altura} m, 
-                    <strong>Base maior:</strong> ${volumeliquido_sugerido.Bmaior} m, <strong>Base menor:</strong> ${volumeliquido_sugerido.Bmenor} m, 
+                    <p>Sugestão de Dimensões: <strong>Altura:</strong> ${volumeliquido_sugerido.altura} m,
+                    <strong>Base maior:</strong> ${volumeliquido_sugerido.Bmaior} m, <strong>Base menor:</strong> ${volumeliquido_sugerido.Bmenor} m,
                     <strong>Comprimento:</strong> ${volumeliquido_sugerido.comprimento} m, <strong>Volume:</strong> ${Number(volumeliquido_sugerido.volume).toFixed(2)} m<sup>3</sup></p>
     `
-    
+
     return response;
   }
 
   rateremit(value: any) {
 
     const response = this.calcular(value);
-    
+
     this.createTreatment(response);
   }
 
@@ -166,9 +166,9 @@ export class DmEsterqueiraComponent implements OnInit {
      * {altura, Bmaior, Bmenor, comprimento, volume};
      */
     orientacao +=  `A Esterqueira para dejetos líquidos impede que os dejetos sejam carreados para os cursos d'água subterrâneos e/ou superficiais e dever ser construída em formato trapezoidal com dimensões de ${dados.estliquid.altura} metros de altura, ${dados.estliquid.Bmaior} metros na base maior, ${dados.estliquid.Bmenor} metros na base menor, ${dados.estliquid.comprimento} metros de comprimento com capacidade total de armazenamento de ${dados.estliquid.volume} mil litros.`
-    
+
     let recomendacao = `
-    
+
     `;
 
     recomendacao += `A Esterqueira para dejetos líquidos Utiliza maior quantidade de água, mas que pode ser reaproveitada da lavagem do curral. Antes de encaminhar o efluente proveniente da lavagem do curral diretamente para a esterqueira, ele deve passar por uma caixa de areia.
@@ -177,7 +177,7 @@ export class DmEsterqueiraComponent implements OnInit {
     const ater: AterModel = {
       local, customers, situacao, orientacao, recomendacao
     };
-    /** 
+    /**
      * Registra a ater no cookie
      */
     this._userCache.createAter(JSON.stringify(ater));
@@ -196,7 +196,7 @@ export class DmEsterqueiraComponent implements OnInit {
     const hlim = 2;
     // largura máxima
     const bmax = 3
-    
+
     let altura = 0;
     let Bmaior = 0;
     let Bmenor = 0;
@@ -246,7 +246,7 @@ export class DmEsterqueiraComponent implements OnInit {
     const hlim = 2;
     // largura máxima
     const lmax = 3
-    
+
     let altura = 0;
     let largura = 0;
     let comprimento = 0;
