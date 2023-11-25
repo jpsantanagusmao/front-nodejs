@@ -75,6 +75,8 @@ import { SoloCapiacuComponent } from './components/agro/solo-capiacu/solo-capiac
 import { DialogAddTaskComponent } from './components/add-task/dialogAddTask.component';
 import { DialogCredRuralAddItensCadComponent } from './components/dialog-cred-rural-add-itens-cad/dialog-cred-rural-add-itens-cad.component';
 import { SelectItensFinanciaveisComponent } from './components/select-itens-financiaveis/select-itens-financiaveis.component';
+import { ElementsComponent } from './components/agro/analise-solo/elements/elements.component';
+import { LevelMessageComponent } from './components/agro/analise-solo/level-message/level-message.component';
 
 @NgModule({
   declarations: [
@@ -146,6 +148,8 @@ import { SelectItensFinanciaveisComponent } from './components/select-itens-fina
     DialogAddTaskComponent,
     DialogCredRuralAddItensCadComponent,
     SelectItensFinanciaveisComponent,
+    ElementsComponent,
+    LevelMessageComponent,
   ],
   imports: [
     CommonModule,

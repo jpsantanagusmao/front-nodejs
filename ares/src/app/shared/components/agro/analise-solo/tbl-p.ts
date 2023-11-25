@@ -1,4 +1,13 @@
-
+export const CLASS_CATEGORY = {
+  MUITO_BAIXO: 'muito baixo',
+  BAIXO: 'baixo',
+  MEDIO: 'medio',
+  BOM: 'bom',
+  ALTO: 'alto',
+  ACIDO: 'ácido',
+  NEUTRO: 'neutro',
+  ALCALINO: 'alcalino',
+}
 
 export const TIPO_SOLO: any[] = [
     {
@@ -11,25 +20,25 @@ export const TIPO_SOLO: any[] = [
         class_P: [
             {
                 P: 1.9,
-                classificacao: 'Muito baixo',
+                classificacao: CLASS_CATEGORY.MUITO_BAIXO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 3.9,
-                classificacao: 'Baixo',
+                classificacao: CLASS_CATEGORY.BAIXO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 5.9,
-                classificacao: 'Médio',
+                classificacao: CLASS_CATEGORY.MEDIO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 1000,
-                classificacao: 'Bom',
+                classificacao: CLASS_CATEGORY.BOM,
                 implicacoes: [],
                 recomendacao: ''
             },
@@ -45,25 +54,25 @@ export const TIPO_SOLO: any[] = [
         class_P: [
             {
                 P: 4.9,
-                classificacao: 'Muito baixo',
+                classificacao: CLASS_CATEGORY.MUITO_BAIXO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 7.9,
-                classificacao: 'Baixo',
+                classificacao: CLASS_CATEGORY.BAIXO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 11.9,
-                classificacao: 'Médio',
+                classificacao: CLASS_CATEGORY.MEDIO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 1000,
-                classificacao: 'Bom',
+                classificacao: CLASS_CATEGORY.BOM,
                 implicacoes: [],
                 recomendacao: ''
             },
@@ -76,28 +85,30 @@ export const TIPO_SOLO: any[] = [
             '',
         ],
         recomendacao: '',
+
+
         class_P: [
             {
                 P: 5.9,
-                classificacao: 'Muito baixo',
+                classificacao: CLASS_CATEGORY.MUITO_BAIXO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 11.9,
-                classificacao: 'Baixo',
+                classificacao: CLASS_CATEGORY.BAIXO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 17.9,
-                classificacao: 'Médio',
+                classificacao: CLASS_CATEGORY.MEDIO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 1000,
-                classificacao: 'Bom',
+                classificacao: CLASS_CATEGORY.BOM,
                 implicacoes: [],
                 recomendacao: ''
             },
@@ -113,25 +124,25 @@ export const TIPO_SOLO: any[] = [
         class_P: [
             {
                 P: 7.9,
-                classificacao: 'Muito baixo',
+                classificacao: CLASS_CATEGORY.MUITO_BAIXO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 149,
-                classificacao: 'Baixo',
+                classificacao: CLASS_CATEGORY.BAIXO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 19.9,
-                classificacao: 'Médio',
+                classificacao: CLASS_CATEGORY.MEDIO,
                 implicacoes: [],
                 recomendacao: ''
             },
             {
                 P: 1000,
-                classificacao: 'Bom',
+                classificacao: CLASS_CATEGORY.BOM,
                 implicacoes: [],
                 recomendacao: ''
             },

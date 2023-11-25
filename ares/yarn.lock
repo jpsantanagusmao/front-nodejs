@@ -5430,6 +5430,11 @@
   "resolved" "https://registry.npmjs.org/jasminewd2/-/jasminewd2-2.2.0.tgz"
   "version" "2.2.0"
 
+"javascript-lp-solver@^0.4.5":
+  "integrity" "sha512-orU0DYvYJBNGr5UZ4WVrg6inUaOuuklINtcsQ2RPcNahZYkeYzfgw5E1tJKbC+yEfEhlU/sGOuSmmbr2hMG4LQ=="
+  "resolved" "https://registry.npmjs.org/javascript-lp-solver/-/javascript-lp-solver-0.4.5.tgz"
+  "version" "0.4.5"
+
 "jest-worker@^26.3.0", "jest-worker@26.3.0":
   "integrity" "sha512-Vmpn2F6IASefL+DVBhPzI2J9/GJUsqzomdeN+P+dK8/jKxbh8R3BtFnx3FIta7wYlPU62cpJMJQo4kuOowcMnw=="
   "resolved" "https://registry.npmjs.org/jest-worker/-/jest-worker-26.3.0.tgz"

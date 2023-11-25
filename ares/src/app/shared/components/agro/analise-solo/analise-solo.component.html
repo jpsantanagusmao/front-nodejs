@@ -1,124 +1,221 @@
 <form [formGroup]="form">
-
-    <div class="form-group col-md-6">
-        <div class="row">
-            <div class="col col-md-6">
-                <label for="description">Descrição da Gleba</label>
-                <input type="text" tooltip="Descreva uma referência para esta área" class="form-control col col-md-12"
-                    formControlName="description" name="description" id="description" required>
-                <error-message
-                    *ngIf="form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)"
-                    errorMessage="É necessário informar uma descrição com 10 a 150 caracteres"></error-message>
-            </div>
-
-            <div class="col col-md-6">
-                <div>
-                    <label class="form-label" for="cultura">Cultura</label>
-                    <select id="cultura" class="form-control" formControlName="cultura" (change)="selectCultura($event)"
-                        style="width: 250px;" tooltip="Selecione a cultura a ser explorada nesta áres">
-                        <option *ngFor='let c of CULTURAS_DATA' [ngValue]="c">{{c.cultura}}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="form-group col-md-12">
     <div class="row">
-        <div class="col">
-            <div class="form-group col-md-12">
-                <label for="ph">PH em água - relação 1:2.5</label>
-                <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999"
-                    tooltip="PH em água - relação 1:2.5." class="form-control col col-md-2" formControlName="ph"
-                    name="ph" id="ph" required>
-                <error-message *ngIf="form.controls.ph.invalid && (form.controls.ph.dirty || form.controls.ph.touched)"
-                    errorMessage="É necessário informar uma o valor do PH"></error-message>
-            </div>
-            <div class="form-group col-md-12">
-                <label for="p">P - Fósforo - Extrator Mehlich-1(mg/dm³)</label>
-                <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999"
-                    tooltip="Fósforo - Extrator Mehlich-1(mg/dm³)" class="form-control col col-md-2" formControlName="p"
-                    name="p" id="p" required>
-                <error-message *ngIf="form.controls.p.invalid && (form.controls.p.dirty || form.controls.p.touched)"
-                    errorMessage="É necessário informar a quantidade de P"></error-message>
-            </div>
-            <div class="form-group col-md-12">
-                <label for="k">K - Potássio - Extrator Mehlich-1(mg/dm³)</label>
-                <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999"
-                    tooltip="K - Potássio - Extrator Mehlich-1(mg/dm³)" class="form-control col col-md-2"
-                    formControlName="k" name="k" id="k" required>
-                <error-message *ngIf="form.controls.k.invalid && (form.controls.k.dirty || form.controls.k.touched)"
-                    errorMessage="É necessário informar a quantidade de K"></error-message>
-            </div>
+      <div class="col col-md-4">
+        <label for="description">Descrição da Gleba</label>
+        <input type="text" tooltip="Descreva uma referência para esta área" class="form-control col col-md-12"
+          formControlName="description" name="description" id="description" required>
+        <error-message
+          *ngIf="form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)"
+          errorMessage="É necessário informar uma descrição com 10 a 150 caracteres"></error-message>
+      </div>
 
-            <div class="form-group col-md-12">
-                <label for="Ca">Ca - Cálcio - Extrator KCL - mol/L(cmolc/dm³)</label>
-                <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999"
-                    tooltip="Ca - Cálcio - Extrator KCL - mol/L(cmolc/dm³)" class="form-control col col-md-2"
-                    formControlName="Ca" name="Ca" id="Ca" required>
-                <error-message *ngIf="form.controls.Ca.invalid && (form.controls.Ca.dirty || form.controls.Ca.touched)"
-                    errorMessage="É necessário informar a quantidade de Ca"></error-message>
-            </div>
-            <div class="col col-4">
-                <div>
-                    <label class="form-label" for="classificacao">Tipo de Solo</label>
-                    <select id="classificacao" class="form-control" formControlName="classificacao"
-                        (change)="selectSolo($event)" style="width: 250px;">
-                        <option *ngFor='let ts of tipoDeSolo' [ngValue]="ts">{{ts.classificacao}}</option>
-                    </select>
-                </div>
-            </div>
-            <div *ngIf="nc">
-                <p class="mt-5 text-success">
-                    Recomenda-se a incorporação de {{nc.nc}} toneladas por hectare de calcário {{nc.tipodeCalcario}}
-                </p>
-                <p><em>
-                        *Calculado pelo {{nc.metodo}}
-                    </em></p>
-            </div>
+      <div class="col col-md-4">
+        <div>
+          <label class="form-label" for="cultura">Cultura</label>
+          <select id="cultura" class="form-control" formControlName="cultura" (change)="selectCultura($event)"
+            style="width: 250px;" tooltip="Selecione a cultura a ser explorada nesta área">
+            <option *ngFor='let c of CULTURAS_DATA' [ngValue]="c">{{c.cultura}}</option>
+            <!-- <option *ngFor='let c of CULTURAS_DATA' [ngValue]="c">{{c.cultura}}</option> -->
+          </select>
         </div>
-        <div class="col">
-            <div class="form-group col-md-12">
-                <label for="Mg">Mg - Cálcio - Extrator KCL - mol/L(cmolc/dm³)</label>
-                <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999"
-                    tooltip="Magnésio - Extrator KCL - mol/L(cmolc/dm³)" class="form-control col col-md-2"
-                    formControlName="Mg" name="Mg" id="Mg" required>
-                <error-message *ngIf="form.controls.Mg.invalid && (form.controls.Mg.dirty || form.controls.Mg.touched)"
-                    errorMessage="É necessário informar a quantidade de Mg"></error-message>
-            </div>
-
-            <div class="form-group col-md-12">
-                <label for="Al">Al - Alumínio - Extrator KCL - mol/L(cmolc/dm³)</label>
-                <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999"
-                    tooltip="Al - Alumínio - Extrator KCL - mol/L(cmolc/dm³)" class="form-control col col-md-2"
-                    formControlName="Al" name="Al" id="Al" required>
-                <error-message *ngIf="form.controls.Al.invalid && (form.controls.Al.dirty || form.controls.Al.touched)"
-                    errorMessage="É necessário informar a quantidade de Al"></error-message>
-            </div>
-
-            <div class="form-group col-md-12">
-                <label for="H">H - Hidrogênio (cmolc/dm³)</label>
-                <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999"
-                    tooltip="H - Hidrogênio (cmolc/dm³)" class="form-control col col-md-2" formControlName="H" name="H"
-                    id="H" required>
-                <error-message *ngIf="form.controls.H.invalid && (form.controls.H.dirty || form.controls.H.touched)"
-                    errorMessage="É necessário informar a quantidade de H"></error-message>
-            </div>
-
-            <div class="form-group col-md-12">
-                <label for="MO">MO - Matéria Orgânica (Colorimetria) - (dag/Kg)</label>
-                <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999"
-                    tooltip="Matéria Orgânica (Colorimetria)" class="form-control col col-md-2" formControlName="MO"
-                    name="MO" id="MO" required>
-                <error-message *ngIf="form.controls.MO.invalid && (form.controls.MO.dirty || form.controls.MO.touched)"
-                    errorMessage="É necessário informar a quantidade de MO"></error-message>
-            </div>
+      </div>
+      <div class="col col-md-4">
+        <div>
+          <label class="form-label" for="cultura">Produção esperada</label>
+          <select id="cultura" class="form-control" formControlName="producao" (change)="selectProducao($event)"
+            style="width: 250px;" tooltip="Selecione a faixa de produção esperada">
+            <option *ngFor='let c of faixaProducao' [ngValue]="c">{{c.producao}} {{c.unidade}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-4">
+        <div>
 
         </div>
+
+      </div>
     </div>
 
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group col-md-12">
+        <label for="ph">PH em água - relação 1:2.5</label>
+        <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" (change)="classElements($event)"
+          tooltip="PH em água - relação 1:2.5." class="form-control col col-md-2" formControlName="ph" name="ph" id="ph"
+          required>
+        <error-message *ngIf="form.controls.ph.invalid && (form.controls.ph.dirty || form.controls.ph.touched)"
+          errorMessage="É necessário informar uma o valor do PH"></error-message>
+        <level-message *ngIf="class_ph" levelMessage="{{class_ph.classificacao}}"></level-message>
+      </div>
+      <div class="form-group col-md-12">
+        <label for="p">P - Fósforo - Extrator Mehlich-1(mg/dm³)</label>
+        <input type="text" (change)="classElements($event)" mask="separator.2" thousandSeparator="" separatorLimit="999"
+          tooltip="Fósforo - Extrator Mehlich-1(mg/dm³)" class="form-control col col-md-2" formControlName="p" name="p"
+          id="p" required>
+        <error-message *ngIf="form.controls.p.invalid && (form.controls.p.dirty || form.controls.p.touched)"
+          errorMessage="É necessário informar a quantidade de P"></error-message>
+        <level-message *ngIf="class_p" levelMessage="{{class_p.classificacao}}"></level-message>
+      </div>
+      <div class="form-group col-md-12">
+        <label for="k">K - Potássio - Extrator Mehlich-1(mg/dm³)</label>
+        <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" (change)="classElements($event)"
+          tooltip="K - Potássio - Extrator Mehlich-1(mg/dm³)" class="form-control col col-md-2" formControlName="k"
+          name="k" id="k" required>
+        <error-message *ngIf="form.controls.k.invalid && (form.controls.k.dirty || form.controls.k.touched)"
+          errorMessage="É necessário informar a quantidade de K"></error-message>
+        <level-message *ngIf="class_k" levelMessage="{{class_k.classificacao}}"></level-message>
+      </div>
 
-    <div class="form-group col-md-2">
-        <div class="col col-md-4 mt-2 d-flex flex-end">
-            <button class="btn btn-primary" [disabled]="form.invalid" (click)="calcular()">Calcular</button>
+      <div class="form-group col-md-12">
+        <label for="ca">Ca - Cálcio - Extrator KCL - mol/L(cmolc/dm³)</label>
+        <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" (change)="classElements($event)"
+          tooltip="ca - Cálcio - Extrator KCL - mol/L(cmolc/dm³)" class="form-control col col-md-2" formControlName="ca"
+          name="ca" id="ca" required>
+        <error-message *ngIf="form.controls.ca.invalid && (form.controls.ca.dirty || form.controls.ca.touched)"
+          errorMessage="É necessário informar a quantidade de Ca"></error-message>
+        <level-message *ngIf="class_ca" levelMessage="{{class_ca.classificacao}}"></level-message>
+      </div>
+      <div class="col col-4">
+        <div>
+          <label class="form-label" for="classificacao">Tipo de Solo</label>
+          <select id="classificacao" class="form-control" formControlName="classificacao" (change)="selectSolo($event)"
+            style="width: 250px;">
+            <option *ngFor='let ts of tipoDeSolo' [ngValue]="ts">{{ts.classificacao}}</option>
+          </select>
         </div>
+      </div>
+      <div *ngIf="nc">
+        <p class="mt-5 text-success" *ngIf="nc.nc > 0">
+          Recomenda-se a incorporação de {{nc.nc}} toneladas por hectare de calcário {{nc.tipodeCalcario}}
+        </p>
+        <p class="mt-5 text-success" *ngIf="!(nc.nc > 0)">
+          Não é necessário realizar calagem.
+        </p>
+        <p><em>
+            *Calculado pelo {{nc.metodo}}
+          </em></p>
+      </div>
     </div>
+    <div class="col">
+      <div class="form-group col-md-12">
+        <label for="Mg">Mg - Cálcio - Extrator KCL - mol/L(cmolc/dm³)</label>
+        <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" (change)="classElements($event)"
+          tooltip="Magnésio - Extrator KCL - mol/L(cmolc/dm³)" class="form-control col col-md-2" formControlName="mg"
+          name="mg" id="mg" required>
+        <error-message *ngIf="form.controls.mg.invalid && (form.controls.mg.dirty || form.controls.mg.touched)"
+          errorMessage="É necessário informar a quantidade de Mg"></error-message>
+        <level-message *ngIf="class_mg" levelMessage="{{class_mg.classificacao}}"></level-message>
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="al">Al - Alumínio - Extrator KCL - mol/L(cmolc/dm³)</label>
+        <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" (change)="classElements($event)"
+          tooltip="Al - Alumínio - Extrator KCL - mol/L(cmolc/dm³)" class="form-control col col-md-2"
+          formControlName="al" name="al" id="al" required>
+        <error-message *ngIf="form.controls.al.invalid && (form.controls.al.dirty || form.controls.al.touched)"
+          errorMessage="É necessário informar a quantidade de Al"></error-message>
+        <level-message *ngIf="class_al" levelMessage="{{class_al.classificacao}}"></level-message>
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="h">H + Al - SMP (cmolc/dm³)</label>
+        <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" (change)="classElements($event)"
+          tooltip="H - Hidrogênio (cmolc/dm³)" class="form-control col col-md-2" formControlName="h" name="h" id="h"
+          required>
+        <error-message *ngIf="form.controls.h.invalid && (form.controls.h.dirty || form.controls.h.touched)"
+          errorMessage="É necessário informar a quantidade de H"></error-message>
+        <level-message *ngIf="class_h" levelMessage="{{class_h.classificacao}}"></level-message>
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="mo">MO - Matéria Orgânica (Colorimetria) - (dag/Kg)</label>
+        <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" (change)="classElements($event)"
+          tooltip="Matéria Orgânica (Colorimetria)" class="form-control col col-md-2" formControlName="mo" name="mo"
+          id="mo" required>
+        <error-message *ngIf="form.controls.mo.invalid && (form.controls.mo.dirty || form.controls.mo.touched)"
+          errorMessage="É necessário informar a quantidade de MO"></error-message>
+        <level-message *ngIf="class_mo" levelMessage="{{class_mo.classificacao}}"></level-message>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="form-group col-md-2">
+    <div class="col col-md-4 mt-2 d-flex flex-end">
+      <button class="btn btn-primary" [disabled]="form.invalid" (click)="calcular()">Calcular</button>
+    </div>
+  </div>
 </form>
+<div *ngIf="calculated">
+  <form [formGroup]="formCalc">
+
+    <div class="row">
+      <div class="col-4">
+        <label class="form-label" for="cultura">Calcário</label>
+        <select id="corretivo" class="form-control" formControlName="corretivo" (change)="selectCalcario($event)"
+          style="width: 250px;" tooltip="Selecione o Calcario de sua preferência">
+          <option *ngFor='let c of corretivos' [ngValue]="c">{{c.descricao}}</option>
+        </select>
+
+      </div>
+      <div class="col-3">
+        <label class="form-label" for="cultura">PRNT (%)</label>
+        <select id="prnt" class="form-control" formControlName="prnt" (change)="selectPRNT($event)"
+          style="width: 250px;" tooltip="Selecione o PRNT do Calcario">
+          <option *ngFor='let c of prntrsCalcarioSelected' [ngValue]="c">{{c}}</option>
+        </select>
+      </div>
+
+      <div class="col">
+          <label for="area">Área (ha)</label>
+          <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" tooltip="Área da gleba"
+          (change)="onChangeArea($event)"
+          class="form-control col col-md-2" formControlName="area" name="area" id="area" required>
+          <error-message *ngIf="formCalc.controls.area.invalid && (formCalc.controls.area.dirty || formCalc.controls.area.touched)"
+            errorMessage="É necessário a área da gleba"></error-message>
+        </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <label class="form-label" for="cultura">Fonte de N</label>
+        <select id="fontN" class="form-control" formControlName="fontN" (change)="selectfontN($event)"
+          style="width: 250px;" tooltip="Selecione o fertilizante como fonte de Nitrogênio">
+          <option *ngFor='let f of fertilizantesNSelected' [ngValue]="f">{{f.descricao}}</option>
+        </select>
+      </div>
+
+      <div class="col-4">
+        <label class="form-label" for="cultura">Fonte de P</label>
+        <select id="fontP" class="form-control" formControlName="fontP" (change)="selectfontP($event)"
+          style="width: 250px;" tooltip="Selecione o fertilizante como fonte de Fósforo">
+          <option *ngFor='let f of fertilizantesPSelected' [ngValue]="f">{{f.descricao}}</option>
+        </select>
+      </div>
+
+      <div class="col-4">
+        <label class="form-label" for="cultura">Fonte de K</label>
+        <select id="fontK" class="form-control" formControlName="fontK" (change)="selectfontK($event)"
+          style="width: 250px;" tooltip="Selecione o fertilizante como fonte de Potássio">
+          <option *ngFor='let f of fertilizantesKSelected' [ngValue]="f">{{f.descricao}}</option>
+        </select>
+      </div>
+    </div>
+  </form>
+  <div class="memorial">
+    <!-- <h2>
+      <strong>
+        Memorial de cálculo:
+      </strong>
+    </h2> -->
+    <div [innerHtml]="memoria"></div>
+    <div class="col col-2" *ngIf="calculated">
+      <button class="btn btn-ok" [disabled]="!dadosok()" id="emitreport" (click)='rateremit($event)'>Emitir
+        Relatório</button>
+    </div>
+  </div>
+</div>

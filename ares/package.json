@@ -29,6 +29,7 @@
     "google-maps": "^4.3.3",
     "http-parser-js": "^0.5.5",
     "http-server": "^14.1.0",
+    "javascript-lp-solver": "^0.4.5",
     "jquery": "^3.6.0",
     "jspdf": "^2.5.1",
     "moment": "^2.29.1",
