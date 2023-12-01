@@ -1,14 +1,6 @@
 <form [formGroup]="form">
   <div class="form-group col-md-12">
     <div class="row">
-      <div class="col col-md-4">
-        <label for="description">Descrição da Gleba</label>
-        <input type="text" tooltip="Descreva uma referência para esta área" class="form-control col col-md-12"
-          formControlName="description" name="description" id="description" required>
-        <error-message
-          *ngIf="form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)"
-          errorMessage="É necessário informar uma descrição com 10 a 150 caracteres"></error-message>
-      </div>
 
       <div class="col col-md-4">
         <div>
@@ -29,12 +21,17 @@
           </select>
         </div>
       </div>
-      <div class="col-4">
+
+      <div class="col col-4">
         <div>
-
+          <label class="form-label" for="classificacao">Tipo de Solo</label>
+          <select id="classificacao" class="form-control" formControlName="classificacao" (change)="selectSolo($event)"
+            style="width: 250px;">
+            <option *ngFor='let ts of tipoDeSolo' [ngValue]="ts">{{ts.classificacao}}</option>
+          </select>
         </div>
-
       </div>
+
     </div>
 
   </div>
@@ -77,15 +74,7 @@
           errorMessage="É necessário informar a quantidade de Ca"></error-message>
         <level-message *ngIf="class_ca" levelMessage="{{class_ca.classificacao}}"></level-message>
       </div>
-      <div class="col col-4">
-        <div>
-          <label class="form-label" for="classificacao">Tipo de Solo</label>
-          <select id="classificacao" class="form-control" formControlName="classificacao" (change)="selectSolo($event)"
-            style="width: 250px;">
-            <option *ngFor='let ts of tipoDeSolo' [ngValue]="ts">{{ts.classificacao}}</option>
-          </select>
-        </div>
-      </div>
+
 
     </div>
     <div class="col">
@@ -160,13 +149,14 @@
       </div>
 
       <div class="col">
-          <label for="area">Área (ha)</label>
-          <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" tooltip="Área da gleba"
-          (change)="onChangeArea($event)"
-          class="form-control col col-md-2" formControlName="area" name="area" id="area" required>
-          <error-message *ngIf="formCalc.controls.area.invalid && (formCalc.controls.area.dirty || formCalc.controls.area.touched)"
-            errorMessage="É necessário a área da gleba"></error-message>
-        </div>
+        <label for="area">Área (ha)</label>
+        <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" tooltip="Área da gleba"
+          (change)="onChangeArea($event)" class="form-control col col-md-2" formControlName="area" name="area" id="area"
+          required>
+        <error-message
+          *ngIf="formCalc.controls.area.invalid && (formCalc.controls.area.dirty || formCalc.controls.area.touched)"
+          errorMessage="É necessário a área da gleba"></error-message>
+      </div>
 
     </div>
 

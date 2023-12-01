@@ -14,7 +14,7 @@ export const CLASS_PH_AGUA: PH_AGUA[] = [
             'Favorece a deficiência de P e ALTA FIXAÇÃO do P aplicado, por íons Fe e Al',
             'Favorece a Toxidez por alumínio (Al), Ferro(Fe) e Manganês(Mn)',
             'Baixa CTC efetiva => alta lixiviação de cátions',
-            'Em condições de extrema acidez, pode ocorrer limitação na  Em condições de extrema acidez, pode ocorrer limitação na decomposição da Matéria orgânica'
+            'Pode ocorrer limitação na decomposição da Matéria orgânica'
         ],
         recomendacao: ''
     },
@@ -25,8 +25,8 @@ export const CLASS_PH_AGUA: PH_AGUA[] = [
             'Baixos teores de Ca, de Mg e de K',
             'Favorece a deficiência de P e ALTA FIXAÇÃO do P aplicado, por íons Fe e Al',
             'Favorece a Toxidez por alumínio (Al), Ferro(Fe) e Manganês(Mn)',
-            'Baixa CTC efetiva => alta lixiviação de cátions',
-            'Em condições de extrema acidez, pode ocorrer limitação na  Em condições de extrema acidez, pode ocorrer limitação na decomposição da Matéria orgânica'
+            'Baixa CTC efetiva e alta lixiviação de cátions',
+            'Pode ocorrer limitação na decomposição da Matéria orgânica'
         ],
         recomendacao: ''
     },

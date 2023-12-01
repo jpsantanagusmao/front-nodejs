@@ -416,7 +416,6 @@ export class AnaliseSoloComponent implements OnInit {
 
 
     this.form = new FormGroup({
-      description: new FormControl('', [Validators.required]),
       classificacao: new FormControl('', [Validators.required]),
       cultura: new FormControl('', [Validators.required]),
       producao: new FormControl('', [Validators.required]),
@@ -489,7 +488,6 @@ export class AnaliseSoloComponent implements OnInit {
 
   createformVacido() {
     this.form = new FormGroup({
-      description: new FormControl('Gleba teste 2', [Validators.required]),
       classificacao: new FormControl('', [Validators.required]),
       cultura: new FormControl('', [Validators.required]),
       producao: new FormControl('', [Validators.required]),
@@ -505,7 +503,6 @@ export class AnaliseSoloComponent implements OnInit {
   }
   createform2() {
     this.form = new FormGroup({
-      description: new FormControl('Gleba teste 2', [Validators.required]),
       classificacao: new FormControl('', [Validators.required]),
       cultura: new FormControl('', [Validators.required]),
       producao: new FormControl('', [Validators.required]),
@@ -521,7 +518,6 @@ export class AnaliseSoloComponent implements OnInit {
   }
   createform() {
     this.form = new FormGroup({
-      description: new FormControl('Gleba teste', [Validators.required]),
       classificacao: new FormControl('', [Validators.required]),
       cultura: new FormControl('', [Validators.required]),
 
