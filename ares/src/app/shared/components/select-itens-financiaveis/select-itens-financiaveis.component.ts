@@ -20,7 +20,7 @@ export class SelectItensFinanciaveisComponent implements OnInit {
   @Output() onSelected = new EventEmitter();
 
   users$: Observable<any>;
-
+ 
   selected: any;
 
   search = new FormControl();

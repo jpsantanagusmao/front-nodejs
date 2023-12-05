@@ -135,6 +135,7 @@ export class DialogCredRuralCadComponent implements OnInit {
   }
 
   onSelectItem(value) {
+    // alert(JSON.stringify(value));
     this.itemFinanciadoSelected = value;
 
   }
@@ -157,7 +158,7 @@ export class DialogCredRuralCadComponent implements OnInit {
       return false;
     }
 
-    const itm = this.formitem.controls.finalidade.value;
+    const itm = this.itemFinanciadoSelected
 
     if (!itm) {
       let msg = 'É preciso especificar qual o item financiado nesta proposta.';
