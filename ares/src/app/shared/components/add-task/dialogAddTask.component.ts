@@ -126,6 +126,8 @@ export class DialogAddTaskComponent implements OnInit {
 
     const valor = this.form.controls.valor.value;
     alert(valor)
+    alert(isNaN(valor))
+    alert(Number(valor))
     if ( !(isNaN(valor)) && (Number(valor) <= 0) ) {
       let msg = 'O valor unitário para este serviço deve ser informado.';
       this._messageService.handleError(msghead, `${msg}`);
