@@ -146,10 +146,10 @@ export class AnaliseSoloComponent implements OnInit {
     }
 
     const constraints = {
-      'n': { "min": (this.qtd_N.plantio + this.qtd_N.cobertura ) * 90, "max": ( this.qtd_N.plantio + this.qtd_N.cobertura ) * 120 },
-      'nc': { "min": this.qtd_N.cobertura * 90, "max": this.qtd_N.cobertura * 120 },
-      'p': { "min": this.qtd_P2O5 * 90, "max": this.qtd_P2O5 * 120 },
-      'k': { "min": this.qtd_K2O * 90, "max": this.qtd_K2O * 120 },
+      'n': { "min": (this.qtd_N.plantio + this.qtd_N.cobertura ) * 90, "max": ( this.qtd_N.plantio + this.qtd_N.cobertura ) },
+      'nc': { "min": this.qtd_N.cobertura * 90, "max": this.qtd_N.cobertura },
+      'p': { "min": this.qtd_P2O5 * 90, "max": this.qtd_P2O5 },
+      'k': { "min": this.qtd_K2O * 90, "max": this.qtd_K2O },
     }
 
     // const variables = {

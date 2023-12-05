@@ -91,7 +91,7 @@ export class DialogAddTaskComponent implements OnInit {
 
     const id = this.id;
 
-    if(!this.istaskOk()) return false;
+    if (!this.istaskOk()) return false;
 
     data.status = statusModel.INICIADA;
     data.action_id = this.taskSelected.action_id;
@@ -125,8 +125,8 @@ export class DialogAddTaskComponent implements OnInit {
     }
 
     const valor = this.form.controls.valor.value;
-
-    if ((isNaN(valor)) || Number(valor) <= 0) {
+    alert(valor)
+    if ( !(isNaN(valor)) && (Number(valor) <= 0) ) {
       let msg = 'O valor unitário para este serviço deve ser informado.';
       this._messageService.handleError(msghead, `${msg}`);
       return false;
