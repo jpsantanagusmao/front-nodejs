@@ -49,7 +49,8 @@ export class AnaliseSoloComponent implements OnInit {
   fertilizanteKSelected: any;
 
   fertilizantes = FERTILIZANTES;
-  corretivos = CORRETIVOS;
+  // corretivos = CORRETIVOS;
+  corretivos;
 
   memoria: any = '';
   calculated: boolean = false;
@@ -87,19 +88,14 @@ export class AnaliseSoloComponent implements OnInit {
   ) {
     this.loadtables();
     this.loadForm();
+    // this.createformWanderson();
   }
 
   ngOnInit(): void {
-    // this._userCache.regRoute().subscribe();
+    this._userCache.regRoute().subscribe();
 
 
   }
-  // groupBy(xs, key) {
-  //   return xs.reduce(function (rv, x) {
-  //     (rv[x[key]] = rv[x[key]] || []).push(x);
-  //     return x[key];
-  //   }, {});
-  // };
 
   async solver() {
     const arr = [
@@ -107,16 +103,6 @@ export class AnaliseSoloComponent implements OnInit {
       this.fertilizantePSelected,
       this.fertilizanteKSelected
     ]
-
-    // console.log(
-    //   this.fertilizanteNSelected
-    // );
-    // console.log(
-    //   this.fertilizantePSelected
-    // );
-    // console.log(
-    //   this.fertilizanteKSelected
-    // );
 
     if (!(
       this.fertilizanteNSelected
@@ -146,46 +132,11 @@ export class AnaliseSoloComponent implements OnInit {
     }
 
     const constraints = {
-      'n': { "min": (this.qtd_N.plantio + this.qtd_N.cobertura ) * 90, "max": ( this.qtd_N.plantio + this.qtd_N.cobertura ) },
-      'nc': { "min": this.qtd_N.cobertura * 90, "max": this.qtd_N.cobertura },
-      'p': { "min": this.qtd_P2O5 * 90, "max": this.qtd_P2O5 },
-      'k': { "min": this.qtd_K2O * 90, "max": this.qtd_K2O },
+      'n': { "min": (this.qtd_N.plantio + this.qtd_N.cobertura) * 0.9, "max": (this.qtd_N.plantio + this.qtd_N.cobertura)* 1.1 },
+      'nc': { "min": this.qtd_N.cobertura * 0.9, "max": this.qtd_N.cobertura* 1.1 },
+      'p': { "min": this.qtd_P2O5 * 0.9, "max": this.qtd_P2O5* 1.1 },
+      'k': { "min": this.qtd_K2O * 0.9, "max": this.qtd_K2O * 1.1 },
     }
-
-    // const variables = {
-    //   'n':
-    //   {
-    //     n: this.fertilizanteNSelected.n || 0,
-    //     nc: this.fertilizanteNSelected.n || 0,
-    //     p: this.fertilizanteNSelected.p || 0,
-    //     k: this.fertilizanteNSelected.k || 0,
-    //     preco: 100
-    //   },
-    //   'nc':
-    //   {
-    //     n: this.fertilizanteNSelected.n || 0,
-    //     nc: this.fertilizanteNSelected.n || 0,
-    //     p: this.fertilizanteNSelected.p || 0,
-    //     k: this.fertilizanteNSelected.k || 0,
-    //     preco: 100
-    //   },
-    //   'p':
-    //   {
-    //     n: this.fertilizantePSelected.n || 0,
-    //     nc: this.fertilizantePSelected.n || 0,
-    //     p: this.fertilizantePSelected.p || 0,
-    //     k: this.fertilizantePSelected.k || 0,
-    //     preco: 100
-    //   },
-    //   'k':
-    //   {
-    //     n: this.fertilizanteKSelected.n || 0,
-    //     nc: this.fertilizanteKSelected.n || 0,
-    //     p: this.fertilizanteKSelected.p || 0,
-    //     k: this.fertilizanteKSelected.k || 0,
-    //     preco: 100
-    //   }
-    // }
 
     let model: any = {
       optimize,
@@ -193,30 +144,52 @@ export class AnaliseSoloComponent implements OnInit {
       variables
     }
 
-
+    // console.log(model);
+    
     const response = await Solver.Solve(model);
+
     const obj = []
 
+    // console.log(response);
+
     unique.forEach(r => {
+      // console.log(r);
+      let ck = 1; //Constante para ajuste da recomendação
+      //descobre o menor indice n,p, k
+      if((r.n < r.p) && (r.n < r.k) && (r.n > 0)){
+        //Se o teor de N é menor que P e K então usaremos esta como constante
+        ck = r.n
+      } else{
+        if((r.p < r.k) && (r.p > 0)){
+          //Se o teor de fósfor é menor que o de potássio usaremos o teor de fósforo
+          ck = r.p;
+        }else{
+          ck = r.k;
+        }
+      }
+
+
+      //e multiplica pelo response k dentro do loop
+      
       Object.keys(response).forEach(k => {
         if (k == r.descricao) {
 
-          if(Number(response[`${k}`]) > 0){
+          if (Number(response[`${k}`]) > 0) {
             let hasN = false;
             let hasP = false;
             let hasK = false;
 
-            if(r?.n){
+            if (r?.n) {
               hasN = true;
             }
-            if(r?.p){
+            if (r?.p) {
               hasP = true;
             }
-            if(r?.k){
+            if (r?.k) {
               hasK = true;
             }
 
-            obj.push({ 'Fertilizante': k, 'quantidade': Number( Number( response[`${k}`] ).toFixed(0)), hasN, hasP, hasK })
+            obj.push({ 'Fertilizante': k, 'quantidade': Number(Number(response[`${k}`]*100).toFixed(0)), hasN, hasP, hasK })
           }
         }
       })
@@ -243,14 +216,19 @@ export class AnaliseSoloComponent implements OnInit {
   selectSolo(event) {
     this.soloSelected = this.form.controls.classificacao.value;
     this.classNutrients();
-    // console.log(this.soloSelected.class_P);
 
   }
 
   selectCultura(event) {
+
     this.culturaSelected = this.form.controls.cultura.value;
     this.faixaProducao = this.culturaSelected.produtividade;
+
     this.faixaProducaoSelected = undefined;
+
+    this.class_k = undefined
+    this.class_p = undefined
+
     this.classNutrients();
   }
 
@@ -259,9 +237,100 @@ export class AnaliseSoloComponent implements OnInit {
     await this.getN();
     await this.getP();
     await this.getK();
+    // await this.classElements()
+
+    // alert(JSON.stringify(this.class_al))
 
   }
+  elementsClassified() {
+    let msgerror = '';
+    let parametro = 'H (hidrogenio)';
 
+
+    if (this.class_h) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+`;
+      return false;
+    }
+    parametro = 'Al (alumínio)';
+    if (this.class_al) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+      `;
+      return false;
+    }
+    parametro = 'Ca (Cálcio)';
+    if (this.class_ca) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+      `;
+      return false;
+    }
+    parametro = 'Mg (Magnésio)';
+    if (this.class_mg) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+      `;
+      return false;
+    }
+    parametro = 'PH';
+    if (this.class_ph) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+      `;
+      return false;
+    }
+    parametro = 'MO (Matéria orgânica)';
+    if (this.class_mo) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+      `;
+      return false;
+    }
+    parametro = '%Al na CTC (Saturação por alumínio)';
+    if (this.class_tal) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+      `;
+      return false;
+    }
+    parametro = 'V (Saturação por bases)';
+    if (this.class_v) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+      `;
+      return false;
+    }
+    parametro = 'T (CTC potencial)';
+    if (this.class_T) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+      `;
+      return false;
+    }
+    parametro = 't (CTC efetiva)';
+    if (this.class_t) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+      `;
+      return false;
+    }
+    parametro = 'K (Potássio)';
+    if (this.class_k) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+      `;
+      return false;
+    }
+    parametro = 'P (Fósforo)';
+    if (this.class_p) {
+      msgerror = `
+      É necessário fazer a classificação do parâmetro ${parametro};
+`;
+      return false;
+    }
+  }
   async getN() {
     const producao = this.faixaProducaoSelected;
 
@@ -291,16 +360,19 @@ export class AnaliseSoloComponent implements OnInit {
   async classElements(e) {
     // this.classK()
     // this.classP()
+
     //Fecha as telas para evitar equívocos. Pode achar que calculou algo quando alterou algum elemento.
     this.calculated = false;
     const element = e.target.id.toLowerCase();
     const valor = Number(e.target.value);
 
-    if (element == 'h')
-      // this.class_h = await ModelosAdubacao.classElement(element, valor);
+    // TODO: Encontrar referências para classificação do Elemento H
 
-      if (element == 'al')
-        this.class_al = await ModelosAdubacao.classElement(element, valor);
+    if (element == 'h')//Não encontrei referência para classificação do H
+      //this.class_h = await ModelosAdubacao.classElement(element, valor);
+
+    if (element == 'al')
+      this.class_al = await ModelosAdubacao.classElement(element, valor);
 
     if (element == 'ca')
       this.class_ca = await ModelosAdubacao.classElement(element, valor);
@@ -383,11 +455,13 @@ export class AnaliseSoloComponent implements OnInit {
 
 
     */
-    this.corretivos = this.corretivos.filter(f => {
-      if (this.nc.ca_mg > f.camg) {
-        return f;
-      }
-    });
+    // this.corretivos = this.corretivos.filter(f => {
+    //   if (this.nc.ca_mg > f.camg) {
+    //     return f;
+    //   }
+    // });
+
+    // this.nc.corretivos = this.corretivos;
 
   }
 
@@ -412,6 +486,16 @@ export class AnaliseSoloComponent implements OnInit {
     });
 
   }
+  loadFormEspecificacoes(){
+    this.formCalc = new FormGroup({
+      corretivo: new FormControl('', [Validators.required]),
+      prnt: new FormControl('', [Validators.required]),
+      fontN: new FormControl('', [Validators.required]),
+      fontP: new FormControl('', [Validators.required]),
+      fontK: new FormControl('', [Validators.required]),
+      area: new FormControl('1', [Validators.required]),
+    });
+  }
   loadForm() {
 
 
@@ -429,14 +513,7 @@ export class AnaliseSoloComponent implements OnInit {
       mo: new FormControl('', [Validators.required])
     });
 
-    this.formCalc = new FormGroup({
-      corretivo: new FormControl('', [Validators.required]),
-      prnt: new FormControl('', [Validators.required]),
-      fontN: new FormControl('', [Validators.required]),
-      fontP: new FormControl('', [Validators.required]),
-      fontK: new FormControl('', [Validators.required]),
-      area: new FormControl('1', [Validators.required]),
-    });
+this.loadFormEspecificacoes()
 
 
     // this.createformVacido();
@@ -500,6 +577,23 @@ export class AnaliseSoloComponent implements OnInit {
       h: new FormControl('4.75', [Validators.required]),
       mo: new FormControl('1.88', [Validators.required])
     });
+    this.loadFormEspecificacoes()
+  }
+  createformWanderson() {
+    this.form = new FormGroup({
+      classificacao: new FormControl('', [Validators.required]),
+      cultura: new FormControl('', [Validators.required]),
+      producao: new FormControl('', [Validators.required]),
+      ph: new FormControl('4.93', [Validators.required]),
+      p: new FormControl('1.85', [Validators.required]),
+      k: new FormControl('49.67', [Validators.required]),
+      ca: new FormControl('1.31', [Validators.required]),
+      mg: new FormControl('0.28', [Validators.required]),
+      al: new FormControl('0.45', [Validators.required]),
+      h: new FormControl('4.75', [Validators.required]),
+      mo: new FormControl('1.88', [Validators.required])
+    });
+    this.loadFormEspecificacoes()
   }
   createform2() {
     this.form = new FormGroup({
@@ -515,6 +609,7 @@ export class AnaliseSoloComponent implements OnInit {
       h: new FormControl('2.0', [Validators.required]),
       mo: new FormControl('1.40', [Validators.required])
     });
+    this.loadFormEspecificacoes()
   }
   createform() {
     this.form = new FormGroup({
@@ -531,6 +626,7 @@ export class AnaliseSoloComponent implements OnInit {
       h: new FormControl('2.4', [Validators.required]),
       mo: new FormControl('0.46', [Validators.required])
     });
+    this.loadFormEspecificacoes()
   }
   async calcular() {
     this.memoria = '<h2><strong>Memorial de cálculo</strong></h2>';
@@ -545,7 +641,7 @@ export class AnaliseSoloComponent implements OnInit {
     const memoria = this.memoria;
 
     this.nc = await ModelosCalagem.saturacaoBases({ ca, mg, k, h, al, v2, PRNT, culturaSelected: this.culturaSelected, memoria });
-    this.loadCorretivos();
+    this.corretivos = this.nc.calcariosRecomendados;
 
     this.memoria = this.nc.memoria;
     this.calculated = true;
@@ -680,15 +776,15 @@ export class AnaliseSoloComponent implements OnInit {
     let orientacao = '';
     let recomendacao = '';
 
-    situacao = `De posse do resultado da análise de solo é possível identificar que nesta área de aproximadamente ${Number(o.area) < 10? '0':''}${Number(o.area).toFixed(0)} ${Number(o.area) > 1? 'hectares': 'hectare'}, ocorre a predominância de solos "${this.soloSelected.classificacao}" onde é cultivado ${o.cultura.cultura} e o proprietário espera que com a correção de solo, obtenha uma produção próxima de ${o.produtividade.producao} ${o.produtividade.unidade}/hectare.
+    situacao = `De posse do resultado da análise de solo é possível identificar que nesta área de aproximadamente ${Number(o.area) < 10 ? '0' : ''}${Number(o.area).toFixed(0)} ${Number(o.area) > 1 ? 'hectares' : 'hectare'}, ocorre a predominância de solos "${this.soloSelected.classificacao}" onde é cultivado ${o.cultura.cultura} e o proprietário espera que com a correção de solo, obtenha uma produção próxima de ${o.produtividade.producao} ${o.produtividade.unidade}/hectare.
 Nestas condições, segue então as recomendações para correção e adubação:`;
 
-    orientacao += `A adubação deve ser feita na época do plantio, de preferência no fundo das covas ou sulcos, incorporando no solo o${o.adubacao.length > 1?'s':''} seguinte${o.adubacao.length > 1?'s':''} fertilizante${o.adubacao.length > 1?'s':''}
+    orientacao += `A adubação deve ser feita na época do plantio, de preferência no fundo das covas ou sulcos, incorporando no solo o${o.adubacao.length > 1 ? 's' : ''} seguinte${o.adubacao.length > 1 ? 's' : ''} fertilizante${o.adubacao.length > 1 ? 's' : ''}
     `;
     o.adubacao.map(r => {
       const constPlantio = o.produtividade.n / (o.produtividade.n + o.produtividade.nCobertura);
       const constCobertura = o.produtividade.nCobertura / (o.produtividade.n + o.produtividade.nCobertura);
-      if((r.hasN==true)){
+      if ((r.hasN == true)) {
 
         const plantio = Number(r.quantidade * constPlantio).toFixed(0);
         const cobertura = Number(r.quantidade * constCobertura).toFixed(0);
@@ -696,7 +792,7 @@ Nestas condições, segue então as recomendações para correção e adubação
       -${plantio} Kg de ${r.Fertilizante} no plantio;
       -${cobertura} Kg de ${r.Fertilizante} na cobertura;
       `;
-      }else{
+      } else {
         orientacao += `-${Number(r.quantidade).toFixed(0)} Kg de ${r.Fertilizante};
       `;
       }
@@ -704,19 +800,19 @@ Nestas condições, segue então as recomendações para correção e adubação
 
     if (o.calagem.nc > 0) {
       orientacao += `
-Para a correção do solo é necessário realizar a calagem com a aplicação de ${Number(o.calagem.nc) < 1? Number(Number(o.calagem.nc)*1000).toFixed(0).concat(' Kilos') : Number(o.calagem.nc).toFixed(1).concat(' toneladas')} de ${this.calcarioSelected.descricao} com PRNT de ${this.prntSelected}%. Esta aplicação deve ser realizada de 60 a 90 dias antes do plantio para garantir que haja umidade suficiente para ocorrer as reações químicas necessárias para a correção do solo.`;
+Para a correção do solo é necessário realizar a calagem com a aplicação de ${Number(o.calagem.nc) < 1 ? Number(Number(o.calagem.nc) * 1000).toFixed(0).concat(' Kilos') : Number(o.calagem.nc).toFixed(1).concat(' toneladas')} de ${this.calcarioSelected.descricao} com PRNT de ${this.prntSelected}%. Esta aplicação deve ser realizada de 60 a 90 dias antes do plantio para garantir que haja umidade suficiente para ocorrer as reações químicas necessárias para a correção do solo.`;
 
-        if (o.calagem.nc > 3) {
+      if (o.calagem.nc > 3) {
         orientacao += `Como a quantidade é superiores a ${3} toneladas por hectares é necessário parcelar a aplicação e fazer o acompanhamento anual das condições químicas deste solo.
         `;
 
       }
     }
 
-    if(o.consideracoes.ph.classificacao == 'Acidez elevada'){
+    if (o.consideracoes.ph.classificacao == 'Acidez elevada') {
       recomendacao += `Este solo possui ${o.consideracoes.ph.classificacao} e isto implica em situações que devem ser observadas:`;
 
-      o.consideracoes.ph.implicacoes.map(i=>{
+      o.consideracoes.ph.implicacoes.map(i => {
         recomendacao += `${i}, `;
       })
     }
@@ -758,6 +854,6 @@ Para a correção do solo é necessário realizar a calagem com a aplicação de
   }
 
   onReport(ater) {
-    this._router.navigate(["../service/", ater],  { relativeTo: this._route });
+    this._router.navigate(["../service/", ater], { relativeTo: this._route });
   }
 }

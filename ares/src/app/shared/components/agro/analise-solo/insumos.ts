@@ -49,6 +49,15 @@ export const CLASSE_CALCARIO = {
   Calcário Magnesiano: teor intermediário de magnésio (5 a 12%);
   Calcário Dolomítico: maior teor de magnésio (maior que 12%) e baixo teor de cálcio
 */
+
+/**
+ * 
+ * link: https://www.embrapa.br/agencia-de-informacao-tecnologica/cultivos/arroz/producao/sistema-de-cultivo/arroz-irrigado-na-regiao-tropical/correcao-do-solo-e-adubacao/correcao-da-acidez-do-solo
+ * 
+ * tabela 1 informa os teros de CaO e MgO dos calcários
+ * 
+ */
+ 
 export const CORRETIVOS = [
   {
     descricao: 'Calcário Dolomítico',
@@ -60,7 +69,9 @@ export const CORRETIVOS = [
     ],
     camg: 1, //Relação Ca/Mg ideal para aplicação deste corretivo
     tca: 100,
-    tmg: 20
+    tmg: 20,
+    CaO: 25, // 25-30 % 
+    MgO: 13 // 13-20 % 
   },
   {
     descricao: 'Calcário Calcítico',
@@ -72,7 +83,9 @@ export const CORRETIVOS = [
     ],
     camg: 3, //Relação Ca/Mg ideal para aplicação deste corretivo
     tca: 55,
-    tmg: 15
+    tmg: 15,
+    CaO: 40, //40-45 %
+    MgO: 1 // 1-5 %
   },
   {
     descricao: 'Calcário Magnesiano',
@@ -82,9 +95,11 @@ export const CORRETIVOS = [
     prnt: [
       60,70,80,85
     ],
-    camg: 1000, //Relação Ca/Mg ideal para aplicação deste corretivo
+    camg: 1, //Relação Ca/Mg ideal para aplicação deste corretivo
     tca: 55,
-    tmg: 15
+    tmg: 15,
+    CaO: 31, // 31-39 %
+    MgO: 6 // 6-12 %  
   }
 
 ]

@@ -1,3 +1,5 @@
+import { CORRETIVOS } from "./insumos";
+
 export class ModelosCalagem {
 
   //Limite máximo para aplicação de uma única vez do calcário
@@ -36,7 +38,7 @@ export class ModelosCalagem {
     const v1 = Number(((SB) / Number(T)) * 100).toFixed(2);
 
     //Calculando a necessidade de calcário em ton/ha
-    let NC = ((Number(v2)/100 - Number(v1)/100) * Number(T) / (Number(prnt) / 100)).toFixed(2);
+    let NC = ((Number(v2) / 100 - Number(v1) / 100) * Number(T) / (Number(prnt) / 100)).toFixed(2);
 
 
     obj.memoria += await `
@@ -73,7 +75,7 @@ export class ModelosCalagem {
         <strong>
           NC = ( "V esperado da Cultura ${obj.culturaSelected.cultura}" - "V efetivo") x T / PRNT (%)
         </strong>
-          => (${Number(v2)/100} - ${Number(v1)/100}) * ${T} / (${prnt}/100) = ${NC}  t.ha-¹ de calcário
+          => (${Number(v2) / 100} - ${Number(v1) / 100}) * ${T} / (${prnt}/100) = ${NC}  t.ha-¹ de calcário
       </div>
 
       <div>
@@ -113,7 +115,7 @@ export class ModelosCalagem {
 
     if (Number(NC) > 0) {
 
-      tipo = await ModelosCalagem._defineTipoCalcario(ca, mg, obj.memoria);
+      tipo = await ModelosCalagem._defineTipoCalcario(ca, mg, Number(Number(ca / mg)), obj.memoria);
       obj.memoria = tipo.memoria;
 
     }
@@ -121,8 +123,8 @@ export class ModelosCalagem {
     return {
       metodo: 'Método da elevação da porcentagem de saturação por bases',
       nc: nc,
-      tipodeCalcario: tipo?.tipo || undefined,
       memoria: obj.memoria,
+      calcariosRecomendados: tipo.corretivos,
       t,
       T,
       v: v1,
@@ -136,19 +138,42 @@ export class ModelosCalagem {
 
   }
 
-  private static async _defineTipoCalcario(ca: number, mg: number, memoria: string) {
-    if (
-      (ca <= 0.41)
-      && (mg <= 0.16)
-    ) {
-      memoria += `<div>Com teores de Cálcio < 0,41 e Magnésio < 0,16 => Recomenda-se o Calcário Dolomítico.</div>`
+  private static async _defineTipoCalcario(ca: number, mg: number, camg: number, memoria: string) {
+    // if (
+    //   (ca <= 0.41)
+    //   && (mg <= 0.16)
+    // ) {
+    //   memoria += `<div>Com teores de Cálcio < 0,41 e Magnésio < 0,16 => Recomenda-se o Calcário Dolomítico.</div>`
 
-      return { tipo: 'Dolomítico', memoria };
-    } else {
-      memoria += `<div>Com teores de Cálcio > 0,41 e Magnésio > 0,16 => Recomenda-se o Calcário Calcítico.</div>`
+    //   return { tipo: 'Dolomítico', memoria };
+    // } else {
+    //   memoria += `<div>Com teores de Cálcio > 0,41 e Magnésio > 0,16 => Recomenda-se o Calcário Calcítico.</div>`
 
-      return { tipo: 'Calcitico', memoria };
-    }
+    //   return { tipo: 'Calcitico', memoria };
+    // }
+
+    let corretivosRecomendados: any[] = CORRETIVOS;
+
+    corretivosRecomendados = corretivosRecomendados.filter(c => {
+      if ((camg > 3) && c.camg < 3) {
+        return c;
+      }
+
+      if ((camg <= 3)) {
+        return c;
+      }
+    });
+
+    memoria += `<div>Como a relação Ca/Mg é de ${camg.toFixed(2)}, recomenda-se a utiização de calcário:</div>`
+    memoria += `<ul>`
+
+    corretivosRecomendados.map(c => {
+      memoria += `<li>${c.descricao}</li>`
+    });
+    memoria += `</ul>`
+    
+    return { memoria, corretivos: corretivosRecomendados };
+
   }
   public neutralizaçãoAl(obj: any) {
     /**

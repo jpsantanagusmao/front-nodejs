@@ -88,6 +88,28 @@ export const CULTURAS = [
             alto: 40
           }
         ]
+      },
+      {
+        producao: 8,
+        unidade: 'UA',
+        n: 0,
+        nCobertura: 120,
+        p: [
+          {
+            muitobaixo: 140,
+            baixo: 120,
+            medio: 80,
+            alto: 40
+          }
+        ],
+        k: [
+          {
+            muitobaixo: 120,
+            baixo: 80,
+            medio: 60,
+            alto: 40
+          }
+        ]
       }
     ],
   },
@@ -125,6 +147,28 @@ export const CULTURAS = [
             baixo: 60,
             medio: 40,
             alto: 20
+          }
+        ]
+      },
+      {
+        producao: 8,
+        unidade: 'UA',
+        n: 0,
+        nCobertura: 120,
+        p: [
+          {
+            muitobaixo: 140,
+            baixo: 120,
+            medio: 80,
+            alto: 40
+          }
+        ],
+        k: [
+          {
+            muitobaixo: 120,
+            baixo: 80,
+            medio: 60,
+            alto: 40
           }
         ]
       }

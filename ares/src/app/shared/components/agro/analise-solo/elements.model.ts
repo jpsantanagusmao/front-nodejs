@@ -90,6 +90,26 @@ export const ELEMENTS = {
       recomendacao: ''
     }
   ],
+  h: [
+    {
+      e: 0.5,
+      classificacao: CLASS_CATEGORY.BAIXO, // 'baixo'
+      implicacoes: [],
+      recomendacao: ''
+    },
+    {
+      e: 1,
+      classificacao: CLASS_CATEGORY.MEDIO, // 'médioalto'
+      implicacoes: [],
+      recomendacao: ''
+    },
+    {
+      e: 100,
+      classificacao: CLASS_CATEGORY.ALTO,
+      implicacoes: [],
+      recomendacao: ''
+    }
+  ],
   ca: [
     {
       e: 1.6,
