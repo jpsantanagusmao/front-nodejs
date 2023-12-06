@@ -9,6 +9,7 @@ import { DocumentationComponent } from 'src/app/shared/components/documentation/
 import { MyTasksComponent } from 'src/app/shared/components/user/my-tasks/my-tasks.component';
 import { MyProjectsComponent } from 'src/app/shared/components/project/my-projects/my-projects.component';
 import { DetailsComponent } from 'src/app/share/components/details/details.component';
+import { MyProjectsListComponent } from 'src/app/shared/components/user/my-projects/my-projects.component';
 
 
 const routes: Routes = [
@@ -64,6 +65,10 @@ const routes: Routes = [
       {
         path: 'my-tasks',
         component: MyTasksComponent
+      },
+      {
+        path: 'my-projects',
+        component: MyProjectsListComponent
       },
       {
         path: 'contract',

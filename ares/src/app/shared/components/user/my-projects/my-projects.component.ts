@@ -1,4 +1,3 @@
-import { PointsGenerateComponent } from './../../maps/points-generate/points-generate.component';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
@@ -8,11 +7,11 @@ import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'my-tasks',
-  templateUrl: './my-tasks.component.html',
-  styleUrls: ['./my-tasks.component.css']
+  selector: 'my-projects-list',
+  templateUrl: './my-projects.component.html',
+  styleUrls: ['./my-projects.component.css']
 })
-export class MyTasksComponent implements OnInit {
+export class MyProjectsListComponent implements OnInit {
   
   @Output() onReport = new EventEmitter();
   
@@ -29,22 +28,46 @@ export class MyTasksComponent implements OnInit {
 
   ngOnInit(): void {
     this._userCache.regRoute().subscribe();
-    this.loadMyTasks();
+    this.loadMyProjects();
   } 
-  loadMyTasks() {
-    const obj = this;
-    this.tasks$ = this._userService.myTasks().pipe(
-    );
-  }
 
   loadMyProjects() {
     const obj = this;
     this.tasks$ = this._userService.myProjects().pipe(
+      // tap(console.log)
     );
   }
   
   hasprojet(){
     return true;
+  }
+
+  quitTrt(value) {
+    const obj = this;
+    this._userService.quitarArt(value).subscribe(sucess => {
+      obj.loadMyProjects();
+      obj._messageService.handleSuccess('Registrado efetuado com Sucesso', ``)
+
+    }, error => {
+      console.log(error);
+
+      obj._messageService.handleWarning('Encerrando Tarefa', 'Item financiado foi cancelado com sucesso.')
+
+    });
+  }
+  quitDae(value) {
+    const obj = this;
+    this._userService.quitarDae(value).subscribe(sucess => {
+      obj.loadMyProjects();
+      obj._messageService.handleSuccess('Registrado efetuado com Sucesso', ``)
+
+    }, error => {
+      console.log(error);
+
+      obj._messageService.handleWarning('Encerrando Tarefa', 'Item financiado foi cancelado com sucesso.')
+
+    });
+
   }
   fallbackCopyTextToClipboard(text) {
     var textArea = document.createElement("textarea");
@@ -113,7 +136,7 @@ export class MyTasksComponent implements OnInit {
     //Registra no banco de dados
     this._userService.sendComments(task).subscribe(
       data=>{
-        this.loadMyTasks();
+        this.loadMyProjects();
       },
       error=>{
         console.error(error);
@@ -130,7 +153,7 @@ export class MyTasksComponent implements OnInit {
     ).subscribe(
       success => {
         obj._messageService.handleSuccess('Conclusão de Tarefa', 'Serviço concluído com sucesso.')
-        this.loadMyTasks();
+        this.loadMyProjects();
       },
       error => {
         console.error(error);
@@ -151,7 +174,7 @@ export class MyTasksComponent implements OnInit {
     ).subscribe(
       success => {
         obj._messageService.handleSuccess('Encerrando Tarefa', 'Serviço cancelado com sucesso.')
-        this.loadMyTasks();
+        this.loadMyProjects();
       },
       error => {
         console.error(error);
@@ -172,7 +195,7 @@ export class MyTasksComponent implements OnInit {
     ).subscribe(
       success => {
         obj._messageService.handleSuccess('Conclusão de Tarefa', 'Registro realizado com sucesso.')
-        this.loadMyTasks();
+        this.loadMyProjects();
       },
       error => {
         console.error(error);

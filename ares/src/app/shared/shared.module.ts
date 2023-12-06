@@ -77,6 +77,7 @@ import { DialogCredRuralAddItensCadComponent } from './components/dialog-cred-ru
 import { SelectItensFinanciaveisComponent } from './components/select-itens-financiaveis/select-itens-financiaveis.component';
 import { ElementsComponent } from './components/agro/analise-solo/elements/elements.component';
 import { LevelMessageComponent } from './components/agro/analise-solo/level-message/level-message.component';
+import { MyProjectsListComponent } from './components/user/my-projects/my-projects.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import { LevelMessageComponent } from './components/agro/analise-solo/level-mess
     TemplateTableRebanhoComponent,
     TemplateRebanhoComponent,
     MyTasksComponent,
+    MyProjectsListComponent,
     ProdHortalicasComponent,
     DialogConfirmComponent,
     TreatmentsByDateComponent,
@@ -205,6 +207,8 @@ import { LevelMessageComponent } from './components/agro/analise-solo/level-mess
     TemplateTableRebanhoComponent,
     TemplateRebanhoComponent,
     MyTasksComponent,
+    MyProjectsListComponent,
+    MyProjectsComponent,
     ProdHortalicasComponent,
     DialogConfirmComponent,
     AgroIndicadoresComponent,

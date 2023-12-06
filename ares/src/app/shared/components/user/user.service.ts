@@ -138,6 +138,13 @@ export class UserService {
       filter(t => t['tasks'] > 0)
     );
   }
+  
+  myProjects(): Observable<any> {
+
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/my-projects`).pipe(
+    );
+  }
+
   myTasks(): Observable<any> {
 
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/my-tasks`).pipe(
