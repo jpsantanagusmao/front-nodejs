@@ -101,13 +101,16 @@ export class ModelosAdubacao {
 
   public static async getP(producao, classe) {
 
+    // console.log(producao);
+    // console.log(classe);
+    
     let response;
 
     if ((producao.p) && (classe)) {
 
       if (
         (classe.classificacao == CLASS_CATEGORY.MUITO_BAIXO)
-        || (classe.classificacao == CLASS_CATEGORY.MUITO_BAIXO)
+        || (classe.classificacao == CLASS_CATEGORY.BAIXO)
       ) {
         response = producao.p[0].baixo;
       }

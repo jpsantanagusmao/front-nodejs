@@ -95,7 +95,6 @@ export class AnaliseSoloComponent implements OnInit {
   ngOnInit(): void {
     this._userCache.regRoute().subscribe();
 
-
   }
 
   async solver() {
