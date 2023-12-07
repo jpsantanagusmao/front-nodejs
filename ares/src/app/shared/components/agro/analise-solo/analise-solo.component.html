@@ -27,7 +27,7 @@
           <label class="form-label" for="classificacao">Tipo de Solo</label>
           <select id="classificacao" class="form-control" formControlName="classificacao" (change)="selectSolo($event)"
             style="width: 250px;">
-            <option [ngValue]="ts">Selecione uma faixa de produção</option>
+            <option>Selecione uma faixa de produção</option>
             <option *ngFor='let ts of tipoDeSolo' [ngValue]="ts">{{ts.classificacao}}</option>
           </select>
         </div>
