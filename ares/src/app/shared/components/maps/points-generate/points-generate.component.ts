@@ -18,7 +18,8 @@ export class PointsGenerateComponent implements OnInit {
     markers: google.maps.Marker[] = [];
 
     loader = new Loader(new Loader({
-        apiKey: "AIzaSyDFNduhX4rEk8BfLfv6GjuFWY9_2S11mI4",
+        // apiKey: "AIzaSyDFNduhX4rEk8BfLfv6GjuFWY9_2S11mI4",
+        apiKey: "AIzaSyDqT3Ei9ek7G2avN-HwAiZwyKcBayrSOzc",
     }));
 
     public constructor(

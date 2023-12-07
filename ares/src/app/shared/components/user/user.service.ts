@@ -138,10 +138,28 @@ export class UserService {
       filter(t => t['tasks'] > 0)
     );
   }
-  
+
   myProjects(): Observable<any> {
 
     return this.http.get(`${env.BASE_API_URL}${this.PATH}/my-projects`).pipe(
+    );
+  }
+
+  managerRoutes(): Observable<any> {
+
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}manager-routes`).pipe(
+    );
+  }
+
+  myProjectsAcomp(): Observable<any> {
+
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}my-projects-acomp`).pipe(
+    );
+  }
+  
+  myProjectsActions(): Observable<any> {
+
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}my-projects-actions`).pipe(
     );
   }
 
@@ -190,6 +208,12 @@ export class UserService {
   }
   update(id: any, user: any) {
     return this.http.put(`${env.BASE_API_URL}${this.PATH}/${id}`, user).pipe(
+    );
+  }
+
+  reabrirTask(id: string): Observable<any> {
+    return this.http.put(`${env.BASE_API_URL}${this.PATH}/restart/${id}`, null).pipe(
+      tap(this.atualizaTasks)
     );
   }
   finalizarTask(id: string): Observable<any> {

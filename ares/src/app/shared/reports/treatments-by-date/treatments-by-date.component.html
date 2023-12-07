@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col col-md-10 mt-3">
                 <label for="disabledTextInput" class="form-label">Informe um período de busca</label>
-                <input type="text" [bsConfig]="datePickerConfig" placeholder="Pesquisar registros" class="form-control" bsDaterangepicker formControlName="bsRangeValue"
-                    >
+                <input type="text" [bsConfig]="datePickerConfig" placeholder="Pesquisar registros" class="form-control"
+                    bsDaterangepicker formControlName="bsRangeValue">
             </div>
             <div class="col d-flex align-items-end" (click)="find()">
                 <span class="material-icons" tooltip="Localizar registros">
@@ -16,33 +16,42 @@
     </div>
     <div class="col">
         <label for="disabledTextInput" class="form-label">Filtro</label>
-        <input type="text" id="disabledTextInput" class="form-control" (keyup)="filterAdvanced($event)" formControlName="localizar"
-        placeholder="Informe um valor para busca">
+        <input type="text" id="disabledTextInput" class="form-control" (keyup)="filterAdvanced($event)"
+            formControlName="localizar" placeholder="Informe um valor para busca">
     </div>
 </div>
 <div *ngIf="treatments$ | async as treatments; else nodata">
     <table class="table table-hover">
         <thead>
-          <tr>
-            <th scope="col col-md-1">Data</th>
-            <th scope="col col-md-3">Beneficiários/Cliente</th>
-            <th scope="col col-md-3">Serviço</th>
-            <th scope="col col-md-2">Local do serviço</th>
-            <th scope="col col-md-2">Funcionário</th>
-            <th scope="col col-md-1">Status</th>
-          </tr> 
+            <tr>
+                <th scope="col col-md-1">Data</th>
+                <th scope="col col-md-3">Beneficiários/Cliente</th>
+                <th scope="col col-md-3">Serviço</th>
+                <th scope="col col-md-2">Local do serviço</th>
+                <th scope="col col-md-2">Funcionário</th>
+                <th scope="col col-md-1">Status</th>
+            </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let tr of treatments">
-            <td>{{tr.data | date:'dd/MM/yyyy'}}</td>
-            <td (click)="copyValue(tr.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">{{tr.customer}}</td>
-            <td>{{tr.description}}</td>
-            <td>{{tr.local}}</td> 
-            <td>{{tr.user}}</td>
-            <td>{{tr.status}}</td>
-          </tr>
+            <tr *ngFor="let tr of treatments">
+                <td>{{tr.data | date:'dd/MM/yyyy'}}</td>
+                <td (click)="copyValue(tr.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">
+                    {{tr.customer}}</td>
+                <td>{{tr.description}}</td>
+                <td>{{tr.local}}</td>
+                <td>{{tr.user}}</td>
+                <td *ngIf="( (tr.status == 'FINALIZADA') && (user.role_class >= CLASSE_ACCESS) )">
+                    <button (click)="onRestartTask(tr.task_id)" class="btn text-danger"
+                        tooltip="Esta tarefa foi concluída. Clique para reabir esta visita">
+                        <i class="bi bi-backspace-fill"></i>
+                    </button>
+                </td>
+                <td *ngIf="!( (tr.status == 'FINALIZADA') && (user.role_class >= CLASSE_ACCESS) )">
+                    {{tr.status}}
+                </td>
+            </tr>
         </tbody>
-      </table>
+    </table>
 </div>
 <ng-template #nodata>
     <div class="text-danger mt-3">

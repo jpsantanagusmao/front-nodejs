@@ -67,7 +67,7 @@ const routes: Routes = [
         component: MyTasksComponent
       },
       {
-        path: 'my-projects',
+        path: 'my-projects-list',
         component: MyProjectsListComponent
       },
       {

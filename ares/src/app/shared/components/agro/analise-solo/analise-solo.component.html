@@ -27,6 +27,7 @@
           <label class="form-label" for="classificacao">Tipo de Solo</label>
           <select id="classificacao" class="form-control" formControlName="classificacao" (change)="selectSolo($event)"
             style="width: 250px;">
+            <option [ngValue]="ts">Selecione uma faixa de produção</option>
             <option *ngFor='let ts of tipoDeSolo' [ngValue]="ts">{{ts.classificacao}}</option>
           </select>
         </div>
@@ -101,10 +102,10 @@
       <div class="form-group col-md-12">
         <label for="h">H + Al - SMP (cmolc/dm³)</label>
         <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" (change)="classElements($event)"
-          tooltip="H - Hidrogênio (cmolc/dm³)" class="form-control col col-md-2" formControlName="h" name="h" id="h"
+          tooltip="H + Al (cmolc/dm³)" class="form-control col col-md-2" formControlName="h" name="h" id="h"
           required>
         <error-message *ngIf="form.controls.h.invalid && (form.controls.h.dirty || form.controls.h.touched)"
-          errorMessage="É necessário informar a quantidade de H"></error-message>
+          errorMessage="É necessário informar a quantidade de  + Al"></error-message>
         <level-message *ngIf="class_h" levelMessage="{{class_h.classificacao}}"></level-message>
       </div>
 

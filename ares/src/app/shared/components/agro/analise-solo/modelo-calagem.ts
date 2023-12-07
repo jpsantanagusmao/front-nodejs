@@ -124,7 +124,7 @@ export class ModelosCalagem {
       metodo: 'Método da elevação da porcentagem de saturação por bases',
       nc: nc,
       memoria: obj.memoria,
-      calcariosRecomendados: tipo.corretivos,
+      calcariosRecomendados: tipo?.corretivos,
       t,
       T,
       v: v1,

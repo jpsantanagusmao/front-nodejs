@@ -89,6 +89,7 @@ export class AnaliseSoloComponent implements OnInit {
     this.loadtables();
     this.loadForm();
     // this.createformWanderson();
+    // this.createformManuel();
   }
 
   ngOnInit(): void {
@@ -132,9 +133,9 @@ export class AnaliseSoloComponent implements OnInit {
     }
 
     const constraints = {
-      'n': { "min": (this.qtd_N.plantio + this.qtd_N.cobertura) * 0.9, "max": (this.qtd_N.plantio + this.qtd_N.cobertura)* 1.1 },
-      'nc': { "min": this.qtd_N.cobertura * 0.9, "max": this.qtd_N.cobertura* 1.1 },
-      'p': { "min": this.qtd_P2O5 * 0.9, "max": this.qtd_P2O5* 1.1 },
+      'n': { "min": (this.qtd_N.plantio + this.qtd_N.cobertura) * 0.9, "max": (this.qtd_N.plantio + this.qtd_N.cobertura) * 1.1 },
+      'nc': { "min": this.qtd_N.cobertura * 0.9, "max": this.qtd_N.cobertura * 1.1 },
+      'p': { "min": this.qtd_P2O5 * 0.9, "max": this.qtd_P2O5 * 1.1 },
       'k': { "min": this.qtd_K2O * 0.9, "max": this.qtd_K2O * 1.1 },
     }
 
@@ -145,7 +146,7 @@ export class AnaliseSoloComponent implements OnInit {
     }
 
     // console.log(model);
-    
+
     const response = await Solver.Solve(model);
 
     const obj = []
@@ -156,21 +157,21 @@ export class AnaliseSoloComponent implements OnInit {
       // console.log(r);
       let ck = 1; //Constante para ajuste da recomendação
       //descobre o menor indice n,p, k
-      if((r.n < r.p) && (r.n < r.k) && (r.n > 0)){
+      if ((r.n < r.p) && (r.n < r.k) && (r.n > 0)) {
         //Se o teor de N é menor que P e K então usaremos esta como constante
         ck = r.n
-      } else{
-        if((r.p < r.k) && (r.p > 0)){
+      } else {
+        if ((r.p < r.k) && (r.p > 0)) {
           //Se o teor de fósfor é menor que o de potássio usaremos o teor de fósforo
           ck = r.p;
-        }else{
+        } else {
           ck = r.k;
         }
       }
 
 
       //e multiplica pelo response k dentro do loop
-      
+
       Object.keys(response).forEach(k => {
         if (k == r.descricao) {
 
@@ -189,7 +190,7 @@ export class AnaliseSoloComponent implements OnInit {
               hasK = true;
             }
 
-            obj.push({ 'Fertilizante': k, 'quantidade': Number(Number(response[`${k}`]*100).toFixed(0)), hasN, hasP, hasK })
+            obj.push({ 'Fertilizante': k, 'quantidade': Number(Number(response[`${k}`] * 100).toFixed(0)), hasN, hasP, hasK })
           }
         }
       })
@@ -214,22 +215,23 @@ export class AnaliseSoloComponent implements OnInit {
 
   }
   selectSolo(event) {
+    this.calculated = false;
+
     this.soloSelected = this.form.controls.classificacao.value;
     this.classNutrients();
 
   }
 
   selectCultura(event) {
+    this.calculated = false;
 
     this.culturaSelected = this.form.controls.cultura.value;
     this.faixaProducao = this.culturaSelected.produtividade;
-
-    this.faixaProducaoSelected = undefined;
-
-    this.class_k = undefined
-    this.class_p = undefined
+    
+    this.faixaProducaoSelected = this.faixaProducao[0];
 
     this.classNutrients();
+
   }
 
   async classNutrients() {
@@ -371,8 +373,8 @@ export class AnaliseSoloComponent implements OnInit {
     if (element == 'h')//Não encontrei referência para classificação do H
       //this.class_h = await ModelosAdubacao.classElement(element, valor);
 
-    if (element == 'al')
-      this.class_al = await ModelosAdubacao.classElement(element, valor);
+      if (element == 'al')
+        this.class_al = await ModelosAdubacao.classElement(element, valor);
 
     if (element == 'ca')
       this.class_ca = await ModelosAdubacao.classElement(element, valor);
@@ -441,10 +443,11 @@ export class AnaliseSoloComponent implements OnInit {
   }
 
   async selectProducao(event) {
+    this.calculated = false;
 
     this.faixaProducaoSelected = this.form.controls.producao.value;
 
-    const classp = this.classNutrients();
+    await this.classNutrients();
 
   }
 
@@ -486,7 +489,8 @@ export class AnaliseSoloComponent implements OnInit {
     });
 
   }
-  loadFormEspecificacoes(){
+
+  loadFormEspecificacoes() {
     this.formCalc = new FormGroup({
       corretivo: new FormControl('', [Validators.required]),
       prnt: new FormControl('', [Validators.required]),
@@ -513,7 +517,7 @@ export class AnaliseSoloComponent implements OnInit {
       mo: new FormControl('', [Validators.required])
     });
 
-this.loadFormEspecificacoes()
+    this.loadFormEspecificacoes()
 
 
     // this.createformVacido();
@@ -579,6 +583,23 @@ this.loadFormEspecificacoes()
     });
     this.loadFormEspecificacoes()
   }
+
+  createformManuel() {
+    this.form = new FormGroup({
+      classificacao: new FormControl('', [Validators.required]),
+      cultura: new FormControl('', [Validators.required]),
+      producao: new FormControl('', [Validators.required]),
+      ph: new FormControl('6.4', [Validators.required]),
+      p: new FormControl('16.0', [Validators.required]),
+      k: new FormControl('134.1', [Validators.required]),
+      ca: new FormControl('4.1', [Validators.required]),
+      mg: new FormControl('1.2', [Validators.required]),
+      al: new FormControl('0.0', [Validators.required]),
+      h: new FormControl('1.8', [Validators.required]),
+      mo: new FormControl('1.6', [Validators.required])
+    });
+    this.loadFormEspecificacoes()
+  }
   createformWanderson() {
     this.form = new FormGroup({
       classificacao: new FormControl('', [Validators.required]),
@@ -595,6 +616,7 @@ this.loadFormEspecificacoes()
     });
     this.loadFormEspecificacoes()
   }
+
   createform2() {
     this.form = new FormGroup({
       classificacao: new FormControl('', [Validators.required]),

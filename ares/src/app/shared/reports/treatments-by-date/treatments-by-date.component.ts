@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { tap, switchMap, map, filter, distinctUntilChanged, take } from 'rxjs/operators';
 import { UserService } from '../../components/user/user.service';
 import { AlertMessagesService } from '../../services/alert-messages.service';
+import { UserCacheService } from 'src/app/core/user-cache.service';
 
 @Component({
   selector: 'app-treatments-by-date',
@@ -22,13 +23,17 @@ export class TreatmentsByDateComponent implements OnInit {
 
   treatments$: Observable<any>;
 
+  user;
+  CLASSE_ACCESS = 4
   constructor(
     private _userService: UserService,
+    private _userCache: UserCacheService,
     private _messageService: AlertMessagesService
   ) {
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate() + 7);
     this.loadForm();
+    this.user = this._userCache.getUserData();
   }
   loadForm() {
     this.form = new FormGroup({
@@ -80,6 +85,7 @@ export class TreatmentsByDateComponent implements OnInit {
       this._messageService.handleError('Erro', 'Você precisa especificar um período!');
     } else {
       this.treatments$ = this._userService.getTreatmentsByDate([...this.form.controls.bsRangeValue.value]).pipe(
+        // tap(console.log)
       );
     }
   }
@@ -107,10 +113,25 @@ export class TreatmentsByDateComponent implements OnInit {
     );
 
   }
+  onRestartTask(id){
+
+    const obj = this;
+    this._userService.reabrirTask(id).subscribe(
+      data=>{
+        obj._messageService.handleSuccess('Sucesso', 'A tarefa foi reaberta.')
+        obj.find();
+      },
+      error=>{
+        obj._messageService.handleSuccess('Erro', error);
+      }
+    )
+  }
   ngOnInit(): void {
     this.datePickerConfig = Object.assign({}, {
       containerClass: 'theme-dark-blue',
       rangeInputFormat: 'D/MM/YYYY', isAnimated: true
     });
+    
+    
   }
 }

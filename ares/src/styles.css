@@ -253,6 +253,7 @@ summary {
 .btn-div-point{
     cursor: pointer;
 }
+
 #dashboard{
     border: 1px var(--mid-color) solid;
     border-radius: 15px;
@@ -261,8 +262,10 @@ summary {
     flex-direction: row;
     justify-content: space-around;
 }
+
 .card-panel{
 }
+
 .card-panel > .card-body > h5{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 1.2rem;
