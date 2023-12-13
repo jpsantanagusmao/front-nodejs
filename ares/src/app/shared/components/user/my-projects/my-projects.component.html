@@ -44,10 +44,10 @@
         </button>
         
         <!-- Pagamento de TRT's -->
-        <button (click)="quitTrt(t.idvisita)"  *ngIf="!t.trtok" class="btn text-danger" tooltip="TRT/ART não foi quitada nem emitida">
+        <button (click)="quitTrt(t.idvisita, t.trtok)"  *ngIf="!t.trtok" class="btn text-danger" tooltip="TRT/ART não foi quitada nem emitida">
           <i class="bi bi-file-richtext"></i>
         </button>
-        <button (click)="quitTrt(t.idvisita)"  *ngIf="t.trtok" class="btn text-success" tooltip="TRT/ART foi quitada">
+        <button (click)="quitTrt(t.idvisita, t.trtok)"  *ngIf="t.trtok" class="btn text-success" tooltip="TRT/ART foi quitada">
           <i class="bi bi-file-richtext"></i>
         </button>
         

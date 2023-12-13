@@ -42,31 +42,35 @@ export class MyProjectsListComponent implements OnInit {
     return true;
   }
 
-  quitTrt(value) {
+  // TODO: Terminar esta função
+  quitTrt(idprojeto, trtok) {
     const obj = this;
-    this._userService.quitarArt(value).subscribe(sucess => {
-      obj.loadMyProjects();
-      obj._messageService.handleSuccess('Registrado efetuado com Sucesso', ``)
 
-    }, error => {
-      console.log(error);
+    // this._userService.quitarArt(idprojeto, valor).subscribe(sucess => {
+    //   obj.loadMyProjects();
+    //   obj._messageService.handleSuccess('Registrado efetuado com Sucesso', ``)
 
-      obj._messageService.handleWarning('Encerrando Tarefa', 'Item financiado foi cancelado com sucesso.')
+    // }, error => {
+    //   console.log(error);
 
-    });
+    //   obj._messageService.handleWarning('Encerrando Tarefa', 'Item financiado foi cancelado com sucesso.')
+
+    // });
   }
-  quitDae(value) {
-    const obj = this;
-    this._userService.quitarDae(value).subscribe(sucess => {
-      obj.loadMyProjects();
-      obj._messageService.handleSuccess('Registrado efetuado com Sucesso', ``)
+  // TODO: Terminar esta função
+  quitDae(idprojeto, rdaok) {
 
-    }, error => {
-      console.log(error);
+    // const obj = this;
+    // this._userService.quitarDae(value).subscribe(sucess => {
+    //   obj.loadMyProjects();
+    //   obj._messageService.handleSuccess('Registrado efetuado com Sucesso', ``)
 
-      obj._messageService.handleWarning('Encerrando Tarefa', 'Item financiado foi cancelado com sucesso.')
+    // }, error => {
+    //   console.log(error);
 
-    });
+    //   obj._messageService.handleWarning('Encerrando Tarefa', 'Item financiado foi cancelado com sucesso.')
+
+    // });
 
   }
   fallbackCopyTextToClipboard(text) {

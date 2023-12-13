@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 
@@ -8,7 +9,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./dialog-confirm.component.css']
 })
 export class DialogConfirmComponent implements OnInit {
-
+ 
   @Input() title: string;
   @Input() confirmMessage: string;
   
@@ -19,6 +20,9 @@ export class DialogConfirmComponent implements OnInit {
 
   constructor(public bsModalRef: BsModalRef) {}
 
+  
+  form: FormGroup;
+  
   ngOnInit(): void {
     this.confirmResult = new Subject();
   }

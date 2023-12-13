@@ -136,16 +136,19 @@ export class UserCadastrarComponent implements OnInit {
   }
   formok(){
 
-    const _roleSel = (!this._roleSelected || this._roleSelected == '')?false:true;
-    const _citySel = this.city?true:false;
+    const _roleSel = (!this._roleSelected || this._roleSelected == '')? false : true;
+    const _citySel = this.city ? true : false;
     const _formValid = this.form.valid;
     const _divisionNecessary = this.divisionNecessary();
 
-    const formok = !( 
-      ( !_roleSel ) 
-      //|| !(this.divisionNecessary()) 
-      //|| (!_citySel)
-      || (!_formValid));
+    let formok = false;
+    if( 
+      (( _roleSel ) 
+      && (this.divisionNecessary()) 
+      && (_citySel)
+      && (_formValid)) ){
+        formok = true;
+      }
     
       return formok;
 

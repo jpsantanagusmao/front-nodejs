@@ -76,21 +76,21 @@
         </div>
       </div>
       <div class="statusnotif">
-        <button *ngIf="p.pgmtrt" class="btn btn-success" tooltip="ART/TRT já foi paga e emitida">
+        <button *ngIf="p.pgmtrt" (click)="quitTrt(p.idprojeto, p.pgmtrt)" class="btn btn-success" tooltip="ART/TRT já foi paga e emitida">
           <i class="bi bi-credit-card-2-front"></i>
         </button>
         <!-- -->
-        <button *ngIf="!p.pgmtrt" (click)="quitTrt(p.idprojeto)" class="btn btn-warning"
+        <button *ngIf="!p.pgmtrt" (click)="quitTrt(p.idprojeto, p.pgmtrt)" class="btn btn-warning"
           tooltip="Clique aqui para definir como emitida">
-          <i class="bi bi-credit-card-2-front-fill"></i> TRT não emitida!!!
+          <i class="bi bi-credit-card-2-front-fill"></i> TRT não emitida
         </button>
-        <button *ngIf="p.pgmrda" class="btn btn btn-success" tooltip="Ver detalhes da visita com Projetos elaborados">
+        <button *ngIf="p.pgmrda" (click)="quitDae(p.idprojeto, p.pgmrda)" class="btn btn btn-success" tooltip="Ver detalhes da visita com Projetos elaborados">
           <i class="bi bi-credit-card-2-front"></i>
         </button>
         <!--  -->
-        <button *ngIf="!p.pgmrda" (click)="quitDae(p.idprojeto)" class="btn btn btn-warning"
+        <button *ngIf="!p.pgmrda" (click)="quitDae(p.idprojeto, p.pgmrda)" class="btn btn btn-warning"
           tooltip="Clique aqui para definir como DAE quitado.">
-          <i class="bi bi-credit-card-2-front-fill"></i> Não pagou DAE!!!
+          <i class="bi bi-credit-card-2-front-fill"></i> Não pagou DAE
         </button>
       </div>
       <table class="table table-hover" *ngIf="p.itensfinanciados.length > 0; else noprojects">

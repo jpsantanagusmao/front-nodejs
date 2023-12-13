@@ -78,6 +78,11 @@ import { SelectItensFinanciaveisComponent } from './components/select-itens-fina
 import { ElementsComponent } from './components/agro/analise-solo/elements/elements.component';
 import { LevelMessageComponent } from './components/agro/analise-solo/level-message/level-message.component';
 import { MyProjectsListComponent } from './components/user/my-projects/my-projects.component';
+import { DialogDaeValueComponent } from './components/dialog-dae-value/dialog-dae-value.component';
+import { DialogArtValueComponent } from './components/dialog-art-value/dialog-art-value.component';
+import { DashboardProjectsAcompComponent } from './components/dashboard-projects-acomp/dashboard-projects-acomp.component';
+import { DashboardUsersAcompComponent } from './components/dashboard-users-acomp/dashboard-users-acomp.component';
+import { ProjectsListAcompComponent } from './components/projects-list-acomp/projects-list-acomp.component';
 
 @NgModule({
   declarations: [
@@ -152,6 +157,11 @@ import { MyProjectsListComponent } from './components/user/my-projects/my-projec
     SelectItensFinanciaveisComponent,
     ElementsComponent,
     LevelMessageComponent,
+    DialogDaeValueComponent,
+    DialogArtValueComponent,
+    DashboardProjectsAcompComponent,
+    DashboardUsersAcompComponent,
+    ProjectsListAcompComponent,
   ],
   imports: [
     CommonModule,

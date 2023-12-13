@@ -47,7 +47,7 @@ export class DetailsComponent implements OnInit {
 
           let id = obj._route.snapshot.queryParamMap.get('id')
 
-          if(!obj.item) return false;
+          if (!obj.item) return false;
 
           obj.item.idproposta = id;
           obj.registerItem(obj.item);
@@ -82,31 +82,130 @@ export class DetailsComponent implements OnInit {
       )
   }
 
-  quitTrt(value) {
+  quitTrt(idprojeto, trtok) {
+
     const obj = this;
-    this._userService.quitarArt(value).subscribe(sucess => {
-      obj.loadData();
-      obj._messageService.handleSuccess('Registrado com Sucesso', `R$ ${sucess}`)
 
-    }, error => {
-      console.log(error);
+    let confirm$;
 
-      obj._messageService.handleWarning('Encerrando Tarefa', 'Item financiado foi cancelado com sucesso.')
 
-    });
+    if (!trtok) {
+      confirm$ = this._messageService.showInput('Informe o valor pago do TRT/ART', '', 'Confirmar', 'Cancelar pagamento');
+
+      confirm$.asObservable().pipe(
+        take(1),
+      ).subscribe(
+        result => {
+
+          if (result == false) {
+            obj._messageService.handleWarning('Pagamento suspenso', 'Este pagamento não foi registrado!')
+
+          } else {
+            this._userService.quitarArt(idprojeto, result).subscribe(
+              sucess => {
+                obj._messageService.handleSuccess('Pagamento registrado', `Registrado o pagamento no valor de R$ ${sucess.trt}.`)
+                obj.loadData();
+              }
+            );
+          }
+        },
+        error => {
+          console.error(error);
+          obj._messageService.handleError('Conclusão de Tarefa', 'Não foi possível registrar este pagamento.')
+        }
+      );
+
+    } else {
+      confirm$ = this._messageService.showConfirm('Cancelar o pagamento desta ART/TRT', '', 'Confirmar', 'Cancelar pagamento');
+
+      confirm$.asObservable().pipe(
+        take(1),
+      ).subscribe(
+        result => {
+
+          if (result == false) {
+            obj._messageService.handleWarning('Pagamento suspenso', 'Este pagamento não foi registrado!')
+            obj.loadData();
+          } else {
+            this._userService.quitarArt(idprojeto, result).subscribe(
+              sucess => {
+                obj.loadData();
+                obj._messageService.handleSuccess('Pagamento cancelado', `Registrado o cancelamento no valor de R$ ${sucess.valor}.`)
+              }
+            );
+          }
+        },
+        error => {
+          console.error(error);
+          obj._messageService.handleError('Conclusão de Tarefa', 'Não foi possível registrar este pagamento.')
+        }
+      );
+
+
+    }
+
   }
-  quitDae(value) {
+
+  quitDae(idprojeto, rdaok) {
     const obj = this;
-    this._userService.quitarDae(value).subscribe(sucess => {
-      obj.loadData();
-      obj._messageService.handleSuccess('Registrado com Sucesso', `R$ ${sucess}`)
 
-    }, error => {
-      console.log(error);
+    let confirm$;
 
-      obj._messageService.handleWarning('Encerrando Tarefa', 'Item financiado foi cancelado com sucesso.')
 
-    });
+    if (!rdaok) {
+      confirm$ = this._messageService.showInput('Informe o valor pago do DAE', '', 'Confirmar', 'Cancelar pagamento');
+
+      confirm$.asObservable().pipe(
+        take(1),
+      ).subscribe(
+        result => {
+
+          if (result == false) {
+            obj._messageService.handleWarning('Pagamento suspenso', 'Este pagamento não foi registrado!')
+
+          } else {
+            this._userService.quitarDae(idprojeto, result).subscribe(
+              sucess => {
+                obj._messageService.handleSuccess('Pagamento registrado', `Registrado o pagamento no valor de R$ ${sucess.valor}.`)
+                obj.loadData();
+              }
+            );
+          }
+        },
+        error => {
+          console.error(error);
+          obj._messageService.handleError('Conclusão de Tarefa', 'Não foi possível registrar este pagamento.')
+        }
+      );
+
+    } else {
+      confirm$ = this._messageService.showConfirm('Cancelar o pagamento desta ART/TRT', '', 'Confirmar', 'Cancelar pagamento');
+
+      confirm$.asObservable().pipe(
+        take(1),
+      ).subscribe(
+        result => {
+
+          if (result == false) {
+            obj._messageService.handleWarning('Pagamento suspenso', 'Este pagamento não foi registrado!')
+            obj.loadData();
+          } else {
+            this._userService.quitarDae(idprojeto, result).subscribe(
+              sucess => {
+                obj.loadData();
+                obj._messageService.handleSuccess('Pagamento cancelado', `Registrado o cancelamento no valor de R$ ${sucess.trt}.`)
+              }
+            );
+          }
+        },
+        error => {
+          console.error(error);
+          obj._messageService.handleError('Conclusão de Tarefa', 'Não foi possível registrar este pagamento.')
+        }
+      );
+
+
+    }
 
   }
   registerItem(item) {

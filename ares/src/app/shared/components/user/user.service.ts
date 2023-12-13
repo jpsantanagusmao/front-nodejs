@@ -2,10 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, EMPTY, of, BehaviorSubject } from 'rxjs';
-import { filter, switchMap, tap } from 'rxjs/operators';
+import { filter, switchMap, take, tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { environment as env } from '../../../../environments/environment.prod';
 import * as moment from 'moment';
+import { AlertMessagesService } from '../../services/alert-messages.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class UserService {
     private http: HttpClient,
     private usercache: UserCacheService,
     private router: Router,
+    private _messageService: AlertMessagesService
   ) { }
 
   findbyitensdescription(ref: any): Observable<any> {
@@ -156,7 +158,7 @@ export class UserService {
     return this.http.get(`${env.BASE_API_URL}${this.PATH}my-projects-acomp`).pipe(
     );
   }
-  
+
   myProjectsActions(): Observable<any> {
 
     return this.http.get(`${env.BASE_API_URL}${this.PATH}my-projects-actions`).pipe(
@@ -235,14 +237,15 @@ export class UserService {
       tap(this.atualizaTasks)
     );
   }
-  quitarArt(id: any): Observable<any> {
 
-    return this.http.post(`${env.BASE_API_URL}${this.PATH}/quit-art-on-project/${id}`, null);
+  quitarArt(id: any, valor: any): Observable<any> {
+
+    return this.http.post(`${env.BASE_API_URL}${this.PATH}/quit-art-on-project/${id}`, { valor });
 
   }
-  quitarDae(id: any): Observable<any> {
+  quitarDae(id: any, valor: any): Observable<any> {
 
-    return this.http.post(`${env.BASE_API_URL}${this.PATH}/quit-dae-on-project/${id}`, null);
+    return this.http.post(`${env.BASE_API_URL}${this.PATH}/quit-dae-on-project/${id}`, { valor });
 
   }
   addItem(item: any): Observable<any> {

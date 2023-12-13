@@ -10,6 +10,7 @@ import { DialogProdLeiteCadComponent } from '../components/dialog-prod-leite-cad
 import { DialogAgroindustriaCadComponent } from '../components/dialog-agroindustria-cad/dialog-agroindustria-cad.component';
 import { DialogAddTaskComponent } from '../components/add-task/dialogAddTask.component';
 import { DialogCredRuralAddItensCadComponent } from '../components/dialog-cred-rural-add-itens-cad/dialog-cred-rural-add-itens-cad.component';
+import { DialogDaeValueComponent } from '../components/dialog-dae-value/dialog-dae-value.component';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,22 @@ export class AlertMessagesService {
     const bsModalRef: BsModalRef = this.modalService.show(DialogConfirmComponent);
     bsModalRef.content.title = title;
     bsModalRef.content.confirmMessage = confirmMessage;
+
+    if(confirmText){
+      bsModalRef.content.confirmText = confirmText;
+    }
+
+    if(cancelTxt){
+      bsModalRef.content.cancelTxt = cancelTxt;
+    }
+
+    return (<DialogConfirmComponent>bsModalRef.content).confirmResult;
+  }
+
+  showInput(title: string, message:string, confirmText?: string, cancelTxt?: string){
+    const bsModalRef: BsModalRef = this.modalService.show(DialogDaeValueComponent);
+    bsModalRef.content.title = title;
+    bsModalRef.content.message = message;
 
     if(confirmText){
       bsModalRef.content.confirmText = confirmText;

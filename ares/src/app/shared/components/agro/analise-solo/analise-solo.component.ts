@@ -214,6 +214,7 @@ export class AnaliseSoloComponent implements OnInit {
 
   }
   selectSolo(event) {
+
     this.calculated = false;
 
     this.soloSelected = this.form.controls.classificacao.value;
@@ -222,6 +223,7 @@ export class AnaliseSoloComponent implements OnInit {
   }
 
   selectCultura(event) {
+
     this.calculated = false;
 
     this.culturaSelected = this.form.controls.cultura.value;
@@ -339,6 +341,7 @@ export class AnaliseSoloComponent implements OnInit {
       this.qtd_N = await ModelosAdubacao.getN(producao);
 
   }
+  
   async getK() {
     const producao = this.faixaProducaoSelected;
     const classe = this.class_k;

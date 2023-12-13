@@ -1,0 +1,22 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body">
+        <p>{{message}}</p>
+    </div>
+    <form [formGroup]="form">
+        <div class="form-group col-md-12">
+            <label for="valor">Valor</label>
+            <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999"
+                tooltip="Informe o valor pago pelo cliente" class="form-control"
+                formControlName="valor" name="valor" id="valor" required>
+            <error-message *ngIf="form.controls.valor.invalid && (form.controls.valor.dirty || form.controls.valor.touched)"
+                errorMessage="É necessário informar uma o valor do PH"></error-message>
+        </div>
+    </form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onConfirm()">{{confirmText}}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">{{cancelTxt}}</button>
+    </div>
+</div>
