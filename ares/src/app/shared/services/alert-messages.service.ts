@@ -21,24 +21,24 @@ export class AlertMessagesService {
     private modalService: BsModalService,
   ) { }
 
-  handleSuccess(title, message){
+  handleSuccess(title, message) {
     const type = AlertModalComponent.SUCCESS;
     this._showMessage(title, message, type);
   }
 
-  handleError(title, message){
+  handleError(title, message) {
     const type = AlertModalComponent.DANGER;
     this._showMessage(title, message, type);
   }
-  handleInfo(title, message){
+  handleInfo(title, message) {
     const type = AlertModalComponent.INFO;
     this._showMessage(title, message, type);
   }
-  handleWarning(title, message){
+  handleWarning(title, message) {
     const type = AlertModalComponent.WARNING;
     this._showMessage(title, message, type);
   }
-  _showMessage(title, message, type){
+  _showMessage(title, message, type) {
     const bsModalRef: BsModalRef = this.modalService.show(AlertModalComponent);
     bsModalRef.content.message = message;
     bsModalRef.content.title = title;
@@ -53,36 +53,42 @@ export class AlertMessagesService {
    * @param confirmText opcional texto do botõ de confirmação
    * @param cancelTxt opcional texto do botão de cancelar
    */
-  showConfirm(title: string, confirmMessage:string, confirmText?: string, cancelTxt?: string){
+  showConfirm(title: string, confirmMessage: string, confirmText?: string, cancelTxt?: string) {
     const bsModalRef: BsModalRef = this.modalService.show(DialogConfirmComponent);
     bsModalRef.content.title = title;
     bsModalRef.content.confirmMessage = confirmMessage;
 
-    if(confirmText){
+    if (confirmText) {
       bsModalRef.content.confirmText = confirmText;
     }
 
-    if(cancelTxt){
+    if (cancelTxt) {
       bsModalRef.content.cancelTxt = cancelTxt;
     }
 
     return (<DialogConfirmComponent>bsModalRef.content).confirmResult;
   }
 
-  showInput(title: string, message:string, confirmText?: string, cancelTxt?: string){
+  showInput(title: string, message: string, confirmText?: string, cancelTxt?: string, valor?: Number) {
     const bsModalRef: BsModalRef = this.modalService.show(DialogDaeValueComponent);
+
     bsModalRef.content.title = title;
     bsModalRef.content.message = message;
 
-    if(confirmText){
+    if (valor) {
+      bsModalRef.content.valorgpm = valor.toFixed(2);
+    }
+
+    if (confirmText) {
       bsModalRef.content.confirmText = confirmText;
     }
 
-    if(cancelTxt){
+    if (cancelTxt) {
       bsModalRef.content.cancelTxt = cancelTxt;
     }
 
-    return (<DialogConfirmComponent>bsModalRef.content).confirmResult;
+    return (<DialogDaeValueComponent>bsModalRef.content).confirmResult;
+
   }
 
   /**
@@ -92,7 +98,7 @@ export class AlertMessagesService {
    * @param recomendacao
    * @returns
    */
-  showRaterConfirm(situacao: string, orientacao:string, recomendacao: string, origin: string){
+  showRaterConfirm(situacao: string, orientacao: string, recomendacao: string, origin: string) {
     const bsModalRef: BsModalRef = this.modalService.show(DialogRaterComponent, { class: 'modal-lg' });
     bsModalRef.content.situacaoTxt = situacao;
     bsModalRef.content.orientacaoTxt = orientacao;
@@ -109,7 +115,7 @@ export class AlertMessagesService {
    * @param beneficiario beneficiario desta tarefa
    * @returns
    */
-  showSendComment(idTask: string, task: string, beneficiario: string){
+  showSendComment(idTask: string, task: string, beneficiario: string) {
     const bsModalRef: BsModalRef = this.modalService.show(DialogCommentsComponent, { class: 'modal-lg' });
     bsModalRef.content.idTask = idTask;
     bsModalRef.content.task = task;
@@ -117,44 +123,44 @@ export class AlertMessagesService {
     return (<DialogRaterComponent>bsModalRef.content).confirmResult;
   }
 
-  showPointSelect(){
+  showPointSelect() {
 
     const bsModalRef: BsModalRef = this.modalService.show(PointsGenerateComponent, { class: 'modal-lg' });
 
     return (<PointsGenerateComponent>bsModalRef.content).confirmResult;
 
   }
-  showRegCredRural(){
+  showRegCredRural() {
 
-    const bsModalRef: BsModalRef = this.modalService.show(DialogCredRuralCadComponent, {class: 'modal-xl'});
+    const bsModalRef: BsModalRef = this.modalService.show(DialogCredRuralCadComponent, { class: 'modal-xl' });
 
     return (<DialogProdLeiteCadComponent>bsModalRef.content).confirmResult;
 
   }
-  showDialgAddItensFinance(){
+  showDialgAddItensFinance() {
 
-    const bsModalRef: BsModalRef = this.modalService.show(DialogCredRuralAddItensCadComponent, {class: 'modal-xl'});
-
-    return (<DialogAddTaskComponent>bsModalRef.content).confirmResult;
-
-  }
-  showDialgoAddTask(){
-
-    const bsModalRef: BsModalRef = this.modalService.show(DialogAddTaskComponent, {class: 'modal-xl'});
+    const bsModalRef: BsModalRef = this.modalService.show(DialogCredRuralAddItensCadComponent, { class: 'modal-xl' });
 
     return (<DialogAddTaskComponent>bsModalRef.content).confirmResult;
 
   }
-  showRegAgroindustria(){
+  showDialgoAddTask() {
 
-    const bsModalRef: BsModalRef = this.modalService.show(DialogAgroindustriaCadComponent, {class: 'modal-xl'});
+    const bsModalRef: BsModalRef = this.modalService.show(DialogAddTaskComponent, { class: 'modal-xl' });
+
+    return (<DialogAddTaskComponent>bsModalRef.content).confirmResult;
+
+  }
+  showRegAgroindustria() {
+
+    const bsModalRef: BsModalRef = this.modalService.show(DialogAgroindustriaCadComponent, { class: 'modal-xl' });
 
     return (<DialogAgroindustriaCadComponent>bsModalRef.content).confirmResult;
 
   }
-  showRegProdLeite(){
+  showRegProdLeite() {
 
-    const bsModalRef: BsModalRef = this.modalService.show(DialogProdLeiteCadComponent, {class: 'modal-xl'});
+    const bsModalRef: BsModalRef = this.modalService.show(DialogProdLeiteCadComponent, { class: 'modal-xl' });
 
     return (<DialogProdLeiteCadComponent>bsModalRef.content).confirmResult;
 

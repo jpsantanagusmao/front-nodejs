@@ -103,7 +103,7 @@ export class DetailsComponent implements OnInit {
           } else {
             this._userService.quitarArt(idprojeto, result).subscribe(
               sucess => {
-                obj._messageService.handleSuccess('Pagamento registrado', `Registrado o pagamento no valor de R$ ${sucess.trt}.`)
+                obj._messageService.handleSuccess('Pagamento registrado', `Registrado o pagamento no valor de R$ ${sucess.valor}.`)
                 obj.loadData();
               }
             );
@@ -116,7 +116,7 @@ export class DetailsComponent implements OnInit {
       );
 
     } else {
-      confirm$ = this._messageService.showConfirm('Cancelar o pagamento desta ART/TRT', '', 'Confirmar', 'Cancelar pagamento');
+      confirm$ = this._messageService.showConfirm('Cancelar o pagamento desta ART/TRT', '', 'Sim', 'Não Cancelar');
 
       confirm$.asObservable().pipe(
         take(1),
@@ -153,7 +153,8 @@ export class DetailsComponent implements OnInit {
 
 
     if (!rdaok) {
-      confirm$ = this._messageService.showInput('Informe o valor pago do DAE', '', 'Confirmar', 'Cancelar pagamento');
+      
+      confirm$ = this._messageService.showInput('Informe o valor pago do DAE', '', 'Confirmar', 'Cancelar pagamento', this.daevl);
 
       confirm$.asObservable().pipe(
         take(1),
@@ -166,8 +167,10 @@ export class DetailsComponent implements OnInit {
           } else {
             this._userService.quitarDae(idprojeto, result).subscribe(
               sucess => {
-                obj._messageService.handleSuccess('Pagamento registrado', `Registrado o pagamento no valor de R$ ${sucess.valor}.`)
+                console.log(sucess);
+                
                 obj.loadData();
+                obj._messageService.handleSuccess('Pagamento registrado', `Registrado o pagamento no valor de R$ ${sucess.valor}.`)
               }
             );
           }
@@ -179,7 +182,7 @@ export class DetailsComponent implements OnInit {
       );
 
     } else {
-      confirm$ = this._messageService.showConfirm('Cancelar o pagamento desta ART/TRT', '', 'Confirmar', 'Cancelar pagamento');
+      confirm$ = this._messageService.showConfirm('Cancelar o pagamento deste DAE', '', 'Sim', 'Não cancelar');
 
       confirm$.asObservable().pipe(
         take(1),
@@ -192,8 +195,9 @@ export class DetailsComponent implements OnInit {
           } else {
             this._userService.quitarDae(idprojeto, result).subscribe(
               sucess => {
+                console.log(sucess);
                 obj.loadData();
-                obj._messageService.handleSuccess('Pagamento cancelado', `Registrado o cancelamento no valor de R$ ${sucess.trt}.`)
+                obj._messageService.handleSuccess('Pagamento cancelado', `Registrado o cancelamento no valor de R$ ${sucess.valor}.`)
               }
             );
           }

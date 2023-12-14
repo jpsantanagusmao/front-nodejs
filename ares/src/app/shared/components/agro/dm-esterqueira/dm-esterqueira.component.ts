@@ -193,18 +193,22 @@ export class DmEsterqueiraComponent implements OnInit {
 
   getDimsTrapezoidal(v): any{
     // altura máxima
-    const hlim = 2;
+    const hlim = 2.5;
+
     // largura máxima
     const bmax = 3
 
-    let altura = 0;
+    let altura = 2.5;
     let Bmaior = 0;
     let Bmenor = 0;
     let comprimento = 0;
 
     const r = Math.cbrt(v);
-    r > hlim ? altura = 2 : altura = Math.ceil(r);
-    r > bmax ? Bmaior = 2 : Bmaior = Math.ceil(r);
+
+    // r < hlim ? altura = 2.5 : altura = Math.ceil(r);
+    // r >= hlim ? altura = 2.5 : altura = Math.ceil(r);
+    
+    r > bmax ? Bmaior = 2.5 : Bmaior = Math.ceil(r);
 
     // A base menor e 75% menor que a Bmaior
     Bmenor = Bmaior*0.75;
@@ -213,25 +217,32 @@ export class DmEsterqueiraComponent implements OnInit {
     comprimento = Number(comprimento.toFixed(2));
 
     // Deve garantir que a altura é o menor valor, depois a largura
-    if(altura > Bmaior){
-      // se altura for maior que a largura, troca os valores
-      const n = altura;
-      altura = Bmaior;
-      Bmaior = n;
-    }
+    // if(altura > Bmaior){
+    //   // se altura for maior que a largura, troca os valores
+    //   const n = altura;
+    //   altura = Bmaior;
+    //   Bmaior = n;
+    // }
 
-    if(altura > comprimento){
-      // se altura for maior que o comprimento, troca os valores
-      const n = altura;
-      altura = comprimento;
-      comprimento = n;
-    }
+    // if(altura > comprimento){
+    //   // se altura for maior que o comprimento, troca os valores
+    //   const n = altura;
+    //   altura = comprimento;
+    //   comprimento = n;
+    // }
 
     if(Bmaior > comprimento){
       // se largura for maior que o comprimento, troca os valores
       const n = Bmaior;
       Bmaior = comprimento;
       comprimento = n;
+    }
+
+    if( Bmaior < Bmenor){
+      // Certifica que a base maior é realmente maior.
+      const n = Bmaior;
+      Bmaior = Bmenor;
+      Bmenor = n;
     }
 
     const volume = ( altura * ( ( Bmaior + Bmenor ) / 2 ) * comprimento ).toFixed(2);
@@ -243,16 +254,16 @@ export class DmEsterqueiraComponent implements OnInit {
   getDims(v): any{
 
     // altura máxima
-    const hlim = 2;
+    const hlim = 2.5;
     // largura máxima
     const lmax = 3
 
-    let altura = 0;
+    let altura = 2.5;
     let largura = 0;
     let comprimento = 0;
 
     const r = Math.cbrt(v);
-    r > hlim ? altura = 2 : altura = Math.ceil(r);
+    // r > hlim ? altura = 2 : altura = Math.ceil(r);
     r > lmax ? largura = 2 : largura = Math.ceil(r);
 
     comprimento = Number((v / altura / largura).toFixed(2));

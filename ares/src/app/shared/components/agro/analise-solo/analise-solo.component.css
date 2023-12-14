@@ -1,4 +1,18 @@
 .memorial{
   background-color: blanchedalmond;
   padding: 10px;
+  margin-top: 2rem;
+}
+.insumo{
+  display: flex;
+  flex-direction: row;/* | row-reverse | column | column-reverse;*/
+  align-items: flex-start;
+  margin-bottom: 1,2rem;
+}
+.insumos-container{
+  border: 1px solid darkolivegreen;
+  padding: 2rem;
+  margin-top: 1.5 rem;
+  margin-bottom: 1.5 rem;
+  border-radius: 2rem;
 }

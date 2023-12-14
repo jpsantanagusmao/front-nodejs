@@ -8,7 +8,7 @@
     <form [formGroup]="form">
         <div class="form-group col-md-12">
             <label for="valor">Valor</label>
-            <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999"
+            <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" value="{{valorgpm}}"
                 tooltip="Informe o valor pago pelo cliente" class="form-control"
                 formControlName="valor" name="valor" id="valor" required>
             <error-message *ngIf="form.controls.valor.invalid && (form.controls.valor.dirty || form.controls.valor.touched)"

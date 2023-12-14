@@ -87,6 +87,7 @@ export class AnaliseSoloComponent implements OnInit {
     private _route: ActivatedRoute
   ) {
     this.loadtables();
+    
     this.loadForm();
     // this.createformWanderson();
     // this.createformManuel();
@@ -132,16 +133,17 @@ export class AnaliseSoloComponent implements OnInit {
     }
 
     const constraints = {
-      'n': { "min": (this.qtd_N.plantio + this.qtd_N.cobertura) * 0.9, "max": (this.qtd_N.plantio + this.qtd_N.cobertura) * 1.1 },
-      'nc': { "min": this.qtd_N.cobertura * 0.9, "max": this.qtd_N.cobertura * 1.1 },
-      'p': { "min": this.qtd_P2O5 * 0.9, "max": this.qtd_P2O5 * 1.1 },
-      'k': { "min": this.qtd_K2O * 0.9, "max": this.qtd_K2O * 1.1 },
+      'n': { "min": (this.qtd_N.plantio)},//, "max": (this.qtd_N.plantio) * 1.3 },
+      'nc': { "min": this.qtd_N.cobertura},//, "max": this.qtd_N.cobertura * 1.3 },
+      'p': { "min": this.qtd_P2O5},//, "max": this.qtd_P2O5 * 1.3 },
+      'k': { "min": this.qtd_K2O},//, "max": this.qtd_K2O * 1.3 },
     }
 
     let model: any = {
       optimize,
       constraints,
-      variables
+      variables,
+      ints : { n: 1 ,  nc: 1 , p: 1, k: 1} 
     }
 
     // console.log(model);
@@ -170,7 +172,6 @@ export class AnaliseSoloComponent implements OnInit {
 
 
       //e multiplica pelo response k dentro do loop
-
       Object.keys(response).forEach(k => {
         if (k == r.descricao) {
 
@@ -210,7 +211,6 @@ export class AnaliseSoloComponent implements OnInit {
     })
     this.msgAbubacao += `</ul>`;
     this.FertilizantesCalculated = obj;
-
 
   }
   selectSolo(event) {
@@ -499,6 +499,9 @@ export class AnaliseSoloComponent implements OnInit {
       fontN: new FormControl('', [Validators.required]),
       fontP: new FormControl('', [Validators.required]),
       fontK: new FormControl('', [Validators.required]),
+      prcN: new FormControl('', [Validators.required]),
+      prcP: new FormControl('', [Validators.required]),
+      prcK: new FormControl('', [Validators.required]),
       area: new FormControl('1', [Validators.required]),
     });
   }
@@ -532,6 +535,7 @@ export class AnaliseSoloComponent implements OnInit {
   }
   selectfontN(value) {
     this.fertilizanteNSelected = this.formCalc.controls.fontN.value;
+    this.fertilizanteNSelected.preco = this.formCalc.controls.prcN.value ? this.formCalc.controls.prcN.value : 100;
     this.loadtables();
 
     //contempla P?
@@ -545,6 +549,7 @@ export class AnaliseSoloComponent implements OnInit {
   }
   selectfontP(value) {
     this.fertilizantePSelected = this.formCalc.controls.fontP.value;
+    this.fertilizantePSelected.preco = this.formCalc.controls.prcP.value ? this.formCalc.controls.prcP.value : 100;
     this.loadtables();
 
     //contempla N?
@@ -558,6 +563,7 @@ export class AnaliseSoloComponent implements OnInit {
   }
   selectfontK(value) {
     this.fertilizanteKSelected = this.formCalc.controls.fontK.value;
+    this.fertilizanteKSelected.preco = this.formCalc.controls.prcK.value ? this.formCalc.controls.prcK.value : 100;
     this.loadtables();
     //contempla N?
     //entao desabilita N
@@ -747,6 +753,15 @@ export class AnaliseSoloComponent implements OnInit {
     this.calculaQtdCalcario()
   }
   calculaQtdCalcario() {
+
+    if(
+      !((this.prntSelected)
+      && (this.nc.nc)
+      && (this.formCalc.controls.area.value))
+    ){
+      return;
+    }
+
     const prntSelected = this.prntSelected;
     const qtdRecomendade = this.nc.nc;
     const area = this.formCalc.controls.area.value;

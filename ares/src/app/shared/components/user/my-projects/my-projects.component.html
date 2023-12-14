@@ -35,11 +35,11 @@
         </button>
 
         <!-- Pagamento de DAE's -->
-        <button (click)="quitDae(t.idvisita)"  *ngIf="!t.rdaok" class="btn text-danger" tooltip="DAE não foi quitada nem emitida">
+        <button (click)="quitDae(t.idvisita, t.rdaok)"  *ngIf="!t.rdaok" class="btn text-danger" tooltip="DAE não foi quitada nem emitida">
           <i class="bi bi-cash-stack"></i>
         </button>
 
-        <button (click)="quitDae(t.idvisita)"  *ngIf="t.rdaok" class="btn text-success" tooltip="DAE foi quitada">
+        <button (click)="quitDae(t.idvisita, t.rdaok)"  *ngIf="t.rdaok" class="btn text-success" tooltip="DAE foi quitada">
           <i class="bi bi-cash-stack"></i>
         </button>
         

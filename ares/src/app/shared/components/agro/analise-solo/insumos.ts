@@ -1,7 +1,7 @@
 export const FERTILIZANTES = [
   {
     descricao: 'NPK 04-14-08',
-    n: 20,
+    n: 4,
     p: 14,
     k: 8,
   },
@@ -13,7 +13,7 @@ export const FERTILIZANTES = [
   },
   {
     descricao: 'Uréia pecuária',
-    n: 440
+    n: 44
   },
   {
     descricao: 'Uréia agrícola',

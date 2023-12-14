@@ -15,17 +15,17 @@ export class DialogDaeValueComponent implements OnInit {
 
   @Input() confirmText: string = 'Confirmar';
   @Input() cancelTxt: string = 'Cancelar';
-  @Input() valor: Number = 0.0;
+  @Input() valorgpm: string = '0';
 
   confirmResult: Subject<boolean>;
 
   form: FormGroup;
 
   constructor(public bsModalRef: BsModalRef) { 
-    this.loadForm()
   }
 
   ngOnInit(): void {
+    this.loadForm()
     this.confirmResult = new Subject();
   }
 
@@ -37,9 +37,11 @@ export class DialogDaeValueComponent implements OnInit {
   onClose() {
     this._confirmAndClose(false);
   }
+
   loadForm() {
+    
     this.form = new FormGroup({
-      valor: new FormControl('', [Validators.required]),
+      valor: new FormControl(this.valorgpm, [Validators.required]),
     });
   }
   private _confirmAndClose(value: boolean) {
