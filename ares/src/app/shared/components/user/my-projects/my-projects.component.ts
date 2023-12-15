@@ -42,7 +42,7 @@ export class MyProjectsListComponent implements OnInit {
     return true;
   }
 
-  // TODO: Terminar esta função
+  
   quitTrt(idprojeto, trtok) {
     const obj = this;
  
@@ -106,7 +106,7 @@ export class MyProjectsListComponent implements OnInit {
 
     }
   }
-  // TODO: Terminar esta função
+  
   quitDae(idprojeto, rdaok) {
 
     const obj = this;

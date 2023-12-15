@@ -34,7 +34,35 @@ export class DetailsComponent implements OnInit {
     this.loadData();
   }
 
+  // TODO: Implementar esta função
   addProject(id) {
+    
+    const obj = this;
+    const confirm$ = this._messageService.showRegCredRural();
+
+    confirm$.asObservable().pipe(
+      take(1),
+    )
+      .subscribe(
+        data => {
+
+          // let id = obj._route.snapshot.queryParamMap.get('id')
+
+          if (!data) return false;
+
+          const projeto = {...data, id};
+
+          obj.registerProject(projeto);
+
+        },
+        error => {
+          console.error(error);
+          obj._messageService.handleWarning('Encerrando Tarefa', 'Serviço cancelado com sucesso.')
+        }
+      )
+
+  }
+  addItem(id) {
     const obj = this;
     const confirm$ = this._messageService.showDialgAddItensFinance();
 
@@ -145,7 +173,7 @@ export class DetailsComponent implements OnInit {
     }
 
   }
-
+ 
   quitDae(idprojeto, rdaok) {
     const obj = this;
 
@@ -212,6 +240,21 @@ export class DetailsComponent implements OnInit {
     }
 
   }
+
+  registerProject(prj) {
+    const obj = this;
+    this._userService.addProject(prj).subscribe(sucess => {
+      obj.loadData();
+      obj._messageService.handleSuccess('Registrado com Sucesso', `Projeteo Registrado.`)
+
+    }, error => {
+      console.log(error);
+
+      obj._messageService.handleWarning('Encerrando Tarefa', 'Este projeto foi cancelado com sucesso.')
+
+    });
+  }
+
   registerItem(item) {
     const obj = this;
     this._userService.addItem(obj.item).subscribe(sucess => {
@@ -276,6 +319,7 @@ export class DetailsComponent implements OnInit {
     let id = this._route.snapshot.queryParamMap.get('id')
 
     this.visita$ = this._userService.taksAndProjectsCrByTreatment(id).pipe(
+      // tap(console.log),
       tap(data => {
         if (!data.project) {
 

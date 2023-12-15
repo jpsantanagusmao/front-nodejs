@@ -30,7 +30,7 @@ export const FERTILIZANTES = [
   },
   {
     descricao: 'Cloreto de potássio',
-    k: 58,
+    k: 60
   },
 ]
 export const CLASSE_CALCARIO = {
@@ -56,14 +56,15 @@ export const CLASSE_CALCARIO = {
  * 
  * tabela 1 informa os teros de CaO e MgO dos calcários
  * 
+ * https://www.agrolink.com.br/fertilizantes/calagem-e-gessagem/calagem---tipos-de-corretivos-de-acidez-do-solo_361442.html#:~:text=O%20calc%C3%A1rio%20%C3%A9%20obtido%20pela,40%25%20a%2042%25%20de%20CaO
  */
  
 export const CORRETIVOS = [
   {
     descricao: 'Calcário Dolomítico',
     tipo: CLASSE_CALCARIO.DOLOMITICO,
-    ca: 5, //Chute
-    mg: 12,
+    ca: 25, 
+    mg: 13,
     prnt: [
       80,85,90,95
     ],
@@ -77,7 +78,7 @@ export const CORRETIVOS = [
     descricao: 'Calcário Calcítico',
     tipo: CLASSE_CALCARIO.CALCITICO,
     ca: 45,
-    mg: 5, //Chute
+    mg: 1, 
     prnt: [
       70,80,85,90,95
     ],
@@ -90,8 +91,8 @@ export const CORRETIVOS = [
   {
     descricao: 'Calcário Magnesiano',
     tipo: CLASSE_CALCARIO.MAGNESIANO,
-    ca: 25,
-    mg: 12,
+    ca: 40,
+    mg: 5,
     prnt: [
       60,70,80,85
     ],

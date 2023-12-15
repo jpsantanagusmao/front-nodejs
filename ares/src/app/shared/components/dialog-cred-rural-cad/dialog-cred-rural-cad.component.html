@@ -41,18 +41,18 @@
 
         </div>
         <form [formGroup]="formitem" class="d-flex flex-column">
-            <div class="d-flex justify-content-between">
-                <div class="col-4 col-md-6">
+            <div class="list-itens">
+                <div class="col-6">
                   <select-itens-financiaveis (onSelected)="onSelectItem($event)"></select-itens-financiaveis>
                 </div>
-                <div class="col-4 col-md-2">
+                <div class="ml-3">
                     <label class="form-label" for="qtditemfinanc">Quantidade:</label>
-                    <input type="text" class="form-control" name="qtditemfinanc" id="qtditemfinanc"
+                    <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="99999" class="form-control" name="qtditemfinanc" id="qtditemfinanc"
                         formControlName="qtditemfinanc">
                 </div>
-                <div class="col-4 col-md-2">
+                <div class="ml-3">
                     <label class="form-label" for="qtditemfinanc">Valor unitário (R$):</label>
-                    <input type="text" class="form-control" name="valorunit" id="valorunit" formControlName="valorunit">
+                    <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="99999" class="form-control" name="valorunit" id="valorunit" formControlName="valorunit">
                 </div>
 
             </div>

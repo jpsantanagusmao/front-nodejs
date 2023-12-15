@@ -10,6 +10,16 @@ h3{
     margin-top: 2rem;
     padding-top: 2rem;
 }
+
+.list-itens{
+    display: flex;
+    flex-direction: row ;/*| row-reverse | column | column-reverse;*/
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-end;
+
+}
+
 @media(min-width: 576px) {
 
     

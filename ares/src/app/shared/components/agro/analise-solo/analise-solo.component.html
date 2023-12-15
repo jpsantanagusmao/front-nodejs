@@ -27,7 +27,6 @@
           <label class="form-label" for="classificacao">Tipo de Solo</label>
           <select id="classificacao" class="form-control" formControlName="classificacao" (change)="selectSolo($event)"
             style="width: 250px;">
-            <option>Selecione uma faixa de produção</option>
             <option *ngFor='let ts of tipoDeSolo' [ngValue]="ts">{{ts.classificacao}}</option>
           </select>
         </div>
@@ -234,6 +233,7 @@
     <div [innerHtml]="memoria"></div>
     <div [innerHtml]="msgCalcario" *ngIf="msgCalcario"></div>
     <div [innerHtml]="msgAbubacao" *ngIf="msgAbubacao"></div>
+    <div [innerHtml]="panorama" *ngIf="panorama"></div>
     <div class="col col-2 mt-5" *ngIf="calculated">
       <button class="btn btn-ok" [disabled]="!dadosok()" id="emitreport" (click)='rateremit($event)'>Emitir
         Relatório</button>

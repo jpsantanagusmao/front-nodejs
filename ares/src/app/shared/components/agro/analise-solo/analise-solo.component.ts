@@ -67,6 +67,8 @@ export class AnaliseSoloComponent implements OnInit {
   calcarioCalculated: Number;
   hasCalcCalcario: boolean = false;
   msgCalcario;
+
+  panorama;
   //Classe dos nutrientes
   class_h;
   class_al;
@@ -87,9 +89,9 @@ export class AnaliseSoloComponent implements OnInit {
     private _route: ActivatedRoute
   ) {
     this.loadtables();
-    
-    this.loadForm();
-    // this.createformWanderson();
+
+    // this.loadForm();
+    this.createformWanderson();
     // this.createformManuel();
   }
 
@@ -113,6 +115,20 @@ export class AnaliseSoloComponent implements OnInit {
       return
     }
 
+    //Certifica que informou o preço de todos os insumos, caso contrário atribui o valor igual a 100 para todos, evitando interferências
+    let hasNopride = 0;
+
+    arr.map(a => {
+      if (!a.preco) hasNopride = hasNopride + 1;
+    })
+
+    if (hasNopride > 0) {
+      arr.map(a => {
+        a.preco = 100;
+      })
+
+    }
+
 
     const unique = [...new Set(arr.map(obj => obj))];
     let variables: any = {};
@@ -133,17 +149,17 @@ export class AnaliseSoloComponent implements OnInit {
     }
 
     const constraints = {
-      'n': { "min": (this.qtd_N.plantio)},//, "max": (this.qtd_N.plantio) * 1.3 },
-      'nc': { "min": this.qtd_N.cobertura},//, "max": this.qtd_N.cobertura * 1.3 },
-      'p': { "min": this.qtd_P2O5},//, "max": this.qtd_P2O5 * 1.3 },
-      'k': { "min": this.qtd_K2O},//, "max": this.qtd_K2O * 1.3 },
+      'n': { "min": (this.qtd_N.plantio) },//, "max": (this.qtd_N.plantio) * 1.3 },
+      'nc': { "min": this.qtd_N.cobertura },//, "max": this.qtd_N.cobertura * 1.3 },
+      'p': { "min": this.qtd_P2O5 },//, "max": this.qtd_P2O5 * 1.3 },
+      'k': { "min": this.qtd_K2O },//, "max": this.qtd_K2O * 1.3 },
     }
 
     let model: any = {
       optimize,
       constraints,
       variables,
-      ints : { n: 1 ,  nc: 1 , p: 1, k: 1} 
+      ints: { n: 1, nc: 1, p: 1, k: 1 }
     }
 
     // console.log(model);
@@ -157,18 +173,20 @@ export class AnaliseSoloComponent implements OnInit {
     unique.forEach(r => {
       // console.log(r);
       let ck = 1; //Constante para ajuste da recomendação
-      //descobre o menor indice n,p, k
-      if ((r.n < r.p) && (r.n < r.k) && (r.n > 0)) {
-        //Se o teor de N é menor que P e K então usaremos esta como constante
-        ck = r.n
-      } else {
-        if ((r.p < r.k) && (r.p > 0)) {
-          //Se o teor de fósfor é menor que o de potássio usaremos o teor de fósforo
-          ck = r.p;
-        } else {
-          ck = r.k;
-        }
-      }
+
+
+      // //descobre o menor indice n,p, k
+      // if ((r.n < r.p) && (r.n < r.k) && (r.n > 0)) {
+      //   //Se o teor de N é menor que P e K então usaremos esta como constante
+      //   ck = r.n
+      // } else {
+      //   if ((r.p < r.k) && (r.p > 0)) {
+      //     //Se o teor de fósfor é menor que o de potássio usaremos o teor de fósforo
+      //     ck = r.p;
+      //   } else {
+      //     ck = r.k;
+      //   }
+      // }
 
 
       //e multiplica pelo response k dentro do loop
@@ -179,18 +197,34 @@ export class AnaliseSoloComponent implements OnInit {
             let hasN = false;
             let hasP = false;
             let hasK = false;
+            let percentP;
+            let percentK;
+            let addCmolK;
+            let qtd = Number(Number(response[`${k}`] * 100).toFixed(0));
 
             if (r?.n) {
               hasN = true;
             }
             if (r?.p) {
               hasP = true;
+              percentP = r.p;
             }
             if (r?.k) {
               hasK = true;
+              percentK = r.k;
+              addCmolK = ((((qtd * r.k) * 0.83) / 2) )/ 2.5582;
             }
 
-            obj.push({ 'Fertilizante': k, 'quantidade': Number(Number(response[`${k}`] * 100).toFixed(0)), hasN, hasP, hasK })
+            obj.push({
+              'Fertilizante': k,
+              'quantidade': qtd,
+              hasN,
+              hasP,
+              hasK,
+              percentP,
+              percentK,
+              addCmolK
+            })
           }
         }
       })
@@ -212,6 +246,8 @@ export class AnaliseSoloComponent implements OnInit {
     this.msgAbubacao += `</ul>`;
     this.FertilizantesCalculated = obj;
 
+    this.analiseAddElements()
+
   }
   selectSolo(event) {
 
@@ -228,7 +264,7 @@ export class AnaliseSoloComponent implements OnInit {
 
     this.culturaSelected = this.form.controls.cultura.value;
     this.faixaProducao = this.culturaSelected.produtividade;
-    
+
     this.faixaProducaoSelected = this.faixaProducao[0];
 
     this.classNutrients();
@@ -341,7 +377,7 @@ export class AnaliseSoloComponent implements OnInit {
       this.qtd_N = await ModelosAdubacao.getN(producao);
 
   }
-  
+
   async getK() {
     const producao = this.faixaProducaoSelected;
     const classe = this.class_k;
@@ -535,7 +571,7 @@ export class AnaliseSoloComponent implements OnInit {
   }
   selectfontN(value) {
     this.fertilizanteNSelected = this.formCalc.controls.fontN.value;
-    this.fertilizanteNSelected.preco = this.formCalc.controls.prcN.value ? this.formCalc.controls.prcN.value : 100;
+    this.fertilizanteNSelected.preco = this.formCalc.controls.prcN.value;// ? this.formCalc.controls.prcN.value : 100;
     this.loadtables();
 
     //contempla P?
@@ -546,10 +582,11 @@ export class AnaliseSoloComponent implements OnInit {
 
 
     this.solver();
+    console.log(this.FertilizantesCalculated);
   }
   selectfontP(value) {
     this.fertilizantePSelected = this.formCalc.controls.fontP.value;
-    this.fertilizantePSelected.preco = this.formCalc.controls.prcP.value ? this.formCalc.controls.prcP.value : 100;
+    this.fertilizantePSelected.preco = this.formCalc.controls.prcP.value;// ? this.formCalc.controls.prcP.value : 100;
     this.loadtables();
 
     //contempla N?
@@ -563,7 +600,7 @@ export class AnaliseSoloComponent implements OnInit {
   }
   selectfontK(value) {
     this.fertilizanteKSelected = this.formCalc.controls.fontK.value;
-    this.fertilizanteKSelected.preco = this.formCalc.controls.prcK.value ? this.formCalc.controls.prcK.value : 100;
+    this.fertilizanteKSelected.preco = this.formCalc.controls.prcK.value;// ? this.formCalc.controls.prcK.value : 100;
     this.loadtables();
     //contempla N?
     //entao desabilita N
@@ -751,14 +788,15 @@ export class AnaliseSoloComponent implements OnInit {
   selectPRNT(value) {
     this.prntSelected = this.formCalc.controls.prnt.value;
     this.calculaQtdCalcario()
+
   }
   calculaQtdCalcario() {
 
-    if(
+    if (
       !((this.prntSelected)
-      && (this.nc.nc)
-      && (this.formCalc.controls.area.value))
-    ){
+        && (this.nc.nc)
+        && (this.formCalc.controls.area.value))
+    ) {
       return;
     }
 
@@ -777,10 +815,100 @@ export class AnaliseSoloComponent implements OnInit {
       </h2>
     `;
     this.msgCalcario += `
-    - QTD de Calcário = (  NC / PRNT(%)  )  x area (ha) => ( ${qtdRecomendade} / (${prntSelected}/100) ) x ${area} = ${this.calcarioCalculated} (ton);
+    - QTD de Calcário = (  NC / PRNT(%)  )  x area (ha) => ( ${qtdRecomendade} / (${prntSelected}/100) ) x ${area} = ${this.calcarioCalculated} (ton) de calcário ${this.calcarioSelected.tipo} com PRNT ${prntSelected}%.;
     `;
 
+    this.analiseAddElements()
 
+  }
+
+  analiseAddElements() {
+    if (!(
+      (this.fertilizanteNSelected)
+      && (this.fertilizantePSelected)
+      && (this.fertilizanteKSelected)
+    )) {
+      return false;
+    }
+
+    if (!(
+      (this.calcarioSelected)
+      && (this.prntSelected)
+    )
+      && this.nc.nc > 0
+    ) return;
+    // console.log('this.calcarioSelected');
+    // console.log(this.calcarioSelected);
+    // console.log('this.nc');
+    // console.log(this.nc);
+    // console.log('this.FertilizantesCalculated');
+    // console.log(this.FertilizantesCalculated);
+    const mg_dm_K = this.FertilizantesCalculated.reduce((acc, a) => {
+      return acc + (a.addCmolK ? a.addCmolK : 0);
+    }, 0)
+    const nova_mg_dm_K = (mg_dm_K) + (Number(this.form.controls.k.value)/391);
+    // console.log(mg_dm_K);
+    // console.log("nova_mg_dm_K");
+    // console.log(nova_mg_dm_K);
+
+    // console.log('this.calcarioSelected');
+    // console.log(this.calcarioSelected);
+    // console.log('this.prntSelected');
+    // console.log(this.prntSelected);
+    // console.log('this.nc.nc');
+    // console.log(this.nc.nc);
+
+    const p_mgo = this.calcarioSelected.MgO;
+    const p_cao = this.calcarioSelected.CaO;
+    const prnt = Number(this.prntSelected);
+    const qtd = (this.nc.nc) * 1000;
+
+    // const nova_mg_dm_Ca = Number(( (( ( (qtd * (prnt/100) ) * (p_cao/100)) / 1.4 ) / 2) / 200.4 ) + Number(this.form.controls.ca.value));
+
+    const nova_mg_dm_Ca = (((((qtd / (prnt / 100)) * (p_cao / 100)) / 1.4) / 2) / 200.4) + Number(this.form.controls.ca.value);
+    const nova_mg_dm_Mg = (((((qtd / (prnt / 100)) * (p_mgo / 100)) / 1.67) / 2) / 121.56) + Number(this.form.controls.mg.value);
+    // const nova_mg_dm_Mg = Number(( (( ( (qtd * prnt ) * (p_mgo/100)) / 1.67 ) / 2) / 121.56 ) + Number(this.form.controls.mg.value));
+    const nova_sb = Number(nova_mg_dm_Ca) + Number(nova_mg_dm_Mg) + Number(nova_mg_dm_K / 391);
+
+    const nova_t = nova_sb + Number(this.form.controls.al.value);
+    const nova_T = nova_sb + Number(this.form.controls.al.value) + Number(this.form.controls.h.value);
+    const nova_v = (nova_t / nova_T * 100);
+
+    const nova_ca_mg = Number(Number(nova_mg_dm_Ca / nova_mg_dm_Mg));
+    const nova_mg_k = Number(Number(nova_mg_dm_Mg / (nova_mg_dm_K / 391)));
+    const nova_ca_k = Number(Number(nova_mg_dm_Ca / (nova_mg_dm_K / 391)));
+    const nova_t_ca = Number(Number(nova_mg_dm_Ca / nova_T) * 100);
+    const nova_t_mg = Number(Number(nova_mg_dm_Mg / nova_T) * 100);
+    const nova_t_k = Number(Number((nova_mg_dm_K / 391) / nova_T) * 100);
+
+    const novopanorama = {
+      k: Number((nova_mg_dm_K / 391)),
+      ca: Number(nova_mg_dm_Ca),
+      Mg: Number(nova_mg_dm_Mg),
+      t: Number(nova_t),
+      T: Number(nova_T),
+      v: Number(nova_v),
+      ca_mg: Number(nova_ca_mg),
+      ca_k: Number(nova_ca_k),
+      t_ca: Number(nova_t_ca),
+      t_mg: Number(nova_t_mg),
+      t_k: Number(nova_t_k),
+    };
+    console.log(novopanorama);
+    this.panorama = `
+      <div>
+      <h2>
+        <strong>
+          Considerações sobre a correção de solo
+        </strong>
+      </h2>
+        <ul>
+          <li>A saturação de bases(V), com essa recomendação passar a ficar próximo de ${novopanorama.v.toFixed(0)}%. </li>
+          <li>A relação Ca/Mg fica em torno de ${novopanorama.ca_mg.toFixed(2)}, sendo que o ideal é próximo de 3. </li>
+          <li>A CTC potencial passa a ficar em ${novopanorama.T.toFixed(2)} cmolc/dm<sup>3</sup>. </li>
+        </ul>
+      </div>
+    `;
 
   }
   onChangeArea(value) {
@@ -790,11 +918,15 @@ export class AnaliseSoloComponent implements OnInit {
     this.calcarioSelected = this.formCalc.controls.corretivo.value;
     this.prntrsCalcarioSelected = this.calcarioSelected.prnt;
 
+    this.calculaQtdCalcario();
+
+
   }
 
   dadosok() {
     return true;
   }
+
   rateremit(event) {
 
     this.orientacoes.calagem = this.nc;

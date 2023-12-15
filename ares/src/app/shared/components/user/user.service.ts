@@ -248,6 +248,12 @@ export class UserService {
     return this.http.post(`${env.BASE_API_URL}${this.PATH}/quit-dae-on-project/${id}`, { valor });
 
   }
+  addProject(prj: any): Observable<any> {
+
+    return this.http.post(`${env.BASE_API_URL}${this.PATH}/my-projects`, prj);
+
+  }
+  
   addItem(item: any): Observable<any> {
     const id = item.idproposta;
 

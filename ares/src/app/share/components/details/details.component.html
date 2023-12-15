@@ -1,7 +1,7 @@
 <div *ngIf="visita$ | async as v; else notasks">
   <strong>
     <h1>
-      <p>{{v.produtor}} - {{v.cpf}}</p>
+      <p>{{v.produtor}}</p>
       <div class="row">
         <div class="col">Data: {{v.data | date: 'dd/MM/yyyy'}}</div>
         <div class="col">Local: {{v.local}}</div>
@@ -47,7 +47,10 @@
 
   <div class="mt-5">
     <div class="cabecalho-tarefas">
-      <div class="col-1" *ngIf="v.project as p">
+      <div class="col-1" *ngIf="(v.project)">
+        <button type="button" (click)="addItem(v.id)" class="btn btn-primary">Add +</button>
+      </div>
+      <div class="col-1" *ngIf="!(v.project)">
         <button type="button" (click)="addProject(v.id)" class="btn btn-primary">Add +</button>
       </div>
       <div class="title">Projeto de Crédito Rural</div>
