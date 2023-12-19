@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
     selector: 'app-points-generate',
     templateUrl: './points-generate.component.html',
     styleUrls: ['./points-generate.component.css']
-}) 
+})
 export class PointsGenerateComponent implements OnInit {
 
     confirmResult: Subject<google.maps.Marker>;
@@ -46,12 +46,12 @@ export class PointsGenerateComponent implements OnInit {
 
     private _loadMap(point) {
         const obj = this;
-        
+
         let pc;
-        
-        if(point){
+
+        if (point) {
             pc = { lat: point['coords'].latitude, lng: point['coords'].longitude }
-        }else{
+        } else {
             pc = { lat: -19.46545, lng: -42.4148877 }
         }
         //center: { lat: point['coords'].latitude, lng: point['coords'].longitude },
@@ -59,6 +59,7 @@ export class PointsGenerateComponent implements OnInit {
             this.map = new google.maps.Map(document.getElementById('map'), {
                 center: pc,
                 zoom: 10,
+                mapTypeId: 'satellite',
                 streetViewControl: false
             });
 
@@ -97,12 +98,12 @@ export class PointsGenerateComponent implements OnInit {
     }
 
     private _confirmAndClose(value: google.maps.Marker[]) {
-        try{
+        try {
             this.confirmResult.next(value[0]);
-        }catch (e){
+        } catch (e) {
             this.confirmResult.next(undefined);
         }
-        
+
         this.bsModalRef.hide();
 
     }

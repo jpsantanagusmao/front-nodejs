@@ -34,7 +34,7 @@ export class MyProjectsListComponent implements OnInit {
   loadMyProjects() {
     const obj = this;
     this.tasks$ = this._userService.myProjects().pipe(
-      // tap(console.log)
+      tap(console.log)
     );
   }
   

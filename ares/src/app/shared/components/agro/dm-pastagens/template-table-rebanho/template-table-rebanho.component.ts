@@ -30,6 +30,11 @@ export class TemplateTableRebanhoComponent implements OnInit {
       return total + (rb.categoria.ua * rb.quantidade)
     },0);
   }
+  qtdRebanho(){
+    return this.inputRebanho.reduce(function(total, rb){
+      return total + ( Number(rb.quantidade) )
+    },0);
+  }
   totalUa(value: RebanhoModel){
     return value.categoria.ua * value.quantidade;
   }

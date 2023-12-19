@@ -3,8 +3,8 @@
     <tr>
       <th scope="col">Data</th>
       <th scope="col">Beneficiários</th>
-      <th scope="col">Serviço</th>
-      <th scope="col" >Ação</th>
+      <th scope="col">Itens Financiados</th>
+      <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
@@ -15,45 +15,36 @@
       <td (dblclick)="copyValue(t.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa" style="width: 30%;">
         {{t.customername}}
       </td>
-      
-      <!-- Comentado  / Não Comentado-->
-      <td class="text-success" *ngIf="t.comments" tooltip="{{t.comments}} - ({{t.emissor_username}})" style="width: 40%;">
+      <td (dblclick)="copyValue(t.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa" style="width: 30%;">
         {{t.description}}
-       </td>
-      <td *ngIf="!t.comments" >
-        {{t.description}}
-       </td>
+      </td>
 
       <!-- Botões de ação -->
       <td style="width: auto;">
 
-        <button (click)="openproject(t.idvisita)"  *ngIf="t.hasprojectid" class="btn text-warning" tooltip="Ver detalhes da visita com Projetos elaborados">
+        <button (click)="openproject(t.idvisita)" *ngIf="t.idvisita" class="btn text-warning"
+          tooltip="Ver detalhes da visita com Projetos elaborados">
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button (click)="openproject(t.idvisita)"  *ngIf="!t.hasprojectid" class="btn text-info" tooltip="Ver detalhes da visita">
-          <i class="bi bi-pencil-fill"></i>
-        </button>
-
         <!-- Pagamento de DAE's -->
-        <button (click)="quitDae(t.idvisita, t.rdaok)"  *ngIf="!t.rdaok" class="btn text-danger" tooltip="DAE não foi quitada nem emitida">
+        <button (click)="quitDae(t.idvisita, t.rdaok)" *ngIf="!t.rdaok" class="btn text-danger"
+          tooltip="DAE não foi quitada nem emitida">
           <i class="bi bi-cash-stack"></i>
         </button>
 
-        <button (click)="quitDae(t.idvisita, t.rdaok)"  *ngIf="t.rdaok" class="btn text-success" tooltip="DAE foi quitada">
+        <button (click)="quitDae(t.idvisita, t.rdaok)" *ngIf="t.rdaok" class="btn text-success"
+          tooltip="DAE foi quitada">
           <i class="bi bi-cash-stack"></i>
         </button>
-        
+
         <!-- Pagamento de TRT's -->
-        <button (click)="quitTrt(t.idvisita, t.trtok)"  *ngIf="!t.trtok" class="btn text-danger" tooltip="TRT/ART não foi quitada nem emitida">
+        <button (click)="quitTrt(t.idvisita, t.trtok)" *ngIf="!t.trtok" class="btn text-danger"
+          tooltip="TRT/ART não foi quitada nem emitida">
           <i class="bi bi-file-richtext"></i>
         </button>
-        <button (click)="quitTrt(t.idvisita, t.trtok)"  *ngIf="t.trtok" class="btn text-success" tooltip="TRT/ART foi quitada">
+        <button (click)="quitTrt(t.idvisita, t.trtok)" *ngIf="t.trtok" class="btn text-success"
+          tooltip="TRT/ART foi quitada">
           <i class="bi bi-file-richtext"></i>
-        </button>
-        
-        <button (click)="onExpireTask(t.id)" class="btn text-danger"  *ngIf="t.status=='INICIADA'"
-          tooltip="Definir como Expirada - caso tenha muito tempo e houve desistência">
-          <i class="bi bi-hourglass-bottom"></i>
         </button>
 
       </td>

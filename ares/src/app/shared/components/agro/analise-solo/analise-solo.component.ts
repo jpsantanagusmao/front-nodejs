@@ -90,8 +90,8 @@ export class AnaliseSoloComponent implements OnInit {
   ) {
     this.loadtables();
 
-    // this.loadForm();
-    this.createformWanderson();
+    this.loadForm();
+    // this.createformWanderson();
     // this.createformManuel();
   }
 

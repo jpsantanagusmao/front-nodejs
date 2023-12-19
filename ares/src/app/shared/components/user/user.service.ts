@@ -143,7 +143,9 @@ export class UserService {
 
   myProjects(): Observable<any> {
 
-    return this.http.get(`${env.BASE_API_URL}${this.PATH}/my-projects`).pipe(
+    // return this.http.get(`${env.BASE_API_URL}${this.PATH}/my-projects-details`).pipe(
+    return this.http.get(`${env.BASE_API_URL}${this.PATH}/my-projects-details`).pipe(
+      tap(console.log)
     );
   }
 

@@ -19,10 +19,11 @@
   </div>
   <article class="" *ngFor="let rb of inputRebanho">
     <div class="row linha">
+      <div class="col-1">
+        <i class="bi bi-journal-x text-danger" tooltip="Excluir esta categoria" (click)="removerCategoria(rb, $event)"></i>
+      </div>
       <div class="col">
-        <span (click)="removerCategoria(rb, $event)" tooltip="Excluir esta categoria"
-          class='mr-2 danger-text material-icons'>cancel</span>
-        {{rb.categoria.descricao}}
+        {{rb.categoria.representacao}}
       </div>
       <div class="col">
         {{rb.quantidade}}
@@ -33,7 +34,11 @@
     </div>
   </article>
   <div class="row">
-    <h2><p><strong>Total de UA {{uaRebanho()}}</strong></p></h2>
+    <h2><p>
+      <strong>
+        Total de cabeças: {{qtdRebanho()}} / {{uaRebanho()}} Unidade animal-UA 
+      </strong>
+    </p></h2>
   </div>
 </div>
 <ng-template #notActions>
