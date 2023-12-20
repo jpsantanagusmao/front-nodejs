@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
 import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
 import { UserService } from '../user.service';
@@ -16,6 +16,7 @@ export class MyProjectsListComponent implements OnInit {
   @Output() onReport = new EventEmitter();
   
   tasks$: Observable<any>;
+  ordened = false;
 
   constructor(
     private _router: Router,
@@ -33,8 +34,9 @@ export class MyProjectsListComponent implements OnInit {
 
   loadMyProjects() {
     const obj = this;
+    
     this.tasks$ = this._userService.myProjects().pipe(
-      // tap(console.log)
+      tap(resulst=>obj.ordened=false)
     );
   }
   
@@ -42,7 +44,32 @@ export class MyProjectsListComponent implements OnInit {
     return true;
   }
 
-  
+  orderByDae(){
+    const obj = this;
+
+    if(this.ordened==true){
+      this.loadMyProjects();
+      return;
+    }
+
+    this.tasks$ = this._userService.myProjects().pipe(
+      map(results => results.sort((a, b) => new Date(a.rdaok).getTime() - new Date(b.rdaok).getTime())),
+      tap(results=>obj.ordened = true)
+      );
+    }
+    
+    orderByTrt(){
+      const obj = this;
+    if(this.ordened==true){
+      this.loadMyProjects();
+      return;
+    }
+      this.tasks$ = this._userService.myProjects().pipe(
+        map(results => results.sort((a, b) => new Date(a.trtok).getTime() - new Date(b.trtok).getTime())),
+        tap(results=>obj.ordened = true)
+    );
+
+  }
   quitTrt(idprojeto, trtok) {
     const obj = this;
  
