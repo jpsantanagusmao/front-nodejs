@@ -25,25 +25,6 @@ export class ModelosAdubacao {
 
   }
 
-  // public static async classifica_K(valor, table, producao) {
-
-  //   // console.log(valor);
-  //   // console.log(table);
-  //   // console.log(producao);
-  //   const levels = producao.k;
-  //   levels.map(l => {
-  //     const obj = Object.entries(producao.k)
-  //     // console.log(producao.k);
-
-  //     for (const [key, value] of Object.entries(l)) {
-  //       // console.log(`${key}: ${value}`);
-  //       // if(Number(value))
-  //     }
-
-
-  //   })
-
-  // }
 
   public static async classifica_ph(valor) {
     const value = Number(valor);
@@ -101,9 +82,6 @@ export class ModelosAdubacao {
 
   public static async getP(producao, classe) {
 
-    // console.log(producao);
-    // console.log(classe);
-    
     let response;
 
     if ((producao.p) && (classe)) {
@@ -136,6 +114,7 @@ export class ModelosAdubacao {
     let first: boolean = false;//identifica se entrou a classe
 
     let response;
+    
     tabela.class_P.map(t => {
 
       if ((t.P >= valor) && !first) {

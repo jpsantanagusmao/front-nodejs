@@ -101,11 +101,7 @@ export class AnaliseSoloComponent implements OnInit {
   }
 
   async solver() {
-    const arr = [
-      this.fertilizanteNSelected,
-      this.fertilizantePSelected,
-      this.fertilizanteKSelected
-    ]
+
 
     if (!(
       this.fertilizanteNSelected
@@ -115,63 +111,88 @@ export class AnaliseSoloComponent implements OnInit {
       return
     }
 
+    const aduboList = await [
+      this.fertilizanteNSelected,
+      this.fertilizantePSelected,
+      this.fertilizanteKSelected
+    ]
+
     //Certifica que informou o preço de todos os insumos, caso contrário atribui o valor igual a 100 para todos, evitando interferências
-    let hasNopride = 0;
+    console.log(aduboList);
 
-    arr.map(a => {
-      if (!a.preco) hasNopride = hasNopride + 1;
-    })
+    let hasnoprice = 0;
 
-    if (hasNopride > 0) {
-      arr.map(a => {
-        a.preco = 100;
-      })
+    await aduboList.map(async (a) => {
 
+      if (
+        (a.preco == '')
+        || (a.preco == 0)
+      ) {
+        hasnoprice++;
+      }
+    });
+
+    let aduboList_new = [];
+
+    console.log(hasnoprice);
+
+    if (hasnoprice > 0) {
+      aduboList_new = await aduboList.map(a => {
+        a.preco = 0;
+        return a;
+      });
+
+    } else {
+      aduboList_new = aduboList;
     }
 
-
-    const unique = [...new Set(arr.map(obj => obj))];
+    const unique = [...new Set(aduboList_new.map(obj => obj))];
     let variables: any = {};
 
-    unique.forEach(o => {
+    await unique.forEach(o => {
       variables[`${o.descricao}`] =
       {
         n: o.n || 0,
         nc: o.n || 0,
         p: o.p || 0,
         k: o.k || 0,
-        preco: o.preco || 100
+        preco: Number(o.preco)
       };
     });
 
     const optimize = {
-      preco: "min"
+      'preco': 'min'
     }
-
+    // equal min max
     const constraints = {
       'n': { "min": (this.qtd_N.plantio) },//, "max": (this.qtd_N.plantio) * 1.3 },
       'nc': { "min": this.qtd_N.cobertura },//, "max": this.qtd_N.cobertura * 1.3 },
       'p': { "min": this.qtd_P2O5 },//, "max": this.qtd_P2O5 * 1.3 },
       'k': { "min": this.qtd_K2O },//, "max": this.qtd_K2O * 1.3 },
+      'preco': {}
+    }
+
+    const options = {
+      'tolerance': 0.1
     }
 
     let model: any = {
-      optimize,
+      // optimize,
+      optimize: 'preco',
+      opType: 'min',
       constraints,
       variables,
-      ints: { n: 1, nc: 1, p: 1, k: 1 }
+      // options
+      //ints: { n: 1, nc: 1, p: 1, k: 1 }
     }
 
-    // console.log(model);
 
     const response = await Solver.Solve(model);
 
     const obj = []
 
-    // console.log(response);
 
     unique.forEach(r => {
-      // console.log(r);
       let ck = 1; //Constante para ajuste da recomendação
 
 
@@ -201,6 +222,7 @@ export class AnaliseSoloComponent implements OnInit {
             let percentK;
             let addCmolK;
             let qtd = Number(Number(response[`${k}`] * 100).toFixed(0));
+            let preco = Number(Number(r.preco).toFixed(0));
 
             if (r?.n) {
               hasN = true;
@@ -212,12 +234,13 @@ export class AnaliseSoloComponent implements OnInit {
             if (r?.k) {
               hasK = true;
               percentK = r.k;
-              addCmolK = ((((qtd * r.k) * 0.83) / 2) )/ 2.5582;
+              addCmolK = ((((qtd * r.k) * 0.83) / 2)) / 2.5582;
             }
 
             obj.push({
               'Fertilizante': k,
               'quantidade': qtd,
+              'preco': preco,
               hasN,
               hasP,
               hasK,
@@ -239,22 +262,23 @@ export class AnaliseSoloComponent implements OnInit {
     <ul>
     `;
     obj.map(r => {
-      this.msgAbubacao += `
-      <li>${(r.quantidade * this.formCalc.controls.area.value).toFixed(0)} Kg de ${r.Fertilizante}</li>
-      `;
+      if (r.preco == 0) {
+        this.msgAbubacao += `
+        <li>${(r.quantidade * this.formCalc.controls.area.value).toFixed(0)} Kg de ${r.Fertilizante}.</li>
+        `;
+
+      } else {
+        this.msgAbubacao += `
+        <li>${(r.quantidade * this.formCalc.controls.area.value).toFixed(0)} Kg de ${r.Fertilizante} a R$ ${r.preco} / sc 50 Kg. 
+         Custo de R$ ${(Number(r.quantidade * this.formCalc.controls.area.value) * Number(r.preco)).toFixed(2)}.</li>
+        `;
+
+      }
     })
     this.msgAbubacao += `</ul>`;
     this.FertilizantesCalculated = obj;
 
     this.analiseAddElements()
-
-  }
-  selectSolo(event) {
-
-    this.calculated = false;
-
-    this.soloSelected = this.form.controls.classificacao.value;
-    this.classNutrients();
 
   }
 
@@ -264,23 +288,52 @@ export class AnaliseSoloComponent implements OnInit {
 
     this.culturaSelected = this.form.controls.cultura.value;
     this.faixaProducao = this.culturaSelected.produtividade;
-
     this.faixaProducaoSelected = this.faixaProducao[0];
 
     this.classNutrients();
 
   }
 
-  async classNutrients() {
-    await this.classP();
-    await this.getN();
-    await this.getP();
-    await this.getK();
-    // await this.classElements()
+  async selectProducao(event) {
+    this.calculated = false;
 
-    // alert(JSON.stringify(this.class_al))
+    await this.classNutrients();
 
   }
+
+
+  selectSolo(event) {
+
+    this.calculated = false;
+
+    this.classNutrients();
+
+  }
+
+
+  async classNutrients() {
+
+    this.culturaSelected = this.form.controls.cultura.value;
+    this.faixaProducaoSelected = this.form.controls.producao.value;
+    this.soloSelected = this.form.controls.classificacao.value;
+
+    if (
+      (this.culturaSelected)
+      && (this.faixaProducaoSelected)
+      && (this.soloSelected)
+    ) {
+
+      await this.getN();
+
+      await this.classP(this.form.controls.p.value, this.soloSelected);
+      await this.getP(this.faixaProducaoSelected, this.class_p);
+
+      await this.getK();
+
+    }
+
+  }
+
   elementsClassified() {
     let msgerror = '';
     let parametro = 'H (hidrogenio)';
@@ -387,10 +440,7 @@ export class AnaliseSoloComponent implements OnInit {
 
   }
 
-  async getP() {
-
-    const producao = this.faixaProducaoSelected;
-    const classe = this.class_p;
+  async getP(producao, classe) {
 
     if (producao && classe)
       this.qtd_P2O5 = await ModelosAdubacao.getP(producao, classe);
@@ -398,8 +448,6 @@ export class AnaliseSoloComponent implements OnInit {
   }
 
   async classElements(e) {
-    // this.classK()
-    // this.classP()
 
     //Fecha as telas para evitar equívocos. Pode achar que calculou algo quando alterou algum elemento.
     this.calculated = false;
@@ -445,48 +493,29 @@ export class AnaliseSoloComponent implements OnInit {
     }
 
     if (element == 'p') {
-      this.classP();
-      await this.getP();
+      if (
+        (this.form.controls.p.value)
+        && (this.soloSelected)
+      ) {
+
+        await this.classP(this.form.controls.p.value, this.soloSelected);
+        // const producao = this.faixaProducaoSelected;
+        // const classe = this.class_p;
+        await this.getP(this.faixaProducaoSelected, this.class_p);
+
+      }
     }
 
   }
 
-  // async classK() {
-  //   const e = this.form.controls.k.value;
-  //   const table = this.culturaSelected;
-  //   const producao = this.faixaProducaoSelected;
-  //   console.log(producao);
-  //   console.log(e);
-  //   console.log(table);
 
-  //   if ((e && table && producao?.k)) {
-  //     this.class_k = await ModelosAdubacao.classifica_K(e, table, producao)
+  async classP(p, solo) {
 
-  //   }
-  //   console.log('this.classK');
-  //   console.log(this.class_k);
+    if (p && solo) {
 
-  // }
+      this.class_p = await ModelosAdubacao.classifica_P(p, solo);
 
-  async classP() {
-    const e = this.form.controls.p.value;
-    const solo = this.soloSelected;
-
-    if (e && solo) {
-      const cE = await ModelosAdubacao.classifica_P(e,
-        solo)
-
-      this.class_p = cE;
     }
-  }
-
-  async selectProducao(event) {
-    this.calculated = false;
-
-    this.faixaProducaoSelected = this.form.controls.producao.value;
-
-    await this.classNutrients();
-
   }
 
   loadCorretivos() {
@@ -506,8 +535,11 @@ export class AnaliseSoloComponent implements OnInit {
 
   }
 
-  loadtables() {
-    this.fertilizantesNSelected = this.fertilizantes.filter(f => {
+  async loadtables() {
+
+    const obj = this;
+
+    this.fertilizantesNSelected = await this.fertilizantes.filter(f => {
       if (f.n
         // && !(f.descricao == this.fertilizanteKSelected.descricao)
         // && !(f.descricao == this.fertilizantePSelected.descricao)
@@ -515,12 +547,14 @@ export class AnaliseSoloComponent implements OnInit {
         return f;
       }
     });
-    this.fertilizantesPSelected = this.fertilizantes.filter(f => {
+
+    this.fertilizantesPSelected = await this.fertilizantes.filter(f => {
       if (f.p) {
         return f;
       }
     });
-    this.fertilizantesKSelected = this.fertilizantes.filter(f => {
+
+    this.fertilizantesKSelected = await this.fertilizantes.filter(f => {
       if (f.k) {
         return f;
       }
@@ -571,7 +605,17 @@ export class AnaliseSoloComponent implements OnInit {
   }
   selectfontN(value) {
     this.fertilizanteNSelected = this.formCalc.controls.fontN.value;
-    this.fertilizanteNSelected.preco = this.formCalc.controls.prcN.value;// ? this.formCalc.controls.prcN.value : 100;
+
+    if (this.fertilizanteNSelected) {
+      this.fertilizanteNSelected.preco = this.formCalc.controls.prcN.value;// ? this.formCalc.controls.prcK.value : 100;
+    }
+    if (this.fertilizantePSelected) {
+      this.fertilizantePSelected.preco = this.formCalc.controls.prcP.value;// ? this.formCalc.controls.prcK.value : 100;
+    }
+    if (this.fertilizanteKSelected) {
+      this.fertilizanteKSelected.preco = this.formCalc.controls.prcK.value;// ? this.formCalc.controls.prcK.value : 100;
+    }
+
     this.loadtables();
 
     //contempla P?
@@ -582,11 +626,22 @@ export class AnaliseSoloComponent implements OnInit {
 
 
     this.solver();
-    console.log(this.FertilizantesCalculated);
+
   }
   selectfontP(value) {
+
     this.fertilizantePSelected = this.formCalc.controls.fontP.value;
-    this.fertilizantePSelected.preco = this.formCalc.controls.prcP.value;// ? this.formCalc.controls.prcP.value : 100;
+
+    if (this.fertilizanteNSelected) {
+      this.fertilizanteNSelected.preco = this.formCalc.controls.prcN.value;// ? this.formCalc.controls.prcK.value : 100;
+    }
+    if (this.fertilizantePSelected) {
+      this.fertilizantePSelected.preco = this.formCalc.controls.prcP.value;// ? this.formCalc.controls.prcK.value : 100;
+    }
+    if (this.fertilizanteKSelected) {
+      this.fertilizanteKSelected.preco = this.formCalc.controls.prcK.value;// ? this.formCalc.controls.prcK.value : 100;
+    }
+
     this.loadtables();
 
     //contempla N?
@@ -598,9 +653,19 @@ export class AnaliseSoloComponent implements OnInit {
 
     this.solver();
   }
+
   selectfontK(value) {
     this.fertilizanteKSelected = this.formCalc.controls.fontK.value;
-    this.fertilizanteKSelected.preco = this.formCalc.controls.prcK.value;// ? this.formCalc.controls.prcK.value : 100;
+
+    if (this.fertilizanteNSelected) {
+      this.fertilizanteNSelected.preco = this.formCalc.controls.prcN.value;// ? this.formCalc.controls.prcK.value : 100;
+    }
+    if (this.fertilizantePSelected) {
+      this.fertilizantePSelected.preco = this.formCalc.controls.prcP.value;// ? this.formCalc.controls.prcK.value : 100;
+    }
+    if (this.fertilizanteKSelected) {
+      this.fertilizanteKSelected.preco = this.formCalc.controls.prcK.value;// ? this.formCalc.controls.prcK.value : 100;
+    }
     this.loadtables();
     //contempla N?
     //entao desabilita N
@@ -743,7 +808,6 @@ export class AnaliseSoloComponent implements OnInit {
 
   // }
   recAdubacao() {
-    // console.log(this.qtd_N);
 
     this.memoria += `
     <div>
@@ -837,37 +901,27 @@ export class AnaliseSoloComponent implements OnInit {
     )
       && this.nc.nc > 0
     ) return;
-    // console.log('this.calcarioSelected');
-    // console.log(this.calcarioSelected);
-    // console.log('this.nc');
-    // console.log(this.nc);
-    // console.log('this.FertilizantesCalculated');
-    // console.log(this.FertilizantesCalculated);
+
     const mg_dm_K = this.FertilizantesCalculated.reduce((acc, a) => {
       return acc + (a.addCmolK ? a.addCmolK : 0);
     }, 0)
-    const nova_mg_dm_K = (mg_dm_K) + (Number(this.form.controls.k.value)/391);
-    // console.log(mg_dm_K);
-    // console.log("nova_mg_dm_K");
-    // console.log(nova_mg_dm_K);
 
-    // console.log('this.calcarioSelected');
-    // console.log(this.calcarioSelected);
-    // console.log('this.prntSelected');
-    // console.log(this.prntSelected);
-    // console.log('this.nc.nc');
-    // console.log(this.nc.nc);
+    const nova_mg_dm_K = (mg_dm_K) + (Number(this.form.controls.k.value) / 391);
+
+
+    //Nesta condição não é necessário a adição de calcario, portanto os cálcuos são interrompidos.
+    if (!(this.nc.nc > 0)) {
+      return;
+    }
 
     const p_mgo = this.calcarioSelected.MgO;
     const p_cao = this.calcarioSelected.CaO;
     const prnt = Number(this.prntSelected);
     const qtd = (this.nc.nc) * 1000;
 
-    // const nova_mg_dm_Ca = Number(( (( ( (qtd * (prnt/100) ) * (p_cao/100)) / 1.4 ) / 2) / 200.4 ) + Number(this.form.controls.ca.value));
 
     const nova_mg_dm_Ca = (((((qtd / (prnt / 100)) * (p_cao / 100)) / 1.4) / 2) / 200.4) + Number(this.form.controls.ca.value);
     const nova_mg_dm_Mg = (((((qtd / (prnt / 100)) * (p_mgo / 100)) / 1.67) / 2) / 121.56) + Number(this.form.controls.mg.value);
-    // const nova_mg_dm_Mg = Number(( (( ( (qtd * prnt ) * (p_mgo/100)) / 1.67 ) / 2) / 121.56 ) + Number(this.form.controls.mg.value));
     const nova_sb = Number(nova_mg_dm_Ca) + Number(nova_mg_dm_Mg) + Number(nova_mg_dm_K / 391);
 
     const nova_t = nova_sb + Number(this.form.controls.al.value);
@@ -894,7 +948,7 @@ export class AnaliseSoloComponent implements OnInit {
       t_mg: Number(nova_t_mg),
       t_k: Number(nova_t_k),
     };
-    console.log(novopanorama);
+
     this.panorama = `
       <div>
       <h2>
@@ -911,9 +965,12 @@ export class AnaliseSoloComponent implements OnInit {
     `;
 
   }
+
   onChangeArea(value) {
     this.calculaQtdCalcario();
+    this.loadtables();
   }
+
   selectCalcario(value) {
     this.calcarioSelected = this.formCalc.controls.corretivo.value;
     this.prntrsCalcarioSelected = this.calcarioSelected.prnt;
@@ -989,26 +1046,6 @@ Para a correção do solo é necessário realizar a calagem com a aplicação de
     }
 
 
-    // console.log(
-    // this.orientacoes.class_h = this.class_h);
-    // this.orientacoes.class_al = this.class_al;
-    // this.orientacoes.class_ca = this.class_ca;
-    // this.orientacoes.class_mg = this.class_mg;
-    // this.orientacoes.class_k = this.class_k;
-    // this.orientacoes.class_ph = this.class_ph;
-    // this.orientacoes.class_mo = this.class_mo;
-    // this.orientacoes.class_tal = this.class_tal;
-    // this.orientacoes.class_v = this.class_v;
-    // this.orientacoes.class_T = this.class_T;
-    // this.orientacoes.class_t = this.class_t;
-    // this.orientacoes.class_p = this.class_p;
-
-    // console.log(this.situacao);
-    // console.log(this.orientacoes);
-    // console.log(this.recomendacoes);
-    // console.log(situacao);
-    // console.log(orientacao);
-    // console.log(recomendacao);
 
     const local = '';
     const customers = [];

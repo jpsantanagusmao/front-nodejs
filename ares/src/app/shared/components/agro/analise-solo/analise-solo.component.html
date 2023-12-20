@@ -21,7 +21,7 @@
           </select>
         </div>
       </div>
-
+ 
       <div class="col col-4">
         <div>
           <label class="form-label" for="classificacao">Tipo de Solo</label>
@@ -35,7 +35,7 @@
     </div>
 
   </div>
-  <div class="row">
+  <div class="laudo row">
     <div class="col">
       <div class="form-group col-md-12">
         <label for="ph">PH em água - relação 1:2.5</label>
@@ -123,7 +123,10 @@
 
   <div class="form-group col-md-2 mt-3">
     <div>
-      <button class="btn btn-primary" [disabled]="form.invalid" (click)="calcular()">Calcular</button>
+      <button class="btn btn-primary" [disabled]="form.invalid" (click)="calcular()">
+        <i class="bi bi-search"></i>
+        Interpretar análise
+      </button>
     </div>
   </div>
 </form>
@@ -182,7 +185,7 @@
           </select>
         </div>
         <div class="col">
-          <label for="prcN">Preço (R$)</label>
+          <label for="prcN">Preço (R$)/sc 50 Kg</label>
           <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" tooltip="Preço do insumo fonte de N"
             (change)="selectfontN($event)" class="form-control col col-md-2" formControlName="prcN" name="prcN"
             id="prcN" required>
@@ -199,7 +202,7 @@
           </select>
         </div>
         <div class="col">
-          <label for="prcP">Preço (R$)</label>
+          <label for="prcP">Preço (R$)/sc 50 Kg</label>
           <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" tooltip="Preço do insumo fonte de P"
             (change)="selectfontP($event)" class="form-control col col-md-2" formControlName="prcP" name="prcP"
             id="prcP" required>
@@ -216,7 +219,7 @@
           </select>
         </div>
         <div class="col">
-          <label for="prcK">Preço (R$)</label>
+          <label for="prcK">Preço (R$)/sc 50 Kg</label>
           <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999" tooltip="Preço do insumo fonte de K"
             (change)="selectfontK($event)" class="form-control col col-md-2" formControlName="prcK" name="prcK"
             id="prcK" required>
