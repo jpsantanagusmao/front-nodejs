@@ -28,7 +28,7 @@ export class ProjectCadastrarComponent implements OnInit {
   formProject: FormGroup;
 
   @Input() project: Project;
-  
+
   form: FormGroup;
   actions: Action[] = [];
   action: Action;
@@ -42,9 +42,9 @@ export class ProjectCadastrarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.id){
+    if (this.id) {
       this.changeFormData();
-    }else{
+    } else {
       this.createFormNew();
     }
   }
@@ -58,13 +58,13 @@ export class ProjectCadastrarComponent implements OnInit {
     this._projectService.findById(this.id).subscribe(
       dataproject => {
         obj.project = dataproject[0];
-        obj.representative = {id: dataproject[0].representative_id};
-        obj.city = {city: dataproject[0].city.split('/')[0], uf: dataproject[0].city.split('/')[1]};
+        obj.representative = { id: dataproject[0].representative_id };
+        obj.city = { city: dataproject[0].city.split('/')[0], uf: dataproject[0].city.split('/')[1] };
 
         console.log(obj.project);
         obj._projectService.findActionsByProject(dataproject[0].id).subscribe(
-          data=>{
-            obj.actions=data;
+          data => {
+            obj.actions = data;
           }
         );
         obj.updateForm(dataproject);
@@ -72,7 +72,7 @@ export class ProjectCadastrarComponent implements OnInit {
     );
 
   }
-  updateForm(data){
+  updateForm(data) {
     const project = data[0];
 
     this.form.controls.description.patchValue(project['description'])
@@ -82,6 +82,7 @@ export class ProjectCadastrarComponent implements OnInit {
     this.form.controls.objetivo.patchValue(project['objetivo'])
     this.form.controls.city.patchValue(project['city'])
   }
+
   async createFormNew() {
     this.form = new FormGroup({
       description: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(150)]),
@@ -93,20 +94,35 @@ export class ProjectCadastrarComponent implements OnInit {
     });
 
   }
-  onSelectCity(city){
+  onSelectCity(city) {
     this.city = city;
   }
   onSelectUser(user) {
     this.representative = user;
   }
-  register(value){
+  register(value) {
     this.action = value;
     this.actions.push(this.action);
   }
-  deleteAction(value){
+  deleteAction(value) {
     this.actions = value;
   }
-  registrar(){
+  projectInvalid() {
+    
+    if (
+      (this.form.valid)
+      && (this.actions.length > 0)
+      ) {
+
+      return false;
+
+    }
+    
+    return true;
+
+  }
+  registrar() {
+
     /**
      * Configura o projeto
      */
@@ -117,9 +133,10 @@ export class ProjectCadastrarComponent implements OnInit {
     this.project.city = `${this.city.city}/${this.city.uf}`;
 
 
-    this.onRegister.next(this.project);
+    this.onRegister.emit(this.project);
   }
-  cancelar(){
+
+  cancelar() {
     this._usercache.gotoHome();
   }
 } 

@@ -41,10 +41,10 @@ export class ActionCreateComponent implements OnInit {
 
     this.form = new FormGroup({
       description: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(150)]),
-      referency: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      referency: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
       qtdAtendimentos: new FormControl('1', [Validators.required, Validators.min(1)]),
       valorPorAtendimento: new FormControl('0', [Validators.required, Validators.min(0)]),
-      objetivo: new FormControl(''),
+      objetivo: new FormControl(''), 
       start: new FormControl(hoje),
       end: new FormControl(dtfinal),
     })

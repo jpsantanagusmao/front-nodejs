@@ -268,9 +268,11 @@ export class AnaliseSoloComponent implements OnInit {
         `;
 
       } else {
+        const qtdsc = parseInt(Number( (r.quantidade * this.formCalc.controls.area.value) / 50 ).toFixed(0));
+        const preais = parseFloat((r.preco).toFixed(2));
         this.msgAbubacao += `
-        <li>${(r.quantidade * this.formCalc.controls.area.value).toFixed(0)} Kg de ${r.Fertilizante} a R$ ${r.preco} / sc 50 Kg. 
-         Custo de R$ ${(Number(r.quantidade * this.formCalc.controls.area.value) * Number(r.preco)).toFixed(2)}.</li>
+        <li>${ qtdsc } Sc de ${r.Fertilizante} a R$ ${preais} / sc 50 Kg. 
+         Custo de R$ ${ (qtdsc * preais).toFixed(2)}.</li>
         `;
 
       }
@@ -969,6 +971,7 @@ export class AnaliseSoloComponent implements OnInit {
   onChangeArea(value) {
     this.calculaQtdCalcario();
     this.loadtables();
+    this.solver();
   }
 
   selectCalcario(value) {

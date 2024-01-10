@@ -1,73 +1,69 @@
 <form [formGroup]="form">
 
-    <div class="form-group col-md-10" >
+    <div class="form-group col-md-10">
         <label for="description">Descrição</label>
-        <input type="text" 
-        tooltip="Descreva esta ação"
-        class="form-control" formControlName="description" name="description" id="description"
-            required>
+        <input type="text" tooltip="Descreva esta ação" class="form-control" formControlName="description"
+            name="description" id="description" required>
         <error-message
             *ngIf="form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)"
             errorMessage="É necessário informar uma descrição com 10 a 150 caracteres"></error-message>
     </div>
-    <div class="form-group col-md-10" > 
+    <div class="form-group col-md-10">
         <label for="referency">Referência</label>
-        <input type="text" 
-        tooltip="Referência a este serviço, é onde serão tratadas as buscas por este serviço."
-        class="form-control" formControlName="referency" name="referency" id="referency"
-            required>
+        <input type="text" tooltip="Referência a este serviço, é onde serão tratadas as buscas por este serviço."
+            class="form-control" formControlName="referency" name="referency" id="referency" required>
         <error-message
             *ngIf="form.controls.referency.invalid && (form.controls.referency.dirty || form.controls.referency.touched)"
             errorMessage="É necessário informar uma descrição com 10 a 150 caracteres"></error-message>
     </div>
 
-    <div class="form-group col-md-10" >
+    <div class="form-group col-md-10">
         <label for="objetivo">Objetivo desta ação</label>
-        <textarea type="text" 
-        tooltip="Descreva um objetivo, mas não é obrigatório"
-        rows="4" class="form-control" formControlName="objetivo" name="objetivo"
-            id="objetivo"></textarea>
+        <textarea type="text" tooltip="Descreva um objetivo, mas não é obrigatório" rows="4" class="form-control"
+            formControlName="objetivo" name="objetivo" id="objetivo"></textarea>
     </div>
     <div class="row">
-        <div class="form-group col-md-4" >
-            <label for="qtdAtendimentos">Qtd. Atendimentos previstos</label>
-            <input type="text"  mask="9999" tooltip="Expectativa de quantidade de atendimentos"
-            class="form-control" formControlName="qtdAtendimentos" name="qtdAtendimentos"
-                id="qtdAtendimentos" required>
-            <error-message
-                *ngIf="form.controls.qtdAtendimentos.invalid && (form.controls.qtdAtendimentos.dirty || form.controls.qtdAtendimentos.touched)"
-                errorMessage="É necessário informar a quantidade de atendimentos prevista"></error-message>
-        </div>
-        <div class="form-group col-md-2" >
-            <label for="valorPorAtendimento">Valor/Atendimento (R$)</label>
-            <input type="text" 
-            tooltip="Valor médio para cada atendimento"
-            mask="separator.2" thousandSeparator="" separatorLimit="99999999999999"
-                class="form-control" formControlName="valorPorAtendimento" name="valorPorAtendimento"
-                id="valorPorAtendimento" required>
-            <error-message
-                *ngIf="form.controls.valorPorAtendimento.invalid && (form.controls.valorPorAtendimento.dirty || form.controls.valorPorAtendimento.touched)"
-                errorMessage="É necessário informar o valor médio por atendimento"></error-message>
-        </div>
-        <div class="form-group col-md-2" >
-            <label for="start">Data início</label>
-            <input type="date" tooltip="Data inicial desta ação. Só é permitido registros apartir desta data."
-            class="form-control" formControlName="start" name="start" id="start" required>
-            <error-message
-                *ngIf="form.controls.start.invalid && (form.controls.start.dirty || form.controls.start.touched)"
-                errorMessage="É necessário informar a data de início desta ação"></error-message>
-        </div>
-        <div class="form-group col-md-2" >
-            <label for="start">Data Encerramento</label>
-            <input type="date" tooltip="Data limite desta ação. Só é permitido registros até esta data."
-            class="form-control" formControlName="end" name="end" id="end" required>
-            <error-message *ngIf="form.controls.end.invalid && (form.controls.end.dirty || form.controls.end.touched)"
-            errorMessage="É necessário informar a data de encerramento desta ação"></error-message>
-        </div>
-        <div class="form-group col-md-2" >
-            <div class="col col-md-4 mt-2 d-flex flex-end">
-                <button class="btn btn-primary" [disabled]="form.invalid" (click)="registrar()">Incluir</button>
+        <div class="line">
+
+            <div class="form-group col-md-4">
+                <label for="qtdAtendimentos">Qtd. Atendimentos previstos</label>
+                <input type="text" mask="9999" tooltip="Expectativa de quantidade de atendimentos" class="form-control"
+                    formControlName="qtdAtendimentos" name="qtdAtendimentos" id="qtdAtendimentos" required>
+                <error-message
+                    *ngIf="form.controls.qtdAtendimentos.invalid && (form.controls.qtdAtendimentos.dirty || form.controls.qtdAtendimentos.touched)"
+                    errorMessage="É necessário informar a quantidade de atendimentos prevista"></error-message>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="valorPorAtendimento">Valor/Atendimento (R$)</label>
+                <input type="text" tooltip="Valor médio para cada atendimento" mask="separator.2" thousandSeparator=""
+                    separatorLimit="99999999999999" class="form-control" formControlName="valorPorAtendimento"
+                    name="valorPorAtendimento" id="valorPorAtendimento" required>
+                <error-message
+                    *ngIf="form.controls.valorPorAtendimento.invalid && (form.controls.valorPorAtendimento.dirty || form.controls.valorPorAtendimento.touched)"
+                    errorMessage="É necessário informar o valor médio por atendimento"></error-message>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="start">Data início</label>
+                <input type="date" tooltip="Data inicial desta ação. Só é permitido registros apartir desta data."
+                    class="form-control" formControlName="start" name="start" id="start" required>
+                <error-message
+                    *ngIf="form.controls.start.invalid && (form.controls.start.dirty || form.controls.start.touched)"
+                    errorMessage="É necessário informar a data de início desta ação"></error-message>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="start">Data Encerramento</label>
+                <input type="date" tooltip="Data limite desta ação. Só é permitido registros até esta data."
+                    class="form-control" formControlName="end" name="end" id="end" required>
+                <error-message
+                    *ngIf="form.controls.end.invalid && (form.controls.end.dirty || form.controls.end.touched)"
+                    errorMessage="É necessário informar a data de encerramento desta ação"></error-message>
+            </div>
+            <div class="form-group col-md-2">
+                <div class="col col-md-4 mt-2 d-flex flex-end">
+                    <button class="btn btn-primary" [disabled]="form.invalid" (click)="registrar()">Incluir</button>
+                </div>
             </div>
         </div>
+
     </div>
-</form> 
+</form>

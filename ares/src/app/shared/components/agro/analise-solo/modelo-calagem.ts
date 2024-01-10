@@ -33,7 +33,7 @@ export class ModelosCalagem {
 
     const SB = Number(await Number(ca + mg + k).toFixed(2));
     const t = Number(await Number(ca + mg + k + al).toFixed(2));
-    const T = Number(await Number(ca + mg + k + al + h).toFixed(2));
+    const T = Number(await Number(ca + mg + k + h).toFixed(2));
     //const T = await Number(ca + mg + (k/391) + h + al).toFixed(2);
     const v1 = Number(((SB) / Number(T)) * 100).toFixed(2);
 
@@ -54,7 +54,7 @@ export class ModelosCalagem {
       <strong>CTC efetiva (t) = </strong>Ca + Mg + (K/391) + Al => ${ca} + ${mg} + ${k} + ${al} => ${t} cmolc/dm<sup>3</sup>
     </div>
     <div>
-      <strong>CTC a PH 7 (T) = </strong>Ca + Mg + (K/391) + Al + H => ${ca} + ${mg} + ${k} + ${h} + ${al} => ${T} cmolc/dm<sup>3</sup>
+      <strong>CTC a PH 7 (T) = </strong>Ca + Mg + (K/391) + (H + Al) => ${ca} + ${mg} + ${k} + ${h} => ${T} cmolc/dm<sup>3</sup>
     </div>
     <div>
       <strong>Saturação da bases esperada para a cultura (V<sub>2</sub>) = </strong> ${v2} %
@@ -101,7 +101,7 @@ export class ModelosCalagem {
       obj.memoria += `
       <div>
         <strong>
-          NC = ( "V esperado da Cultura ${obj.culturaSelected.cultura}" - "V efetivo") x T / PRNT(%)
+          NC (PRNT=100%)= ( "V esperado da Cultura ${obj.culturaSelected.cultura}" - "V efetivo") x T / PRNT(%)
         </strong>
           => (${v2} - ${v1}) * ${T} / (${prnt}/100) = ${NC}  t.ha-¹ de calcário
       </div>

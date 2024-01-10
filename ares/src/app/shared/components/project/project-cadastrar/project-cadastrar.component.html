@@ -37,9 +37,6 @@
         <div class="form-group col-md-10">
             <label for="resultado">Resultado esperado</label>
             <input type="text" class="form-control" formControlName="resultado" name="resultado" id="resultado" required>
-            <error-message
-                *ngIf="form.controls.resultado.invalid && (form.controls.resultado.dirty || form.controls.resultado.touched)"
-                errorMessage="É necessário informar uma descrição com 10 a 150 caracteres"></error-message>
         </div>
     </form>
     <div class="col col-md-10 mt-2">
@@ -57,7 +54,9 @@
     </div>
     <action-table [actions]="actions" (deleted)="deleteAction($event)"></action-table>
     <div class="col col-md-3 mt-4 mb-4 d-flex justify-content-around">
-        <button class="btn-ok" [disabled]="form.invalid" (click)="registrar()">Salvar</button>
-        <button class="btn-cancel" (click)="cancelar()">Cancelar</button>
+        <button class="btn btn-primary" 
+        [disabled]="projectInvalid()" 
+        (click)="registrar()">Salvar</button>
+        <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
     </div>
 </div>

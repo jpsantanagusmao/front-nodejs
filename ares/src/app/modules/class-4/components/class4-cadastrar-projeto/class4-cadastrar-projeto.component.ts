@@ -20,6 +20,7 @@ export class Class4CadastrarProjetoComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   onRegister(project) {
 
     this._projectService.save(project).subscribe(
