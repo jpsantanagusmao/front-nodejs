@@ -21,6 +21,10 @@ export const LINHA_CREDITO:  LinhaCredito[] = [
         descricao: 'Moderagro custeio',
     },
     {
+        representacaobd: 'INOVAGRO_INVESTIMENTO',
+        descricao: 'Inovagro investimento',
+    },
+    {
         representacaobd: 'PRONAMP_INVESTIMENTO',
         descricao: 'Pronamp investimento',
     },

@@ -67,6 +67,7 @@ export class AnaliseSoloComponent implements OnInit {
   calcarioCalculated: Number;
   hasCalcCalcario: boolean = false;
   msgCalcario;
+  recomendacaoAdubacao;
 
   panorama;
   //Classe dos nutrientes
@@ -268,16 +269,36 @@ export class AnaliseSoloComponent implements OnInit {
         `;
 
       } else {
-        const qtdsc = parseInt(Number( (r.quantidade * this.formCalc.controls.area.value) / 50 ).toFixed(0));
+        const qtdsc = parseInt(Number((r.quantidade * this.formCalc.controls.area.value) / 50).toFixed(0));
         const preais = parseFloat((r.preco).toFixed(2));
         this.msgAbubacao += `
-        <li>${ qtdsc } Sc de ${r.Fertilizante} a R$ ${preais} / sc 50 Kg. 
-         Custo de R$ ${ (qtdsc * preais).toFixed(2)}.</li>
+        <li>${qtdsc} Sc de ${r.Fertilizante} a R$ ${preais} / sc 50 Kg. 
+         Custo de R$ ${(qtdsc * preais).toFixed(2)}.</li>
         `;
 
       }
     })
     this.msgAbubacao += `</ul>`;
+    this.recomendacaoAdubacao = ``;
+    this.recomendacaoAdubacao = `
+      Recomendação de adubação: 
+    `;
+    obj.map(r => {
+      if (r.preco == 0) {
+        this.recomendacaoAdubacao += `
+        - ${(r.quantidade * this.formCalc.controls.area.value).toFixed(0)} Kg de ${r.Fertilizante}.
+        `;
+
+      } else {
+        const qtdsc = parseInt(Number((r.quantidade * this.formCalc.controls.area.value) / 50).toFixed(0));
+        const preais = parseFloat((r.preco).toFixed(2));
+        this.recomendacaoAdubacao += `
+        ${qtdsc} Sc de ${r.Fertilizante} a R$ ${preais} / sc 50 Kg. 
+         Custo de R$ ${(qtdsc * preais).toFixed(2)}.
+        `;
+
+      }
+    })
     this.FertilizantesCalculated = obj;
 
     this.analiseAddElements()
@@ -916,6 +937,66 @@ export class AnaliseSoloComponent implements OnInit {
       return;
     }
 
+    // const p_mgo = this.calcarioSelected.MgO;
+    // const p_cao = this.calcarioSelected.CaO;
+    // const prnt = Number(this.prntSelected);
+    // const qtd = (this.nc.nc) * 1000;
+
+
+    // const nova_mg_dm_Ca = (((((qtd / (prnt / 100)) * (p_cao / 100)) / 1.4) / 2) / 200.4) + Number(this.form.controls.ca.value);
+    // const nova_mg_dm_Mg = (((((qtd / (prnt / 100)) * (p_mgo / 100)) / 1.67) / 2) / 121.56) + Number(this.form.controls.mg.value);
+    // const nova_sb = Number(nova_mg_dm_Ca) + Number(nova_mg_dm_Mg) + Number(nova_mg_dm_K / 391);
+
+    // const nova_t = nova_sb + Number(this.form.controls.al.value);
+    // const nova_T = nova_sb + Number(this.form.controls.al.value) + Number(this.form.controls.h.value);
+    // const nova_v = (nova_t / nova_T * 100);
+
+    // const nova_ca_mg = Number(Number(nova_mg_dm_Ca / nova_mg_dm_Mg));
+    // const nova_mg_k = Number(Number(nova_mg_dm_Mg / (nova_mg_dm_K / 391)));
+    // const nova_ca_k = Number(Number(nova_mg_dm_Ca / (nova_mg_dm_K / 391)));
+    // const nova_t_ca = Number(Number(nova_mg_dm_Ca / nova_T) * 100);
+    // const nova_t_mg = Number(Number(nova_mg_dm_Mg / nova_T) * 100);
+    // const nova_t_k = Number(Number((nova_mg_dm_K / 391) / nova_T) * 100);
+
+    // const novopanorama = {
+    //   k: Number((nova_mg_dm_K / 391)),
+    //   ca: Number(nova_mg_dm_Ca),
+    //   Mg: Number(nova_mg_dm_Mg),
+    //   t: Number(nova_t),
+    //   T: Number(nova_T),
+    //   v: Number(nova_v),
+    //   ca_mg: Number(nova_ca_mg),
+    //   ca_k: Number(nova_ca_k),
+    //   t_ca: Number(nova_t_ca),
+    //   t_mg: Number(nova_t_mg),
+    //   t_k: Number(nova_t_k),
+    // };
+    const novopanorama = this.newSolo()
+
+    this.panorama = `
+      <div>
+      <h2>
+        <strong>
+          Considerações sobre a correção de solo
+        </strong>
+      </h2>
+        <ul>
+          <li>A saturação de bases(V), com essa recomendação passar a ficar próximo de ${novopanorama.v.toFixed(0)}%. </li>
+          <li>A relação Ca/Mg fica em torno de ${novopanorama.ca_mg.toFixed(2)}, sendo que o ideal é próximo de 3. </li>
+          <li>A CTC potencial passa a ficar em ${novopanorama.T.toFixed(2)} cmolc/dm<sup>3</sup>. </li>
+        </ul>
+      </div>
+    `;
+
+  }
+
+  newSolo() {
+    const mg_dm_K = this.FertilizantesCalculated.reduce((acc, a) => {
+      return acc + (a.addCmolK ? a.addCmolK : 0);
+    }, 0)
+
+    const nova_mg_dm_K = (mg_dm_K) + (Number(this.form.controls.k.value) / 391);
+
     const p_mgo = this.calcarioSelected.MgO;
     const p_cao = this.calcarioSelected.CaO;
     const prnt = Number(this.prntSelected);
@@ -936,8 +1017,7 @@ export class AnaliseSoloComponent implements OnInit {
     const nova_t_ca = Number(Number(nova_mg_dm_Ca / nova_T) * 100);
     const nova_t_mg = Number(Number(nova_mg_dm_Mg / nova_T) * 100);
     const nova_t_k = Number(Number((nova_mg_dm_K / 391) / nova_T) * 100);
-
-    const novopanorama = {
+    return {
       k: Number((nova_mg_dm_K / 391)),
       ca: Number(nova_mg_dm_Ca),
       Mg: Number(nova_mg_dm_Mg),
@@ -950,24 +1030,7 @@ export class AnaliseSoloComponent implements OnInit {
       t_mg: Number(nova_t_mg),
       t_k: Number(nova_t_k),
     };
-
-    this.panorama = `
-      <div>
-      <h2>
-        <strong>
-          Considerações sobre a correção de solo
-        </strong>
-      </h2>
-        <ul>
-          <li>A saturação de bases(V), com essa recomendação passar a ficar próximo de ${novopanorama.v.toFixed(0)}%. </li>
-          <li>A relação Ca/Mg fica em torno de ${novopanorama.ca_mg.toFixed(2)}, sendo que o ideal é próximo de 3. </li>
-          <li>A CTC potencial passa a ficar em ${novopanorama.T.toFixed(2)} cmolc/dm<sup>3</sup>. </li>
-        </ul>
-      </div>
-    `;
-
   }
-
   onChangeArea(value) {
     this.calculaQtdCalcario();
     this.loadtables();
@@ -1012,26 +1075,57 @@ Nestas condições, segue então as recomendações para correção e adubação
 
     orientacao += `A adubação deve ser feita na época do plantio, de preferência no fundo das covas ou sulcos, incorporando no solo o${o.adubacao.length > 1 ? 's' : ''} seguinte${o.adubacao.length > 1 ? 's' : ''} fertilizante${o.adubacao.length > 1 ? 's' : ''}
     `;
-    o.adubacao.map(r => {
-      const constPlantio = o.produtividade.n / (o.produtividade.n + o.produtividade.nCobertura);
-      const constCobertura = o.produtividade.nCobertura / (o.produtividade.n + o.produtividade.nCobertura);
-      if ((r.hasN == true)) {
+    // o.adubacao.map(r => {
+    //   const constPlantio = o.produtividade.n / (o.produtividade.n + o.produtividade.nCobertura);
+    //   const constCobertura = o.produtividade.nCobertura / (o.produtividade.n + o.produtividade.nCobertura);
+    //   if ((r.hasN == true)) {
 
-        const plantio = Number(r.quantidade * constPlantio).toFixed(0);
-        const cobertura = Number(r.quantidade * constCobertura).toFixed(0);
-        orientacao += `
-      -${plantio} Kg de ${r.Fertilizante} no plantio;
-      -${cobertura} Kg de ${r.Fertilizante} na cobertura;
-      `;
-      } else {
-        orientacao += `-${Number(r.quantidade).toFixed(0)} Kg de ${r.Fertilizante};
-      `;
-      }
-    })
+    //     const plantio = Number(r.quantidade * constPlantio).toFixed(0);
+    //     const cobertura = Number(r.quantidade * constCobertura).toFixed(0);
+    //     orientacao += `
+    //   -${plantio} Kg de ${r.Fertilizante} no plantio;
+    //   -${cobertura} Kg de ${r.Fertilizante} na cobertura;
+    //   `;
+    //   } else {
+    //     orientacao += `-${Number(r.quantidade).toFixed(0)} Kg de ${r.Fertilizante};
+    //   `;
+    //   }
+    // })
+
+    // ....
+    // this.memoria += `
+    //     O cultivo de ${this.culturaSelected.cultura} com espectativa de produção de ${this.faixaProducaoSelected.producao} ${this.faixaProducaoSelected.unidade}
+    //      => Plantio: ${this.qtd_N.plantio} Kg N/ha
+
+    // `;
+    // if (this.qtd_N.cobertura) {
+    //   this.memoria += `
+    //   e cobertura: ${this.qtd_N.cobertura} Kg N/ha
+    //   `;
+
+    // }
+
+    // this.memoria += `
+    // </div>
+    // `;
+    orientacao += this.recomendacaoAdubacao;
 
     if (o.calagem.nc > 0) {
+
+      const prntSelected = this.prntSelected;
+      const qtdRecomendade = this.nc.nc;
+      const area = this.formCalc.controls.area.value;
+
+      this.calcarioCalculated = Number(Number((qtdRecomendade / Number(prntSelected / 100)) * Number(area)).toFixed(2));
+      this.hasCalcCalcario = true;
+
+      this.msgCalcario = `
+        Recomendação de calagem
+    `;
+
       orientacao += `
-Para a correção do solo é necessário realizar a calagem com a aplicação de ${Number(o.calagem.nc) < 1 ? Number(Number(o.calagem.nc) * 1000).toFixed(0).concat(' Kilos') : Number(o.calagem.nc).toFixed(1).concat(' toneladas')} de ${this.calcarioSelected.descricao} com PRNT de ${this.prntSelected}%. Esta aplicação deve ser realizada de 60 a 90 dias antes do plantio para garantir que haja umidade suficiente para ocorrer as reações químicas necessárias para a correção do solo.`;
+Para a correção do solo é necessário realizar a calagem com a aplicação de ${Number(this.calcarioCalculated) < 1 ? Number(Number(this.calcarioCalculated) * 1000).toFixed(0).concat(' Kilos') : this.calcarioCalculated.toFixed(1).concat(' toneladas')} de ${this.calcarioSelected.tipo} com PRNT de ${prntSelected}%. Esta aplicação deve ser realizada de 60 a 90 dias antes do plantio para garantir que haja umidade suficiente para ocorrer as reações químicas necessárias para a correção do solo.
+`;
 
       if (o.calagem.nc > 3) {
         orientacao += `Como a quantidade é superiores a ${3} toneladas por hectares é necessário parcelar a aplicação e fazer o acompanhamento anual das condições químicas deste solo.
@@ -1048,7 +1142,14 @@ Para a correção do solo é necessário realizar a calagem com a aplicação de
       })
     }
 
+    const novopanorama = this.newSolo()
 
+    recomendacao += `
+          Considerações sobre a correção de solo:
+          - Aplicando estas orientações, a saturação de bases(V), passa a ficar com valor próximo de ${novopanorama.v.toFixed(0)}%;
+          - A relação Ca/Mg fica em torno de ${novopanorama.ca_mg.toFixed(2)}, sendo que o ideal é próximo de 3;
+          - A CTC potencial passa a ficar com valor próximo de ${novopanorama.T.toFixed(2)} cmolc/dm3;
+    `;
 
     const local = '';
     const customers = [];
