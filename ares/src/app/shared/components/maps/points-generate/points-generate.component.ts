@@ -19,7 +19,8 @@ export class PointsGenerateComponent implements OnInit {
 
     loader = new Loader(new Loader({
         // apiKey: "AIzaSyDFNduhX4rEk8BfLfv6GjuFWY9_2S11mI4",
-        apiKey: "AIzaSyDqT3Ei9ek7G2avN-HwAiZwyKcBayrSOzc",
+        // apiKey: "AIzaSyDveQnDzb616enE1t_kxFN5D53vjxWY-zc",
+        apiKey: "AIzaSyDveQnDzb616enE1t_kxFN5D53vjxWY-zc"
     }));
 
     public constructor(
@@ -52,13 +53,13 @@ export class PointsGenerateComponent implements OnInit {
         if (point) {
             pc = { lat: point['coords'].latitude, lng: point['coords'].longitude }
         } else {
-            pc = { lat: -19.46545, lng: -42.4148877 }
+            pc = { lat: -19.282682, lng: -42.002169 } //Tarumirim
         }
         //center: { lat: point['coords'].latitude, lng: point['coords'].longitude },
         this.loader.load().then(() => {
             this.map = new google.maps.Map(document.getElementById('map'), {
                 center: pc,
-                zoom: 10,
+                zoom: 15,
                 mapTypeId: 'satellite',
                 streetViewControl: false
             });
