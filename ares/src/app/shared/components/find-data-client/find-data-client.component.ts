@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { delay, map, tap } from 'rxjs/operators';
 import { UserCacheService } from 'src/app/core/user-cache.service';
-import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
-import { CarServiceService } from 'src/app/shared/services/car-service.service';
-
+import { ClientsService } from 'src/app/shared/services/clients.service';
+import { AlertMessagesService } from '../../services/alert-messages.service';
+import { tap } from 'rxjs/operators';
+ 
 @Component({
-  selector: 'app-find-car',
-  templateUrl: './find-car.component.html',
-  styleUrls: ['./find-car.component.css']
+  selector: 'app-find-data-client',
+  templateUrl: './find-data-client.component.html',
+  styleUrls: ['./find-data-client.component.css']
 })
-export class FindCarComponent implements OnInit {
+export class FindDataClientComponent implements OnInit {
 
   data: string = '';
   form: FormGroup;
  
   _loading: boolean = Boolean(false);
-  cars$: Observable<any>;
+  produtores$: Observable<any>;
 
   constructor(
     private _userCache: UserCacheService,
-    private _carservice: CarServiceService,
+    private _clientService: ClientsService,
     private _messageService: AlertMessagesService
   ) { }
 
@@ -40,14 +40,20 @@ export class FindCarComponent implements OnInit {
     const size = data.length;
     const msghead = 'Não é possível realizar esta busca';
 
-    if (size < 10) {
-      let msg = 'Você deve informar pelo menos 10 caracteres para realizar a busca'
+    if (size < 5) {
+      
+      let msg = 'Você deve informar pelo menos 05 caracteres para realizar a busca'
       this._messageService.handleError(msghead, `${msg}`);
       return false;
+
+    }else{
+
+      this.produtores$ = this._clientService.findClient(data).pipe(
+      );
+      
     }
-
-    this.cars$ = this._carservice.findCar(data).pipe();
-
+    
+    
   }
   
   async loadingToggle() {

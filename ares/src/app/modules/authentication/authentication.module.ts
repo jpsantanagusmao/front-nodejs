@@ -9,7 +9,7 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { PrivatedComponent } from './components/privated/privated.component';
 import { Class0Module } from '../class-0/class-0.module';
-import { DetailsComponent } from 'src/app/share/components/details/details.component';
+import { DetailsComponent } from 'src/app/shared/components/details/details.component';
 
 @NgModule({
   declarations: [
