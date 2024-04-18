@@ -1,17 +1,17 @@
 <div *ngIf="visita$ | async as v; else notasks">
   <strong>
-    <h1>
-      <p>{{v.produtor}}</p>
+    <h2>
+      <p>Produtor: {{v.produtor}}</p>
       <div class="row">
         <div class="col">Data: {{v.data | date: 'dd/MM/yyyy'}}</div>
-        <div class="col">Local: {{v.local}}</div>
+        <div class="col">Endereço/Localização: {{v.local}}</div>
       </div>
       <div class="row">
         <div class="col">Valor total: {{daevl | number:'1.2-2'}}</div>
       </div>
-    </h1>
+    </h2>
   </strong>
-  <div class="mt-5">
+  <div class="mt-2">
     <div class="cabecalho-tarefas">
       <div class="col-1">
         <button type="button" (click)="addTask(v.id)" class="btn btn-primary">Add +</button>
@@ -150,7 +150,7 @@
         <!-- -->
         <button *ngIf="!p.pgmtrt" (click)="quitTrt(p.idprojeto, p.pgmtrt)" class="btn btn-warning"
           tooltip="Clique aqui para definir como emitida">
-          <i class="bi bi-credit-card-2-front-fill"></i> TRT não emitida
+          <i class="bi bi-credit-card-2-front-fill"></i> TRT/ART
         </button>
         <button *ngIf="p.pgmrda" (click)="quitDae(p.idprojeto, p.pgmrda)" class="btn btn btn-success" tooltip="Ver detalhes da visita com Projetos elaborados">
           <i class="bi bi-credit-card-2-front"></i>
@@ -158,7 +158,7 @@
         <!--  -->
         <button *ngIf="!p.pgmrda" (click)="quitDae(p.idprojeto, p.pgmrda)" class="btn btn btn-warning"
           tooltip="Clique aqui para definir como DAE quitado.">
-          <i class="bi bi-credit-card-2-front-fill"></i> Não pagou DAE
+          <i class="bi bi-credit-card-2-front-fill"></i> DAE
         </button>
       </div>
     </div>

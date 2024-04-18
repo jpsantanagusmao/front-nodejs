@@ -84,6 +84,7 @@ import { DashboardProjectsAcompComponent } from './components/dashboard-projects
 import { DashboardUsersAcompComponent } from './components/dashboard-users-acomp/dashboard-users-acomp.component';
 import { ProjectsListAcompComponent } from './components/projects-list-acomp/projects-list-acomp.component';
 import { DetailTreatmentsComponent } from './components/detail-treatments/detail-treatments.component';
+import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
   declarations: [
@@ -164,6 +165,7 @@ import { DetailTreatmentsComponent } from './components/detail-treatments/detail
     DashboardUsersAcompComponent,
     ProjectsListAcompComponent,
     DetailTreatmentsComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
@@ -243,7 +245,8 @@ import { DetailTreatmentsComponent } from './components/detail-treatments/detail
     SoloCapiacuComponent,
     SelectItensFinanciaveisComponent,
     DialogCredRuralAddItensCadComponent,
-    DetailTreatmentsComponent
+    DetailTreatmentsComponent,
+    DetailsComponent
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

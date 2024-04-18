@@ -1,20 +1,17 @@
+<p class="mt-2 form-tittle">- Histórico de atendimentos ao cliente -</p>
+<p *ngIf="countTasks$ | async as count" class="">{{count}} atendimentos registrados.</p>
 <table class="table table-striped table-hover">
     <thead>
       <tr>
+        <th scope="col-1">Ação</th>
         <th scope="col-1">Data</th>
-        <th scope="col-3">Produtor</th>
+        <th scope="col-4">Produtor</th>
         <th scope="col-4">Serviço</th>
         <th scope="col-2">Funcionário</th>
-        <th scope="col-2">Ação</th>
       </tr>
     </thead> 
     <tbody>
       <tr *ngFor="let t of tasks$ | async">
-        <td (dblclick)="copyValue(t.cpf)">{{t.data | date:'dd/MM/yyyy'}}</td>
-        <td (dblclick)="copyValue(t.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">{{t.customername}}</td>
-        <td class="text-success" *ngIf="t.comments" tooltip="{{t.comments}} - ({{t.emissor_username}})">{{t.description}} </td>
-        <td *ngIf="!t.comments" >{{t.description}} </td>
-        <td>{{t.username}} </td>
         <td>
           <button (click)="openproject(t.idvisita)"  *ngIf="t.hasprojectid" class="btn text-warning" tooltip="Ver detalhes da visita com Projetos elaborados">
             <i class="bi bi-pencil-square"></i>
@@ -22,20 +19,12 @@
           <button (click)="openproject(t.idvisita)"  *ngIf="!t.hasprojectid" class="btn text-info" tooltip="Ver detalhes da visita">
             <i class="bi bi-pencil-fill"></i>
           </button>
-          <button (click)="onSendComment(t.id, t.customername, t.description)" class="btn text-primary" tooltip="Encaminhar tarefa para outra pessoa.">
-            <i class="bi bi-journal-arrow-up"></i>
-          </button>
-          <button (click)="onFinalizeTask(t.id)" class="btn text-success" tooltip="Definir como concluída">
-            <i class="bi bi-check-circle"></i>
-          </button>
-          <button (click)="onCancelTask(t.id)" class="btn text-danger" tooltip="Definir como Cancelada.">
-            <i class="bi bi-x-circle"></i>
-          </button>
-          <button (click)="onExpireTask(t.id)" class="btn text-danger"
-            tooltip="Definir como Expirada - caso tenha muito tempo e houve desistência">
-            <i class="bi bi-hourglass-bottom"></i>
-          </button>
         </td>
+        <td (dblclick)="copyValue(t.cpf)">{{t.data | date:'dd/MM/yyyy'}}</td>
+        <td (dblclick)="copyValue(t.cpf)" tooltip="Clique duas vezes para copiar o CPF desta pessoa">{{t.customername}}</td>
+        <td class="text-success" *ngIf="t.comments" tooltip="{{t.comments}} - ({{t.emissor_username}})">{{t.description}} </td>
+        <td *ngIf="!t.comments" >{{t.description}}  - ({{t.status}})</td>
+        <td>{{t.username}} </td>
       </tr>
     </tbody>
   </table>

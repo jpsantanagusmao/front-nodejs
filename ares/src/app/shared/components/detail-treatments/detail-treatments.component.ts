@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { UserCacheService } from '../../../core/user-cache.service';
@@ -18,6 +18,7 @@ export class DetailTreatmentsComponent implements OnInit {
   @Output() onReport = new EventEmitter();
 
   tasks$: Observable<any>;
+  countTasks$: Observable<any>;
 
   constructor(
     private _router: Router,
@@ -40,10 +41,14 @@ export class DetailTreatmentsComponent implements OnInit {
     this._route.paramMap.subscribe((params: ParamMap) => {
 
       let id = this._route.snapshot.paramMap.get('id')
-      console.log(id);
 
       this.tasks$ = this._clientService.findServicos(id).pipe(
-        tap(console.log)
+        tap(data=>{
+          // console.log(data);
+          // console.log(this.countTasks$);
+          this.countTasks$ = of(data.length);
+          
+        })
       );
     })
 
