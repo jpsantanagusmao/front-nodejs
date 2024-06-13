@@ -144,6 +144,139 @@ export const CULTURAS = [
     ],
 
   },
+  {
+    cultura: 'Pastagem - Braquiária bryzantha',
+    recomendacoes: [
+      'A adubação nitrogenada de cobertura deve ser realizada 40 dias após o plantio de preferência sob a forma de sulfato de amônio.',
+      'A uréia pode ser aplicada desde que seja em período chuvoso, garantindo um teor de umidade adequado.',
+    ],
+    v: 45,
+    produtividade: [
+      {
+        producao: '01',
+        unidade: 'UA/ha',
+        n: 0,
+        nCobertura: 50,
+        p: [
+          {
+            baixo: 90,
+            medio: 70,
+            alto: 35
+          }
+        ],
+        k: [
+          {
+            baixo: 40,
+            medio: 20,
+            alto: 0
+          }
+        ]
+      },
+    ],
+
+  },
+  {
+    cultura: 'Pastagem - Braquiária decumbens',
+    recomendacoes: [
+      'A adubação nitrogenada de cobertura deve ser realizada 40 dias após o plantio de preferência sob a forma de sulfato de amônio.',
+      'A uréia pode ser aplicada desde que seja em período chuvoso, garantindo um teor de umidade adequado.',
+    ],
+    v: 35,
+    produtividade: [
+      {
+        producao: '01',
+        unidade: 'UA/ha',
+        n: 0,
+        nCobertura: 50,
+        p: [
+          {
+            baixo: 60,
+            medio: 30,
+            alto: 20
+          }
+        ],
+        k: [
+          {
+            baixo: 40,
+            medio: 20,
+            alto: 0
+          }
+        ]
+      },
+    ],
+
+  },
+  {
+    cultura: 'Pastagem - Mombaça (Panicum maximun mombaça)',
+    recomendacoes: [
+      'A adubação nitrogenada de cobertura deve ser realizada 40 dias após o plantio de preferência sob a forma de sulfato de amônio.',
+      'A uréia pode ser aplicada desde que seja em período chuvoso, garantindo um teor de umidade adequado.',
+    ],
+    v: 45,
+    produtividade: [
+      {
+        producao: '< 05',
+        unidade: 'UA/ha',
+        n: 0,
+        nCobertura: 50,
+        p: [
+          {
+            baixo: 90,
+            medio: 70,
+            alto: 35
+          }
+        ],
+        k: [
+          {
+            baixo: 40,
+            medio: 20,
+            alto: 0
+          }
+        ]
+      },
+      {
+        producao: '05-07',
+        unidade: 'UA/ha',
+        n: 0,
+        nCobertura: 200,
+        p: [
+          {
+            baixo: 90,
+            medio: 70,
+            alto: 35
+          }
+        ],
+        k: [
+          {
+            baixo: 40,
+            medio: 20,
+            alto: 0
+          }
+        ]
+      },
+      {
+        producao: '07-10',
+        unidade: 'UA/ha',
+        n: 0,
+        nCobertura: 300,
+        p: [
+          {
+            baixo: 90,
+            medio: 70,
+            alto: 35
+          }
+        ],
+        k: [
+          {
+            baixo: 40,
+            medio: 20,
+            alto: 0
+          }
+        ]
+      },
+    ],
+
+  },
   
   
   {
