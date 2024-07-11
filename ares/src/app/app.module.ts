@@ -23,6 +23,7 @@ import { Class9ToolsComponent } from './modules/class-9/components/class9-tools/
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { FindDataClientComponent } from './shared/components/find-data-client/find-data-client.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     Class6ToolsComponent,
     Class8ToolsComponent,
     Class9ToolsComponent,
+    FindDataClientComponent,
   ],
   imports: [
     BrowserModule,

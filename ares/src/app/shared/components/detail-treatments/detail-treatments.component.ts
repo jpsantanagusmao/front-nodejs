@@ -1,24 +1,25 @@
-import { PointsGenerateComponent } from './../../maps/points-generate/points-generate.component';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
-import { UserCacheService } from 'src/app/core/user-cache.service';
-import { AlertMessagesService } from 'src/app/shared/services/alert-messages.service';
-import { UserService } from '../user.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { ClientsService } from 'src/app/shared/services/clients.service';
+import { UserCacheService } from '../../../core/user-cache.service';
+import { UserService } from '../user/user.service';
+import { AlertMessagesService } from '../../services/alert-messages.service';
+import { ClientsService } from '../../services/clients.service';
+
 
 @Component({
-  selector: 'my-tasks',
-  templateUrl: './my-tasks.component.html',
-  styleUrls: ['./my-tasks.component.css']
+  selector: 'detail-treatments',
+  templateUrl: './detail-treatments.component.html',
+  styleUrls: ['./detail-treatments.component.css']
 })
-export class MyTasksComponent implements OnInit {
+export class DetailTreatmentsComponent implements OnInit {
 
   @Output() onReport = new EventEmitter();
 
   tasks$: Observable<any>;
-  id: string;
+  countTasks$: Observable<any>;
+
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
@@ -31,14 +32,26 @@ export class MyTasksComponent implements OnInit {
 
   ngOnInit(): void {
     this._userCache.regRoute().subscribe();
-    this.loadMyTasks();
+    this.loadMyTasks()
   }
-
   loadMyTasks() {
 
     const obj = this;
-    this.tasks$ = this._userService.myTasks().pipe(
-    );
+
+    this._route.paramMap.subscribe((params: ParamMap) => {
+
+      let id = this._route.snapshot.paramMap.get('id')
+
+      this.tasks$ = this._clientService.findServicos(id).pipe(
+        tap(data=>{
+          // console.log(data);
+          // console.log(this.countTasks$);
+          this.countTasks$ = of(data.length);
+          
+        })
+      );
+    })
+
   }
 
   loadMyProjects() {
@@ -109,7 +122,7 @@ export class MyTasksComponent implements OnInit {
 
   openproject(idproject) {
 
-    this._router.navigate([`../details`], { queryParams: { id: idproject }, relativeTo: this._route });
+    this._router.navigate([`../../details`], { queryParams: { id: idproject }, relativeTo: this._route });
 
   }
 
@@ -186,3 +199,4 @@ export class MyTasksComponent implements OnInit {
 
   }
 }
+

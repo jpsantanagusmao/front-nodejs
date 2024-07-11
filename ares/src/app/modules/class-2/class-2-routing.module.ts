@@ -19,6 +19,7 @@ import { Class4DimCapineiraComponent } from '../class-4/components/class4-dim-ca
 import { Class2InfracoesConsultaComponent } from './components/class2-infracoes-consulta/class2-infracoes-consulta.component';
 import { DimEsterqueiraComponent } from './components/dim-esterqueira/dim-esterqueira.component';
 import { Class2ProjetoRegionalComponent } from './components/class2-projeto-regional/class2-projeto-regional.component';
+import { FindDataClientComponent } from 'src/app/shared/components/find-data-client/find-data-client.component';
 
 const routes: Routes = [
   {
@@ -101,6 +102,10 @@ const routes: Routes = [
   {
     path: 'projeto-regional',
     component: Class2ProjetoRegionalComponent
+  },
+  {
+    path: 'produtores',
+    component: FindDataClientComponent
   },
 ];
 

@@ -343,13 +343,11 @@ export class DetailsComponent implements OnInit {
         }, 0));
       }),
       tap(data => {
-        if ((Number(obj.valorproposta$) == 0)) {
+
+        if (Number(obj.valorproposta$) <= 30000) {
           obj.txelab = 150.0;
         }
-        if ((Number(obj.valorproposta$) <= 30000) && (Number(obj.valorproposta$) > 0)) {
-          obj.txelab = 150.0;
-        }
-        if ((Number(obj.valorproposta$) >= 0)) {
+        if ((Number(obj.valorproposta$) > 30000)) {
           obj.txelab = Number(obj.valorproposta$) * 0.5 / 100;
         }
 

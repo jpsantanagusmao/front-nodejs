@@ -83,6 +83,8 @@ import { DialogArtValueComponent } from './components/dialog-art-value/dialog-ar
 import { DashboardProjectsAcompComponent } from './components/dashboard-projects-acomp/dashboard-projects-acomp.component';
 import { DashboardUsersAcompComponent } from './components/dashboard-users-acomp/dashboard-users-acomp.component';
 import { ProjectsListAcompComponent } from './components/projects-list-acomp/projects-list-acomp.component';
+import { DetailTreatmentsComponent } from './components/detail-treatments/detail-treatments.component';
+import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
   declarations: [
@@ -162,6 +164,8 @@ import { ProjectsListAcompComponent } from './components/projects-list-acomp/pro
     DashboardProjectsAcompComponent,
     DashboardUsersAcompComponent,
     ProjectsListAcompComponent,
+    DetailTreatmentsComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
@@ -240,7 +244,9 @@ import { ProjectsListAcompComponent } from './components/projects-list-acomp/pro
     SoloMilhoComponent,
     SoloCapiacuComponent,
     SelectItensFinanciaveisComponent,
-    DialogCredRuralAddItensCadComponent
+    DialogCredRuralAddItensCadComponent,
+    DetailTreatmentsComponent,
+    DetailsComponent
   ],
   entryComponents: [
     AlertModalComponent, DialogConfirmComponent

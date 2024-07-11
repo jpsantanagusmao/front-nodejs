@@ -2,28 +2,31 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { environment as env } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CarServiceService {
+export class ClientsService {
 
-  private PATH: string = 'ares-data/car';
+  private PATH: string = 'customers/';
 
   constructor(
     private http: HttpClient,
     private router: Router,
   ) { }
-  findCar(data): Observable<any> {
+  findClient(data): Observable<any> {
    
-    let params = new HttpParams();
-    params = params.append('data', data);
-    
-    const link = `${env.BASE_API_URL}${this.PATH}/find-car`;
+    const link = `${env.BASE_API_URL}${this.PATH}find`;
 
-    return this.http.post(link, params);
+    return this.http.get(`${link}/${data}`);
+ 
+  } 
+  findServicos(idprodutor): Observable<any> {
+   
+    const link = `${env.BASE_API_URL}${this.PATH}localizar-servicos`;
+
+    return this.http.get(`${link}/${idprodutor}`);
  
   } 
 }

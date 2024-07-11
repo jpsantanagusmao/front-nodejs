@@ -8,8 +8,10 @@ import { ContractComponent } from 'src/app/shared/components/contract/contract.c
 import { DocumentationComponent } from 'src/app/shared/components/documentation/documentation.component';
 import { MyTasksComponent } from 'src/app/shared/components/user/my-tasks/my-tasks.component';
 import { MyProjectsComponent } from 'src/app/shared/components/project/my-projects/my-projects.component';
-import { DetailsComponent } from 'src/app/share/components/details/details.component';
+import { DetailsComponent } from 'src/app/shared/components/details/details.component';
 import { MyProjectsListComponent } from 'src/app/shared/components/user/my-projects/my-projects.component';
+import { FindDataClientComponent } from 'src/app/shared/components/find-data-client/find-data-client.component';
+import { DetailTreatmentsComponent } from 'src/app/shared/components/detail-treatments/detail-treatments.component';
 
 
 const routes: Routes = [
@@ -61,6 +63,14 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { role_class: [10] },
         loadChildren: () => import('../class-10/class-10.module').then(m => m.Class10Module)
+      },
+      {
+        path: 'produtores',
+        component: FindDataClientComponent
+      },
+      {
+        path: 'treatmentsbyprodutor/:id',
+        component: DetailTreatmentsComponent
       },
       {
         path: 'my-tasks',
