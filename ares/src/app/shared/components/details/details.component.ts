@@ -36,7 +36,7 @@ export class DetailsComponent implements OnInit {
 
   // TODO: Implementar esta função
   addProject(id) {
-    
+
     const obj = this;
     const confirm$ = this._messageService.showRegCredRural();
 
@@ -173,7 +173,7 @@ export class DetailsComponent implements OnInit {
     }
 
   }
- 
+
   quitDae(idprojeto, rdaok) {
     const obj = this;
 
@@ -181,7 +181,7 @@ export class DetailsComponent implements OnInit {
 
 
     if (!rdaok) {
-      
+
       confirm$ = this._messageService.showInput('Informe o valor pago do DAE', '', 'Confirmar', 'Cancelar pagamento', this.daevl);
 
       confirm$.asObservable().pipe(
@@ -196,7 +196,7 @@ export class DetailsComponent implements OnInit {
             this._userService.quitarDae(idprojeto, result).subscribe(
               sucess => {
                 console.log(sucess);
-                
+
                 obj.loadData();
                 obj._messageService.handleSuccess('Pagamento registrado', `Registrado o pagamento no valor de R$ ${sucess.valor}.`)
               }
@@ -319,7 +319,7 @@ export class DetailsComponent implements OnInit {
     let id = this._route.snapshot.queryParamMap.get('id')
 
     this.visita$ = this._userService.taksAndProjectsCrByTreatment(id).pipe(
-      // tap(console.log),
+      tap(console.log),
       tap(data => {
         if (!data.project) {
 
@@ -348,7 +348,16 @@ export class DetailsComponent implements OnInit {
           obj.txelab = 150.0;
         }
         if ((Number(obj.valorproposta$) > 30000)) {
-          obj.txelab = Number(obj.valorproposta$) * 0.5 / 100;
+
+          if(
+            (data.project.linha=='PRONAF_INVESTIMENTO') ||
+            (data.project.linha=='PRONAF_CUSTEIO')
+
+          ){
+            obj.txelab = Number(obj.valorproposta$) * 0.5 / 100;
+          }else{
+            obj.txelab = Number(obj.valorproposta$) * 1.0 / 100;
+          }
         }
 
         //obj.txelab = Number(obj.valorproposta$) <= 30000 ? 150.00 : Number(obj.valorproposta$) * 0.5 / 100;
