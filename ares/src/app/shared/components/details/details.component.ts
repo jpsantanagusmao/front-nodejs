@@ -195,7 +195,7 @@ export class DetailsComponent implements OnInit {
           } else {
             this._userService.quitarDae(idprojeto, result).subscribe(
               sucess => {
-                console.log(sucess);
+                // console.log(sucess);
 
                 obj.loadData();
                 obj._messageService.handleSuccess('Pagamento registrado', `Registrado o pagamento no valor de R$ ${sucess.valor}.`)
@@ -223,7 +223,7 @@ export class DetailsComponent implements OnInit {
           } else {
             this._userService.quitarDae(idprojeto, result).subscribe(
               sucess => {
-                console.log(sucess);
+                // console.log(sucess);
                 obj.loadData();
                 obj._messageService.handleSuccess('Pagamento cancelado', `Registrado o cancelamento no valor de R$ ${sucess.valor}.`)
               }
